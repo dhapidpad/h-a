@@ -5,7 +5,8 @@ import SvgGasLoss from '../components/illustrations/SvgGasLoss';
 const LOSS_CARDS = [
   {
     id: 'hydrolysis',
-    badge: 'THỦY PHÂN',
+    number: '01',
+    tag: 'THỦY PHÂN',
     title: 'CƠ CHẾ THỦY PHÂN URÊ TRONG ĐẤT',
     equation: 'CO(NH₂)₂ + 2H₂O ⟶ (NH₄)₂CO₃',
     desc: 'Dưới tác dụng của men Urease do vi sinh vật đất tiết ra, Urê chuyển thành amoni cacbonat tan trong nước, phân li ra ion NH₄⁺ để rễ cây trực tiếp hấp thu nuôi lá.',
@@ -15,7 +16,8 @@ const LOSS_CARDS = [
   },
   {
     id: 'lime',
-    badge: 'MẤT NH₃↑',
+    number: '02',
+    tag: 'MẤT NH₃↑',
     title: 'BỐC HƠI KHI GẶP ĐẤT KIỀM / TRỘN CHUNG VỚI VÔI',
     equation: 'NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O',
     desc: 'Gốc OH⁻ của vôi kiềm đẩy NH₄⁺ thành khí Amoniac (NH₃) bay hơi vào không khí. Bón đạm gặp vôi hoặc phơi nắng mặt ruộng có thể làm thất thoát 30% – 50% lượng đạm!',
@@ -25,7 +27,8 @@ const LOSS_CARDS = [
   },
   {
     id: 'leaching',
-    badge: 'RỬA TRÔI',
+    number: '03',
+    tag: 'RỬA TRÔI',
     title: 'RỬA TRÔI TẦNG NƯỚC NGẦM & PHÚ DƯỠNG',
     equation: 'NO₃⁻ không bị keo đất giữ',
     desc: 'Ion Nitrat mang điện tích âm (-) không bám được vào hạt keo đất (-). Khi gặp mưa to hay tưới tràn, NO₃⁻ bị cuốn trôi xuống mạch nước ngầm gây phú dưỡng ao hồ.',
@@ -158,23 +161,26 @@ export default function Slide06DamQ3({ onOpenNotes }) {
                 <div style={{
                   width: 38,
                   height: 38,
-                  borderRadius: 10,
+                  borderRadius: 11,
                   background: card.accentLight,
                   color: card.accentDark,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 900,
-                  fontSize: 10,
+                  fontSize: 16,
                   flexShrink: 0
                 }}>
-                  {card.badge}
+                  {card.number}
                 </div>
                 <div style={{ flex: 1 }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginBottom: 3 }}>
                     <div style={{ fontSize: 15, fontWeight: 800, color: card.accentDark }}>
                       {card.title}
                     </div>
+                    <span style={{ fontSize: 11, fontWeight: 900, background: card.accentLight, color: card.accentDark, padding: '2px 8px', borderRadius: 6, flexShrink: 0 }}>
+                      {card.tag}
+                    </span>
                   </div>
                   <div style={{ fontSize: 12, fontWeight: 800, color: card.accent, marginBottom: 3 }}>
                     Phản ứng: {card.equation}

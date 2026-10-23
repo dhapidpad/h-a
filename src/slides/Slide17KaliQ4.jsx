@@ -115,21 +115,26 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#F59E0B',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              ĐỈNH
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B45309', marginBottom: 2 }}>
-                ĐƯỜNG CONG NHU CẦU: CAO TRÀO ĐƠM HOA KẾT TRÁI
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
+                  ĐƯỜNG CONG NHU CẦU: CAO TRÀO ĐƠM HOA KẾT TRÁI
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                  ĐỈNH CAO TRÀO
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Cây con lúc đầu sinh khối nhỏ cần rất ít Kali. Nhu cầu ion K⁺ chỉ <strong>bùng nổ mạnh mẽ khi phân hóa mầm hoa, đón đòng, tích lũy tinh bột và nuôi quả</strong> nhằm đẩy mạnh quang hợp và dẫn truyền dinh dưỡng.
@@ -154,21 +159,26 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#E0F2FE',
               color: '#0284C7',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 9.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              DỄ TRÔI
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#0369A1', marginBottom: 2 }}>
-                TAN CỰC NHANH — DỄ BỊ MƯA RỬA TRÔI MẤT
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#0369A1' }}>
+                  TAN CỰC NHANH — DỄ BỊ MƯA RỬA TRÔI MẤT
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#E0F2FE', color: '#0369A1', padding: '2px 8px', borderRadius: 6 }}>
+                  DỄ RỬA TRÔI
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Các muối kali (KCl, K₂SO₄) tan rất nhanh trong nước ngầm. Nếu bón lót toàn bộ từ đầu vụ, mưa rào đầu mùa sẽ <strong>rửa trôi K⁺ xuống tầng đất sâu</strong> trước khi bộ rễ lớn kịp vươn tới hấp thụ.
@@ -193,21 +203,26 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              70%
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                TẬP TRUNG 60 – 70% LƯỢNG KALI BÓN THÚC
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  TẬP TRUNG 60 – 70% LƯỢNG KALI BÓN THÚC
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  BÓN THÚC 70%
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 • Bón lót: chỉ 20 – 30% để cây non tạo vách tế bào dẻo dai.<br />

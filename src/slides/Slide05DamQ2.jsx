@@ -165,17 +165,17 @@ export default function Slide05DamQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#E0F2FE',
               color: '#0284C7',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              %N
+              01
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -183,7 +183,7 @@ export default function Slide05DamQ2({ onOpenNotes }) {
                   TIÊU CHÍ CHUẨN: % KHỐI LƯỢNG NITƠ (%N)
                 </span>
                 <span style={{ fontSize: 11, fontWeight: 900, background: '#E0F2FE', color: '#0369A1', padding: '2px 8px', borderRadius: 6 }}>
-                  ĐỊNH LƯỢNG
+                  %N ĐỊNH LƯỢNG
                 </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
@@ -213,17 +213,17 @@ export default function Slide05DamQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#15803D',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              46.7%
+              02
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -231,7 +231,7 @@ export default function Slide05DamQ2({ onOpenNotes }) {
                   URÊ CO(NH₂)₂: 46.7% N — QUÁN QUÂN ĐỘ ĐẠM
                 </span>
                 <span style={{ fontSize: 11, fontWeight: 900, background: '#16A34A', color: '#FFFFFF', padding: '2px 8px', borderRadius: 6 }}>
-                  HẠNG 1
+                  46.7% N (HẠNG 1)
                 </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
@@ -251,8 +251,25 @@ export default function Slide05DamQ2({ onOpenNotes }) {
             borderBottom: '1px solid #E2E8F0',
             boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)'
           }}>
-            <div style={{ fontSize: 13.5, fontWeight: 800, color: '#5B21B6', marginBottom: 8 }}>
-              BẢNG XẾP HẠNG HÀM LƯỢNG %N (BẤM CHỌN LOẠI PHÂN):
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+              <div style={{
+                width: 28,
+                height: 28,
+                borderRadius: 8,
+                background: '#EDE9FE',
+                color: '#7C3AED',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontWeight: 900,
+                fontSize: 14,
+                flexShrink: 0
+              }}>
+                03
+              </div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: '#5B21B6' }}>
+                BẢNG SO SÁNH HÀM LƯỢNG %N (BẤM CHỌN LOẠI PHÂN):
+              </div>
             </div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
               {FERTILIZER_RANKING.map((item) => {

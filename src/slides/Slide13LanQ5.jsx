@@ -115,21 +115,26 @@ export default function Slide13LanQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EDE9FE',
               color: '#7C3AED',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              2.5B t
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6', marginBottom: 2 }}>
-                MỎ APATIT LÀO CAI: TRỮ LƯỢNG HÀNG ĐẦU KHU VỰC
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
+                  MỎ APATIT LÀO CAI: TRỮ LƯỢNG HÀNG ĐẦU KHU VỰC
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
+                  LÀO CAI 2.5B TẤN
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Mỏ quặng Apatit Lào Cai trải dài hơn <strong>100 km dọc hữu ngạn sông Hồng</strong> với trữ lượng ước tính trên <strong>2.5 tỷ tấn</strong>. Là kho tàng quặng photphat tự nhiên lớn nhất cả nước và toàn khu vực Đông Nam Á.
@@ -154,21 +159,26 @@ export default function Slide13LanQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EFF6FF',
               color: '#2563EB',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              3 NMY
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8', marginBottom: 2 }}>
-                3 NHÀ MÁY TRỤ CỘT NGÀNH LÂN VIỆT NAM
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
+                  3 NHÀ MÁY TRỤ CỘT NGÀNH LÂN VIỆT NAM
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                  3 ĐẠI NHÀ MÁY
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 1. <strong>Supe Phốt phát Lâm Thao</strong> (Phú Thọ): Sản xuất supe lân đơn quy mô lớn nhất.<br />
@@ -195,21 +205,26 @@ export default function Slide13LanQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEE2E2',
               color: '#EF4444',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              P₂O₅↓
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C', marginBottom: 2 }}>
-                THÁCH THỨC: CẠN KIỆT QUẶNG GIÀU LOẠI 1
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C' }}>
+                  THÁCH THỨC: CẠN KIỆT QUẶNG GIÀU LOẠI 1
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
+                  BẢO VỆ TÀI NGUYÊN
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Quặng loại 1 (&gt; 28% P₂O₅) đang cạn kiệt nhanh. Hiện nay các nhà máy phải đẩy mạnh <strong>công nghệ tuyển nổi quặng nghèo loại 2, 3</strong> tiêu tốn nhiều năng lượng, đồng thời xử lý triệt để bãi thải bã thạch cao phosphogypsum bảo vệ môi trường.

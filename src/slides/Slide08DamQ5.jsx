@@ -115,17 +115,17 @@ export default function Slide08DamQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#B45309',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 12,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              pH
+              01
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -159,17 +159,17 @@ export default function Slide08DamQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#15803D',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              MÙN
+              02
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -203,17 +203,17 @@ export default function Slide08DamQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EDE9FE',
               color: '#7C3AED',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              CRF
+              03
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>

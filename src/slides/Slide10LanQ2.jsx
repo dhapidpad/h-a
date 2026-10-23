@@ -115,17 +115,17 @@ export default function Slide10LanQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#E0F2FE',
               color: '#0284C7',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              SSP
+              01
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -160,17 +160,17 @@ export default function Slide10LanQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EDE9FE',
               color: '#7C3AED',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              TSP
+              02
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -205,17 +205,17 @@ export default function Slide10LanQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#15803D',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              TIẾT KIỆM
+              03
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>

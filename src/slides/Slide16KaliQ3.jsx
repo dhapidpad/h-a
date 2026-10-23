@@ -115,21 +115,26 @@ export default function Slide16KaliQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEE2E2',
               color: '#EF4444',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              MÉP LÁ
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C', marginBottom: 2 }}>
-                BỆNH ĐÓI KALI: CHÁY KHÔ TỪ RÌA MÉP LÁ GIÀ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C' }}>
+                  BỆNH ĐÓI KALI: CHÁY KHÔ TỪ RÌA MÉP LÁ GIÀ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
+                  CHÁY MÉP LÁ
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Do ion K⁺ linh động ưu tiên di chuyển lên nuôi chồi non, triệu chứng thiếu K <strong>xuất hiện sớm nhất ở mép lá già</strong>: chóp lá và rìa lá ngả vàng rồi khô giòn như bị lửa hơ xém, thân cây mềm oặt dễ đổ rạp.
@@ -154,21 +159,26 @@ export default function Slide16KaliQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#F59E0B',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              KỴ Cl⁻
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B45309', marginBottom: 2 }}>
-                TÁC HẠI TAI HẠI KHI BÓN KCL CHO CÂY KỴ CLO
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
+                  TÁC HẠI TAI HẠI KHI BÓN KCL CHO CÂY KỴ CLO
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                  CÂY KỴ CL⁻
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 • <strong>Sầu riêng:</strong> Gốc Cl⁻ làm cơm múi bị nhão nước, sượng xơ, mất vị béo bùi thơm ngon.<br />
@@ -195,21 +205,26 @@ export default function Slide16KaliQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 9.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              K₂SO₄
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                GIẢI PHÁP: DÙNG K₂SO₄ HOẶC KNO₃ BẢO VỆ CHẤT LƯỢNG
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  GIẢI PHÁP: DÙNG K₂SO₄ HOẶC KNO₃ BẢO VỆ CHẤT LƯỢNG
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  K₂SO₄ / KNO₃
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Đối với nhóm cây đặc sản mẫn cảm Clo, bắt buộc sử dụng <strong>Kali Sunfat (K₂SO₄)</strong> hoặc <strong>KNO₃</strong> để giữ trọn vẹn vị ngọt đậm, múi dẻo thơm và đạt chuẩn xuất khẩu nghiêm ngặt.

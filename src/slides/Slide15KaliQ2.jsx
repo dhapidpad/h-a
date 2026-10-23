@@ -115,17 +115,17 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EFF6FF',
               color: '#2563EB',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              %K₂O
+              01
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -133,7 +133,7 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
                   TIÊU CHÍ ĐÁNH GIÁ: % KHỐI LƯỢNG K₂O
                 </span>
                 <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
-                  QUY ĐỔI
+                  QUY ĐỔI %K₂O
                 </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
@@ -159,17 +159,17 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#F59E0B',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              KCl
+              02
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -203,17 +203,17 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              K₂SO₄
+              03
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>

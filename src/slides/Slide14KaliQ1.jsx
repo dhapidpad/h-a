@@ -115,21 +115,26 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#D97706',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 12,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              K⁺
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#92400E', marginBottom: 2 }}>
-                ĐIỀU HÒA ĐÓNG MỞ KHÍ KHỔNG — CHỐNG HẠN RÉT
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#92400E' }}>
+                  ĐIỀU HÒA ĐÓNG MỞ KHÍ KHỔNG — CHỐNG HẠN RÉT
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#92400E', padding: '2px 8px', borderRadius: 6 }}>
+                  ĐIỀU TIẾT K⁺
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Kali tồn tại dạng <strong>ion K⁺ tự do lưu động</strong> trong dịch bào. K⁺ đi vào tế bào hạt đậu làm mở khí khổng đón CO₂ quang hợp; khi gặp khô hạn hay rét buốt, K⁺ rút ra khép lỗ khí giữ nước, ngăn ngừa héo rũ mô lá.
@@ -154,21 +159,26 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 9.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              ĐƯỜNG
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                TRẠM VẬN CHUYỂN ĐƯỜNG BỘT VỀ CỦ QUẢ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  TRẠM VẬN CHUYỂN ĐƯỜNG BỘT VỀ CỦ QUẢ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  VẬN CHUYỂN ĐƯỜNG
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Đóng vai trò "đầu kéo container" dẫn truyền đường saccarozơ và tinh bột từ lá <strong>về tích trữ ở múi quả, củ và hạt</strong>. Tăng độ ngọt (Brix), củ to đặc ruột, hạt lúa vàng sáng chắc mẩy.
@@ -193,21 +203,26 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EFF6FF',
               color: '#2563EB',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              CỨNG
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8', marginBottom: 2 }}>
-                HIỆP SĨ ĐỀ KHÁNG: CỨNG CÂY, CHỐNG ĐỔ NGÃ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
+                  HIỆP SĨ ĐỀ KHÁNG: CỨNG CÂY, CHỐNG ĐỔ NGÃ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                  CỨNG CÂY CHỐNG ĐỔ
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Gia tăng độ dày thành tế bào và mô cơ lóng thân cây, giúp thân rạ lúa cứng cáp, <strong>chống chịu giông lốc mưa bão đổ ngã</strong> và ngăn cản sợi nấm bệnh xâm nhập biểu bì lá.

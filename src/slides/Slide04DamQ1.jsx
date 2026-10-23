@@ -179,14 +179,14 @@ export default function Slide04DamQ1({ onOpenNotes }) {
                 <div style={{
                   width: 38,
                   height: 38,
-                  borderRadius: 10,
+                  borderRadius: 11,
                   background: item.accentLight,
                   color: item.accentDark,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 900,
-                  fontSize: 12,
+                  fontSize: 16,
                   flexShrink: 0
                 }}>
                   {item.number}

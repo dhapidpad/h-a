@@ -115,21 +115,26 @@ export default function Slide12LanQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#F59E0B',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              1-3cm
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B45309', marginBottom: 2 }}>
-                TÍNH DI ĐỘNG KÉM: CHỈ NGẤM 1 – 3 CM TRONG CẢ VỤ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
+                  TÍNH DI ĐỘNG KÉM: CHỈ NGẤM 1 – 3 CM TRONG CẢ VỤ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                  1–3 CM / VỤ
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Ion photphat H₂PO₄⁻ bị keo đất và các ion <strong>Fe³⁺, Al³⁺ (đất chua) hoặc Ca²⁺ (đất kiềm) kết tủa cố định</strong>. Lân hầu như không tự ngấm sâu xuống tầng dưới; nếu bón rải mặt thì rễ ở tầng sâu không với tới được.
@@ -154,21 +159,26 @@ export default function Slide12LanQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EDE9FE',
               color: '#7C3AED',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              ATP
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6', marginBottom: 2 }}>
-                BỆ PHÓNG RỄ NON: MẦM NHÚ LÀ CẦN LÂN NGAY
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
+                  BỆ PHÓNG RỄ NON: MẦM NHÚ LÀ CẦN LÂN NGAY
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
+                  RỄ NON ATP
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Cây con trong <strong>2–3 tuần đầu đời cần lượng photpho rất cao</strong> để phân chia tế bào mô phân sinh rễ và tạo năng lượng ATP. Nếu thiếu lân đầu vụ, rễ còi cọc và suốt chu kỳ sinh trưởng sau này không thể hồi phục.
@@ -193,21 +203,26 @@ export default function Slide12LanQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              15cm
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                KỸ THUẬT: ĐẶT PHÂN ĐÚNG TẦNG RỄ CÂY
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  KỸ THUẬT: ĐẶT PHÂN ĐÚNG TẦNG RỄ CÂY
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  ĐÁY RÃNH 15CM
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Bón lót sâu <strong>10 – 15 cm dưới đáy rãnh</strong> hoặc trộn đều trong lòng luống cùng phân hữu cơ trước khi gieo hạt hay đặt cây con. Rễ nhú ra tiếp xúc ngay dinh dưỡng sẽ đâm sâu tỏa rộng tức thì.

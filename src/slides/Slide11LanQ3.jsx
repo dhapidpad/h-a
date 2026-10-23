@@ -115,21 +115,26 @@ export default function Slide11LanQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#E0F2FE',
               color: '#0284C7',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              H₂O✕
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#0369A1', marginBottom: 2 }}>
-                KHÔNG TAN TRONG NƯỚC: TRÁNH RỬA TRÔI MÙA MƯA
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#0369A1' }}>
+                  KHÔNG TAN TRONG NƯỚC: TRÁNH RỬA TRÔI MÙA MƯA
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#E0F2FE', color: '#0369A1', padding: '2px 8px', borderRadius: 6 }}>
+                  H₂O KHÔNG TAN
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Sản xuất bằng cách <strong>nung chảy quặng Apatit + Secpentin ở 1450°C</strong> rồi làm lạnh đột ngột bằng tia nước áp lực cao. Tạo hạt thủy tinh vô định hình, trơ trước nước mưa, không bị cuốn trôi ở vùng đồi núi dốc.
@@ -154,21 +159,26 @@ export default function Slide11LanQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EDE9FE',
               color: '#7C3AED',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              H⁺ rễ
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6', marginBottom: 2 }}>
-                RỄ TIẾT AXIT ĐẾN ĐÂU — HÒA TAN LÂN ĐẾN ĐÓ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
+                  RỄ TIẾT AXIT ĐẾN ĐÂU — HÒA TAN LÂN ĐẾN ĐÓ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
+                  H⁺ AXIT RỄ
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Lông hút rễ cây tiết <strong>axit hữu cơ yếu (axit citric, malic)</strong>. Ion H⁺ nồng độ cao tại mặt tiếp xúc rễ sẽ phá vỡ liên kết, hòa tan hạt lân nung chảy để cây hút trực tiếp mà không bị keo đất khóa chặt.
@@ -193,21 +203,26 @@ export default function Slide11LanQ3({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              pH&gt;8
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                TÍNH KIỀM (pH 8 – 8.5): KHỬ CHUA, BỔ SUNG CA, MG, SI
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  TÍNH KIỀM (pH 8 – 8.5): KHỬ CHUA, BỔ SUNG CA, MG, SI
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  pH 8 – 8.5
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Chứa <strong>15–18% MgO, 25–30% CaO, 24–30% SiO₂</strong>. Tính kiềm giúp nâng độ pH, hạ phèn, hóa giải độc tố Al³⁺, Fe³⁺ cực tốt cho đất đồi dốc Tây Bắc, đất đỏ Tây Nguyên và đất trũng phèn.

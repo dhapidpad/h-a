@@ -115,21 +115,26 @@ export default function Slide18KaliQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEE2E2',
               color: '#EF4444',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              EC↑
+              01
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C', marginBottom: 2 }}>
-                TÍCH TỤ ĐỘ MẶN (EC TĂNG) — NGUY CƠ HẠN SINH LÝ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C' }}>
+                  TÍCH TỤ ĐỘ MẶN (EC TĂNG) — NGUY CƠ HẠN SINH LÝ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
+                  TÍCH TỤ ĐỘ MẶN
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Ion Cl⁻ dư thừa làm tăng chỉ số độ dẫn điện (EC) trong đất. Áp suất thẩm thấu dung dịch đất cao hơn dịch tế bào rễ, dẫn đến hiện tượng <strong>hạn sinh lý: rễ bị hút ngược nước ra ngoài</strong>, lông hút rễ teo tóp khô héo.
@@ -154,21 +159,26 @@ export default function Slide18KaliQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#FEF3C7',
               color: '#F59E0B',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 9.5,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              DẼ ĐẤT
+              02
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#B45309', marginBottom: 2 }}>
-                PHÁ HỦY KEO ĐẤT — NÉN CHẶT CHAI CỨNG BÍ KHÍ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
+                  PHÁ HỦY KEO ĐẤT — NÉN CHẶT CHAI CỨNG BÍ KHÍ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                  ĐẤT CHAI CỨNG
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Cl⁻ liên kết với Ca²⁺, Mg²⁺ tạo muối tan bị trôi theo dòng nước ngầm. Thiếu các cation đa hóa trị làm <strong>tan rã hạt keo đất viên đoàn</strong>, đất bị nén chặt như bê tông, mất khe hở mao quản khiến rễ bị nghẹt oxy.
@@ -193,21 +203,26 @@ export default function Slide18KaliQ5({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#16A34A',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              HỮU CƠ
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
-                GIẢI PHÁP: LUÂN PHIÊN K₂SO₄ & BỒI BỔ HỮU CƠ
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
+                  GIẢI PHÁP: LUÂN PHIÊN K₂SO₄ & BỒI BỔ HỮU CƠ
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                  PHỤC HỒI HỮU CƠ
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Luân phiên sang <strong>K₂SO₄ hoặc nguồn kali hữu cơ</strong> (tro trấu, phân trùn quế). Xới xáo phá váng bề mặt, bón vôi nông nghiệp bù lại Ca²⁺ và bổ sung nấm đối kháng Trichoderma phục hồi độ xốp đất.

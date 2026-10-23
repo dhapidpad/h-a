@@ -115,17 +115,17 @@ export default function Slide07DamQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#DCFCE7',
               color: '#15803D',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 11,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              CH₄
+              01
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -161,17 +161,17 @@ export default function Slide07DamQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#F1F5F9',
               color: '#475569',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 12,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              C
+              02
             </div>
             <div style={{ flex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
@@ -205,21 +205,26 @@ export default function Slide07DamQ4({ onOpenNotes }) {
             <div style={{
               width: 38,
               height: 38,
-              borderRadius: 10,
+              borderRadius: 11,
               background: '#EFF6FF',
               color: '#2563EB',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontWeight: 900,
-              fontSize: 10,
+              fontSize: 16,
               flexShrink: 0
             }}>
-              100%
+              03
             </div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8', marginBottom: 2 }}>
-                TỰ CHỦ 100% NHU CẦU & XUẤT KHẨU
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
+                  TỰ CHỦ 100% NHU CẦU & XUẤT KHẨU
+                </span>
+                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                  TỰ CHỦ 100%
+                </span>
               </div>
               <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
                 Tổng công suất 4 nhà máy đạt <strong>&gt; 2.6 triệu tấn Urê/năm</strong>. Việt Nam từ nước phải nhập khẩu 100% phân đạm nay đã hoàn toàn tự chủ nguồn phân đạm quốc gia và xuất khẩu sang Ấn Độ, Campuchia.
