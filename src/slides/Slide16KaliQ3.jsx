@@ -1,0 +1,282 @@
+import React from 'react';
+import CuteMascot from '../components/mascot/CuteMascot';
+import SvgLeafScorchAlert from '../components/illustrations/SvgLeafScorchAlert';
+
+export default function Slide16KaliQ3({ onOpenNotes }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 10, position: 'relative', overflow: 'hidden' }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
+        <div>
+          <div className="chapter-pill" style={{ backgroundColor: '#FFF3DA', color: '#D97706' }}>
+            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 03 / 15</span>
+          </div>
+          <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
+            NHẬN DIỆN CÂY ĐÓI KALI &amp; CÂY NHẠY CẢM VỚI CLO
+          </h2>
+        </div>
+
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 10,
+          background: '#0F172A',
+          padding: '6px 14px',
+          borderRadius: 12,
+          border: '1px solid #334155'
+        }}>
+          <div style={{
+            width: 32,
+            height: 32,
+            borderRadius: 8,
+            background: '#EF4444',
+            color: '#FFFFFF',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 900,
+            fontSize: 10
+          }}>
+            KỴ Cl⁻
+          </div>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 800, color: '#FCA5A5' }}>CẢNH BÁO NÔNG HỌC</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>Cấm dùng KCl cho cây mẫn cảm Clo</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Banner câu hỏi */}
+      <div style={{
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(10px)',
+        border: '1.5px solid #FDE68A',
+        borderRadius: 14,
+        padding: '10px 18px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        boxShadow: '0 4px 14px rgba(217, 119, 6, 0.07)'
+      }}>
+        <div style={{
+          width: 34,
+          height: 34,
+          borderRadius: 9,
+          background: '#FEF3C7',
+          color: '#D97706',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          fontWeight: 900,
+          fontSize: 15
+        }}>
+          ?
+        </div>
+        <div style={{ fontSize: 14.5, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
+          <span style={{ color: '#D97706', fontWeight: 900 }}>Câu hỏi thảo luận: </span>
+          Hiện tượng "đói kali" biểu hiện thế nào trên lá cây? Tại sao các loại cây nhạy cảm Clo (sầu riêng, khoai tây, thuốc lá) lại bị cấm bón phân KCl?
+        </div>
+      </div>
+
+      {/* Grid 2 cột */}
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gap: 16, 
+        flex: 1, 
+        minHeight: 0,
+        alignItems: 'stretch'
+      }}>
+        {/* Cột trái */}
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: 9, 
+          justifyContent: 'flex-start',
+          minHeight: 0,
+          overflowY: 'auto',
+          paddingRight: 5
+        }}>
+          {/* Card 1: Bệnh cháy rìa mép lá */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.96)',
+            borderRadius: 14,
+            padding: '11px 16px',
+            borderLeft: '5px solid #EF4444',
+            borderTop: '1px solid #E2E8F0',
+            borderRight: '1px solid #E2E8F0',
+            borderBottom: '1px solid #E2E8F0',
+            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
+            display: 'flex',
+            gap: 12,
+            alignItems: 'flex-start'
+          }}>
+            <div style={{
+              width: 38,
+              height: 38,
+              borderRadius: 10,
+              background: '#FEE2E2',
+              color: '#EF4444',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 900,
+              fontSize: 10.5,
+              flexShrink: 0
+            }}>
+              MÉP LÁ
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C', marginBottom: 2 }}>
+                BỆNH ĐÓI KALI: CHÁY KHÔ TỪ RÌA MÉP LÁ GIÀ
+              </div>
+              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+                Do ion K⁺ linh động ưu tiên di chuyển lên nuôi chồi non, triệu chứng thiếu K <strong>xuất hiện sớm nhất ở mép lá già</strong>: chóp lá và rìa lá ngả vàng rồi khô giòn như bị lửa hơ xém, thân cây mềm oặt dễ đổ rạp.
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: Tác hại của Clo đối với cây nhạy cảm */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.96)',
+            borderRadius: 14,
+            padding: '11px 16px',
+            borderLeft: '5px solid #F59E0B',
+            borderTop: '1px solid #E2E8F0',
+            borderRight: '1px solid #E2E8F0',
+            borderBottom: '1px solid #E2E8F0',
+            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
+            display: 'flex',
+            gap: 12,
+            alignItems: 'flex-start'
+          }}>
+            <div style={{
+              width: 38,
+              height: 38,
+              borderRadius: 10,
+              background: '#FEF3C7',
+              color: '#F59E0B',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 900,
+              fontSize: 10,
+              flexShrink: 0
+            }}>
+              KỴ Cl⁻
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: '#B45309', marginBottom: 2 }}>
+                TÁC HẠI TAI HẠI KHI BÓN KCL CHO CÂY KỴ CLO
+              </div>
+              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+                • <strong>Sầu riêng:</strong> Gốc Cl⁻ làm cơm múi bị nhão nước, sượng xơ, mất vị béo bùi thơm ngon.<br />
+                • <strong>Khoai tây:</strong> Cl⁻ cản trở tích tụ tinh bột, củ bị tích nước sượng cứng không giòn.<br />
+                • <strong>Thuốc lá:</strong> Làm lá giữ nước bí hơi, khi đốt cháy khét tàn đen, mất mùi thơm tự nhiên.
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: Bắt buộc dùng K2SO4 */}
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.96)',
+            borderRadius: 14,
+            padding: '11px 16px',
+            borderLeft: '5px solid #16A34A',
+            borderTop: '1px solid #E2E8F0',
+            borderRight: '1px solid #E2E8F0',
+            borderBottom: '1px solid #E2E8F0',
+            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
+            display: 'flex',
+            gap: 12,
+            alignItems: 'flex-start'
+          }}>
+            <div style={{
+              width: 38,
+              height: 38,
+              borderRadius: 10,
+              background: '#DCFCE7',
+              color: '#16A34A',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 900,
+              fontSize: 9.5,
+              flexShrink: 0
+            }}>
+              K₂SO₄
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ fontSize: 15, fontWeight: 800, color: '#15803D', marginBottom: 2 }}>
+                GIẢI PHÁP: DÙNG K₂SO₄ HOẶC KNO₃ BẢO VỆ CHẤT LƯỢNG
+              </div>
+              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+                Đối với nhóm cây đặc sản mẫn cảm Clo, bắt buộc sử dụng <strong>Kali Sunfat (K₂SO₄)</strong> hoặc <strong>KNO₃</strong> để giữ trọn vẹn vị ngọt đậm, múi dẻo thơm và đạt chuẩn xuất khẩu nghiêm ngặt.
+              </div>
+            </div>
+          </div>
+
+          {/* Practical Note */}
+          <div style={{
+            background: '#FFFBEB',
+            borderRadius: 12,
+            padding: '9px 14px',
+            border: '1.5px dashed #F59E0B',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 10,
+            fontSize: 13,
+            color: '#78350F'
+          }}>
+            <div style={{
+              width: 26,
+              height: 26,
+              borderRadius: 6,
+              background: '#FEF3C7',
+              color: '#D97706',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              fontWeight: 900,
+              fontSize: 10
+            }}>
+              MẸO
+            </div>
+            <span>
+              <strong>Nhận diện nhanh tại đồng ruộng:</strong> Thiếu Đạm vàng toàn bộ mặt lá già; Thiếu Kali chỉ vàng khô cháy dọc theo hai mép rìa viền ngoài vào trong.
+            </span>
+          </div>
+
+          {/* Linh thú Bé Kali */}
+          <CuteMascot 
+            variant="banner"
+            mascotType="SUNNY_K"
+            emotion="worried"
+            speech="Thấy mép lá già khô cháy như hơ lửa là cây đang khát Kali cấp cứu đó nha! 🍂"
+            size={52}
+            onClick={onOpenNotes}
+          />
+        </div>
+
+        {/* Cột phải: SVG */}
+        <div style={{ 
+          background: 'rgba(255, 255, 255, 0.98)',
+          borderRadius: 22,
+          border: '1.5px solid #FDE68A',
+          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+          position: 'relative',
+          overflow: 'hidden',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 10,
+          minHeight: 0
+        }}>
+          <SvgLeafScorchAlert />
+        </div>
+      </div>
+    </div>
+  );
+}
