@@ -9,39 +9,20 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#FFF3DA', color: '#D97706' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 04 / 15</span>
+            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 04 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             THỜI ĐIỂM VÀNG CHO BÓN THÚC KALI
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#D97706',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 10
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)' }}>
             70%
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#FDE68A' }}>TỶ LỆ BÓN THÚC</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>Dành 60% – 70% Kali bón thúc</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#FDE68A' }}>TỶ LỆ BÓN THÚC</div>
+            <div className="slide-header-badge-main">Dành 60% – 70% Kali bón thúc</div>
           </div>
         </div>
       </div>
@@ -49,7 +30,6 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
       {/* Banner câu hỏi */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #FDE68A',
         borderRadius: 14,
         padding: '10px 18px',
@@ -82,7 +62,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -92,7 +72,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -102,7 +82,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #F59E0B',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -132,11 +112,11 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
                   ĐƯỜNG CONG NHU CẦU: CAO TRÀO ĐƠM HOA KẾT TRÁI
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
                   ĐỈNH CAO TRÀO
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Cây con lúc đầu sinh khối nhỏ cần rất ít Kali. Nhu cầu ion K⁺ chỉ <strong>bùng nổ mạnh mẽ khi phân hóa mầm hoa, đón đòng, tích lũy tinh bột và nuôi quả</strong> nhằm đẩy mạnh quang hợp và dẫn truyền dinh dưỡng.
               </div>
             </div>
@@ -146,7 +126,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #0284C7',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -176,11 +156,11 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#0369A1' }}>
                   TAN CỰC NHANH — DỄ BỊ MƯA RỬA TRÔI MẤT
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#E0F2FE', color: '#0369A1', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#E0F2FE', color: '#0369A1', padding: '2px 8px', borderRadius: 6 }}>
                   DỄ RỬA TRÔI
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Các muối kali (KCl, K₂SO₄) tan rất nhanh trong nước ngầm. Nếu bón lót toàn bộ từ đầu vụ, mưa rào đầu mùa sẽ <strong>rửa trôi K⁺ xuống tầng đất sâu</strong> trước khi bộ rễ lớn kịp vươn tới hấp thụ.
               </div>
             </div>
@@ -190,7 +170,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #16A34A',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -220,11 +200,11 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
                   TẬP TRUNG 60 – 70% LƯỢNG KALI BÓN THÚC
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
                   BÓN THÚC 70%
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 • Bón lót: chỉ 20 – 30% để cây non tạo vách tế bào dẻo dai.<br />
                 • Bón thúc đợt 1 (làm đòng / phân hóa nụ hoa): 40% K.<br />
                 • Bón thúc đợt 2 (nuôi hạt thóc / dưỡng quả mọng): 30% K.
@@ -241,7 +221,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 14,
             color: '#78350F'
           }}>
             <div style={{
@@ -255,7 +235,7 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 10
+              fontSize: 12.5
             }}>
               LÚA
             </div>
@@ -270,25 +250,13 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
             mascotType="SUNNY_K"
             emotion="happy"
             speech="Cứ đón đòng và nuôi trái là tớ xuất hiện tiếp sức ngay, mùa màng bội thu chắc luôn! 🌾✨"
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #FDE68A',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgTopdressingMountain />
         </div>
       </div>

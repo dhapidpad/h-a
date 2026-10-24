@@ -13,10 +13,11 @@ export default function SpeakerNotesDrawer({ isOpen, onClose, slide }) {
             <h3 className="notes-header-title">Ghi Chú Thuyết Trình</h3>
           </div>
           <button 
+            type="button"
             onClick={onClose} 
             className="nav-circle-btn" 
-            style={{ width: 40, height: 40 }}
             title="Đóng ghi chú (Phím N hoặc Esc)"
+            aria-label="Đóng ghi chú"
           >
             <X size={20} />
           </button>

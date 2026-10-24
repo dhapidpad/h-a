@@ -64,7 +64,22 @@ function Plant({ x }) {
 
 export default function SvgSoilBalance() {
   return (
-    <svg viewBox="0 0 540 460" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" fontFamily={FONT}>
+    <svg
+      viewBox="0 0 540 460"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
+      fontFamily={FONT}
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+      }}
+    >
       <defs>
         <linearGradient id="sbSky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#CDEEFF" /><stop offset=".42" stopColor="#EEF9F1" /><stop offset="1" stopColor="#F1F5F9" />
@@ -81,7 +96,7 @@ export default function SvgSoilBalance() {
         </filter>
       </defs>
 
-      <rect width="540" height="460" fill="url(#sbSky)" />
+      <rect width="540" height="460" rx="22" fill="url(#sbSky)" stroke="#86EFAC" strokeWidth="1.5" />
 
       {/* ============ BẦU TRỜI ============ */}
       <text x="22" y="30" fontSize="15" fontWeight="800" fill="#0F172A">Cán cân đất khỏe</text>

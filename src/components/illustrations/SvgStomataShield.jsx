@@ -9,14 +9,18 @@ export default function SvgStomataShield() {
     <svg
       viewBox="0 0 1000 760"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: "block",
         width: "100%",
-        height: "auto",
+        height: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        borderRadius: 22,
+        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -317,7 +321,7 @@ export default function SvgStomataShield() {
           01 · BACKGROUND & TITLE
       ===================================================== */}
 
-      <rect width="1000" height="760" rx="28" fill={`url(#${c("bg")})`} />
+      <rect width="1000" height="760" rx="28" fill={`url(#${c("bg")})`} stroke="#FDE68A" strokeWidth="1.5" />
 
       <circle cx="949" cy="54" r="94" fill="#BBF7D0" opacity=".15" />
       <circle cx="920" cy="92" r="51" fill="#C4B5FD" opacity=".15" />

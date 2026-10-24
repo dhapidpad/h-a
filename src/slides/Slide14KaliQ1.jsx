@@ -9,39 +9,20 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#FFF3DA', color: '#D97706' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 01 / 15</span>
+            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 01 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             K — VỆ SĨ ĐỀ KHÁNG &amp; TRẠM BƠM ĐƯỜNG BỘT
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#D97706',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 14
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)' }}>
             K
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#FDE68A' }}>DẠNG ION TỒN TẠI</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>Ion K⁺ tự do lưu động trong tế bào</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#FDE68A' }}>DẠNG ION TỒN TẠI</div>
+            <div className="slide-header-badge-main">Ion K⁺ tự do lưu động trong tế bào</div>
           </div>
         </div>
       </div>
@@ -49,7 +30,6 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
       {/* Banner câu hỏi */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #FDE68A',
         borderRadius: 14,
         padding: '10px 18px',
@@ -82,7 +62,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -92,7 +72,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -102,7 +82,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #D97706',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -132,11 +112,11 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#92400E' }}>
                   ĐIỀU HÒA ĐÓNG MỞ KHÍ KHỔNG — CHỐNG HẠN RÉT
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#92400E', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#FEF3C7', color: '#92400E', padding: '2px 8px', borderRadius: 6 }}>
                   ĐIỀU TIẾT K⁺
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Kali tồn tại dạng <strong>ion K⁺ tự do lưu động</strong> trong dịch bào. K⁺ đi vào tế bào hạt đậu làm mở khí khổng đón CO₂ quang hợp; khi gặp khô hạn hay rét buốt, K⁺ rút ra khép lỗ khí giữ nước, ngăn ngừa héo rũ mô lá.
               </div>
             </div>
@@ -146,7 +126,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #16A34A',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -176,11 +156,11 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
                   TRẠM VẬN CHUYỂN ĐƯỜNG BỘT VỀ CỦ QUẢ
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
                   VẬN CHUYỂN ĐƯỜNG
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Đóng vai trò "đầu kéo container" dẫn truyền đường saccarozơ và tinh bột từ lá <strong>về tích trữ ở múi quả, củ và hạt</strong>. Tăng độ ngọt (Brix), củ to đặc ruột, hạt lúa vàng sáng chắc mẩy.
               </div>
             </div>
@@ -190,7 +170,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #2563EB',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -220,11 +200,11 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
                   HIỆP SĨ ĐỀ KHÁNG: CỨNG CÂY, CHỐNG ĐỔ NGÃ
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
                   CỨNG CÂY CHỐNG ĐỔ
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Gia tăng độ dày thành tế bào và mô cơ lóng thân cây, giúp thân rạ lúa cứng cáp, <strong>chống chịu giông lốc mưa bão đổ ngã</strong> và ngăn cản sợi nấm bệnh xâm nhập biểu bì lá.
               </div>
             </div>
@@ -239,7 +219,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 14,
             color: '#78350F'
           }}>
             <div style={{
@@ -253,7 +233,7 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 9.5
+              fontSize: 12.5
             }}>
               60+
             </div>
@@ -268,25 +248,13 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
             mascotType="SUNNY_K"
             emotion="knight"
             speech="Có tớ bảo vệ, cây trồng cứng cáp vững vàng, quả ngọt mọng nước thơm ngon! 🛡️🍊"
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #FDE68A',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgStomataShield />
         </div>
       </div>

@@ -8,14 +8,18 @@ export default function SvgBasalRocket() {
     <svg
       viewBox="0 0 960 720"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: "block",
         width: "100%",
-        height: "auto",
+        height: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        borderRadius: 22,
+        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -162,6 +166,8 @@ export default function SvgBasalRocket() {
         height="720"
         rx="28"
         fill={`url(#${id}-bg)`}
+        stroke="#DDD6FE"
+        strokeWidth="1.5"
       />
 
       {/* Trang trí nền */}

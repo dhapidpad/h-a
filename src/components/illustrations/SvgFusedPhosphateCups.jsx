@@ -15,8 +15,23 @@ export default function SvgFusedPhosphateCups() {
   ];
 
   return (
-    <svg viewBox="0 0 540 480" width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
-         role="img" aria-label="So sánh lân nung chảy trong nước mưa và trong axit rễ cây">
+    <svg
+      viewBox="0 0 540 480"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="So sánh lân nung chảy trong nước mưa và trong axit rễ cây"
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+      }}
+    >
       <style>{`
         .fp-float{animation:fpFloat 4s ease-in-out infinite}
         .fp-wave{animation:fpWave 3.2s ease-in-out infinite}
@@ -73,34 +88,34 @@ export default function SvgFusedPhosphateCups() {
         <clipPath id="fpClipR"><path d={glass} /></clipPath>
       </defs>
 
-      <rect x="0" y="0" width="540" height="480" rx="24" fill="url(#fpBg)" />
+      <rect x="0" y="0" width="540" height="480" rx="24" fill="url(#fpBg)" stroke="#DDD6FE" strokeWidth="1.5" />
 
       {/* dấu vs ở giữa */}
-      <g transform="translate(270, 215)">
+      <g transform="translate(270, 226)">
         <circle r="20" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" filter="url(#fpShadow)" />
         <text y="5" textAnchor="middle" fill="#64748B" fontSize="13" fontWeight="800">VS</text>
       </g>
 
       {/* ================= CỐC 1: NƯỚC MƯA ================= */}
-      <g transform="translate(46, 24)">
-        <rect x="0" y="0" width="200" height="34" rx="17" fill="#F0F9FF" stroke="#38BDF8" strokeWidth="1.5" />
-        <text x="100" y="22" textAnchor="middle" fill="#0369A1" fontSize="13" fontWeight="800">💧 TRONG NƯỚC MƯA</text>
+      <g transform="translate(46, 14)">
+        <rect x="0" y="0" width="200" height="32" rx="16" fill="#F0F9FF" stroke="#38BDF8" strokeWidth="1.5" />
+        <text x="100" y="21" textAnchor="middle" fill="#0369A1" fontSize="12.5" fontWeight="800">💧 TRONG NƯỚC MƯA</text>
 
         {/* mây + giọt mưa */}
-        <g transform="translate(24, 66)">
+        <g transform="translate(24, 44)">
           <g fill="#E0F2FE" stroke="#BAE6FD" strokeWidth="1.5">
             <circle cx="40" cy="14" r="14" /><circle cx="62" cy="8" r="17" /><circle cx="86" cy="14" r="13" />
             <rect x="26" y="14" width="74" height="14" rx="7" stroke="none" />
           </g>
           {[44, 64, 84].map((x, i) => (
             <ellipse key={x} cx={x} cy="0" rx="2.2" ry="4.5" fill="#38BDF8">
-              <animate attributeName="cy" values="34;78;78" keyTimes="0;0.8;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+              <animate attributeName="cy" values="26;68;68" keyTimes="0;0.8;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
               <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.7;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
             </ellipse>
           ))}
         </g>
 
-        <g transform="translate(24, 118)" filter="url(#fpShadow)">
+        <g transform="translate(24, 92)" filter="url(#fpShadow)">
           <path d={glass} fill="#F8FCFF" />
           <g clipPath="url(#fpClipL)">
             <g className="fp-wave">
@@ -134,26 +149,31 @@ export default function SvgFusedPhosphateCups() {
             <text x="76" y="106" textAnchor="middle" fill="#0369A1" fontSize="15" fontWeight="900">KHÔNG TAN!</text>
             <text x="76" y="123" textAnchor="middle" fill="#0284C7" fontSize="10.5" fontWeight="600">Trơ đáy, không bị rửa trôi</text>
           </g>
-          <text x="76" y="268" textAnchor="middle" fill="#475569" fontSize="10.5" fontWeight="600">pH ~7 · Nước trung tính</text>
+
+          {/* Chip pH thông số khoa học */}
+          <g transform="translate(6, 252)">
+            <rect x="0" y="0" width="140" height="22" rx="11" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="1" />
+            <text x="70" y="15" textAnchor="middle" fill="#475569" fontSize="10.5" fontWeight="700">pH ~7 · Nước trung tính</text>
+          </g>
         </g>
       </g>
 
       {/* ================= CỐC 2: AXIT RỄ CÂY ================= */}
-      <g transform="translate(294, 24)">
-        <rect x="0" y="0" width="200" height="34" rx="17" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.5" />
-        <text x="100" y="22" textAnchor="middle" fill="#5B21B6" fontSize="13" fontWeight="800">🌱 AXIT RỄ CÂY TIẾT RA</text>
+      <g transform="translate(294, 14)">
+        <rect x="0" y="0" width="200" height="32" rx="16" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.5" />
+        <text x="100" y="21" textAnchor="middle" fill="#5B21B6" fontSize="12.5" fontWeight="800">🌱 AXIT RỄ CÂY TIẾT RA</text>
 
         {/* thân cây nhỏ phía trên */}
-        <g transform="translate(100, 68)">
-          <path d="M 0 52 Q -2 30, 0 12" stroke="#16A34A" strokeWidth="5" strokeLinecap="round" fill="none" />
-          <g className="fp-sway" style={{ transformOrigin: '0px 40px' }}>
+        <g transform="translate(100, 46)">
+          <path d="M 0 48 Q -2 26, 0 10" stroke="#16A34A" strokeWidth="4.5" strokeLinecap="round" fill="none" />
+          <g className="fp-sway" style={{ transformOrigin: '0px 36px' }}>
             <path d="M 0 22 Q -26 10, -34 24 Q -14 34, 0 22 Z" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.2" />
             <path d="M 0 16 Q 26 2, 36 16 Q 16 28, 0 16 Z" fill="#86EFAC" stroke="#16A34A" strokeWidth="1.2" />
-            <path d="M 0 12 Q -6 -6, 4 -12 Q 10 2, 0 12 Z" fill="#22C55E" stroke="#16A34A" strokeWidth="1.2" />
+            <path d="M 0 10 Q -6 -6, 4 -12 Q 10 2, 0 10 Z" fill="#22C55E" stroke="#16A34A" strokeWidth="1.2" />
           </g>
         </g>
 
-        <g transform="translate(24, 118)" filter="url(#fpShadow)">
+        <g transform="translate(24, 92)" filter="url(#fpShadow)">
           <path d={glass} fill="#FCFAFF" />
           <g clipPath="url(#fpClipR)">
             <g className="fp-wave">
@@ -207,22 +227,27 @@ export default function SvgFusedPhosphateCups() {
             <rect x="4" y="60" width="144" height="26" rx="13" fill="#6D28D9" />
             <text x="76" y="78" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="900">TAN NHANH CHÓNG!</text>
           </g>
-          <text x="76" y="268" textAnchor="middle" fill="#6B21A8" fontSize="10.5" fontWeight="600">pH 5–6 · Axit hữu cơ quanh rễ</text>
+
+          {/* Chip pH thông số khoa học */}
+          <g transform="translate(4, 252)">
+            <rect x="0" y="0" width="144" height="22" rx="11" fill="#FAF5FF" stroke="#DDD6FE" strokeWidth="1" />
+            <text x="72" y="15" textAnchor="middle" fill="#6B21A8" fontSize="10.5" fontWeight="700">pH 5–6 · Axit hữu cơ quanh rễ</text>
+          </g>
         </g>
       </g>
 
       {/* ================= DẢI GIẢI THÍCH ================= */}
       <g filter="url(#fpShadow)">
-        <rect x="40" y="410" width="460" height="56" rx="16" fill="url(#fpPill)" stroke="#36B86A" strokeWidth="2" />
+        <rect x="36" y="406" width="468" height="58" rx="18" fill="url(#fpPill)" stroke="#22C55E" strokeWidth="1.8" />
       </g>
-      <g transform="translate(66, 438)">
-        <circle r="14" fill="#DCFCE7" stroke="#36B86A" />
-        <text y="5" textAnchor="middle" fontSize="15">⛰️</text>
+      <g transform="translate(64, 435)">
+        <circle r="15" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1.5" />
+        <text y="5" textAnchor="middle" fontSize="16">⛰️</text>
       </g>
-      <text x="290" y="432" textAnchor="middle" fill="#166534" fontSize="13" fontWeight="800">
+      <text x="286" y="431" textAnchor="middle" fill="#166534" fontSize="13.5" fontWeight="800">
         TÍNH KIỀM (pH 8–8,5) + GIÀU CANXI, MAGIÊ, SILIC
       </text>
-      <text x="290" y="451" textAnchor="middle" fill="#15803D" fontSize="11" fontWeight="600">
+      <text x="286" y="450" textAnchor="middle" fill="#15803D" fontSize="11.5" fontWeight="600">
         Đặc trị tuyệt vời cho đất đồi dốc dầm mưa và đất phèn trũng miền Tây
       </text>
     </svg>

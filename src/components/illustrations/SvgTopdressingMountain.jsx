@@ -66,14 +66,18 @@ export default function SvgTopdressingMountain() {
     <svg
       viewBox="0 0 1000 760"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: "block",
         width: "100%",
-        height: "auto",
+        height: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        borderRadius: 22,
+        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -321,6 +325,8 @@ export default function SvgTopdressingMountain() {
         height="760"
         rx="28"
         fill={`url(#${uid("bg")})`}
+        stroke="#FDE68A"
+        strokeWidth="1.5"
       />
 
       <circle cx="960" cy="51" r="90" fill="#BBF7D0" opacity=".15" />
@@ -789,9 +795,7 @@ export default function SvgTopdressingMountain() {
 
             {/* Stage illustration: seedling */}
             {stage.type === "seed" && (
-              <g
-                transform={`translate(${center} 463)`}
-                className={uid("float")}
+              <g transform={`translate(${center} 463)`}><g className={uid("float")}
               >
                 <path
                   d="M0 9V-2"
@@ -821,14 +825,12 @@ export default function SvgTopdressingMountain() {
                   strokeWidth="1.2"
                   strokeLinecap="round"
                 />
-              </g>
+              </g></g>
             )}
 
             {/* Vigorous vegetation */}
             {stage.type === "growth" && (
-              <g
-                transform={`translate(${center} 466)`}
-                className={uid("float")}
+              <g transform={`translate(${center} 466)`}><g className={uid("float")}
               >
                 <path
                   d="M0 10V-10M-7 5L-7-3M7 5L7-5"
@@ -865,14 +867,12 @@ export default function SvgTopdressingMountain() {
                   stroke="#15803D"
                   strokeWidth=".8"
                 />
-              </g>
+              </g></g>
             )}
 
             {/* Flowering */}
             {stage.type === "flower" && (
-              <g
-                transform={`translate(${center} 463)`}
-                className={uid("float")}
+              <g transform={`translate(${center} 463)`}><g className={uid("float")}
               >
                 <path
                   d="M0 11V-3"
@@ -907,14 +907,12 @@ export default function SvgTopdressingMountain() {
                 />
 
                 <circle cx="0" cy="-3" r="3.5" fill="#FBBF24" />
-              </g>
+              </g></g>
             )}
 
             {/* Fruit and tuber */}
             {stage.type === "fruit" && (
-              <g
-                transform={`translate(${center} 464)`}
-                className={uid("float")}
+              <g transform={`translate(${center} 464)`}><g className={uid("float")}
               >
                 <path
                   d="M0-5V-11"
@@ -938,14 +936,12 @@ export default function SvgTopdressingMountain() {
                 />
 
                 <ellipse cx="-4" cy="-1" rx="3" ry="4" fill="#FED7AA" opacity=".8" />
-              </g>
+              </g></g>
             )}
 
             {/* Harvest */}
             {stage.type === "harvest" && (
-              <g
-                transform={`translate(${center} 464)`}
-                className={uid("float")}
+              <g transform={`translate(${center} 464)`}><g className={uid("float")}
               >
                 <path
                   d="M0 11V-12"
@@ -975,7 +971,7 @@ export default function SvgTopdressingMountain() {
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 />
-              </g>
+              </g></g>
             )}
 
             {/* Stage title */}

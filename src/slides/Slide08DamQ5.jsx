@@ -9,39 +9,20 @@ export default function Slide08DamQ5({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#DCFCE7', color: '#15803D' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 05 / 15</span>
+            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 05 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             PHỤC HỒI ĐẤT CHUA: NGUYÊN TẮC "4 ĐÚNG" &amp; VI SINH HỮU CƠ
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#16A34A',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 12
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #16A34A 0%, #15803D 100%)' }}>
             4Đ
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#86EFAC' }}>MỤC TIÊU BỀN VỮNG</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>Đúng Loại • Đúng Liều • Lúc • Cách</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#86EFAC' }}>MỤC TIÊU BỀN VỮNG</div>
+            <div className="slide-header-badge-main">Đúng Loại • Đúng Liều • Lúc • Cách</div>
           </div>
         </div>
       </div>
@@ -49,7 +30,6 @@ export default function Slide08DamQ5({ onOpenNotes }) {
       {/* Banner câu hỏi thảo luận */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #86EFAC',
         borderRadius: 14,
         padding: '10px 18px',
@@ -82,7 +62,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -92,7 +72,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -102,7 +82,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #F59E0B',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -132,11 +112,11 @@ export default function Slide08DamQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
                   BÓN VÔI KHỬ CHUA CÂN BẰNG PH
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
                   pH 6.0 - 6.8
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Bón vôi nông nghiệp (CaCO₃, CaO) định kỳ để <strong>trung hòa ion H⁺ tự do</strong> sinh ra từ quá trình nitrat hóa đạm amoni, nâng pH từ mức chua (&lt; 5.0) về ngưỡng trung tính lý tưởng cho rễ.
               </div>
             </div>
@@ -146,7 +126,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #16A34A',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -176,11 +156,11 @@ export default function Slide08DamQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
                   HỮU CƠ VI SINH: TÁI TẠO TẦNG MÙN & KEO ĐẤT
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
                   BIOCHAR
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Bổ sung <strong>phân chuồng hoai mục, than sinh học (biochar)</strong>. Tái tạo tầng keo mùn xốp, gia tăng dung tích hấp phụ CEC, nuôi giun đất và bảo vệ hệ vi sinh vật đối kháng có lợi.
               </div>
             </div>
@@ -190,7 +170,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #7C3AED',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -220,11 +200,11 @@ export default function Slide08DamQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
                   PHÂN TAN CHẬM CÓ KIỂM SOÁT (CRF) & LUÂN CANH ĐẬU
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#EDE9FE', color: '#7C3AED', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#EDE9FE', color: '#7C3AED', padding: '2px 8px', borderRadius: 6 }}>
                   CÔNG NGHỆ CAO
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Ứng dụng <strong>Urê bọc polymer tan chậm</strong> nhả dưỡng chất theo nhu cầu cây suốt 60–90 ngày. Kết hợp luân canh cây họ Đậu với vi khuẩn nốt sần Rhizobium để cố định đạm sinh học tự nhiên.
               </div>
             </div>
@@ -239,7 +219,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 14,
             color: '#15803D'
           }}>
             <div style={{
@@ -253,7 +233,7 @@ export default function Slide08DamQ5({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 10
+              fontSize: 12.5
             }}>
               4Đ
             </div>
@@ -268,25 +248,13 @@ export default function Slide08DamQ5({ onOpenNotes }) {
             mascotType="SPROUTY_N"
             emotion="happy"
             speech="Cho đất ăn thêm phân hữu cơ và rải vôi khử chua, đất sẽ khỏe mạnh và nuôi tớ tốt nhất bạn nhé! 🌱✨"
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #86EFAC',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgSoilBalance />
         </div>
       </div>

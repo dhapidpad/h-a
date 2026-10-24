@@ -86,135 +86,150 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: background 0.5s ease;
+  transition: background 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-/* Nền động đổi màu mềm mại theo chương */
+/* Lưới hạt vi mô tạo chiều sâu cao cấp (Apple Keynote / Modern SaaS style) */
+.presentation-viewport::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 45%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, black 45%, transparent 100%);
+  z-index: 0;
+}
+
+/* Nền động đổi màu đa tầng rực rỡ & tinh tế theo chương */
+.presentation-viewport.chapter-intro {
+  background:
+    radial-gradient(circle at 88% 12%, rgba(59, 130, 246, 0.18) 0%, transparent 54%),
+    radial-gradient(circle at 12% 85%, rgba(16, 185, 129, 0.16) 0%, transparent 50%),
+    radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.14) 0%, transparent 50%),
+    radial-gradient(circle at 92% 88%, rgba(245, 158, 11, 0.12) 0%, transparent 45%),
+    linear-gradient(145deg, #F0F9FF 0%, #F8FAFC 52%, #EFF6FF 100%);
+}
+
 .presentation-viewport.chapter-dam {
-  background: radial-gradient(circle at 80% 20%, #DCFCE7 0%, #F0FDF4 50%, #F8FAFC 100%);
+  background:
+    radial-gradient(circle at 86% 14%, rgba(34, 197, 94, 0.25) 0%, transparent 56%),
+    radial-gradient(circle at 14% 82%, rgba(16, 185, 129, 0.20) 0%, transparent 52%),
+    radial-gradient(circle at 52% 0%, rgba(74, 222, 128, 0.22) 0%, transparent 48%),
+    radial-gradient(circle at 88% 85%, rgba(6, 182, 212, 0.15) 0%, transparent 46%),
+    linear-gradient(145deg, #F0FDF4 0%, #F8FAFC 50%, #ECFDF5 100%);
 }
 
 .presentation-viewport.chapter-lan {
-  background: radial-gradient(circle at 80% 20%, #F3E8FF 0%, #FAF5FF 50%, #F8FAFC 100%);
+  background:
+    radial-gradient(circle at 86% 14%, rgba(140, 107, 250, 0.25) 0%, transparent 56%),
+    radial-gradient(circle at 14% 82%, rgba(168, 85, 247, 0.20) 0%, transparent 52%),
+    radial-gradient(circle at 50% 0%, rgba(192, 132, 252, 0.20) 0%, transparent 48%),
+    radial-gradient(circle at 90% 86%, rgba(99, 102, 241, 0.16) 0%, transparent 46%),
+    linear-gradient(145deg, #FAF5FF 0%, #F8FAFC 50%, #F5F3FF 100%);
 }
 
 .presentation-viewport.chapter-kali {
-  background: radial-gradient(circle at 80% 20%, #FEF3C7 0%, #FFFBEB 50%, #F8FAFC 100%);
+  background:
+    radial-gradient(circle at 86% 14%, rgba(245, 158, 11, 0.25) 0%, transparent 56%),
+    radial-gradient(circle at 14% 82%, rgba(251, 146, 60, 0.20) 0%, transparent 52%),
+    radial-gradient(circle at 50% 0%, rgba(252, 211, 77, 0.24) 0%, transparent 48%),
+    radial-gradient(circle at 90% 86%, rgba(234, 88, 12, 0.15) 0%, transparent 46%),
+    linear-gradient(145deg, #FFFBEB 0%, #F8FAFC 50%, #FEF3C7 100%);
 }
 
-.presentation-viewport.chapter-intro,
+.presentation-viewport.chapter-game {
+  background:
+    radial-gradient(circle at 86% 14%, rgba(236, 72, 153, 0.22) 0%, transparent 54%),
+    radial-gradient(circle at 14% 82%, rgba(139, 92, 246, 0.20) 0%, transparent 52%),
+    radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.18) 0%, transparent 48%),
+    radial-gradient(circle at 90% 86%, rgba(34, 197, 94, 0.16) 0%, transparent 46%),
+    linear-gradient(145deg, #FFF1F2 0%, #FDF2F8 50%, #FAF5FF 100%);
+}
+
 .presentation-viewport.chapter-closing {
-  background: radial-gradient(circle at 80% 20%, #E0F2FE 0%, #F0F9FF 50%, #F8FAFC 100%);
+  background:
+    radial-gradient(circle at 15% 15%, rgba(34, 197, 94, 0.22) 0%, transparent 54%),
+    radial-gradient(circle at 85% 15%, rgba(140, 107, 250, 0.22) 0%, transparent 54%),
+    radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.20) 0%, transparent 52%),
+    radial-gradient(circle at 50% 10%, rgba(59, 130, 246, 0.14) 0%, transparent 48%),
+    linear-gradient(145deg, #F0FDF4 0%, #FAF5FF 50%, #FFFBEB 100%);
 }
 
 /* Khung nội dung chính chiếm trọn màn hình */
 .slide-stage-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 66px);
-  display: flex;
-  flex-direction: column;
-  padding: clamp(12px, 1.8vh, 20px) clamp(24px, 3.5vw, 48px) 6px;
+  height: calc(100vh - 64px);
   overflow: hidden;
 }
 
-/* Vùng nội dung slide */
-.slide-content-area {
+/* Khung trình chiếu: kích thước & zoom do App.jsx tính, tràn kín vùng hiển thị */
+.slide-canvas {
   position: relative;
-  flex: 1;
-  width: 100%;
-  height: 100%;
+  margin: 0 auto;
+  padding: 18px 32px 10px;
   display: flex;
   flex-direction: column;
 }
 
-/* Box chuyển cảnh mượt mà 60fps */
+/* Box chuyển cảnh điện ảnh mượt mà 60fps */
 .slide-transition-box {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   min-height: 0;
-  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform-style: flat;
 }
 
 .slide-transition-box.slide-glide-next {
-  animation: glideInNext 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: glideInNext 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
 }
 
 .slide-transition-box.slide-glide-prev {
-  animation: glideInPrev 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: glideInPrev 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
 }
 
 @keyframes glideInNext {
   0% {
-    transform: translateX(36px);
-    opacity: 0.25;
+    transform: translate3d(38px, 0, 0) scale(0.984);
+    opacity: 0.12;
+    filter: blur(4px);
+  }
+  70% {
+    filter: blur(0.5px);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
+    filter: blur(0px);
   }
 }
 
 @keyframes glideInPrev {
   0% {
-    transform: translateX(-36px);
-    opacity: 0.25;
+    transform: translate3d(-38px, 0, 0) scale(0.984);
+    opacity: 0.12;
+    filter: blur(4px);
+  }
+  70% {
+    filter: blur(0.5px);
   }
   100% {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
+    filter: blur(0px);
   }
-}
-
-/* Thanh nhảy nhanh theo chương ở mép trên */
-.chapter-quick-nav-bar {
-  position: absolute;
-  top: 14px;
-  right: 48px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 45;
-}
-
-.chapter-nav-chip {
-  padding: 6px 14px;
-  border-radius: var(--radius-full);
-  font-size: 13px;
-  font-weight: 800;
-  border: 1.5px solid var(--line);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(8px);
-  color: var(--ink-soft);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.chapter-nav-chip:hover {
-  transform: translateY(-1.5px);
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
-  border-color: var(--ink-soft);
-  color: var(--ink);
-}
-
-.chapter-nav-chip.active {
-  background: var(--surface);
-  border-color: currentColor;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
 }
 
 /* ==========================================================================
-   HEADER & QUESTION TITLE
+   HEADER & CHAPTER PILL
    ========================================================================== */
-
-.slide-header {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
 
 .chapter-pill {
   display: inline-flex;
@@ -229,7 +244,6 @@ html, body {
   width: fit-content;
   box-shadow: var(--shadow-sm);
   border: 1.5px solid rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(8px);
 }
 
 .slide-title {
@@ -239,87 +253,6 @@ html, body {
   line-height: 1.18;
   color: var(--ink);
   letter-spacing: -0.02em;
-}
-
-/* ==========================================================================
-   2-COLUMN QUESTION LAYOUT
-   ========================================================================== */
-
-.question-slide-grid {
-  display: grid;
-  grid-template-columns: minmax(380px, 460px) 1fr;
-  gap: 32px;
-  flex: 1;
-  align-items: stretch;
-  min-height: 0;
-}
-
-/* Left Content Column */
-.question-left-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  height: 100%;
-}
-
-.badges-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.visual-badge-card {
-  background: var(--surface);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  border: 1px solid var(--line);
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.visual-badge-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.09);
-}
-
-.visual-badge-text {
-  font-size: clamp(16px, 1.25vw, 21px);
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--ink);
-}
-
-/* Source question card (collapsible) */
-.source-question-pill {
-  background: rgba(255, 255, 255, 0.85);
-  border: 1.5px dashed var(--line-strong);
-  border-radius: var(--radius-sm);
-  padding: 12px 16px;
-  font-size: 13.5px;
-  color: var(--ink-soft);
-  line-height: 1.45;
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  backdrop-filter: blur(6px);
-}
-
-/* Right Visual Column */
-.question-right-visual {
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--line);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
 }
 
 /* ==========================================================================
@@ -398,7 +331,6 @@ html, body {
   inset: 0;
   z-index: 9999;
   background: rgba(15, 23, 42, 0.94);
-  backdrop-filter: blur(16px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -745,6 +677,190 @@ html, body {
 }
 
 /* ==========================================================================
+   GENERIC CIRCLE & TOOL BUTTONS (Slide 02, Speaker Notes Drawer, etc.)
+   ========================================================================== */
+
+.nav-circle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #FFFFFF;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.nav-circle-btn:hover:not(:disabled) {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.35);
+  color: #2563EB;
+  transform: translateY(-2px) scale(1.06);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+}
+
+.nav-circle-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.96);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08);
+}
+
+.nav-circle-btn.muted {
+  opacity: 0.45;
+  color: var(--ink-muted);
+  background: rgba(15, 23, 42, 0.03);
+}
+
+.nav-circle-btn:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: rgba(15, 23, 42, 0.05);
+  background: rgba(15, 23, 42, 0.03);
+  transform: none !important;
+}
+
+.tool-text-btn {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: #FFFFFF;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: 13.5px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  outline: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tool-text-btn:hover:not(:disabled) {
+  background: #FFFFFF;
+  border-color: rgba(37, 99, 235, 0.35);
+  color: #2563EB;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+}
+
+.tool-text-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08);
+}
+
+.tool-text-btn:disabled {
+  opacity: 0.35 !important;
+  cursor: not-allowed;
+  box-shadow: none;
+  border-color: rgba(15, 23, 42, 0.05);
+  background: rgba(15, 23, 42, 0.03);
+  transform: none !important;
+}
+
+/* ==========================================================================
+   SVG ILLUSTRATION STAGE CARD
+   Hiển thị hình minh họa SVG tràn đầy, không bị bọc khung thừa và không khoảng trắng
+   ========================================================================== */
+
+.svg-stage-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.svg-stage-card > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 22px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+/* ==========================================================================
+   HEADER SCI-TECH BADGE (Huy hiệu thông số khoa học góc trên bên phải)
+   Thiết kế Pill Glassmorphism sang trọng, nổi bật và có chiều sâu
+   ========================================================================== */
+
+.slide-header-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.98) 100%);
+  padding: 6px 16px 6px 8px;
+  border-radius: var(--radius-full, 9999px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.slide-header-badge:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.slide-header-badge-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full, 9999px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: #FFFFFF;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.slide-header-badge-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide-header-badge-sub {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.slide-header-badge-main {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+}
+
+/* ==========================================================================
    SPEAKER NOTES DRAWER
    ========================================================================== */
 
@@ -755,7 +871,6 @@ html, body {
   width: 100vw;
   height: 100vh;
   background: rgba(15, 23, 42, 0.5);
-  backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
@@ -823,20 +938,8 @@ html, body {
   100% { transform: scale(1); opacity: 1; }
 }
 
-@keyframes dustPuffAnim {
-  0% { transform: scale(0.4) translateY(0); opacity: 0.8; }
-  100% { transform: scale(1.6) translateY(-20px); opacity: 0; }
-}
 
-@keyframes strainWobbleAnim {
-  0%, 100% { transform: rotate(0deg); }
-  50% { transform: rotate(2deg) translateY(-2px); }
-}
 
-@keyframes mascotBreathe {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.03) translateY(-3px); }
-}
 
 /* ==========================================================================
    MOBILE & RESPONSIVE TWEAKS
@@ -846,14 +949,86 @@ html, body {
   .slide-stage-container {
     padding: 20px 24px 10px 24px;
   }
-  .question-slide-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  .question-right-visual {
-    min-height: 280px;
-  }
   .mascot-companion-wrap {
     display: none; /* Ẩn mascot góc trên màn hình nhỏ để tránh che nút */
   }
+}
+
+
+/* ==========================================================================
+   V2 — ỔN ĐỊNH TRÊN ĐIỆN THOẠI & HIỆU NĂNG
+   (đặt cuối file để ghi đè các khai báo cũ)
+   ========================================================================== */
+
+/* Chiều cao thật của vùng nhìn thấy: App.jsx cập nhật --app-h theo window.innerHeight.
+   100vh trên Safari/Chrome di động tính cả thanh địa chỉ nên đáy (thanh điều hướng) bị che. */
+html, body {
+  width: 100%;
+  height: var(--app-h, 100vh);
+  overscroll-behavior: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+#root, .presentation-viewport {
+  width: 100%;
+  height: var(--app-h, 100vh);
+}
+.slide-stage-container {
+  height: calc(var(--app-h, 100vh) - var(--dock-h, 64px));
+}
+
+/* Chuyển slide: chỉ dùng transform + opacity (bỏ blur toàn slide — nguyên nhân giật chính trên điện thoại) */
+@keyframes glideInNext {
+  0%   { transform: translate3d(34px, 0, 0); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+@keyframes glideInPrev {
+  0%   { transform: translate3d(-34px, 0, 0); opacity: 0; }
+  100% { transform: translate3d(0, 0, 0); opacity: 1; }
+}
+.slide-transition-box.slide-glide-next,
+.slide-transition-box.slide-glide-prev {
+  animation-duration: 0.3s;
+}
+
+/* Màn hình cảm ứng: bỏ hiệu ứng hover "dính" sau khi chạm */
+@media (hover: none) {
+  .dock-capsule:hover { transform: none; }
+  .dock-segment-pill:hover { transform: none; opacity: inherit !important; }
+  .dock-prev-btn:hover:not(:disabled),
+  .dock-next-btn:hover:not(:disabled),
+  .dock-tool-btn:hover { transform: none; }
+}
+
+/* Điện thoại ngang / màn hình thấp: dock gọn hơn, bỏ blur nặng, nút bấm đủ to cho ngón tay */
+@media (max-height: 520px) {
+  .floating-dock-container { bottom: 5px; padding: 0 8px; }
+  .dock-capsule {
+    padding: 4px 10px;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.97);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.14);
+    transition: none;
+  }
+  .dock-circle-btn { width: 40px; height: 40px; }
+  .dock-tool-btn { height: 38px; }
+  .dock-confetti-btn, .dock-fullscreen-btn { width: 38px; }
+  .dock-divider { height: 22px; }
+}
+
+/* Màn hình hẹp: rút gọn dock để không tràn ngang */
+@media (max-width: 760px) {
+  .dock-tool-label { display: none; }
+  .dock-chapter-pill { display: none; }
+  .dock-capsule { gap: 6px; padding: 4px 8px; }
+}
+
+/* Người dùng bật "giảm chuyển động" */
+@media (prefers-reduced-motion: reduce) {
+  .slide-transition-box.slide-glide-next,
+  .slide-transition-box.slide-glide-prev { animation: none; }
 }

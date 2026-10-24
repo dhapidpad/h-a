@@ -61,6 +61,15 @@ export default function SvgRootAtpStation() {
       preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="Rễ cây hấp thụ photphat và tạo ra năng lượng ATP giúp cây ra hoa, kết hạt"
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+      }}
     >
       <defs>
         <linearGradient id="atpSky" x1="0" y1="0" x2="0" y2="1">
@@ -434,6 +443,7 @@ export default function SvgRootAtpStation() {
             ⚡ Photpho: pin năng lượng của tế bào
           </text>
         </g>
+        <rect x="10" y="8" width="620" height="544" rx="26" fill="none" stroke="#DDD6FE" strokeWidth="1.5" />
       </g>
     </svg>
   );

@@ -1,9 +1,13 @@
-
 import React from "react";
 
-export default function SvgClosingEco() {
+export default function SvgClosingEco({ active = 0 } = {}) {
   const id = `eco-${React.useId().replace(/[^a-zA-Z0-9_-]/g, "")}`;
   const uid = (name) => `${id}-${name}`;
+  const ACCENTS = ["#22C55E", "#8B5CF6", "#F59E0B", "#0EA5E9"];
+  const accent = ACCENTS[active % 4] || ACCENTS[0];
+  const NPATH = "M103 157C145 64 252 38 355 59S495 115 531 160";
+  const PPATH = "M523 180C574 263 512 367 411 404S251 429 196 402";
+  const KPATH = "M148 386C77 341 61 247 88 174S112 132 145 111";
 
   const foliage = [
     [-91, -104, 47, 48, 2],
@@ -38,14 +42,16 @@ export default function SvgClosingEco() {
     <svg
       viewBox="0 0 640 520"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: "block",
         width: "100%",
-        height: "auto",
+        height: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
         overflow: "hidden",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
@@ -286,7 +292,107 @@ export default function SvgClosingEco() {
             }
           }
         `}</style>
+
+        <linearGradient id={uid("ray")} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity=".0" />
+          <stop offset="30%" stopColor="#FEF9C3" stopOpacity=".38" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={uid("hillA")} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#BBF7D0" stopOpacity=".8" />
+          <stop offset="100%" stopColor="#4ADE80" stopOpacity=".12" />
+        </linearGradient>
+        <linearGradient id={uid("hillB")} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#86EFAC" stopOpacity=".85" />
+          <stop offset="100%" stopColor="#16A34A" stopOpacity=".18" />
+        </linearGradient>
+        <radialGradient id={uid("petal")} cx="50%" cy="30%" r="80%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="100%" stopColor="#F9A8D4" />
+        </radialGradient>
+        <radialGradient id={uid("wing")} cx="40%" cy="35%" r="75%">
+          <stop offset="0%" stopColor="#FEF3C7" />
+          <stop offset="100%" stopColor="#F59E0B" />
+        </radialGradient>
+        <clipPath id={uid("portal")}>
+          <circle cx="320" cy="241" r="232" />
+        </clipPath>
+        <style>{`
+          @media (prefers-reduced-motion: reduce) {
+            .${uid("still")} animateTransform, .${uid("still")} animateMotion { display: none; }
+          }
+        `}</style>
       </defs>
+
+
+      {/* =====================================================
+          00 · PORTAL: LIGHT RAYS, HILLS, ACCENT HALO
+      ===================================================== */}
+      <g clipPath={`url(#${uid("portal")})`} className={uid("still")}>
+        <g transform="translate(320 205)">
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0"
+              to="360"
+              dur="90s"
+              repeatCount="indefinite"
+            />
+            {Array.from({ length: 14 }).map((_, i) => (
+              <path
+                key={`ray-${i}`}
+                d="M0 0L-15 -260L15 -260Z"
+                fill={`url(#${uid("ray")})`}
+                opacity={i % 2 ? 0.55 : 1}
+                transform={`rotate(${(i * 360) / 14})`}
+              />
+            ))}
+          </g>
+        </g>
+        <path
+          d="M84 318C150 276 212 284 272 312S392 332 452 296S540 286 566 312V400H84Z"
+          fill={`url(#${uid("hillA")})`}
+        />
+        <path
+          d="M78 346C160 312 232 330 320 340S472 322 562 342V420H78Z"
+          fill={`url(#${uid("hillB")})`}
+        />
+      </g>
+
+      <circle
+        cx="320"
+        cy="195"
+        r="152"
+        fill={accent}
+        opacity=".17"
+        filter={`url(#${uid("glow")})`}
+        className={uid("atmosphere")}
+        style={{ transition: "fill .7s ease" }}
+      />
+      <g className={uid("still")}>
+        <circle
+          cx="320"
+          cy="195"
+          r="122"
+          fill="none"
+          stroke={accent}
+          strokeWidth="1.6"
+          strokeDasharray="4 9"
+          opacity=".6"
+          strokeLinecap="round"
+          style={{ transition: "stroke .7s ease" }}
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            from="0 320 195"
+            to="360 320 195"
+            dur="40s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </g>
 
       {/* =====================================================
           01 · COSMIC ECO ATMOSPHERE
@@ -425,6 +531,35 @@ export default function SvgClosingEco() {
           strokeDasharray="2 11"
           className={uid("rootFlow")}
         />
+      </g>
+
+
+      {/* Comets travelling along the three orbits */}
+      <g className={uid("still")}>
+        {[
+          [NPATH, "#86EFAC", 7],
+          [PPATH, "#C4B5FD", 9],
+          [KPATH, "#FDE68A", 8],
+        ].map(([path, color, dur], c) => (
+          <g key={`comet-${c}`}>
+            {[0, 1, 2, 3, 4].map((k) => (
+              <circle
+                key={k}
+                r={4.4 - k * 0.75}
+                fill={color}
+                opacity={1 - k * 0.2}
+                filter={k === 0 ? `url(#${uid("smallGlow")})` : undefined}
+              >
+                <animateMotion
+                  dur={`${dur}s`}
+                  begin={`${-k * 0.16}s`}
+                  repeatCount="indefinite"
+                  path={path}
+                />
+              </circle>
+            ))}
+          </g>
+        ))}
       </g>
 
       {/* Small energy nodes on the orbital bands */}
@@ -577,6 +712,38 @@ export default function SvgClosingEco() {
           </g>
         ))}
       </g>
+
+
+      {/* Wild flowers */}
+      {[
+        [196, 376, 1],
+        [236, 386, 0.8],
+        [404, 386, 0.85],
+        [446, 375, 1],
+        [150, 360, 0.75],
+        [492, 358, 0.75],
+      ].map(([x, y, sc], i) => (
+        <g key={`flower-${i}`} transform={`translate(${x} ${y}) scale(${sc})`}>
+          <g className={uid("leafSway")} style={{ animationDelay: `${i * 0.5}s` }}>
+            <path d="M0 0C-1-8 1-14 0-20" stroke="#16A34A" strokeWidth="1.8" fill="none" strokeLinecap="round" />
+            <path d="M0-8C-6-9-9-12-9-15C-4-15-1-12 0-8Z" fill="#4ADE80" />
+            {[0, 72, 144, 216, 288].map((r) => (
+              <ellipse
+                key={r}
+                cx="0"
+                cy="-26"
+                rx="3.4"
+                ry="5.6"
+                fill={`url(#${uid("petal")})`}
+                stroke="#F9A8D4"
+                strokeWidth=".5"
+                transform={`rotate(${r} 0 -20)`}
+              />
+            ))}
+            <circle cx="0" cy="-20" r="2.6" fill="#FBBF24" />
+          </g>
+        </g>
+      ))}
 
       {/* Small grass blades */}
       <g
@@ -968,7 +1135,7 @@ export default function SvgClosingEco() {
       ===================================================== */}
 
       {/* Nitrogen orb */}
-      <g transform="translate(100 120)" className={uid("floating")}>
+      <g transform="translate(100 120)"><g className={uid("floating")}>
         <circle
           cx="0"
           cy="0"
@@ -1049,12 +1216,10 @@ export default function SvgClosingEco() {
         >
           ĐẠM
         </text>
-      </g>
+      </g></g>
 
       {/* Phosphorus orb */}
-      <g
-        transform="translate(540 153)"
-        className={uid("floating")}
+      <g transform="translate(540 153)"><g className={uid("floating")}
         style={{ animationDelay: ".8s" }}
       >
         <circle
@@ -1137,12 +1302,10 @@ export default function SvgClosingEco() {
         >
           LÂN
         </text>
-      </g>
+      </g></g>
 
       {/* Potassium orb */}
-      <g
-        transform="translate(320 451)"
-        className={uid("floating")}
+      <g transform="translate(320 451)"><g className={uid("floating")}
         style={{ animationDelay: ".4s" }}
       >
         <circle
@@ -1217,6 +1380,97 @@ export default function SvgClosingEco() {
         >
           KALI
         </text>
+      </g></g>
+
+
+      {/* =====================================================
+          08b · LIFE: FALLING LEAVES, FIREFLIES, BUTTERFLY
+      ===================================================== */}
+      <g className={uid("still")}>
+        {/* falling leaves */}
+        {[
+          [250, 11, 0],
+          [330, 13, 3.5],
+          [395, 10, 6],
+          [285, 12, 8.5],
+          [360, 14, 1.5],
+        ].map(([x, dur, delay], i) => (
+          <path
+            key={`leaf-${i}`}
+            d="M-7 0C-3-6 4-6 7 0C4 6-3 6-7 0Z"
+            fill={`url(#${uid(i % 2 ? "leafMint" : "leafBright")})`}
+            stroke="#15803D"
+            strokeWidth=".6"
+            opacity="0"
+          >
+            <animateMotion
+              dur={`${dur}s`}
+              begin={`${delay}s`}
+              repeatCount="indefinite"
+              rotate="auto"
+              path={`M${x} 118C${x - 52} 190 ${x + 56} 262 ${x - 8} 352`}
+            />
+            <animate
+              attributeName="opacity"
+              values="0;1;1;0"
+              keyTimes="0;.1;.85;1"
+              dur={`${dur}s`}
+              begin={`${delay}s`}
+              repeatCount="indefinite"
+            />
+          </path>
+        ))}
+
+        {/* fireflies */}
+        {[
+          [190, 300, 6],
+          [455, 290, 7],
+          [230, 340, 8],
+          [420, 335, 6.5],
+          [160, 250, 9],
+          [490, 240, 7.5],
+        ].map(([x, y, dur], i) => (
+          <g key={`fly-${i}`}>
+            <circle r="7" fill="#FDE047" opacity=".35" filter={`url(#${uid("smallGlow")})`}>
+              <animateMotion
+                dur={`${dur}s`}
+                repeatCount="indefinite"
+                path={`M${x} ${y}c16-14 30 6 24 20s-30 10-24-20Z`}
+              />
+              <animate attributeName="opacity" values=".1;.55;.1" dur="2.6s" repeatCount="indefinite" begin={`${i * 0.4}s`} />
+            </circle>
+            <circle r="2" fill="#FEF9C3">
+              <animateMotion
+                dur={`${dur}s`}
+                repeatCount="indefinite"
+                path={`M${x} ${y}c16-14 30 6 24 20s-30 10-24-20Z`}
+              />
+            </circle>
+          </g>
+        ))}
+
+        {/* butterfly */}
+        <g>
+          <animateMotion
+            dur="16s"
+            repeatCount="indefinite"
+            path="M118 292C150 244 200 268 224 232S176 188 150 214S96 262 118 292Z"
+          />
+          <g>
+            <animateTransform
+              attributeName="transform"
+              type="scale"
+              values="1 1;.25 1;1 1"
+              dur=".55s"
+              repeatCount="indefinite"
+            />
+            <path d="M0 0C-7-9-15-6-13 1C-12 6-6 6 0 2Z" fill={`url(#${uid("wing")})`} stroke="#B45309" strokeWidth=".5" />
+            <path d="M0 0C7-9 15-6 13 1C12 6 6 6 0 2Z" fill={`url(#${uid("wing")})`} stroke="#B45309" strokeWidth=".5" />
+            <path d="M0 2C-4 5-8 8-6 11C-3 11-1 7 0 2Z" fill="#FDBA74" />
+            <path d="M0 2C4 5 8 8 6 11C3 11 1 7 0 2Z" fill="#FDBA74" />
+          </g>
+          <rect x="-.8" y="-5" width="1.6" height="11" rx=".8" fill="#78350F" />
+        </g>
       </g>
 
       {/* =====================================================

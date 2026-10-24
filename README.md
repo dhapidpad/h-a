@@ -44,11 +44,24 @@ npm run preview
 
 ---
 
-## 🎨 Cấu trúc 19 Slide
+## 🎨 Cấu trúc 20 Slide
 1. **Slide 01:** Trang bìa chủ đề "NPK — Bộ ba nuôi dưỡng mùa xanh"
 2. **Slide 02:** Video Intro chuyển động React (16s Motion-Graphic mầm cây vươn chồi)
 3. **Slide 03:** Giới thiệu biệt đội 9 thành viên nhóm
 4. **Slide 04 – 08:** Phân Đạm (5 câu hỏi: Khái niệm & vai trò N, %N Ure dẫn đầu, đạm amoni với đất vôi/chua, 3 nhà máy Phú Mỹ/Cà Mau/Ninh Bình, phục hồi đất chua)
 5. **Slide 09 – 13:** Phân Lân (5 câu hỏi: Dạng ion & pin ATP, Supe đơn vs Supe kép, Lân nung chảy khử phèn, lý do bón lót, mỏ Apatit Lào Cai)
 6. **Slide 14 – 18:** Phân Kali (5 câu hỏi: Đóng mở khí khổng & đường bột, KCl vs K₂SO₄, bệnh đói K & cấm KCl cho cây nhạy clo, thời điểm bón thúc, hệ lụy đất chai cứng)
-7. **Slide 19:** Tổng kết nguyên tắc "4 Đúng" & Phiên thảo luận Q&A
+7. **Slide 19:** Minigame "Bóc Túi Mù Hóa Học NPK"
+8. **Slide 20:** Tổng kết nguyên tắc "4 Đúng" & Phiên thảo luận Q&A
+
+
+---
+
+## 🎁 Minigame "Bóc Túi Mù" (Slide 19) — bản hoàn thiện
+
+- **Tối ưu điện thoại:** minigame tự bù zoom của khung 16:9 nên chữ luôn đủ lớn (điện thoại ngang: bố cục gọn 4 túi một hàng, đáp án 2×2; điện thoại dọc: lưới 2×2, đáp án 1 cột).
+- **Mượt & ổn định:** mọi hiệu ứng chỉ dùng `transform`/`opacity`, không còn blur/filter/`transition: all`; túi mù là SVG tĩnh + bóng elip; hoa giấy giảm số hạt trên điện thoại; tôn trọng `prefers-reduced-motion`.
+- **Luật chơi:** đúng ngay lần đầu = 100 XP, mỗi lần sai −30 XP (tối thiểu 20 XP); sai chỉ hiện *gợi ý* (không lộ đáp án), đáp án sai bị khóa. Combo khi liên tiếp đúng ngay lần đầu.
+- **Hoàn thiện hệ thống:** màn phần thưởng + giải thích, màn Tổng kết có xếp hạng, nút Chơi lại (bấm 2 lần để tránh lỡ tay), bật/tắt âm thanh, rung nhẹ trên Android, lưu tiến độ trong phiên (không mất khi chuyển slide).
+- **Phím tắt khi đang trả lời:** `A` `B` `C` `D` chọn đáp án, `Esc` quay lại chọn túi. Vuốt ngang bị vô hiệu trong khung câu hỏi để không nhảy slide nhầm.
+- Dữ liệu câu hỏi nằm ở `src/data/miniGameData.js`, giao diện ở `src/slides/minigame.css`.

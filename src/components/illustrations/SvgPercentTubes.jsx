@@ -1,11 +1,12 @@
 
 import React, { useId } from 'react';
 
-export default function SvgPercentTubes() {
+export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
   const uid = useId().replace(/:/g, '');
 
   const tubes = [
     {
+      id: 'urea',
       name: 'Urê',
       formula: 'CO(NH₂)₂',
       percent: 46.7,
@@ -16,6 +17,7 @@ export default function SvgPercentTubes() {
       winner: true,
     },
     {
+      id: 'nh4cl',
       name: 'Amoni clorua',
       formula: 'NH₄Cl',
       percent: 26.2,
@@ -24,6 +26,7 @@ export default function SvgPercentTubes() {
       dark: '#1D4ED8',
     },
     {
+      id: 'nh42so4',
       name: 'Amoni sunfat',
       formula: '(NH₄)₂SO₄',
       percent: 21.2,
@@ -32,6 +35,7 @@ export default function SvgPercentTubes() {
       dark: '#6D28D9',
     },
     {
+      id: 'nano3',
       name: 'Natri nitrat',
       formula: 'NaNO₃',
       percent: 16.5,
@@ -56,15 +60,18 @@ export default function SvgPercentTubes() {
     <svg
       viewBox="0 0 800 560"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="Biểu đồ so sánh hàm lượng nitơ trong urê, amoni clorua, amoni sunfat và natri nitrat"
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: 'block',
+        width: '100%',
+        height: '100%',
         maxWidth: '100%',
         maxHeight: '100%',
-        borderRadius: 24,
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
       }}
     >
       <defs>
@@ -288,16 +295,16 @@ export default function SvgPercentTubes() {
       <rect
         width="800"
         height="560"
-        rx="24"
+        rx="22"
         fill={`url(#${uid}-background)`}
-        stroke="#D4E8DA"
+        stroke="#86EFAC"
         strokeWidth="1.5"
       />
 
       <rect
         width="800"
         height="560"
-        rx="24"
+        rx="22"
         fill={`url(#${uid}-dots)`}
       />
 
@@ -498,14 +505,29 @@ export default function SvgPercentTubes() {
         const height = chart.bottom - top;
         const bottom = chart.bottom;
         const w = chart.tubeWidth;
+        const isSelected = selectedId === tube.id;
 
         return (
           <g
             key={tube.formula}
             fontFamily="Inter, Arial, sans-serif"
+            onClick={() => onSelect && onSelect(tube.id)}
+            style={{ cursor: 'pointer' }}
           >
+            {/* Active selection glow */}
+            {isSelected && (
+              <ellipse
+                cx={center}
+                cy={252}
+                rx="68"
+                ry="155"
+                fill={tube.color}
+                opacity={tube.winner ? '0.22' : '0.16'}
+              />
+            )}
+
             {/* Winner halo */}
-            {tube.winner && (
+            {tube.winner && !isSelected && (
               <g>
                 <ellipse
                   cx={center}
@@ -756,9 +778,9 @@ export default function SvgPercentTubes() {
                 width="144"
                 height="50"
                 rx="12"
-                fill="#FFFFFF"
-                stroke={tube.winner ? '#86EFAC' : '#E2E8F0'}
-                strokeWidth={tube.winner ? '1.8' : '1.2'}
+                fill={isSelected ? '#F0FDF4' : '#FFFFFF'}
+                stroke={isSelected ? tube.color : (tube.winner ? '#86EFAC' : '#E2E8F0')}
+                strokeWidth={isSelected ? '2.4' : (tube.winner ? '1.8' : '1.2')}
                 filter={`url(#${uid}-shadow)`}
               />
 

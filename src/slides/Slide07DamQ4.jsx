@@ -9,39 +9,20 @@ export default function Slide07DamQ4({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#DCFCE7', color: '#15803D' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 04 / 15</span>
+            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 04 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             CÔNG NGHIỆP ĐẠM VIỆT NAM: KHÍ THIÊN NHIÊN &amp; THAN ĐÁ
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#2563EB',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 12
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)' }}>
             VN
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#93C5FD' }}>NĂNG LỰC SẢN XUẤT</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>&gt; 2.6 Triệu tấn Urê / năm</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#93C5FD' }}>NĂNG LỰC SẢN XUẤT</div>
+            <div className="slide-header-badge-main">&gt; 2.6 Triệu tấn Urê / năm</div>
           </div>
         </div>
       </div>
@@ -49,7 +30,6 @@ export default function Slide07DamQ4({ onOpenNotes }) {
       {/* Banner câu hỏi thảo luận */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #86EFAC',
         borderRadius: 14,
         padding: '10px 18px',
@@ -82,7 +62,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -92,7 +72,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -102,7 +82,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #16A34A',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -132,11 +112,11 @@ export default function Slide07DamQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
                   ĐẠM PHÚ MỸ & CÀ MAU: KHÍ THIÊN NHIÊN
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
                   CH₄ + H₂O
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 • <strong>Đạm Phú Mỹ</strong> (Bà Rịa - Vũng Tàu): Khí đồng hành mỏ Bạch Hổ & Nam Côn Sơn.<br />
                 • <strong>Đạm Cà Mau</strong>: Khí tự nhiên từ cụm mỏ PM3-CAA vịnh Thái Lan.<br />
                 Chuyển hóa metan thành H₂ để tổng hợp NH₃ theo chu trình Haber-Bosch và ép tạo hạt Urê chất lượng cao.
@@ -148,7 +128,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #475569',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -178,11 +158,11 @@ export default function Slide07DamQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#334155' }}>
                   ĐẠM NINH BÌNH & HÀ BẮC: KHÍ HÓA THAN ĐÁ
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#F1F5F9', color: '#475569', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#F1F5F9', color: '#475569', padding: '2px 8px', borderRadius: 6 }}>
                   THAN CÁM QN
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Sử dụng nguồn <strong>than cám mỏ than Quảng Ninh</strong>. Ứng dụng công nghệ khí hóa than ở nhiệt độ 1300°C tạo khí tổng hợp CO + H₂ để sản xuất phân đạm phục vụ vựa lúa đồng bằng Bắc Bộ.
               </div>
             </div>
@@ -192,7 +172,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #2563EB',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -222,11 +202,11 @@ export default function Slide07DamQ4({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
                   TỰ CHỦ 100% NHU CẦU & XUẤT KHẨU
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
                   TỰ CHỦ 100%
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Tổng công suất 4 nhà máy đạt <strong>&gt; 2.6 triệu tấn Urê/năm</strong>. Việt Nam từ nước phải nhập khẩu 100% phân đạm nay đã hoàn toàn tự chủ nguồn phân đạm quốc gia và xuất khẩu sang Ấn Độ, Campuchia.
               </div>
             </div>
@@ -241,7 +221,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 14,
             color: '#15803D'
           }}>
             <div style={{
@@ -255,7 +235,7 @@ export default function Slide07DamQ4({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 10
+              fontSize: 12.5
             }}>
               TOP
             </div>
@@ -270,25 +250,13 @@ export default function Slide07DamQ4({ onOpenNotes }) {
             mascotType="SPROUTY_N"
             emotion="proud"
             speech="Việt Nam mình tự sản xuất được hơn 2.6 triệu tấn Đạm mỗi năm từ dầu khí và than đá, xịn lắm đúng không nào! 🏭🌾"
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #86EFAC',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgVietnamFactories />
         </div>
       </div>

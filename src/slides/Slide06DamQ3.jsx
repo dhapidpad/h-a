@@ -47,39 +47,20 @@ export default function Slide06DamQ3({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#DCFCE7', color: '#15803D' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 03 / 15</span>
+            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 03 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             CƠ CHẾ CHUYỂN HÓA &amp; NGUY CƠ THẤT THOÁT ĐẠM
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#EF4444',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 12
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)' }}>
             NH₃↑
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#FCA5A5' }}>TƯƠNG KỴ HÓA HỌC</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#FCA5A5' }}>TƯƠNG KỴ HÓA HỌC</div>
+            <div className="slide-header-badge-main">NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O</div>
           </div>
         </div>
       </div>
@@ -87,7 +68,6 @@ export default function Slide06DamQ3({ onOpenNotes }) {
       {/* Banner câu hỏi thảo luận */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #FCA5A5',
         borderRadius: 14,
         padding: '10px 18px',
@@ -120,7 +100,7 @@ export default function Slide06DamQ3({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -130,7 +110,7 @@ export default function Slide06DamQ3({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -145,7 +125,7 @@ export default function Slide06DamQ3({ onOpenNotes }) {
                 style={{
                   background: isSelected ? 'rgba(255, 255, 255, 0.99)' : 'rgba(255, 255, 255, 0.92)',
                   borderRadius: 14,
-                  padding: '11px 16px',
+                  padding: '9px 14px',
                   borderLeft: `5px solid ${card.accent}`,
                   borderTop: `1px solid ${isSelected ? card.accent : '#E2E8F0'}`,
                   borderRight: `1px solid ${isSelected ? card.accent : '#E2E8F0'}`,
@@ -178,14 +158,14 @@ export default function Slide06DamQ3({ onOpenNotes }) {
                     <div style={{ fontSize: 15, fontWeight: 800, color: card.accentDark }}>
                       {card.title}
                     </div>
-                    <span style={{ fontSize: 11, fontWeight: 900, background: card.accentLight, color: card.accentDark, padding: '2px 8px', borderRadius: 6, flexShrink: 0 }}>
+                    <span style={{ fontSize: 12.5, fontWeight: 900, background: card.accentLight, color: card.accentDark, padding: '2px 8px', borderRadius: 6, flexShrink: 0 }}>
                       {card.tag}
                     </span>
                   </div>
-                  <div style={{ fontSize: 12, fontWeight: 800, color: card.accent, marginBottom: 3 }}>
+                  <div style={{ fontSize: 13, fontWeight: 800, color: card.accent, marginBottom: 3 }}>
                     Phản ứng: {card.equation}
                   </div>
-                  <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+                  <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                     {card.desc}
                   </div>
                 </div>
@@ -202,7 +182,7 @@ export default function Slide06DamQ3({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 14,
             color: '#15803D'
           }}>
             <div style={{
@@ -216,7 +196,7 @@ export default function Slide06DamQ3({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 11
+              fontSize: 12.5
             }}>
               MẸO
             </div>
@@ -235,25 +215,13 @@ export default function Slide06DamQ3({ onOpenNotes }) {
                 ? "Ối dồi ôi! Gặp vôi bột là tớ biến thành khí NH₃ bay mất lên mây liền, phí tiền của bà con lắm đó! 😱"
                 : "Hãy vùi sâu tớ xuống đất rồi tưới ẩm nhẹ nhàng, rễ cây sẽ hút trọn vẹn 100% nha! 🌱✨"
             }
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #FCA5A5',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgGasLoss />
         </div>
       </div>

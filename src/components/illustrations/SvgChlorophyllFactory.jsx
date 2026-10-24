@@ -20,17 +20,19 @@ export default function SvgChlorophyllFactory() {
     <svg
       viewBox="0 0 720 600"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="Infographic mô tả lá cây, lục lạp, các dạng nitơ khoáng và quá trình đồng hóa nitơ để tổng hợp protein"
       style={{
         display: 'block',
         width: '100%',
-        height: 'auto',
+        height: '100%',
+        maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
       }}
-      preserveAspectRatio="xMidYMid meet"
     >
       <defs>
         {/* Nền sinh học cao cấp */}
@@ -160,7 +162,7 @@ export default function SvgChlorophyllFactory() {
         height="600"
         rx="22"
         fill={`url(#${id.bg})`}
-        stroke="#BBEACB"
+        stroke="#86EFAC"
         strokeWidth="1.5"
       />
 
@@ -335,7 +337,7 @@ export default function SvgChlorophyllFactory() {
         />
 
         {/* Mặt trời và tia sáng */}
-        <g className="bio-float" transform="translate(57 190)">
+        <g transform="translate(57 190)"><g className="bio-float" >
           <g
             stroke="#F59E0B"
             strokeWidth="2.2"
@@ -357,7 +359,7 @@ export default function SvgChlorophyllFactory() {
             strokeWidth="1"
           />
           <circle r="5" fill="#FFF7CC" opacity="0.9" />
-        </g>
+        </g></g>
 
         <path
           d="M68 203 Q79 211 91 222"

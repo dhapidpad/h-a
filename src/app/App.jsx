@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { SLIDES, CHAPTERS } from '../data/slideData';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { SLIDES } from '../data/slideData';
 import Slide01Topic from '../slides/Slide01Topic';
 import Slide02VideoIntro from '../slides/Slide02VideoIntro';
 import Slide03Members from '../slides/Slide03Members';
@@ -18,11 +18,15 @@ import Slide15KaliQ2 from '../slides/Slide15KaliQ2';
 import Slide16KaliQ3 from '../slides/Slide16KaliQ3';
 import Slide17KaliQ4 from '../slides/Slide17KaliQ4';
 import Slide18KaliQ5 from '../slides/Slide18KaliQ5';
-import Slide19Closing from '../slides/Slide19Closing';
+import Slide19MiniGame from '../slides/Slide19MiniGame';
+import Slide20Closing from '../slides/Slide20Closing';
 import SlideNavigation from '../components/SlideNavigation';
 import SpeakerNotesDrawer from '../components/SpeakerNotesDrawer';
 import OrientationGuard from '../components/OrientationGuard';
 import './theme.css';
+
+// Chiều cao thanh điều hướng: thu gọn trên điện thoại ngang (màn hình thấp) để nhường chỗ cho nội dung
+const dockHeightFor = (viewportH) => (viewportH < 520 ? 54 : 64);
 
 export default function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -30,11 +34,112 @@ export default function App() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showPortraitWarning, setShowPortraitWarning] = useState(true);
   const [slideAnimClass, setSlideAnimClass] = useState('slide-glide-next');
+  const [stage, setStage] = useState({ zoom: 1, width: 1280, height: 720 });
 
   const touchStartXRef = useRef(null);
+  const touchStartYRef = useRef(0);
   const animTimeoutRef = useRef(null);
 
   const currentSlide = SLIDES[currentSlideIndex];
+
+  // Khung thiết kế tối thiểu 1280×720, phóng vừa màn hình và tràn kín phần còn lại (không viền thừa).
+  // Dùng CSS zoom thay vì transform để chữ & SVG luôn sắc nét.
+  // Throttle bằng requestAnimationFrame + bỏ qua cập nhật không đổi => xoay/resize không giật.
+  useEffect(() => {
+    let raf = 0;
+    let lateTimer = 0;
+
+    const fit = () => {
+      raf = 0;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const dockH = dockHeightFor(vh);
+      const availH = vh - dockH;
+      const zoom = Math.min(vw / 1280, availH / 720);
+      const next = {
+        zoom,
+        width: Math.min(vw / zoom, 1760),
+        height: availH / zoom
+      };
+
+      // Chiều cao thật của vùng nhìn thấy (100vh trên trình duyệt di động bị tính cả thanh địa chỉ)
+      const rootStyle = document.documentElement.style;
+      rootStyle.setProperty('--app-h', `${vh}px`);
+      rootStyle.setProperty('--dock-h', `${dockH}px`);
+
+      setStage((prev) =>
+        Math.abs(prev.zoom - next.zoom) < 0.0005 &&
+        Math.abs(prev.width - next.width) < 0.5 &&
+        Math.abs(prev.height - next.height) < 0.5
+          ? prev
+          : next
+      );
+    };
+
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(fit);
+    };
+    // Sau khi xoay màn hình, trình duyệt di động cập nhật kích thước hơi trễ
+    const onOrientation = () => {
+      schedule();
+      clearTimeout(lateTimer);
+      lateTimer = setTimeout(schedule, 280);
+    };
+
+    fit();
+    window.addEventListener('resize', schedule);
+    window.addEventListener('orientationchange', onOrientation);
+    return () => {
+      window.removeEventListener('resize', schedule);
+      window.removeEventListener('orientationchange', onOrientation);
+      cancelAnimationFrame(raf);
+      clearTimeout(lateTimer);
+    };
+  }, []);
+
+
+  // Cột nội dung bên trái tự co/giãn (0.8–1.18) cho vừa kín chiều cao: không bị cắt, không để trống.
+  // Chạy lại sau khi font tải xong và sau khi animation chuyển slide kết thúc để số đo luôn chính xác.
+  useEffect(() => {
+    const fitColumns = () => {
+      document.querySelectorAll('.slide-canvas [style*="overflow-y: auto"]').forEach((el) => {
+        el.style.position = 'relative';
+        // Cột nằm giữa lưới (căn giữa theo chiều dọc) không có chiều cao cố định để so sánh -> giữ nguyên
+        if (getComputedStyle(el.parentElement).alignItems === 'center') {
+          el.style.zoom = 1;
+          return;
+        }
+        const last = () => el.lastElementChild;
+        const fits = (z) => {
+          el.style.zoom = z;
+          const l = last();
+          return el.scrollHeight <= el.clientHeight && (!l || l.offsetTop + l.offsetHeight <= el.clientHeight - 12);
+        };
+        // Tìm hệ số zoom lớn nhất vẫn vừa khung (chia đôi)
+        let lo = 0.8;
+        let hi = 1.18;
+        if (fits(hi)) lo = hi;
+        else {
+          for (let i = 0; i < 7; i += 1) {
+            const mid = (lo + hi) / 2;
+            if (fits(mid)) lo = mid;
+            else hi = mid;
+          }
+        }
+        while (lo > 0.7 && !fits(lo)) lo -= 0.01;
+        el.style.zoom = lo;
+      });
+    };
+
+    const raf = requestAnimationFrame(fitColumns);
+    const timers = [450, 1100].map((ms) => setTimeout(fitColumns, ms));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitColumns);
+    return () => {
+      cancelAnimationFrame(raf);
+      timers.forEach(clearTimeout);
+    };
+  }, [currentSlideIndex, stage]);
+
 
   // Chuyển slide siêu tốc, mượt mà 60fps không bị khựng
   const triggerSlideChange = useCallback((targetIndex, direction = 'next') => {
@@ -48,7 +153,7 @@ export default function App() {
 
     animTimeoutRef.current = setTimeout(() => {
       setSlideAnimClass('');
-    }, 350);
+    }, 380);
   }, [currentSlideIndex]);
 
   // Tiến 1 slide
@@ -146,15 +251,24 @@ export default function App() {
   }, [goToNextSlide, goToPrevSlide, triggerSlideChange, goToChapter, isNotesOpen]);
 
   // Thao tác vuốt trên thiết bị di động
+  // - Bỏ qua vùng đánh dấu data-no-swipe (câu hỏi minigame) để chạm/cuộn không bị nhảy slide ngoài ý muốn
+  // - Chỉ tính là vuốt khi chuyển động chủ yếu theo chiều ngang
   const handleTouchStart = (e) => {
+    const target = e.target;
+    if (target && target.closest && target.closest('[data-no-swipe]')) {
+      touchStartXRef.current = null;
+      return;
+    }
     touchStartXRef.current = e.touches[0].clientX;
+    touchStartYRef.current = e.touches[0].clientY;
   };
 
   const handleTouchEnd = (e) => {
     if (touchStartXRef.current === null) return;
     const diffX = touchStartXRef.current - e.changedTouches[0].clientX;
+    const diffY = touchStartYRef.current - e.changedTouches[0].clientY;
 
-    if (Math.abs(diffX) > 45) {
+    if (Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY) * 1.4) {
       if (diffX > 0) {
         goToNextSlide();
       } else {
@@ -219,7 +333,9 @@ export default function App() {
       case 18:
         return <Slide18KaliQ5 slide={currentSlide} onOpenNotes={() => setIsNotesOpen(true)} />;
       case 19:
-        return <Slide19Closing slide={currentSlide} />;
+        return <Slide19MiniGame slide={currentSlide} onNext={goToNextSlide} stage={stage} />;
+      case 20:
+        return <Slide20Closing slide={currentSlide} />;
       default:
         return null;
     }
@@ -238,7 +354,7 @@ export default function App() {
 
       {/* Sân khấu trình chiếu tràn viền Full Screen */}
       <div className="slide-stage-container">
-        <main className="slide-content-area">
+        <main className="slide-canvas" style={{ zoom: stage.zoom, width: stage.width, height: stage.height }}>
           <div className={`slide-transition-box ${slideAnimClass}`}>
             {renderCurrentSlide()}
           </div>

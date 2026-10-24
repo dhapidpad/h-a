@@ -86,6 +86,15 @@ export default function SvgSuperPhosphatePouch() {
       preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="So sánh supe lân đơn (14–20% P₂O₅, có khoảng 50% thạch cao) và supe lân kép (40–50% P₂O₅, không thạch cao)"
+      style={{
+        display: 'block',
+        width: '100%',
+        height: '100%',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
+      }}
     >
       <defs>
         <linearGradient id="spBg" x1="0" y1="0" x2="1" y2="1">
@@ -343,6 +352,7 @@ export default function SvgSuperPhosphatePouch() {
         <text x="320" y="534" textAnchor="middle" fill="#475569" fontSize="12" fontWeight="600">
           Supe kép dùng H₃PO₄ để phân hủy quặng nên không tạo ra thạch cao CaSO₄
         </text>
+        <rect x="8" y="8" width="624" height="544" rx="26" fill="none" stroke="#DDD6FE" strokeWidth="1.5" />
       </g>
     </svg>
   );

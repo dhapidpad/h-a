@@ -9,39 +9,20 @@ export default function Slide13LanQ5({ onOpenNotes }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
         <div>
           <div className="chapter-pill" style={{ backgroundColor: '#F0EBFF', color: '#7C3AED' }}>
-            <span style={{ fontSize: 13, fontWeight: 900 }}>PHÂN LÂN (P) • CÂU HỎI 05 / 15</span>
+            <span style={{ fontSize: 13.5, fontWeight: 900 }}>PHÂN LÂN (P) • CÂU HỎI 05 / 15</span>
           </div>
           <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
             QUẶNG APATIT LÀO CAI &amp; BÀI TOÁN TÀI NGUYÊN
           </h2>
         </div>
 
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          background: '#0F172A',
-          padding: '6px 14px',
-          borderRadius: 12,
-          border: '1px solid #334155'
-        }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            borderRadius: 8,
-            background: '#7C3AED',
-            color: '#FFFFFF',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontWeight: 900,
-            fontSize: 10
-          }}>
+        <div className="slide-header-badge">
+          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)' }}>
             2.5B
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, color: '#C4B5FD' }}>MỎ APATIT LÀO CAI</div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>Trữ lượng hàng đầu Đông Nam Á</div>
+          <div className="slide-header-badge-text">
+            <div className="slide-header-badge-sub" style={{ color: '#C4B5FD' }}>MỎ APATIT LÀO CAI</div>
+            <div className="slide-header-badge-main">Trữ lượng hàng đầu Đông Nam Á</div>
           </div>
         </div>
       </div>
@@ -49,7 +30,6 @@ export default function Slide13LanQ5({ onOpenNotes }) {
       {/* Banner câu hỏi */}
       <div style={{
         background: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(10px)',
         border: '1.5px solid #DDD6FE',
         borderRadius: 14,
         padding: '10px 18px',
@@ -82,7 +62,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
       {/* Grid 2 cột */}
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: 'minmax(440px, 1.05fr) minmax(460px, 1.15fr)', 
+        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
         gap: 16, 
         flex: 1, 
         minHeight: 0,
@@ -92,7 +72,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
         <div style={{ 
           display: 'flex', 
           flexDirection: 'column', 
-          gap: 9, 
+          gap: 7, 
           justifyContent: 'flex-start',
           minHeight: 0,
           overflowY: 'auto',
@@ -102,7 +82,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #7C3AED',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -132,11 +112,11 @@ export default function Slide13LanQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
                   MỎ APATIT LÀO CAI: TRỮ LƯỢNG HÀNG ĐẦU KHU VỰC
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
                   LÀO CAI 2.5B TẤN
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Mỏ quặng Apatit Lào Cai trải dài hơn <strong>100 km dọc hữu ngạn sông Hồng</strong> với trữ lượng ước tính trên <strong>2.5 tỷ tấn</strong>. Là kho tàng quặng photphat tự nhiên lớn nhất cả nước và toàn khu vực Đông Nam Á.
               </div>
             </div>
@@ -146,7 +126,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #2563EB',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -176,11 +156,11 @@ export default function Slide13LanQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#1D4ED8' }}>
                   3 NHÀ MÁY TRỤ CỘT NGÀNH LÂN VIỆT NAM
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 900, background: '#EFF6FF', color: '#1D4ED8', padding: '2px 8px', borderRadius: 6 }}>
                   3 ĐẠI NHÀ MÁY
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 1. <strong>Supe Phốt phát Lâm Thao</strong> (Phú Thọ): Sản xuất supe lân đơn quy mô lớn nhất.<br />
                 2. <strong>Lân Nung Chảy Văn Điển</strong> (Hà Nội): Chuyên phân lân FMP kiềm hóa chịu chua mặn.<br />
                 3. <strong>Lân Nung Chảy Ninh Bình</strong>: Cung cấp lân nung chảy cho miền Trung & Tây Nguyên.
@@ -192,7 +172,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
             borderRadius: 14,
-            padding: '11px 16px',
+            padding: '9px 14px',
             borderLeft: '5px solid #EF4444',
             borderTop: '1px solid #E2E8F0',
             borderRight: '1px solid #E2E8F0',
@@ -222,11 +202,11 @@ export default function Slide13LanQ5({ onOpenNotes }) {
                 <span style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C' }}>
                   THÁCH THỨC: CẠN KIỆT QUẶNG GIÀU LOẠI 1
                 </span>
-                <span style={{ fontSize: 11, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
+                <span style={{ fontSize: 12, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
                   BẢO VỆ TÀI NGUYÊN
                 </span>
               </div>
-              <div style={{ fontSize: 13.5, color: '#1E293B', lineHeight: 1.48 }}>
+              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
                 Quặng loại 1 (&gt; 28% P₂O₅) đang cạn kiệt nhanh. Hiện nay các nhà máy phải đẩy mạnh <strong>công nghệ tuyển nổi quặng nghèo loại 2, 3</strong> tiêu tốn nhiều năng lượng, đồng thời xử lý triệt để bãi thải bã thạch cao phosphogypsum bảo vệ môi trường.
               </div>
             </div>
@@ -241,7 +221,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
             display: 'flex',
             alignItems: 'center',
             gap: 10,
-            fontSize: 13,
+            fontSize: 13.5,
             color: '#6B21A8'
           }}>
             <div style={{
@@ -255,7 +235,7 @@ export default function Slide13LanQ5({ onOpenNotes }) {
               justifyContent: 'center',
               flexShrink: 0,
               fontWeight: 900,
-              fontSize: 10
+              fontSize: 12
             }}>
               ECO
             </div>
@@ -270,25 +250,13 @@ export default function Slide13LanQ5({ onOpenNotes }) {
             mascotType="SPARKY_P"
             emotion="curious"
             speech="Tài nguyên quặng tự nhiên là hữu hạn, chúng mình phải khai thác tiết kiệm và tái chế tuần hoàn bạn nhé! 🏔️⚡"
-            size={52}
+            size={44}
             onClick={onOpenNotes}
           />
         </div>
 
         {/* Cột phải: SVG */}
-        <div style={{ 
-          background: 'rgba(255, 255, 255, 0.98)',
-          borderRadius: 22,
-          border: '1.5px solid #DDD6FE',
-          boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-          position: 'relative',
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          minHeight: 0
-        }}>
+        <div className="svg-stage-card">
           <SvgApatiteMine />
         </div>
       </div>

@@ -115,7 +115,6 @@ export default function LinhThuBietDoi({ className = '' }) {
         background:
           'radial-gradient(circle at 12px 12px, rgba(34,197,94,.14) 2px, transparent 3px) 0 0/22px 22px,' +
           'linear-gradient(135deg, rgba(255,255,255,0.97) 0%, rgba(240,253,244,0.95) 50%, rgba(254,249,195,0.95) 100%)',
-        backdropFilter: 'blur(14px)',
         border: '2px solid rgba(34, 197, 94, 0.4)',
         borderRadius: 28,
         padding: '8px 18px 8px 10px',

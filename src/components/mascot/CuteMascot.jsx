@@ -92,7 +92,6 @@ export default function CuteMascot({
         title="Bấm vào để mở sổ tay bài giảng 💡"
         style={{
           background: theme.cardBg,
-          backdropFilter: 'blur(10px)',
           border: `1.5px solid ${theme.border}`,
           borderRadius: 16,
           padding: '8px 14px',
@@ -167,7 +166,6 @@ export default function CuteMascot({
           style={{
             position: 'relative',
             background: 'rgba(255, 255, 255, 0.98)',
-            backdropFilter: 'blur(12px)',
             border: `2px solid ${theme.borderSolid}`,
             borderRadius: 18,
             padding: '10px 14px',

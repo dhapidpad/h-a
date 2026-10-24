@@ -20,16 +20,18 @@ export default function SvgGasLoss() {
     <svg
       viewBox="0 0 720 600"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label="So sánh tác động của phân đạm amoni trong đất chua và nguy cơ thất thoát amoniac khi bón phân amoni cùng lúc với vôi"
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: 'block',
         width: '100%',
-        height: 'auto',
+        height: '100%',
+        maxWidth: '100%',
         maxHeight: '100%',
-        borderRadius: 24,
+        borderRadius: 22,
+        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
       }}
     >
       <defs>
@@ -166,10 +168,10 @@ export default function SvgGasLoss() {
       <rect
         width="720"
         height="600"
-        rx="24"
+        rx="22"
         fill={`url(#${ids.bg})`}
-        stroke="#E8DCD5"
-        strokeWidth="1.4"
+        stroke="#86EFAC"
+        strokeWidth="1.5"
       />
 
       <rect

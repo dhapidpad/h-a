@@ -8,14 +8,18 @@ export default function SvgApatiteMine() {
     <svg
       viewBox="0 0 1000 760"
       width="100%"
-      height="auto"
+      height="100%"
+      preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
-      preserveAspectRatio="xMidYMid meet"
       style={{
         display: "block",
         width: "100%",
-        height: "auto",
+        height: "100%",
+        maxWidth: "100%",
+        maxHeight: "100%",
+        borderRadius: 22,
+        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -239,7 +243,7 @@ export default function SvgApatiteMine() {
           01. CANVAS
       ===================================================== */}
 
-      <rect width="1000" height="760" rx="28" fill={`url(#${id}-bg)`} />
+      <rect width="1000" height="760" rx="28" fill={`url(#${id}-bg)`} stroke="#DDD6FE" strokeWidth="1.5" />
 
       <circle cx="950" cy="62" r="90" fill="#BBF7D0" opacity=".16" />
       <circle cx="920" cy="92" r="47" fill="#C4B5FD" opacity=".15" />

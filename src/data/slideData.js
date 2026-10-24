@@ -4,6 +4,7 @@ export const CHAPTERS = {
   DAM: { id: 'DAM', name: 'PHÂN ĐẠM (N)', color: '#36B86A', softColor: '#E8F8EE', mascot: 'SPROUTY_N' },
   LAN: { id: 'LAN', name: 'PHÂN LÂN (P)', color: '#8C6BFA', softColor: '#F0EBFF', mascot: 'SPARKY_P' },
   KALI: { id: 'KALI', name: 'PHÂN KALI (K)', color: '#FFB547', softColor: '#FFF3DA', mascot: 'SUNNY_K' },
+  GAME: { id: 'GAME', name: 'MINI GAME', color: '#EC4899', softColor: '#FDF2F8' },
   CLOSING: { id: 'CLOSING', name: 'TỔNG KẾT', color: '#2F80ED', softColor: '#EAF2FF' }
 };
 
@@ -436,9 +437,29 @@ Do đó phải chia lần bón và tập trung 60-70% bón thúc nuôi hoa, đó
 Khắc phục: Dùng luân phiên K₂SO₄, kiểm tra EC đất và bón nhiều phân hữu cơ.`
   },
 
-  // SLIDE 19: TỔNG KẾT
+  // SLIDE 19: MINI GAME BÓC TÚI MÙ
   {
     id: 19,
+    type: 'game',
+    chapter: CHAPTERS.GAME,
+    title: 'MINI GAME: BÓC TÚI MÙ HÓA HỌC NPK',
+    badges: [
+      { text: '🎁 4 TÚI MÙ KỲ BÍ', color: '#EC4899' },
+      { text: '⭐ THỬ TÀI NHANH TRÍ', color: '#8B5CF6' },
+      { text: '🏆 QUÀ TẶNG LINH THÚ', color: '#F59E0B' }
+    ],
+    speakerNotes: `Hướng dẫn tổ chức Mini Game "Bóc Túi Mù Hóa Học NPK":
+1. Giới thiệu hào hứng: "Sau khi đã cùng nhau khám phá trọn vẹn cả 3 chương Đạm - Lân - Kali, nhóm xin mời thầy cô và các bạn tham gia vào phần được mong chờ nhất hôm nay: BÓC TÚI MÙ HÓA HỌC NPK!"
+2. Luật chơi:
+- Trên màn hình có 4 túi mù may mắn tương ứng 4 chủ đề then chốt: Đạm diệp lục, Lân năng lượng, Kali cường lực và Bí kíp nhà nông.
+- Mỗi bạn giơ tay xung phong sẽ được chọn 1 túi mù yêu thích để "xé túi".
+- Sau khi xé túi, câu hỏi bí mật sẽ xuất hiện. Trả lời chính xác sẽ nhận ngay 1 tượng Linh Thú độc quyền và phần quà hấp dẫn từ ban tổ chức!
+3. Khuyến khích: Mời bạn trả lời kèm giải thích ngắn gọn dựa trên kiến thức vừa được tìm hiểu.`
+  },
+
+  // SLIDE 20: TỔNG KẾT
+  {
+    id: 20,
     type: 'closing',
     chapter: CHAPTERS.CLOSING,
     eyebrow: 'BỘ BA HỘI TỤ — NÔNG NGHIỆP BỀN VỮNG',
