@@ -90,8 +90,8 @@ const buzz = (pattern) => {
 };
 
 /* ==========================================================================
-   SFX — synth WebAudio (không cần file âm thanh)
-   Có master compressor + echo nhẹ + nhiễu lọc (tiếng xé giấy).
+   SFX — synth WebAudio chân thực (không cần file âm thanh ngoài)
+   Có master compressor + stereo echo nhẹ + nhiễu lọc mô phỏng tiếng vò/xé bao foil.
    kind: hover | tap | back | toggle | tear | pop | correct | wrong | reward | win
    ========================================================================== */
 
@@ -116,7 +116,7 @@ function useSfx(enabled) {
       if (!ctxRef.current) {
         const ctx = new Ctx();
         const master = ctx.createGain();
-        master.gain.value = 0.9;
+        master.gain.value = 0.92;
         const comp = ctx.createDynamicsCompressor();
         comp.threshold.value = -16;
         comp.knee.value = 18;
@@ -177,11 +177,11 @@ function useSfx(enabled) {
         osc.stop(t0 + at + dur + 0.03);
       };
 
-      // chuông: nốt gốc + hài bậc 2, 3 -> nghe "lấp lánh"
+      // Chuông pha lê: nốt gốc + hài bậc 2, 3 -> nghe trong trẻo, lấp lánh
       const bell = (freq, at, dur, vol = 0.07, send = 0.5) => {
         tone(freq, at, dur, { vol, send });
-        tone(freq * 2.01, at, dur * 0.6, { vol: vol * 0.4, send });
-        tone(freq * 3.02, at, dur * 0.35, { vol: vol * 0.18, send });
+        tone(freq * 2.01, at, dur * 0.6, { vol: vol * 0.42, send });
+        tone(freq * 3.02, at, dur * 0.35, { vol: vol * 0.2, send });
       };
 
       const noise = (at, dur, o = {}) => {
@@ -209,53 +209,55 @@ function useSfx(enabled) {
         const now = performance.now();
         if (now - lastHoverRef.current < 70) return;
         lastHoverRef.current = now;
-        tone(1250, 0, 0.04, { vol: 0.016 });
+        tone(1320, 0, 0.04, { vol: 0.016 });
       } else if (kind === 'tap') {
-        tone(520, 0, 0.07, { type: 'triangle', vol: 0.05, to: 780 });
+        tone(540, 0, 0.07, { type: 'triangle', vol: 0.05, to: 820 });
       } else if (kind === 'back') {
         tone(520, 0, 0.08, { type: 'triangle', vol: 0.045, to: 340 });
       } else if (kind === 'toggle') {
         tone(660, 0, 0.06, { type: 'triangle', vol: 0.05 });
         tone(990, 0.06, 0.09, { type: 'triangle', vol: 0.05 });
       } else if (kind === 'tear') {
-        // 1) lắc túi: vài tiếng sột soạt nhẹ
-        for (let i = 0; i < 5; i += 1) noise(i * 0.045, 0.05, { vol: 0.016, type: 'bandpass', f: 2600, q: 0.8 });
-        // 2) xé: dải nhiễu quét tần số tăng dần + nhiều tiếng rách ngắn ngẫu nhiên
-        noise(0.24, 0.4, { vol: 0.045, type: 'bandpass', f: 700, fTo: 5200, q: 0.9 });
-        for (let i = 0; i < 12; i += 1) {
-          noise(0.24 + i * 0.03 + Math.random() * 0.012, 0.045, {
-            vol: 0.035 + Math.random() * 0.05,
+        // 1) Lắc & bóp túi foil: tiếng sột soạt màng nhôm chân thực
+        for (let i = 0; i < 6; i += 1) {
+          noise(i * 0.04, 0.048, { vol: 0.022, type: 'bandpass', f: 2400 + (i % 2) * 900, q: 1.1 });
+        }
+        // 2) Xé rãnh laser: dải tần quét sắc + chuỗi gai rách giòn
+        noise(0.24, 0.42, { vol: 0.055, type: 'bandpass', f: 800, fTo: 6200, q: 0.95 });
+        for (let i = 0; i < 14; i += 1) {
+          noise(0.24 + i * 0.026 + Math.random() * 0.01, 0.042, {
+            vol: 0.04 + Math.random() * 0.05,
             type: 'highpass',
-            f: 1500 + i * 280
+            f: 1600 + i * 310
           });
         }
-        tone(180, 0.24, 0.4, { type: 'sawtooth', vol: 0.012, to: 520 });
+        tone(190, 0.24, 0.38, { type: 'sawtooth', vol: 0.015, to: 580 });
       } else if (kind === 'pop') {
-        // bụp + lấp lánh khi túi bung
-        tone(230, 0, 0.18, { vol: 0.13, to: 60 });
-        noise(0, 0.12, { vol: 0.07, type: 'highpass', f: 2400 });
-        [1319, 1760, 2093, 2637, 3136].forEach((f, i) => bell(f, 0.05 + i * 0.055, 0.55, 0.04, 0.6));
+        // Bụp mở túi + hào quang linh thú xuất hiện
+        tone(240, 0, 0.18, { vol: 0.14, to: 58 });
+        noise(0, 0.12, { vol: 0.075, type: 'highpass', f: 2400 });
+        [1319, 1760, 2093, 2637, 3136].forEach((f, i) => bell(f, 0.045 + i * 0.052, 0.55, 0.042, 0.6));
       } else if (kind === 'correct') {
         const m = Math.pow(2, Math.min(n, 6) / 12); // combo càng cao, càng lên tông
-        [523, 659, 784, 1047].forEach((f, i) => bell(f * m, i * 0.085, 0.4, 0.07, 0.4));
-        noise(0.28, 0.25, { vol: 0.012, type: 'highpass', f: 5000 });
+        [523, 659, 784, 1047].forEach((f, i) => bell(f * m, i * 0.085, 0.42, 0.072, 0.42));
+        noise(0.28, 0.25, { vol: 0.014, type: 'highpass', f: 5000 });
         if (n >= 2) {
           tone(300 * m, 0, 0.28, { type: 'sawtooth', vol: 0.022, to: 1300 * m });
-          bell(2093 * m, 0.34, 0.5, 0.04, 0.6);
+          bell(2093 * m, 0.34, 0.5, 0.042, 0.6);
         }
       } else if (kind === 'wrong') {
         tone(196, 0, 0.16, { type: 'square', vol: 0.034, to: 150 });
         tone(147, 0.14, 0.28, { type: 'square', vol: 0.034, to: 98 });
         tone(98, 0, 0.3, { type: 'sine', vol: 0.07, to: 70 });
       } else if (kind === 'reward') {
-        [659, 784, 988, 1319].forEach((f, i) => bell(f, i * 0.08, 0.45, 0.06, 0.5));
-        [523, 659, 784].forEach((f) => tone(f, 0.34, 0.7, { type: 'triangle', vol: 0.035, send: 0.4 }));
-        bell(2093, 0.4, 0.7, 0.03, 0.7);
+        [659, 784, 988, 1319].forEach((f, i) => bell(f, i * 0.08, 0.45, 0.062, 0.5));
+        [523, 659, 784].forEach((f) => tone(f, 0.34, 0.7, { type: 'triangle', vol: 0.036, send: 0.4 }));
+        bell(2093, 0.4, 0.7, 0.032, 0.7);
       } else if (kind === 'win') {
-        [523, 659, 784, 1047, 1319].forEach((f, i) => bell(f, i * 0.09, 0.45, 0.07, 0.5));
+        [523, 659, 784, 1047, 1319].forEach((f, i) => bell(f, i * 0.09, 0.45, 0.072, 0.5));
         [523, 659, 784, 1047].forEach((f) => tone(f, 0.5, 1.0, { type: 'triangle', vol: 0.05, send: 0.45 }));
         tone(131, 0.5, 1.0, { vol: 0.09 });
-        [2093, 2637, 3136, 2637, 3136, 4186].forEach((f, i) => bell(f, 0.56 + i * 0.07, 0.55, 0.028, 0.7));
+        [2093, 2637, 3136, 2637, 3136, 4186].forEach((f, i) => bell(f, 0.56 + i * 0.07, 0.55, 0.03, 0.7));
         noise(0.5, 0.5, { vol: 0.02, type: 'highpass', f: 4000 });
       }
     } catch (e) { /* noop */ }
@@ -300,17 +302,46 @@ function StarRow({ count, size = 22, pop = false }) {
 }
 
 /* ==========================================================================
-   THẺ TÚI MÙ (memo: chỉ render lại khi chính nó thay đổi)
+   THẺ TÚI MÙ 3D (có hiệu ứng nghiêng 3D & ánh kim chạy theo chuột/ngón tay)
    ========================================================================== */
 
 const BagCard = memo(function BagCard({ bag, index, kind, stars, solved, tearing, onOpen, onHover }) {
+  const btnRef = useRef(null);
+
+  const handlePointerMove = useCallback((e) => {
+    const el = btnRef.current;
+    if (!el || tearing) return;
+    const r = el.getBoundingClientRect();
+    if (!r.width || !r.height) return;
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    const rx = ((0.5 - py) * 10).toFixed(2);
+    const ry = ((px - 0.5) * 12).toFixed(2);
+    el.style.setProperty('--rx', `${rx}deg`);
+    el.style.setProperty('--ry', `${ry}deg`);
+    el.style.setProperty('--mx', `${Math.round(px * 100)}%`);
+    el.style.setProperty('--my', `${Math.round(py * 100)}%`);
+  }, [tearing]);
+
+  const handlePointerLeave = useCallback(() => {
+    const el = btnRef.current;
+    if (!el) return;
+    el.style.setProperty('--rx', '0deg');
+    el.style.setProperty('--ry', '0deg');
+    el.style.setProperty('--mx', '50%');
+    el.style.setProperty('--my', '30%');
+  }, []);
+
   return (
     <button
+      ref={btnRef}
       type="button"
       className={`mg-bag${solved ? ' is-solved' : ''}${tearing ? ' is-tearing' : ''}`}
       style={bagVars(bag, index)}
       onClick={() => onOpen(bag.id)}
       onPointerEnter={onHover}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
       aria-label={solved ? `${bag.shortName} — đã mở, xem lại phần thưởng` : `${bag.shortName} — chạm để xé túi`}
     >
       <div className="mg-bag-code">{bag.code}</div>
@@ -328,10 +359,10 @@ const BagCard = memo(function BagCard({ bag, index, kind, stars, solved, tearing
       <div className="mg-bag-name">{bag.shortName}</div>
       {solved ? (
         <div className="mg-bag-sub is-reward">
-          <StarRow count={stars} size={15} />
+          <StarRow count={stars} size={16} />
         </div>
       ) : (
-        <div className="mg-bag-sub">Chạm để bóc túi</div>
+        <div className="mg-bag-sub">Chạm để xé seal</div>
       )}
     </button>
   );
@@ -616,6 +647,7 @@ export default function Slide19MiniGame({ onNext, stage }) {
       if (idx < 0) idx = ['1', '2', '3', '4'].indexOf(key);
       if (idx >= 0) {
         e.preventDefault();
+        e.stopPropagation(); // không để phím 1-4 lọt xuống App và chuyển chương
         const order = ordersRef.current[activeRef.current];
         const orig = order ? order[idx] : idx;
         if (orig !== undefined) handleAnswer(orig);
@@ -623,8 +655,8 @@ export default function Slide19MiniGame({ onNext, stage }) {
         backToPick();
       }
     };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    window.addEventListener('keydown', onKey, true);
+    return () => window.removeEventListener('keydown', onKey, true);
   }, [view, handleAnswer, backToPick]);
 
   /* ---- Render ---- */
