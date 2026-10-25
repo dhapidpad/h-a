@@ -44,7 +44,6 @@ export default function SvgSoilCompaction() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -147,24 +146,6 @@ export default function SvgSoilCompaction() {
         </pattern>
 
         {/* ================= SHADOWS ================= */}
-
-        <filter id={uid("shadow")} x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="11"
-            floodColor="#0F172A"
-            floodOpacity=".07"
-          />
-        </filter>
-
-        <filter id={uid("glow")} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-
-        <filter id={uid("smallGlow")} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="2" />
-        </filter>
 
         {/* ================= CLIPPING ================= */}
 
@@ -287,7 +268,7 @@ export default function SvgSoilCompaction() {
       <text
         x="54"
         y="43"
-        fontSize="11"
+        fontSize="13"
         fontWeight="900"
         letterSpacing="2"
         fill="#15803D"
@@ -316,7 +297,7 @@ export default function SvgSoilCompaction() {
           02 · LEFT PANEL: WELL-STRUCTURED SOIL
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="30"
           y="135"
@@ -347,7 +328,7 @@ export default function SvgSoilCompaction() {
         ĐẤT CÂN BẰNG, TƠI XỐP
       </text>
 
-      <text x="99" y="186" fontSize="10.5" fontWeight="600" fill="#16A34A">
+      <text x="99" y="186" fontSize="13" fontWeight="600" fill="#16A34A">
         NHIỀU LỖ RỖNG · RỄ PHÁT TRIỂN
       </text>
 
@@ -355,14 +336,14 @@ export default function SvgSoilCompaction() {
 
       <circle cx="376" cy="171.5" r="4" fill="#22C55E" />
 
-      <text x="386" y="175.5" fontSize="9.5" fontWeight="900" fill="#15803D">
+      <text x="386" y="175.5" fontSize="12.5" fontWeight="900" fill="#15803D">
         THOÁNG KHÍ
       </text>
 
       {/* Soil scene */}
       <rect x="51" y="210" width="415" height="254" rx="14" fill="#F0FDF4" />
 
-      <text x="66" y="229" fontSize="9.5" fontWeight="800" fill="#64748B">
+      <text x="66" y="229" fontSize="12.5" fontWeight="800" fill="#64748B">
         MẶT CẮT VÙNG RỄ
       </text>
 
@@ -579,13 +560,13 @@ export default function SvgSoilCompaction() {
 
       <circle cx="74" cy="286" r="3" fill="#0284C7" />
 
-      <text x="82" y="289.5" fontSize="9" fontWeight="900" fill="#075985">
+      <text x="82" y="289.5" fontSize="12.5" fontWeight="900" fill="#075985">
         O₂
       </text>
 
       <rect x="391" y="278" width="59" height="20" rx="10" fill="#DBEAFE" stroke="#93C5FD" />
 
-      <text x="420.5" y="291.5" textAnchor="middle" fontSize="9" fontWeight="900" fill="#1D4ED8">
+      <text x="420.5" y="291.5" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#1D4ED8">
         THẤM
       </text>
 
@@ -603,11 +584,11 @@ export default function SvgSoilCompaction() {
         strokeLinejoin="round"
       />
 
-      <text x="84" y="496" fontSize="10.5" fontWeight="900" fill="#166534">
+      <text x="84" y="496" fontSize="13" fontWeight="900" fill="#166534">
         Nhiều lỗ rỗng lớn
       </text>
 
-      <text x="84" y="510" fontSize="9.5" fill="#166534">
+      <text x="84" y="510" fontSize="12.5" fill="#166534">
         Không khí, nước và rễ có đường di chuyển.
       </text>
 
@@ -617,11 +598,11 @@ export default function SvgSoilCompaction() {
 
         <circle cx="66" cy="549" r="6" fill="#BAE6FD" />
 
-        <text x="78" y="546" fontSize="9" fontWeight="900" fill="#166534">
+        <text x="78" y="546" fontSize="12.5" fontWeight="900" fill="#166534">
           THOÁNG KHÍ
         </text>
 
-        <text x="78" y="558" fontSize="8.5" fill="#64748B">
+        <text x="78" y="558" fontSize="12.5" fill="#64748B">
           O₂ lưu thông
         </text>
 
@@ -629,11 +610,11 @@ export default function SvgSoilCompaction() {
 
         <circle cx="206" cy="549" r="6" fill="#7DD3FC" />
 
-        <text x="218" y="546" fontSize="9" fontWeight="900" fill="#075985">
+        <text x="218" y="546" fontSize="12.5" fontWeight="900" fill="#075985">
           THẤM NƯỚC
         </text>
 
-        <text x="218" y="558" fontSize="8.5" fill="#64748B">
+        <text x="218" y="558" fontSize="12.5" fill="#64748B">
           Dẫn nước xuống
         </text>
 
@@ -641,16 +622,16 @@ export default function SvgSoilCompaction() {
 
         <circle cx="346" cy="549" r="6" fill="#FDE68A" />
 
-        <text x="358" y="546" fontSize="9" fontWeight="900" fill="#92400E">
+        <text x="358" y="546" fontSize="12.5" fontWeight="900" fill="#92400E">
           RỄ DỄ LAN
         </text>
 
-        <text x="358" y="558" fontSize="8.5" fill="#64748B">
+        <text x="358" y="558" fontSize="12.5" fill="#64748B">
           Mở rộng vùng hút
         </text>
       </g>
 
-      <text x="53" y="594" fontSize="9.5" fontWeight="600" fill="#64748B">
+      <text x="53" y="594" fontSize="12.5" fontWeight="600" fill="#64748B">
         Mục tiêu: duy trì cấu trúc viên đất ổn định và giàu hữu cơ.
       </text>
 
@@ -658,7 +639,7 @@ export default function SvgSoilCompaction() {
           03 · RIGHT PANEL: COMPACTION + SALINITY
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="515"
           y="135"
@@ -690,7 +671,7 @@ export default function SvgSoilCompaction() {
         ĐẤT NÉN CHẶT
       </text>
 
-      <text x="584" y="186" fontSize="10.5" fontWeight="600" fill="#B45309">
+      <text x="584" y="186" fontSize="13" fontWeight="600" fill="#B45309">
         ÍT LỖ RỖNG · RỄ KHÓ XUYÊN QUA
       </text>
 
@@ -698,14 +679,14 @@ export default function SvgSoilCompaction() {
 
       <circle cx="868" cy="171.5" r="4" fill="#D97706" />
 
-      <text x="878" y="175.5" fontSize="9.5" fontWeight="900" fill="#9A3412">
+      <text x="878" y="175.5" fontSize="12.5" fontWeight="900" fill="#9A3412">
         VẬT LÝ ĐẤT
       </text>
 
       {/* Right soil scene */}
       <rect x="534" y="210" width="415" height="254" rx="14" fill="#FFF7ED" />
 
-      <text x="549" y="229" fontSize="9.5" fontWeight="800" fill="#64748B">
+      <text x="549" y="229" fontSize="12.5" fontWeight="800" fill="#64748B">
         MẶT CẮT VÙNG RỄ
       </text>
 
@@ -827,7 +808,7 @@ export default function SvgSoilCompaction() {
               x={x}
               y={y + 3}
               textAnchor="middle"
-              fontSize="7.8"
+              fontSize="12"
               fontWeight="900"
               fill={ion === "Cl⁻" ? "#B91C1C" : "#9A3412"}
             >
@@ -858,7 +839,6 @@ export default function SvgSoilCompaction() {
           ry="35"
           fill="#FCA5A5"
           opacity=".14"
-          filter={`url(#${uid("glow")})`}
         />
 
         {/* Surface annotation scan */}
@@ -908,7 +888,7 @@ export default function SvgSoilCompaction() {
       {/* Water pooling annotation */}
       <rect x="548" y="276" width="107" height="22" rx="8" fill="#E0F2FE" stroke="#7DD3FC" />
 
-      <text x="601.5" y="290.5" textAnchor="middle" fontSize="9" fontWeight="900" fill="#075985">
+      <text x="601.5" y="290.5" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#075985">
         NƯỚC THẤM CHẬM
       </text>
 
@@ -923,14 +903,14 @@ export default function SvgSoilCompaction() {
 
       <rect x="816" y="306" width="111" height="23" rx="8" fill="#F5F5F4" stroke="#D6D3D1" />
 
-      <text x="871.5" y="321" textAnchor="middle" fontSize="8.8" fontWeight="900" fill="#57534E">
+      <text x="871.5" y="321" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#57534E">
         LỚP NÉN CHẶT
       </text>
 
       {/* Salt annotation */}
       <rect x="806" y="415" width="120" height="22" rx="8" fill="#FEF2F2" stroke="#FCA5A5" />
 
-      <text x="866" y="429.5" textAnchor="middle" fontSize="8.8" fontWeight="900" fill="#B91C1C">
+      <text x="866" y="429.5" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#B91C1C">
         Cl⁻ HÒA TAN
       </text>
 
@@ -949,7 +929,7 @@ export default function SvgSoilCompaction() {
         x="741.5"
         y="458"
         textAnchor="middle"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="800"
         fill="#FFFFFF"
       >
@@ -969,11 +949,11 @@ export default function SvgSoilCompaction() {
         strokeLinecap="round"
       />
 
-      <text x="567" y="496" fontSize="10.5" fontWeight="900" fill="#9A3412">
+      <text x="567" y="496" fontSize="13" fontWeight="900" fill="#9A3412">
         NÉN CHẶT ≠ MẶN
       </text>
 
-      <text x="567" y="510" fontSize="9.5" fill="#9A3412">
+      <text x="567" y="510" fontSize="12.5" fill="#9A3412">
         Hai vấn đề có thể cùng xuất hiện nhưng không phải một.
       </text>
 
@@ -983,11 +963,11 @@ export default function SvgSoilCompaction() {
 
         <circle cx="549" cy="549" r="6" fill="#A8A29E" />
 
-        <text x="561" y="546" fontSize="9" fontWeight="900" fill="#44403C">
+        <text x="561" y="546" fontSize="12.5" fontWeight="900" fill="#44403C">
           NÉN CHẶT
         </text>
 
-        <text x="561" y="558" fontSize="8.5" fill="#64748B">
+        <text x="561" y="558" fontSize="12.5" fill="#64748B">
           Áp lực cơ học lên đất
         </text>
 
@@ -995,16 +975,16 @@ export default function SvgSoilCompaction() {
 
         <circle cx="757" cy="549" r="6" fill="#F87171" />
 
-        <text x="769" y="546" fontSize="9" fontWeight="900" fill="#991B1B">
+        <text x="769" y="546" fontSize="12.5" fontWeight="900" fill="#991B1B">
           ĐỘ MẶN
         </text>
 
-        <text x="769" y="558" fontSize="8.5" fill="#64748B">
+        <text x="769" y="558" fontSize="12.5" fill="#64748B">
           Muối hòa tan dư thừa
         </text>
       </g>
 
-      <text x="536" y="594" fontSize="9.5" fontWeight="600" fill="#64748B">
+      <text x="536" y="594" fontSize="12.5" fontWeight="600" fill="#64748B">
         KCl quá mức có thể tăng tải lượng muối, không trực tiếp gây nén đất.
       </text>
 
@@ -1044,11 +1024,11 @@ export default function SvgSoilCompaction() {
         GIẢI PHÁP PHẢI ĐÚNG NGUYÊN NHÂN
       </text>
 
-      <text x="108" y="699" fontSize="10.5" fontWeight="600" fill="#64748B">
+      <text x="108" y="699" fontSize="13" fontWeight="600" fill="#64748B">
         Cải thiện cấu trúc đất và quản lý muối là hai quy trình riêng.
       </text>
 
-      <text x="108" y="716" fontSize="9.3" fill="#64748B">
+      <text x="108" y="716" fontSize="12.5" fill="#64748B">
         Không tự động thay KCl bằng K₂SO₄ để xử lý đất chai cứng.
       </text>
 
@@ -1069,11 +1049,11 @@ export default function SvgSoilCompaction() {
           strokeLinejoin="round"
         />
 
-        <text x="31" y="19" fontSize="9.5" fontWeight="900" fill="#166534">
+        <text x="31" y="19" fontSize="12.5" fontWeight="900" fill="#166534">
           CẤU TRÚC ĐẤT
         </text>
 
-        <text x="12" y="34" fontSize="8.8" fontWeight="600" fill="#166534">
+        <text x="12" y="34" fontSize="12.5" fontWeight="600" fill="#166534">
           Hữu cơ · hạn chế nén · che phủ
         </text>
       </g>
@@ -1089,11 +1069,11 @@ export default function SvgSoilCompaction() {
           fill="#F97316"
         />
 
-        <text x="31" y="19" fontSize="9.5" fontWeight="900" fill="#9A3412">
+        <text x="31" y="19" fontSize="12.5" fontWeight="900" fill="#9A3412">
           QUẢN LÝ ĐỘ MẶN
         </text>
 
-        <text x="12" y="34" fontSize="8.8" fontWeight="600" fill="#9A3412">
+        <text x="12" y="34" fontSize="12.5" fontWeight="600" fill="#9A3412">
           Đo EC · kiểm tra nước · thoát nước
         </text>
       </g>

@@ -71,8 +71,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         {/* Background */}
@@ -157,36 +156,6 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
             opacity="0.12"
           />
         </pattern>
-
-        <filter
-          id={`${uid}-shadow`}
-          x="-30%"
-          y="-25%"
-          width="160%"
-          height="165%"
-        >
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="7"
-            floodColor="#17412A"
-            floodOpacity="0.12"
-          />
-        </filter>
-
-        <filter
-          id={`${uid}-glow`}
-          x="-60%"
-          y="-60%"
-          width="220%"
-          height="220%"
-        >
-          <feGaussianBlur stdDeviation="5" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
 
         <marker
           id={`${uid}-arrow`}
@@ -349,7 +318,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           x="55"
           y="36.5"
           fill="#166534"
-          fontSize="10"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="1"
         >
@@ -371,7 +340,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           x="30"
           y="98"
           fill="#658071"
-          fontSize="11"
+          fontSize="13"
           fontWeight="500"
         >
           So sánh tỷ lệ nitơ theo khối lượng trong các hợp chất
@@ -391,7 +360,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
             y="17"
             textAnchor="middle"
             fill="#BBF7D0"
-            fontSize="9"
+            fontSize="12.5"
             fontWeight="700"
             letterSpacing="1"
           >
@@ -426,7 +395,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           x="35"
           y="132"
           fill="#668173"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="800"
           letterSpacing="0.7"
         >
@@ -453,7 +422,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
                 y={y + 4}
                 textAnchor="end"
                 fill="#82988A"
-                fontSize="11"
+                fontSize="13"
                 fontWeight="700"
               >
                 {value}%
@@ -560,7 +529,6 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
               fillOpacity="0.48"
               stroke="#B8C9C3"
               strokeWidth="1.7"
-              filter={`url(#${uid}-shadow)`}
             />
 
             {/* Liquid */}
@@ -712,7 +680,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
             />
 
             {/* Percentage label */}
-            <g filter={`url(#${uid}-shadow)`}>
+            <g>
               <rect
                 x={center - 43}
                 y={top - 29}
@@ -781,7 +749,6 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
                 fill={isSelected ? '#F0FDF4' : '#FFFFFF'}
                 stroke={isSelected ? tube.color : (tube.winner ? '#86EFAC' : '#E2E8F0')}
                 strokeWidth={isSelected ? '2.4' : (tube.winner ? '1.8' : '1.2')}
-                filter={`url(#${uid}-shadow)`}
               />
 
               <rect
@@ -809,7 +776,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
                 y="436"
                 textAnchor="middle"
                 fill={tube.dark}
-                fontSize="11.5"
+                fontSize="13"
                 fontWeight="700"
               >
                 {tube.formula}
@@ -833,7 +800,6 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           fill="#FFFFFF"
           stroke="#CDE8D6"
           strokeWidth="1.2"
-          filter={`url(#${uid}-shadow)`}
         />
 
         {/* Accent */}
@@ -868,7 +834,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           x="104"
           y="490"
           fill="#15803D"
-          fontSize="9.5"
+          fontSize="12.5"
           fontWeight="900"
           letterSpacing="1.2"
         >
@@ -889,7 +855,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
           x="104"
           y="526"
           fill="#6A8374"
-          fontSize="10.5"
+          fontSize="13"
           fontWeight="500"
         >
           Số liệu xấp xỉ tính theo công thức hóa học của các hợp chất tinh khiết.
@@ -908,7 +874,7 @@ export default function SvgPercentTubes({ selectedId = 'urea', onSelect }) {
             y="14"
             textAnchor="middle"
             fill="#658071"
-            fontSize="8"
+            fontSize="12"
             fontWeight="800"
           >
             TOP

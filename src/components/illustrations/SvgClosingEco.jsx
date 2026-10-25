@@ -168,34 +168,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
 
         {/* ================= FILTERS ================= */}
 
-        <filter id={uid("shadow")} x="-30%" y="-30%" width="160%" height="170%">
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="8"
-            floodColor="#0F172A"
-            floodOpacity=".18"
-          />
-        </filter>
-
-        <filter id={uid("deepShadow")} x="-30%" y="-30%" width="160%" height="170%">
-          <feDropShadow
-            dx="0"
-            dy="10"
-            stdDeviation="12"
-            floodColor="#052E16"
-            floodOpacity=".25"
-          />
-        </filter>
-
-        <filter id={uid("glow")} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="7" />
-        </filter>
-
-        <filter id={uid("smallGlow")} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="2.5" />
-        </filter>
-
         {/* ================= ANIMATIONS ================= */}
 
         <style>{`
@@ -366,7 +338,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
         r="152"
         fill={accent}
         opacity=".17"
-        filter={`url(#${uid("glow")})`}
         className={uid("atmosphere")}
         style={{ transition: "fill .7s ease" }}
       />
@@ -463,7 +434,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           stroke="#22C55E"
           strokeWidth="14"
           opacity=".09"
-          filter={`url(#${uid("glow")})`}
         />
 
         <path
@@ -471,7 +441,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           stroke="#8B5CF6"
           strokeWidth="14"
           opacity=".11"
-          filter={`url(#${uid("glow")})`}
         />
 
         <path
@@ -479,7 +448,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           stroke="#FBBF24"
           strokeWidth="14"
           opacity=".11"
-          filter={`url(#${uid("glow")})`}
         />
 
         {/* Nitrogen orbit */}
@@ -548,7 +516,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
                 r={4.4 - k * 0.75}
                 fill={color}
                 opacity={1 - k * 0.2}
-                filter={k === 0 ? `url(#${uid("smallGlow")})` : undefined}
               >
                 <animateMotion
                   dur={`${dur}s`}
@@ -588,7 +555,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
         ry="41"
         fill="#0F172A"
         opacity=".08"
-        filter={`url(#${uid("glow")})`}
       />
 
       <ellipse
@@ -630,7 +596,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
             stroke="#8B5CF6"
             strokeWidth="11"
             opacity=".12"
-            filter={`url(#${uid("glow")})`}
           />
 
           <path
@@ -638,7 +603,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
             stroke="#8B5CF6"
             strokeWidth="11"
             opacity=".12"
-            filter={`url(#${uid("glow")})`}
           />
 
           <path
@@ -699,7 +663,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
               r="8"
               fill="#A78BFA"
               opacity=".2"
-              filter={`url(#${uid("smallGlow")})`}
             />
             <circle
               cx={x}
@@ -767,7 +730,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           d="M-24 106C-29 49-42 0-72-38C-40-31-20-7-8 17L-9-65H10L10 17C23-7 42-31 72-38C42 0 29 49 24 106Z"
           fill="#451A03"
           opacity=".18"
-          filter={`url(#${uid("deepShadow")})`}
         />
 
         {/* Main trunk */}
@@ -787,7 +749,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           fill={`url(#${uid("trunk")})`}
           stroke="#78350F"
           strokeWidth="1.2"
-          filter={`url(#${uid("shadow")})`}
         />
 
         {/* Trunk highlight */}
@@ -847,7 +808,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
 
       <g
         transform="translate(320 250)"
-        filter={`url(#${uid("deepShadow")})`}
       >
         {/* Dark foliage silhouette behind the canopy */}
         <g fill={`url(#${uid("leafDeep")})`}>
@@ -925,7 +885,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           ry="29"
           fill="#D9F99D"
           opacity=".13"
-          filter={`url(#${uid("glow")})`}
         />
 
         {/* Tiny glowing leaves */}
@@ -992,7 +951,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
               r={fruit.r + 2}
               fill="#9A3412"
               opacity=".18"
-              filter={`url(#${uid("smallGlow")})`}
             />
 
             {/* Fruit */}
@@ -1142,7 +1100,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           r="42"
           fill="#22C55E"
           opacity=".14"
-          filter={`url(#${uid("glow")})`}
         />
 
         <circle
@@ -1162,7 +1119,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           fill={`url(#${uid("nitrogen")})`}
           stroke="#DCFCE7"
           strokeWidth="1.5"
-          filter={`url(#${uid("shadow")})`}
         />
 
         <ellipse
@@ -1210,7 +1166,7 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           x="0"
           y="48.5"
           textAnchor="middle"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="900"
           fill="#166534"
         >
@@ -1228,7 +1184,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           r="42"
           fill="#8B5CF6"
           opacity=".15"
-          filter={`url(#${uid("glow")})`}
         />
 
         <circle
@@ -1248,7 +1203,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           fill={`url(#${uid("phosphorus")})`}
           stroke="#EDE9FE"
           strokeWidth="1.5"
-          filter={`url(#${uid("shadow")})`}
         />
 
         <ellipse
@@ -1296,7 +1250,7 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           x="0"
           y="48.5"
           textAnchor="middle"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="900"
           fill="#5B21B6"
         >
@@ -1314,7 +1268,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           r="39"
           fill="#FBBF24"
           opacity=".19"
-          filter={`url(#${uid("glow")})`}
         />
 
         <circle
@@ -1334,7 +1287,6 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           fill={`url(#${uid("potassium")})`}
           stroke="#FFFBEB"
           strokeWidth="1.5"
-          filter={`url(#${uid("shadow")})`}
         />
 
         <ellipse
@@ -1374,7 +1326,7 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           x="0"
           y="45.5"
           textAnchor="middle"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="900"
           fill="#92400E"
         >
@@ -1410,14 +1362,7 @@ export default function SvgClosingEco({ active = 0 } = {}) {
               rotate="auto"
               path={`M${x} 118C${x - 52} 190 ${x + 56} 262 ${x - 8} 352`}
             />
-            <animate
-              attributeName="opacity"
-              values="0;1;1;0"
-              keyTimes="0;.1;.85;1"
-              dur={`${dur}s`}
-              begin={`${delay}s`}
-              repeatCount="indefinite"
-            />
+            
           </path>
         ))}
 
@@ -1431,13 +1376,13 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           [490, 240, 7.5],
         ].map(([x, y, dur], i) => (
           <g key={`fly-${i}`}>
-            <circle r="7" fill="#FDE047" opacity=".35" filter={`url(#${uid("smallGlow")})`}>
+            <circle r="7" fill="#FDE047" opacity=".35">
               <animateMotion
                 dur={`${dur}s`}
                 repeatCount="indefinite"
                 path={`M${x} ${y}c16-14 30 6 24 20s-30 10-24-20Z`}
               />
-              <animate attributeName="opacity" values=".1;.55;.1" dur="2.6s" repeatCount="indefinite" begin={`${i * 0.4}s`} />
+              
             </circle>
             <circle r="2" fill="#FEF9C3">
               <animateMotion
@@ -1546,7 +1491,7 @@ export default function SvgClosingEco({ active = 0 } = {}) {
           x="320"
           y="500.5"
           textAnchor="middle"
-          fontSize="10"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="1"
           fill="#166534"

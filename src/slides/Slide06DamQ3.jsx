@@ -1,222 +1,87 @@
 import React, { useState } from 'react';
-import CuteMascot from '../components/mascot/CuteMascot';
-import SvgStageCard from '../components/SvgStageCard';
+import QuestionSlide from './QuestionSlide';
 import SvgGasLoss from '../components/illustrations/SvgGasLoss';
 
-const LOSS_CARDS = [
+const PILLARS = [
   {
     id: 'hydrolysis',
     number: '01',
-    tag: 'THỦY PHÂN',
+    tone: 'blue',
     title: 'CƠ CHẾ THỦY PHÂN URÊ TRONG ĐẤT',
-    equation: 'CO(NH₂)₂ + 2H₂O ⟶ (NH₄)₂CO₃',
-    desc: 'Dưới tác dụng của men Urease do vi sinh vật đất tiết ra, Urê chuyển thành amoni cacbonat tan trong nước, phân li ra ion NH₄⁺ để rễ cây trực tiếp hấp thu nuôi lá.',
-    accent: '#0284C7',
-    accentLight: '#E0F2FE',
-    accentDark: '#0369A1'
+    badge: 'THỦY PHÂN',
+    equation: 'Phản ứng: CO(NH₂)₂ + 2H₂O ⟶ (NH₄)₂CO₃',
+    desc: (
+      <>
+        Nhờ enzyme Urease của vi sinh vật đất, Urê chuyển thành <strong>(NH₄)₂CO₃</strong> tan trong nước, phân li ra ion <strong>NH₄⁺</strong> cho rễ hấp thu.
+      </>
+    ),
   },
   {
     id: 'lime',
     number: '02',
-    tag: 'MẤT NH₃↑',
-    title: 'BỐC HƠI KHI GẶP ĐẤT KIỀM / TRỘN CHUNG VỚI VÔI',
-    equation: 'NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O',
-    desc: 'Gốc OH⁻ của vôi kiềm đẩy NH₄⁺ thành khí Amoniac (NH₃) bay hơi vào không khí. Bón đạm gặp vôi hoặc phơi nắng mặt ruộng có thể làm thất thoát 30% – 50% lượng đạm!',
-    accent: '#EF4444',
-    accentLight: '#FEE2E2',
-    accentDark: '#B91C1C'
+    tone: 'red',
+    title: 'BỐC HƠI KHI GẶP ĐẤT KIỀM / TRỘN VÔI',
+    badge: 'MẤT NH₃↑',
+    equation: 'Phản ứng: NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O',
+    desc: (
+      <>
+        Gốc <strong>OH⁻</strong> của vôi kiềm đẩy NH₄⁺ thành khí <strong>NH₃ bay hơi</strong>. Trộn vôi hoặc phơi nắng mặt ruộng làm mất <strong>30% – 50% đạm</strong>!
+      </>
+    ),
   },
   {
     id: 'leaching',
     number: '03',
-    tag: 'RỬA TRÔI',
-    title: 'RỬA TRÔI TẦNG NƯỚC NGẦM & PHÚ DƯỠNG',
-    equation: 'NO₃⁻ không bị keo đất giữ',
-    desc: 'Ion Nitrat mang điện tích âm (-) không bám được vào hạt keo đất (-). Khi gặp mưa to hay tưới tràn, NO₃⁻ bị cuốn trôi xuống mạch nước ngầm gây phú dưỡng ao hồ.',
-    accent: '#F59E0B',
-    accentLight: '#FEF3C7',
-    accentDark: '#B45309'
-  }
+    tone: 'amber',
+    title: 'RỬA TRÔI NƯỚC NGẦM & CHUA HÓA ĐẤT',
+    badge: 'RỬA TRÔI',
+    equation: 'Nitrat hóa: NH₄⁺ + 2O₂ ⟶ NO₃⁻ + 2H⁺ + H₂O',
+    desc: (
+      <>
+        Ion <strong>NO₃⁻ (-)</strong> không bám keo đất âm nên dễ bị mưa rửa trôi gây phú dưỡng; còn <strong>H⁺ sinh ra</strong> làm đất chua càng thêm chua.
+      </>
+    ),
+  },
 ];
 
 export default function Slide06DamQ3({ onOpenNotes }) {
   const [activeCard, setActiveCard] = useState('lime');
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 10, position: 'relative', overflow: 'hidden' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-        <div>
-          <div className="chapter-pill" style={{ backgroundColor: '#DCFCE7', color: '#15803D' }}>
-            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN ĐẠM (N) • CÂU HỎI 03 / 15</span>
-          </div>
-          <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
-            CƠ CHẾ CHUYỂN HÓA &amp; NGUY CƠ THẤT THOÁT ĐẠM
-          </h2>
-        </div>
-
-        <div className="slide-header-badge">
-          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)' }}>
-            NH₃↑
-          </div>
-          <div className="slide-header-badge-text">
-            <div className="slide-header-badge-sub" style={{ color: '#FCA5A5' }}>TƯƠNG KỴ HÓA HỌC</div>
-            <div className="slide-header-badge-main">NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Banner câu hỏi thảo luận */}
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        border: '1.5px solid #FCA5A5',
-        borderRadius: 14,
-        padding: '10px 18px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 4px 14px rgba(239, 68, 68, 0.07)'
-      }}>
-        <div style={{
-          width: 34,
-          height: 34,
-          borderRadius: 9,
-          background: '#FEE2E2',
-          color: '#DC2626',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          fontWeight: 900,
-          fontSize: 15
-        }}>
-          ?
-        </div>
-        <div style={{ fontSize: 14.5, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
-          <span style={{ color: '#DC2626', fontWeight: 900 }}>Câu hỏi thảo luận: </span>
-          Urê chuyển hóa trong đất như thế nào? Tại sao bón phân đạm rải mặt khi nắng gắt hoặc bón trên đất kiềm/bón chung với vôi lại gây bốc hơi mất đạm?
-        </div>
-      </div>
-
-      {/* Grid 2 cột */}
-      <div className="slide-main-grid">
-        {/* Cột trái */}
-        <div className="slide-content-col">
-          {LOSS_CARDS.map((card) => {
-            const isSelected = activeCard === card.id;
-            return (
-              <div
-                key={card.id}
-                onClick={() => setActiveCard(card.id)}
-                style={{
-                  background: isSelected ? 'rgba(255, 255, 255, 0.99)' : 'rgba(255, 255, 255, 0.92)',
-                  borderRadius: 14,
-                  padding: '9px 14px',
-                  borderLeft: `5px solid ${card.accent}`,
-                  borderTop: `1px solid ${isSelected ? card.accent : '#E2E8F0'}`,
-                  borderRight: `1px solid ${isSelected ? card.accent : '#E2E8F0'}`,
-                  borderBottom: `1px solid ${isSelected ? card.accent : '#E2E8F0'}`,
-                  boxShadow: isSelected ? '0 8px 20px rgba(15, 23, 42, 0.08)' : '0 2px 8px rgba(15, 23, 42, 0.03)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  display: 'flex',
-                  gap: 12,
-                  alignItems: 'flex-start'
-                }}
-              >
-                <div style={{
-                  width: 38,
-                  height: 38,
-                  borderRadius: 11,
-                  background: card.accentLight,
-                  color: card.accentDark,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontWeight: 900,
-                  fontSize: 16,
-                  flexShrink: 0
-                }}>
-                  {card.number}
-                </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 6, marginBottom: 3 }}>
-                    <div style={{ fontSize: 15, fontWeight: 800, color: card.accentDark }}>
-                      {card.title}
-                    </div>
-                    <span style={{ fontSize: 12.5, fontWeight: 900, background: card.accentLight, color: card.accentDark, padding: '2px 8px', borderRadius: 6, flexShrink: 0 }}>
-                      {card.tag}
-                    </span>
-                  </div>
-                  <div style={{ fontSize: 13, fontWeight: 800, color: card.accent, marginBottom: 3 }}>
-                    Phản ứng: {card.equation}
-                  </div>
-                  <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                    {card.desc}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-
-          {/* Kỹ thuật chuẩn */}
-          <div style={{
-            background: '#F0FDF4',
-            borderRadius: 12,
-            padding: '9px 14px',
-            border: '1.5px dashed #22C55E',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontSize: 14,
-            color: '#15803D'
-          }}>
-            <div style={{
-              width: 26,
-              height: 26,
-              borderRadius: 6,
-              background: '#DCFCE7',
-              color: '#16A34A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontWeight: 900,
-              fontSize: 12.5
-            }}>
-              MẸO
-            </div>
-            <span>
-              <strong>Kỹ thuật chống mất đạm:</strong> Bón vùi sâu <strong>5 – 7 cm</strong> rồi lấp đất kín ngay; không bón đạm lúc trời nắng gắt hay cùng lúc với bón vôi khử chua (nên cách nhau 15–20 ngày).
-            </span>
-          </div>
-
-          {/* Linh thú Bé Đạm */}
-          <CuteMascot
-            variant="banner"
-            mascotType="SPROUTY_N"
-            emotion={activeCard === 'lime' ? 'shocked' : 'teacher'}
-            speech={
-              activeCard === 'lime'
-                ? "Ối dồi ôi! Gặp vôi bột là tớ biến thành khí NH₃ bay mất lên mây liền, phí tiền của bà con lắm đó! 😱"
-                : "Hãy vùi sâu tớ xuống đất rồi tưới ẩm nhẹ nhàng, rễ cây sẽ hút trọn vẹn 100% nha! 🌱✨"
-            }
-            size={44}
-            onClick={onOpenNotes}
-          />
-        </div>
-
-        {/* Cột phải: SVG Showcase Stage */}
-        <SvgStageCard
-          title="BỐC HƠI NH₃ & RỬA TRÔI NITRAT"
-          subtitle="Cơ chế thủy phân Urê • Tương kỵ NH₄⁺ + OH⁻ ⟶ NH₃↑ & rửa trôi NO₃⁻"
-          chapter="dam"
-          badge="NH₃↑ Bốc hơi"
-          takeaway="Trộn đạm với vôi hoặc bón rải mặt gặp nắng gắt làm NH₄⁺ chuyển thành khí NH₃ bay hơi mất 30–50% đạm. Ion NO₃⁻ không bám keo đất dễ bị mưa lớn cuốn trôi gây ô nhiễm nguồn nước ngầm."
-        >
-          <SvgGasLoss />
-        </SvgStageCard>
-      </div>
-    </div>
+    <QuestionSlide
+      chapter="dam"
+      pillText="PHÂN ĐẠM (N) • CÂU HỎI 03 / 15"
+      title="ĐẠM AMONI VỚI ĐẤT CHUA & ĐẤT VÔI (THẤT THOÁT NH₃)"
+      badgeIcon={{ text: 'NH₃↑', bg: 'linear-gradient(135deg, var(--danger) 0%, var(--danger-deep) 100%)' }}
+      badgeSub="TƯƠNG KỴ HÓA HỌC"
+      badgeMain="NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O"
+      question="Urê chuyển hóa trong đất thế nào? Tại sao bón đạm amoni trên đất chua làm đất thêm chua, còn trộn chung với vôi bột lại bay hơi mất đạm?"
+      pillars={PILLARS}
+      activeCardId={activeCard}
+      onSelectCard={setActiveCard}
+      note={{
+        tag: 'MẸO',
+        title: 'Kỹ thuật chống mất đạm:',
+        text: 'Vùi sâu 5–7 cm rồi lấp đất kín; cách ly thời gian bón vôi khử chua và bón đạm ít nhất 15–20 ngày.',
+      }}
+      mascot={{
+        mascotType: 'SPROUTY_N',
+        emotion: activeCard === 'lime' ? 'shocked' : 'teacher',
+        speech:
+          activeCard === 'lime'
+            ? 'Ối dồi ôi! Gặp vôi bột là tớ biến thành khí NH₃ bay mất lên mây liền, phí tiền của bà con lắm đó! 😱'
+            : 'Hãy vùi sâu tớ xuống đất rồi tưới ẩm nhẹ nhàng, rễ cây sẽ hút trọn vẹn 100% nha! 🌱✨',
+      }}
+      svgCard={{
+        title: 'BỐC HƠI NH₃ & RỬA TRÔI NITRAT',
+        subtitle: 'Cơ chế thủy phân Urê • Tương kỵ NH₄⁺ + OH⁻ ⟶ NH₃↑ & rửa trôi NO₃⁻',
+        badge: 'NH₃↑ Bốc hơi',
+        takeaway:
+          'Trộn đạm với vôi hoặc bón rải mặt gặp nắng gắt làm NH₄⁺ chuyển thành khí NH₃ bay hơi mất 30–50% đạm. Ion NO₃⁻ không bám keo đất dễ bị mưa lớn cuốn trôi gây ô nhiễm nguồn nước ngầm.',
+      }}
+      onOpenNotes={onOpenNotes}
+    >
+      <SvgGasLoss />
+    </QuestionSlide>
   );
 }

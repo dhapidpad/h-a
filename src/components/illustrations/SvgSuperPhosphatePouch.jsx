@@ -50,7 +50,7 @@ const SEAM_PATH = 'M 8 24 Q 110 6 212 24 L 213 46 Q 110 28 7 46 Z';
 /* ---------- Bao phân dùng chung: vỏ, mép khâu, ánh bóng ---------- */
 const BagShell = ({ children, stroke, seam }) => (
   <g>
-    <ellipse cx="110" cy="268" rx="104" ry="11" fill="#1E1B4B" opacity="0.22" filter="url(#spBlur)" />
+    <ellipse cx="110" cy="268" rx="104" ry="11" fill="#1E1B4B" opacity="0.22" />
     <g clipPath="url(#spBagClip)">{children}</g>
 
     {/* Mép khâu miệng bao */}
@@ -93,8 +93,7 @@ export default function SvgSuperPhosphatePouch() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         <linearGradient id="spBg" x1="0" y1="0" x2="1" y2="1">
@@ -144,20 +143,7 @@ export default function SvgSuperPhosphatePouch() {
           <rect x="8" y="8" width="624" height="544" rx="26" />
         </clipPath>
 
-        <filter id="spBlur" x="-30%" y="-100%" width="160%" height="300%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-        <filter id="spGlow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="4" result="b" />
-          <feMerge>
-            <feMergeNode in="b" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-        <filter id="spShadow" x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#1E1B4B" floodOpacity="0.25" />
-        </filter>
-      </defs>
+        </defs>
 
       <g clipPath="url(#spFrame)">
         {/* ===== NỀN ===== */}
@@ -172,7 +158,7 @@ export default function SvgSuperPhosphatePouch() {
         </g>
 
         {/* ===== TIÊU ĐỀ ===== */}
-        <g filter="url(#spShadow)">
+        <g>
           <rect x="150" y="18" width="340" height="32" rx="16" fill="#FFFFFF" stroke="#8C6BFA" strokeWidth="1.6" />
           <text x="320" y="39" textAnchor="middle" fill="#5B21B6" fontSize="14" fontWeight="800">
             Hai loại phân lân supe
@@ -183,13 +169,13 @@ export default function SvgSuperPhosphatePouch() {
             BAO 1: SUPE LÂN ĐƠN
            =================================================== */}
         <g transform="translate(50, 0)">
-          <g filter="url(#spShadow)">
+          <g>
             <rect x="0" y="62" width="220" height="30" rx="15" fill="#F1F5F9" stroke="#94A3B8" strokeWidth="1.6" />
           </g>
           <text x="110" y="82" textAnchor="middle" fill="#334155" fontSize="13" fontWeight="800">
             Supe lân đơn (14–20%)
           </text>
-          <text x="110" y="109" textAnchor="middle" fill="#64748B" fontSize="11" fontWeight="600">
+          <text x="110" y="109" textAnchor="middle" fill="#64748B" fontSize="13" fontWeight="600">
             Quặng + H₂SO₄
           </text>
 
@@ -220,7 +206,7 @@ export default function SvgSuperPhosphatePouch() {
               <text x="110" y="88" textAnchor="middle" fill="#6B21A8" fontSize="14" fontWeight="800">
                 Ca(H₂PO₄)₂
               </text>
-              <text x="110" y="106" textAnchor="middle" fill="#7E22CE" fontSize="10.5" fontWeight="700">
+              <text x="110" y="106" textAnchor="middle" fill="#7E22CE" fontSize="13" fontWeight="700">
                 Muối tan, cây hấp thụ được
               </text>
 
@@ -229,10 +215,10 @@ export default function SvgSuperPhosphatePouch() {
               <text x="110" y="193" textAnchor="middle" fill="#334155" fontSize="14" fontWeight="900">
                 CaSO₄ ≈ 50%
               </text>
-              <text x="110" y="211" textAnchor="middle" fill="#64748B" fontSize="10.5" fontWeight="700">
+              <text x="110" y="211" textAnchor="middle" fill="#64748B" fontSize="13" fontWeight="700">
                 Thạch cao, ít tan
               </text>
-              <text x="110" y="228" textAnchor="middle" fill="#DC2626" fontSize="10.5" fontWeight="800">
+              <text x="110" y="228" textAnchor="middle" fill="#DC2626" fontSize="13" fontWeight="800">
                 ✖ Không chứa lân
               </text>
             </BagShell>
@@ -240,7 +226,7 @@ export default function SvgSuperPhosphatePouch() {
         </g>
 
         {/* ===== VS ===== */}
-        <g transform="translate(320 250)" filter="url(#spShadow)">
+        <g transform="translate(320 250)">
           <circle r="22" fill="#FFF" stroke="#8C6BFA" strokeWidth="2" />
           <text y="5" textAnchor="middle" fill="#6D28D9" fontSize="15" fontWeight="900">
             VS
@@ -251,13 +237,13 @@ export default function SvgSuperPhosphatePouch() {
             BAO 2: SUPE LÂN KÉP
            =================================================== */}
         <g transform="translate(370, 0)">
-          <g filter="url(#spShadow)">
+          <g>
             <rect x="0" y="62" width="220" height="30" rx="15" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="2" />
           </g>
           <text x="110" y="82" textAnchor="middle" fill="#6B21A8" fontSize="13" fontWeight="800">
             Supe lân kép (40–50%) 💎
           </text>
-          <text x="110" y="109" textAnchor="middle" fill="#7C3AED" fontSize="11" fontWeight="600">
+          <text x="110" y="109" textAnchor="middle" fill="#7C3AED" fontSize="13" fontWeight="600">
             Quặng + H₃PO₄
           </text>
 
@@ -266,20 +252,13 @@ export default function SvgSuperPhosphatePouch() {
               <rect x="-5" y="30" width="230" height="240" fill="url(#spRich)" />
               {DOUBLE_CRYSTALS.map((c, i) => (
                 <polygon key={i} points={diamond(c.x, c.y, c.s)} fill={c.c} opacity="0.9">
-                  {c.twinkle && (
-                    <animate
-                      attributeName="opacity"
-                      values="0.9;0.2;0.9"
-                      dur={`${c.d}s`}
-                      repeatCount="indefinite"
-                    />
-                  )}
+                  
                 </polygon>
               ))}
 
               {/* Huy hiệu 100% */}
               <circle cx="110" cy="100" r="58" fill="url(#spAura)" />
-              <circle cx="110" cy="100" r="42" fill="url(#spBadge)" stroke="#EDE9FE" strokeWidth="3" filter="url(#spGlow)" />
+              <circle cx="110" cy="100" r="42" fill="url(#spBadge)" stroke="#EDE9FE" strokeWidth="3" />
               <circle cx="110" cy="100" r="35" fill="none" stroke="#DDD6FE" strokeWidth="1" strokeDasharray="3 4" opacity="0.8" />
               <text x="110" y="108" textAnchor="middle" fill="#FFF" fontSize="24" fontWeight="900">
                 100%
@@ -304,8 +283,8 @@ export default function SvgSuperPhosphatePouch() {
             THANH SO SÁNH P₂O₅
            =================================================== */}
         <g transform="translate(50, 418)">
-          <rect x="0" y="0" width="540" height="92" rx="18" fill="#FFF" stroke="#C7D2FE" strokeWidth="1.5" filter="url(#spShadow)" />
-          <text x="20" y="22" fill="#475569" fontSize="11.5" fontWeight="800">
+          <rect x="0" y="0" width="540" height="92" rx="18" fill="#FFF" stroke="#C7D2FE" strokeWidth="1.5" />
+          <text x="20" y="22" fill="#475569" fontSize="13" fontWeight="800">
             Hàm lượng lân hữu hiệu (P₂O₅)
           </text>
 
@@ -315,7 +294,7 @@ export default function SvgSuperPhosphatePouch() {
               <line key={i} x1={110 + i * 74} y1="30" x2={110 + i * 74} y2="80" />
             ))}
           </g>
-          <g fill="#94A3B8" fontSize="9.5" fontWeight="700" textAnchor="middle">
+          <g fill="#94A3B8" fontSize="12.5" fontWeight="700" textAnchor="middle">
             {[0, 10, 20, 30, 40, 50].map((v, i) => (
               <text key={v} x={110 + i * 74} y="88">
                 {v}%
@@ -327,7 +306,7 @@ export default function SvgSuperPhosphatePouch() {
           <rect x="110" y="34" width="0" height="22" rx="7" fill="url(#spBarGray)">
             <animate attributeName="width" from="0" to="118" dur="1.2s" fill="freeze" />
           </rect>
-          <text x="118" y="49" fill="#FFF" fontSize="11" fontWeight="800">
+          <text x="118" y="49" fill="#FFF" fontSize="13" fontWeight="800">
             ≈ 16%
           </text>
 
@@ -335,14 +314,14 @@ export default function SvgSuperPhosphatePouch() {
           <rect x="110" y="58" width="0" height="22" rx="7" fill="url(#spBarPurple)">
             <animate attributeName="width" from="0" to="340" dur="1.4s" fill="freeze" />
           </rect>
-          <text x="118" y="73" fill="#FFF" fontSize="11" fontWeight="800">
+          <text x="118" y="73" fill="#FFF" fontSize="13" fontWeight="800">
             ≈ 46%
           </text>
 
           {/* Nhãn gấp mấy lần */}
           <g transform="translate(468, 30)">
             <rect x="0" y="0" width="64" height="26" rx="13" fill="#FDE047" stroke="#B45309" strokeWidth="1.3" />
-            <text x="32" y="17.5" textAnchor="middle" fill="#78350F" fontSize="11.5" fontWeight="900">
+            <text x="32" y="17.5" textAnchor="middle" fill="#78350F" fontSize="13" fontWeight="900">
               gấp ~3×
             </text>
           </g>

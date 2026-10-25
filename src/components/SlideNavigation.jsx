@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Maximize, Minimize, FileText, Sparkles, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Maximize, Minimize, Sparkles, BookOpen } from 'lucide-react';
 import { SLIDES } from '../data/slideData';
-import confetti from 'canvas-confetti';
 
 export default function SlideNavigation({
   currentIndex,
@@ -19,9 +18,11 @@ export default function SlideNavigation({
 
   const slideNumStr = String(currentIndex + 1).padStart(2, '0');
   const totalNumStr = String(totalSlides).padStart(2, '0');
-  const activeColor = chapter?.color || '#2F80ED';
+  const activeColor = chapter?.color || '#2563EB';
 
-  const triggerConfetti = () => {
+  // Mục 3.3: Chỉ nạp canvas-confetti khi người dùng bấm nút bắn hoa giấy
+  const triggerConfetti = async () => {
+    const { default: confetti } = await import('canvas-confetti');
     confetti({
       particleCount: 60,
       spread: 80,
@@ -52,10 +53,10 @@ export default function SlideNavigation({
             <span className="dock-total">{totalNumStr}</span>
           </div>
 
-          <div 
+          <div
             className="dock-chapter-pill"
-            style={{ 
-              backgroundColor: chapter?.softColor || '#EAF2FF', 
+            style={{
+              backgroundColor: chapter?.softColor || '#EFF6FF',
               color: activeColor,
               borderColor: `${activeColor}40`
             }}
@@ -65,10 +66,9 @@ export default function SlideNavigation({
           </div>
         </div>
 
-        {/* Thanh chia tách thanh mảnh */}
         <div className="dock-divider" />
 
-        {/* Nhóm 2: Thanh tiến độ 20 phân đoạn tương tác (Segmented Timeline) */}
+        {/* Nhóm 2: Thanh tiến độ 20 phân đoạn tương tác */}
         <div className="dock-timeline-track" title="Click vào bất kỳ vạch nào để nhảy đến slide tương ứng">
           {SLIDES.map((s, idx) => {
             const isCurrent = idx === currentIndex;
@@ -84,7 +84,7 @@ export default function SlideNavigation({
                 onMouseEnter={() => setHoveredIdx(idx)}
                 onMouseLeave={() => setHoveredIdx(null)}
                 style={{
-                  backgroundColor: isCurrent ? segColor : isPast ? `${segColor}B3` : 'rgba(15, 23, 42, 0.12)',
+                  backgroundColor: isCurrent ? segColor : isPast ? `${segColor}B3` : 'rgba(11, 18, 32, 0.12)',
                   boxShadow: isCurrent ? `0 0 12px ${segColor}CC, 0 0 2px ${segColor}` : 'none',
                 }}
                 aria-label={`Chuyển đến Slide ${idx + 1}: ${s.title}`}
@@ -93,15 +93,14 @@ export default function SlideNavigation({
           })}
         </div>
 
-        {/* Thanh chia tách thanh mảnh */}
         <div className="dock-divider" />
 
         {/* Nhóm 3: Nút Lùi / Tiến mượt mà */}
         <div className="dock-nav-controls">
-          <button 
+          <button
             type="button"
-            className="dock-circle-btn dock-prev-btn" 
-            onClick={onPrev} 
+            className="dock-circle-btn dock-prev-btn"
+            onClick={onPrev}
             disabled={currentIndex === 0}
             title="Slide trước (Phím ← hoặc PageUp)"
             aria-label="Slide trước"
@@ -109,13 +108,13 @@ export default function SlideNavigation({
             <ChevronLeft size={20} />
           </button>
 
-          <button 
+          <button
             type="button"
-            className="dock-circle-btn dock-next-btn" 
-            onClick={onNext} 
+            className="dock-circle-btn dock-next-btn"
+            onClick={onNext}
             disabled={currentIndex === totalSlides - 1}
-            style={{ 
-              background: `linear-gradient(135deg, ${activeColor} 0%, ${activeColor}DD 100%)`, 
+            style={{
+              background: `linear-gradient(135deg, ${activeColor} 0%, ${activeColor}DD 100%)`,
               boxShadow: `0 4px 16px ${activeColor}60`
             }}
             title="Slide tiếp theo (Phím → hoặc Space)"
@@ -125,14 +124,13 @@ export default function SlideNavigation({
           </button>
         </div>
 
-        {/* Thanh chia tách thanh mảnh */}
         <div className="dock-divider" />
 
-        {/* Nhóm 4: Bộ công cụ phụ trợ (Hoa giấy, Ghi chú N, Toàn màn hình F) */}
+        {/* Nhóm 4: Bộ công cụ phụ trợ */}
         <div className="dock-tools-group">
-          <button 
+          <button
             type="button"
-            className="dock-tool-btn dock-confetti-btn" 
+            className="dock-tool-btn dock-confetti-btn"
             onClick={triggerConfetti}
             title="Bắn hoa giấy chúc mừng!"
             aria-label="Bắn hoa giấy"
@@ -140,7 +138,7 @@ export default function SlideNavigation({
             <Sparkles size={18} />
           </button>
 
-          <button 
+          <button
             type="button"
             className={`dock-tool-btn dock-notes-btn ${isNotesOpen ? 'active' : ''}`}
             onClick={onToggleNotes}
@@ -152,9 +150,9 @@ export default function SlideNavigation({
             <span className="dock-tool-label">Ghi Chú</span>
           </button>
 
-          <button 
+          <button
             type="button"
-            className="dock-tool-btn dock-fullscreen-btn" 
+            className="dock-tool-btn dock-fullscreen-btn"
             onClick={onToggleFullscreen}
             title="Bật/Tắt Toàn Màn Hình (Phím F)"
             aria-label="Toàn màn hình"

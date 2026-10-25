@@ -6,14 +6,8 @@ import LinhThuKali from './LinhThuKali';
 export { LinhThuDam, LinhThuLan, LinhThuKali };
 
 /**
- * CuteMascot: Bộ ba Linh Thú N-P-K Chibi tương tác siêu dễ thương
- * - Bé Đạm (LinhThuDam / Sprouty N)
- * - Bé Lân (LinhThuLan / Sparky P)
- * - Bé Kali (LinhThuKali / Sunny K)
- * 
- * Hỗ trợ 2 chế độ:
- * - variant="banner": Tích hợp gọn gàng trong cột nội dung (KHÔNG BAO GIỜ CHE ĐỒ THỊ)
- * - variant="floating": Nổi góc với nút thu nhỏ/mở rộng để không che nội dung
+ * CuteMascot: Bộ ba Linh Thú N-P-K Chibi tương tác
+ * Đồng bộ bảng màu token (Mục 6.2) và bỏ transition: all (Mục 7.4)
  */
 export default function CuteMascot({
   mascotType = 'SPROUTY_N',
@@ -38,41 +32,40 @@ export default function CuteMascot({
 
   const theme = isDam
     ? {
-        border: '#86EFAC',
-        borderSolid: '#22C55E',
-        badgeBg: 'linear-gradient(135deg, #22C55E, #15803D)',
-        cardBg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 253, 244, 0.96) 100%)',
+        border: 'var(--n-line)',
+        borderSolid: 'var(--n-main)',
+        badgeBg: 'linear-gradient(135deg, var(--n-main), var(--n-deep))',
+        cardBg: 'linear-gradient(135deg, #FFFFFF 0%, var(--n-soft) 100%)',
         name: '🌱 Bé Đạm • Sprouty N',
         shortName: '🌱 BÉ ĐẠM NHẮC BẠN',
-        textColor: '#14532D',
-        glow: 'rgba(34, 197, 94, 0.16)',
+        textColor: 'var(--n-deep)',
+        glow: 'var(--n-glow)',
       }
     : isLan
     ? {
-        border: '#C4B5FD',
-        borderSolid: '#8B5CF6',
-        badgeBg: 'linear-gradient(135deg, #8B5CF6, #5B21B6)',
-        cardBg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(245, 243, 255, 0.96) 100%)',
+        border: 'var(--p-line)',
+        borderSolid: 'var(--p-main)',
+        badgeBg: 'linear-gradient(135deg, var(--p-main), var(--p-deep))',
+        cardBg: 'linear-gradient(135deg, #FFFFFF 0%, var(--p-soft) 100%)',
         name: '⚡ Bé Lân • Sparky P',
         shortName: '⚡ BÉ LÂN NHẮC BẠN',
-        textColor: '#581C87',
-        glow: 'rgba(139, 92, 246, 0.16)',
+        textColor: 'var(--p-deep)',
+        glow: 'var(--p-glow)',
       }
     : {
-        border: '#FDE68A',
-        borderSolid: '#F59E0B',
-        badgeBg: 'linear-gradient(135deg, #F59E0B, #B45309)',
-        cardBg: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(254, 243, 199, 0.96) 100%)',
+        border: 'var(--k-line)',
+        borderSolid: 'var(--k-main)',
+        badgeBg: 'linear-gradient(135deg, var(--k-main), var(--k-deep))',
+        cardBg: 'linear-gradient(135deg, #FFFFFF 0%, var(--k-soft) 100%)',
         name: '🍊 Bé Kali • Sunny K',
         shortName: '🍊 BÉ KALI NHẮC BẠN',
-        textColor: '#78350F',
-        glow: 'rgba(245, 158, 11, 0.16)',
+        textColor: 'var(--k-deep)',
+        glow: 'var(--k-glow)',
       };
 
-  const defaultSize = variant === 'banner' || variant === 'card' ? 60 : 100;
+  const defaultSize = variant === 'banner' || variant === 'card' ? 56 : 96;
   const avatarSize = size || defaultSize;
 
-  // Render Mascot Avatar Icon
   const renderAvatar = (sz) => (
     <div style={{ width: sz, height: sz, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       {isDam && <LinhThuDam emotion={emotion} size={sz} />}
@@ -81,7 +74,6 @@ export default function CuteMascot({
     </div>
   );
 
-  // 1. Chế độ Banner / Card: Đặt gọn trong luồng nội dung, 100% KHÔNG CHE BẤT CỨ GÌ
   if (variant === 'banner' || variant === 'card') {
     return (
       <div
@@ -89,20 +81,19 @@ export default function CuteMascot({
         onClick={onClick}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
-        title="Bấm vào để mở sổ tay bài giảng 💡"
+        title="Bấm vào để mở sổ tay bài giảng (Phím N) 💡"
         style={{
           background: theme.cardBg,
           border: `1.5px solid ${theme.border}`,
-          borderRadius: 16,
-          padding: '8px 14px',
-          boxShadow: hovered ? `0 8px 24px ${theme.glow}` : `0 4px 14px ${theme.glow}`,
+          borderRadius: 15,
+          padding: '7px 13px',
+          boxShadow: hovered ? `0 8px 20px -6px ${theme.glow}` : `0 4px 12px -4px ${theme.glow}`,
           display: 'flex',
           alignItems: 'center',
-          gap: 12,
+          gap: 11,
           cursor: 'pointer',
           userSelect: 'none',
-          transition: 'all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1)',
-          transform: hovered ? 'translateY(-2px)' : 'translateY(0)',
+          transform: hovered ? 'translateY(-1.5px)' : 'translateY(0)',
           ...style,
         }}
       >
@@ -114,7 +105,7 @@ export default function CuteMascot({
               style={{
                 background: theme.badgeBg,
                 color: '#FFFFFF',
-                fontSize: 10,
+                fontSize: 10.5,
                 fontWeight: 900,
                 padding: '2px 8px',
                 borderRadius: 999,
@@ -123,17 +114,17 @@ export default function CuteMascot({
             >
               {theme.shortName}
             </span>
-            <span style={{ fontSize: 10.5, fontWeight: 700, color: theme.textColor, opacity: 0.85 }}>
-              Mở sổ tay bài giảng 💡
+            <span style={{ fontSize: 11, fontWeight: 700, color: theme.textColor, opacity: 0.9 }}>
+              Mở sổ tay bài giảng (N) 💡
             </span>
           </div>
           {finalSpeech && (
             <div
               style={{
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 700,
-                color: '#0F172A',
-                lineHeight: 1.38,
+                color: 'var(--ink)',
+                lineHeight: 1.35,
               }}
             >
               {finalSpeech}
@@ -144,7 +135,6 @@ export default function CuteMascot({
     );
   }
 
-  // 2. Chế độ Floating (Nổi góc): Có nút thu nhỏ/mở rộng để người học không bị che khuất
   return (
     <div
       className="mascot-companion-wrap"
@@ -173,7 +163,7 @@ export default function CuteMascot({
             maxWidth: 270,
             boxShadow: `0 10px 25px ${theme.glow}`,
             transform: hovered ? 'translateY(-3px) scale(1.02)' : 'translateY(0) scale(1)',
-            transition: 'all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            transition: 'transform 0.22s var(--ease-out), box-shadow 0.22s var(--ease-out)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 }}>
@@ -192,7 +182,6 @@ export default function CuteMascot({
               {theme.name}
             </div>
 
-            {/* Nút thu nhỏ lời thoại để không che đồ thị */}
             <button
               type="button"
               onClick={(e) => {
@@ -202,7 +191,7 @@ export default function CuteMascot({
               title="Thu nhỏ lời thoại để xem rõ đồ thị"
               style={{
                 border: 'none',
-                background: 'rgba(15, 23, 42, 0.08)',
+                background: 'rgba(11, 18, 32, 0.08)',
                 color: '#64748B',
                 width: 18,
                 height: 18,
@@ -225,9 +214,9 @@ export default function CuteMascot({
           <div
             onClick={onClick}
             style={{
-              fontSize: 12.2,
+              fontSize: 13,
               fontWeight: 700,
-              color: '#0F172A',
+              color: 'var(--ink)',
               lineHeight: 1.4,
               cursor: onClick ? 'pointer' : 'default',
             }}
@@ -235,7 +224,6 @@ export default function CuteMascot({
             {finalSpeech}
           </div>
 
-          {/* Đuôi bong bóng thoại */}
           <div
             style={{
               position: 'absolute',
@@ -252,7 +240,6 @@ export default function CuteMascot({
         </div>
       )}
 
-      {/* Nút nhỏ mở lại lời thoại nếu đã thu nhỏ */}
       {finalSpeech && !speechVisible && (
         <button
           type="button"
@@ -266,7 +253,7 @@ export default function CuteMascot({
             color: theme.textColor,
             padding: '3px 10px',
             borderRadius: 999,
-            fontSize: 10.5,
+            fontSize: 11,
             fontWeight: 800,
             marginBottom: 6,
             cursor: 'pointer',

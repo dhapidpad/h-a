@@ -19,7 +19,6 @@ export default function SvgBasalRocket() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -104,32 +103,6 @@ export default function SvgBasalRocket() {
         </linearGradient>
 
         {/* Bóng đổ */}
-        <filter
-          id={`${id}-shadow`}
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="160%"
-        >
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="10"
-            floodColor="#0F172A"
-            floodOpacity=".07"
-          />
-        </filter>
-
-        <filter
-          id={`${id}-glow`}
-          x="-100%"
-          y="-100%"
-          width="300%"
-          height="300%"
-        >
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-
         {/* Texture đất */}
         <pattern
           id={`${id}-texture`}
@@ -221,7 +194,7 @@ export default function SvgBasalRocket() {
           02. LEFT PANEL — BÓN LÓT
       ===================================================== */}
 
-      <g filter={`url(#${id}-shadow)`}>
+      <g>
         <rect
           x="32"
           y="130"
@@ -268,7 +241,7 @@ export default function SvgBasalRocket() {
       <text
         x="98"
         y="181"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="600"
         fill="#65A30D"
         letterSpacing=".6"
@@ -288,7 +261,7 @@ export default function SvgBasalRocket() {
       <text
         x="408.5"
         y="170.5"
-        fontSize="10"
+        fontSize="13"
         fontWeight="800"
         textAnchor="middle"
         fill="#15803D"
@@ -515,7 +488,7 @@ export default function SvgBasalRocket() {
       <text
         x="305"
         y="391"
-        fontSize="10"
+        fontSize="13"
         fontWeight="900"
         fill="#FFFFFF"
       >
@@ -546,7 +519,7 @@ export default function SvgBasalRocket() {
       <text
         x="68"
         y="547"
-        fontSize="11"
+        fontSize="13"
         fill="#64748B"
       >
         Tạo điều kiện cho cây phát triển bộ rễ ban đầu.
@@ -565,7 +538,7 @@ export default function SvgBasalRocket() {
         x="155"
         y="576.5"
         textAnchor="middle"
-        fontSize="9.5"
+        fontSize="12.5"
         fontWeight="800"
         fill="#15803D"
       >
@@ -576,7 +549,7 @@ export default function SvgBasalRocket() {
           03. RIGHT PANEL — BÓN TRÊN MẶT ĐẤT
       ===================================================== */}
 
-      <g filter={`url(#${id}-shadow)`}>
+      <g>
         <rect
           x="490"
           y="130"
@@ -621,7 +594,7 @@ export default function SvgBasalRocket() {
       <text
         x="556"
         y="181"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="600"
         fill="#DC2626"
         letterSpacing=".5"
@@ -641,7 +614,7 @@ export default function SvgBasalRocket() {
       <text
         x="866.5"
         y="170.5"
-        fontSize="10"
+        fontSize="13"
         fontWeight="800"
         textAnchor="middle"
         fill="#B91C1C"
@@ -858,7 +831,7 @@ export default function SvgBasalRocket() {
       <text
         x="590"
         y="405"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="600"
         fill="#9F1239"
       >
@@ -868,7 +841,7 @@ export default function SvgBasalRocket() {
       <text
         x="590"
         y="420"
-        fontSize="9.5"
+        fontSize="12.5"
         fill="#9F1239"
       >
         Khả năng hấp thu phụ thuộc đất và cách bón.
@@ -898,7 +871,7 @@ export default function SvgBasalRocket() {
       <text
         x="526"
         y="547"
-        fontSize="11"
+        fontSize="13"
         fill="#64748B"
       >
         Có thể làm giảm hiệu quả sử dụng phân.
@@ -917,7 +890,7 @@ export default function SvgBasalRocket() {
         x="616.5"
         y="576.5"
         textAnchor="middle"
-        fontSize="9.5"
+        fontSize="12.5"
         fontWeight="800"
         fill="#B91C1C"
       >
@@ -997,7 +970,7 @@ export default function SvgBasalRocket() {
       <text
         x="654"
         y="653"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="700"
         fill="#5B21B6"
       >
@@ -1009,7 +982,7 @@ export default function SvgBasalRocket() {
       <text
         x="654"
         y="673"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="700"
         fill="#166534"
       >

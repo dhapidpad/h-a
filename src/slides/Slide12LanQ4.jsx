@@ -1,255 +1,77 @@
 import React from 'react';
-import CuteMascot from '../components/mascot/CuteMascot';
-import SvgStageCard from '../components/SvgStageCard';
+import QuestionSlide from './QuestionSlide';
 import SvgBasalRocket from '../components/illustrations/SvgBasalRocket';
+
+const PILLARS = [
+  {
+    id: 'slow',
+    number: '01',
+    tone: 'amber',
+    title: 'TÍNH DI ĐỘNG KÉM: CHỈ NGẤM 1 – 3 CM TRONG CẢ VỤ',
+    badge: '1–3 CM / VỤ',
+    desc: (
+      <>
+        Ion H₂PO₄⁻ bị keo đất và <strong>Fe³⁺, Al³⁺, Ca²⁺ kết tủa cố định</strong>. Nếu bón thúc rải mặt, lân nằm nguyên ở tầng mặt, rễ sâu không với tới được.
+      </>
+    ),
+  },
+  {
+    id: 'rocket',
+    number: '02',
+    tone: 'purple',
+    title: 'BỆ PHÓNG RỄ NON: MẦM NHÚ LÀ CẦN LÂN NGAY',
+    badge: 'RỄ NON ATP',
+    desc: (
+      <>
+        Cây con <strong>2–3 tuần đầu đời cần nhiều P</strong> để phân chia tế bào rễ và nạp ATP. Thiếu lân đầu vụ, bộ rễ còi cọc và không thể phục hồi về sau.
+      </>
+    ),
+  },
+  {
+    id: 'depth',
+    number: '03',
+    tone: 'green',
+    title: 'KỸ THUẬT: ĐẶT PHÂN SÂU ĐÚNG TẦNG RỄ CÂY',
+    badge: 'ĐÁY RÃNH 15CM',
+    desc: (
+      <>
+        Bón lót sâu <strong>10 – 15 cm dưới đáy rãnh</strong> cùng phân hữu cơ trước khi gieo hạt hoặc đặt cây con để rễ vừa nhú là tiếp xúc dinh dưỡng ngay.
+      </>
+    ),
+  },
+];
 
 export default function Slide12LanQ4({ onOpenNotes }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 10, position: 'relative', overflow: 'hidden' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-        <div>
-          <div className="chapter-pill" style={{ backgroundColor: '#F0EBFF', color: '#7C3AED' }}>
-            <span style={{ fontSize: 13.5, fontWeight: 900 }}>PHÂN LÂN (P) • CÂU HỎI 04 / 15</span>
-          </div>
-          <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
-            VÌ SAO PHÂN LÂN LUÔN ĐƯỢC BÓN LÓT ĐẦU VỤ?
-          </h2>
-        </div>
-
-        <div className="slide-header-badge">
-          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)' }}>
-            100%
-          </div>
-          <div className="slide-header-badge-text">
-            <div className="slide-header-badge-sub" style={{ color: '#FCD34D' }}>KỸ THUẬT VÀNG</div>
-            <div className="slide-header-badge-main">Bón lót sâu 10 – 15 cm dưới rãnh</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Banner câu hỏi */}
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        border: '1.5px solid #DDD6FE',
-        borderRadius: 14,
-        padding: '10px 18px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 4px 14px rgba(124, 58, 237, 0.07)'
-      }}>
-        <div style={{
-          width: 34,
-          height: 34,
-          borderRadius: 9,
-          background: '#EDE9FE',
-          color: '#7C3AED',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          fontWeight: 900,
-          fontSize: 15
-        }}>
-          ?
-        </div>
-        <div style={{ fontSize: 14.5, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
-          <span style={{ color: '#7C3AED', fontWeight: 900 }}>Câu hỏi thảo luận: </span>
-          Tại sao phân lân luôn được dùng để bón lót sâu vào đất trước khi gieo trồng chứ ít khi dùng bón thúc rải mặt như phân đạm?
-        </div>
-      </div>
-
-      {/* Grid 2 cột */}
-      <div className="slide-main-grid">
-        {/* Cột trái */}
-        <div className="slide-content-col">
-          {/* Card 1: Di chuyển cực chậm */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #F59E0B',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#FEF3C7',
-              color: '#F59E0B',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              01
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
-                  TÍNH DI ĐỘNG KÉM: CHỈ NGẤM 1 – 3 CM TRONG CẢ VỤ
-                </span>
-                <span style={{ fontSize: 12, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
-                  1–3 CM / VỤ
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Ion photphat H₂PO₄⁻ bị keo đất và các ion <strong>Fe³⁺, Al³⁺ (đất chua) hoặc Ca²⁺ (đất kiềm) kết tủa cố định</strong>. Lân hầu như không tự ngấm sâu xuống tầng dưới; nếu bón rải mặt thì rễ ở tầng sâu không với tới được.
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Bệ phóng rễ non */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #7C3AED',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#EDE9FE',
-              color: '#7C3AED',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              02
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#5B21B6' }}>
-                  BỆ PHÓNG RỄ NON: MẦM NHÚ LÀ CẦN LÂN NGAY
-                </span>
-                <span style={{ fontSize: 12, fontWeight: 900, background: '#EDE9FE', color: '#5B21B6', padding: '2px 8px', borderRadius: 6 }}>
-                  RỄ NON ATP
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Cây con trong <strong>2–3 tuần đầu đời cần lượng photpho rất cao</strong> để phân chia tế bào mô phân sinh rễ và tạo năng lượng ATP. Nếu thiếu lân đầu vụ, rễ còi cọc và suốt chu kỳ sinh trưởng sau này không thể hồi phục.
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Kỹ thuật bón lót chuẩn */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #16A34A',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#DCFCE7',
-              color: '#16A34A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              03
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
-                  KỸ THUẬT: ĐẶT PHÂN ĐÚNG TẦNG RỄ CÂY
-                </span>
-                <span style={{ fontSize: 12, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
-                  ĐÁY RÃNH 15CM
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Bón lót sâu <strong>10 – 15 cm dưới đáy rãnh</strong> hoặc trộn đều trong lòng luống cùng phân hữu cơ trước khi gieo hạt hay đặt cây con. Rễ nhú ra tiếp xúc ngay dinh dưỡng sẽ đâm sâu tỏa rộng tức thì.
-              </div>
-            </div>
-          </div>
-
-          {/* Practical Note */}
-          <div style={{
-            background: '#FAF5FF',
-            borderRadius: 12,
-            padding: '9px 14px',
-            border: '1.5px dashed #A855F7',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontSize: 13.5,
-            color: '#6B21A8'
-          }}>
-            <div style={{
-              width: 26,
-              height: 26,
-              borderRadius: 6,
-              background: '#EDE9FE',
-              color: '#7C3AED',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontWeight: 900,
-              fontSize: 12
-            }}>
-              100%
-            </div>
-            <span>
-              <strong>Tỷ lệ bón:</strong> Dành trọn vẹn <strong>100% lượng phân lân cả mùa vụ để bón lót</strong> (khác biệt hoàn toàn với phân đạm và kali phải chia nhỏ bón thúc nhiều lần).
-            </span>
-          </div>
-
-          {/* Linh thú Bé Lân */}
-          <CuteMascot 
-            variant="banner"
-            mascotType="SPARKY_P"
-            emotion="astronaut"
-            speech="Hãy chôn tớ xuống sâu 10–15 cm nhé, tớ sẽ kích hoạt bệ phóng rễ non bay vút lên! 🚀⚡"
-            size={44}
-            onClick={onOpenNotes}
-          />
-        </div>
-
-        {/* Cột phải: SVG Showcase Stage */}
-        <SvgStageCard
-          title="BỆ PHÓNG BÓN LÓT RỄ SÂU"
-          subtitle="Chiến lược 100% bón lót sâu • Khắc phục tính di động chậm của ion Photphat"
-          chapter="lan"
-          badge="Bón Lót 100%"
-          takeaway="Photpho di động cực chậm trong đất (chỉ vài mm/tháng) và dễ bị cố định thành hợp chất khó tan. Bón lót sâu 10–15 cm trước gieo cấy đưa dinh dưỡng tới đúng tầng rễ hoạt động, làm bệ phóng kích hoạt rễ non bung tỏa sớm."
-        >
-          <SvgBasalRocket />
-        </SvgStageCard>
-      </div>
-    </div>
+    <QuestionSlide
+      chapter="lan"
+      pillText="PHÂN LÂN (P) • CÂU HỎI 04 / 15"
+      title="VÌ SAO PHÂN LÂN LUÔN ĐƯỢC BÓN LÓT ĐẦU VỤ?"
+      badgeIcon={{ text: '100%', bg: 'linear-gradient(135deg, var(--k-main) 0%, var(--k-deep) 100%)' }}
+      badgeSub="KỸ THUẬT VÀNG"
+      badgeMain="Bón lót sâu 10 – 15 cm dưới rãnh"
+      question="Tại sao phân lân luôn được dùng để bón lót sâu vào đất trước khi gieo trồng chứ ít khi dùng bón thúc rải mặt như phân đạm?"
+      pillars={PILLARS}
+      note={{
+        tag: '100%',
+        title: 'Tỷ lệ bón chuẩn:',
+        text: 'Dành trọn 100% lượng phân lân cả mùa vụ để bón lót (khác với đạm và kali phải chia nhỏ bón thúc nhiều đợt).',
+      }}
+      mascot={{
+        mascotType: 'SPARKY_P',
+        emotion: 'astronaut',
+        speech: 'Hãy chôn tớ xuống sâu 10–15 cm nhé, tớ sẽ kích hoạt bệ phóng rễ non bay vút lên! 🚀⚡',
+      }}
+      svgCard={{
+        title: 'BỆ PHÓNG BÓN LÓT RỄ SÂU',
+        subtitle: 'Chiến lược 100% bón lót sâu • Khắc phục tính di động chậm của ion Photphat',
+        badge: 'Bón Lót 100%',
+        takeaway:
+          'Photpho di động cực chậm trong đất (chỉ vài mm/tháng) và dễ bị cố định thành hợp chất khó tan. Bón lót sâu 10–15 cm trước gieo cấy đưa dinh dưỡng tới đúng tầng rễ hoạt động, làm bệ phóng kích hoạt rễ non bung tỏa sớm.',
+      }}
+      onOpenNotes={onOpenNotes}
+    >
+      <SvgBasalRocket />
+    </QuestionSlide>
   );
 }

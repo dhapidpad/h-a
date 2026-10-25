@@ -41,9 +41,8 @@ export default function SvgKClvsK2SO4() {
         d="M0 13L5 1L18 0L29 10L26 26L12 32L1 24Z"
         fill={pale ? "#FFFFFF" : "#FB7185"}
         opacity={pale ? ".9" : ".55"}
-        filter={url("blurSm")}
       />
-      <g filter={url("crystalShadow")}>
+      <g>
         <path
           d="M0 13L5 1L18 0L29 10L26 26L12 32L1 24Z"
           fill={pale ? url("whiteCrystal") : url("pinkCrystal")}
@@ -81,7 +80,7 @@ export default function SvgKClvsK2SO4() {
             {lines.map(([a, b, c, d], i) => <line key={i} x1={a} y1={b} x2={c} y2={d} stroke="#CBD5E1" strokeWidth="1.2" />)}
             {nodes.map((n, i) => (
               <circle key={i} cx={n.px} cy={n.py} r={n.k ? 4.3 : 5.6} fill={n.k ? "#F97316" : "#E11D48"} stroke="#fff" strokeWidth="1">
-                <animate attributeName="opacity" values="1;.55;1" dur={`${2.2 + (i % 3) * 0.5}s`} repeatCount="indefinite" />
+                
               </circle>
             ))}
           </>
@@ -99,7 +98,7 @@ export default function SvgKClvsK2SO4() {
             ))}
           </>
         )}
-        <text x="31" y="44" textAnchor="middle" fontSize="6.5" fontWeight="800" fill="#64748B" letterSpacing=".4">
+        <text x="31" y="44" textAnchor="middle" fontSize="12" fontWeight="800" fill="#64748B" letterSpacing=".4">
           MẠNG ION
         </text>
       </g>
@@ -115,7 +114,7 @@ export default function SvgKClvsK2SO4() {
         {ions.map((ion, i) => (
           <g key={i}>
             <animateMotion dur="18s" begin={`${-i * (18 / ions.length)}s`} repeatCount="indefinite" path={d} />
-            <circle r={ion.r + 5} fill={ion.c} opacity=".28" filter={url("blurSm")} />
+            <circle r={ion.r + 5} fill={ion.c} opacity=".28" />
             <circle r={ion.r} fill={ion.c} stroke="#FFFFFF" strokeWidth="1.2" />
             <circle r={ion.r} fill={url("gloss")} />
             <text y="2.4" textAnchor="middle" fontSize={ion.fs} fontWeight="900" fill={ion.t || "#fff"}>{ion.l}</text>
@@ -139,20 +138,20 @@ export default function SvgKClvsK2SO4() {
   /* Phần thanh K₂O dùng chung */
   const Bar = ({ x, pct, label, colorId, ringColor, textColor }) => (
     <g>
-      <text x={x} y="448" fontSize="10.5" fontWeight="800" fill="#475569">HÀM LƯỢNG K₂O</text>
+      <text x={x} y="448" fontSize="13" fontWeight="800" fill="#475569">HÀM LƯỢNG K₂O</text>
       <text x={x + BAR_W} y="448" textAnchor="end" fontSize="13" fontWeight="900" fill={textColor}>{label}</text>
       <rect x={x} y="458" width={BAR_W} height="11" rx="5.5" fill="#EEF2F7" stroke="#E2E8F0" strokeWidth=".6" />
       <g className={uid("grow")}>
-        <rect x={x} y="458" width={barPx(pct)} height="11" rx="5.5" fill={url(colorId)} opacity=".5" filter={url("blurSm")} />
+        <rect x={x} y="458" width={barPx(pct)} height="11" rx="5.5" fill={url(colorId)} opacity=".5" />
         <rect x={x} y="458" width={barPx(pct)} height="11" rx="5.5" fill={url(colorId)} />
         <rect x={x + 4} y="460" width={Math.max(0, barPx(pct) - 8)} height="3.2" rx="1.6" fill="#FFFFFF" opacity=".42" />
-        <circle cx={x + barPx(pct)} cy="463.5" r="9" fill={ringColor} opacity=".25" filter={url("blurSm")} />
+        <circle cx={x + barPx(pct)} cy="463.5" r="9" fill={ringColor} opacity=".25" />
         <circle cx={x + barPx(pct)} cy="463.5" r="7" fill="#FFFFFF" stroke={ringColor} strokeWidth="2" />
       </g>
       {[0, 20, 40, 60].map((v) => (
         <g key={v}>
           <line x1={x + barPx(v)} x2={x + barPx(v)} y1="469" y2="473" stroke="#94A3B8" strokeWidth=".9" />
-          <text x={x + barPx(v)} y="481" textAnchor={v === 0 ? "start" : "middle"} fontSize="7.5" fontWeight="600" fill="#94A3B8">{v}%</text>
+          <text x={x + barPx(v)} y="481" textAnchor={v === 0 ? "start" : "middle"} fontSize="12" fontWeight="600" fill="#94A3B8">{v}%</text>
         </g>
       ))}
     </g>
@@ -173,7 +172,6 @@ export default function SvgKClvsK2SO4() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily: "'Be Vietnam Pro', Inter, ui-sans-serif, system-ui, -apple-system, sans-serif"
       }}
     >
@@ -239,19 +237,6 @@ export default function SvgKClvsK2SO4() {
           <stop offset="0" stopColor="#fff" stopOpacity="0" /><stop offset=".5" stopColor="#fff" stopOpacity=".9" /><stop offset="1" stopColor="#fff" stopOpacity="0" />
         </linearGradient>
 
-        <filter id={uid("panelShadow")} x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow dx="0" dy="8" stdDeviation="11" floodColor="#0F172A" floodOpacity=".09" />
-        </filter>
-        <filter id={uid("crystalShadow")} x="-25%" y="-25%" width="160%" height="170%">
-          <feDropShadow dx="1" dy="3" stdDeviation="2.3" floodColor="#334155" floodOpacity=".26" />
-        </filter>
-        <filter id={uid("glow")} x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="9" /></filter>
-        <filter id={uid("blurSm")} x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="2.4" /></filter>
-        <filter id={uid("glowF")} x="-80%" y="-80%" width="260%" height="260%">
-          <feGaussianBlur stdDeviation="3" result="b" />
-          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
-
         <clipPath id={uid("leftStage")}><rect x="51" y="205" width="416" height="218" rx="16" /></clipPath>
         <clipPath id={uid("rightStage")}><rect x="533" y="205" width="416" height="218" rx="16" /></clipPath>
 
@@ -287,8 +272,8 @@ export default function SvgKClvsK2SO4() {
         {Array.from({ length: 4 }, (_, i) => <line key={`gy${i}`} x1="785" y1={20 + i * 25} x2="923" y2={20 + i * 25} />)}
       </g>
 
-      <rect x="34" y="27" width="7" height="24" rx="3.5" fill="#F97316" filter={url("glowF")} />
-      <text x="54" y="43" fontSize="11" fontWeight="900" letterSpacing="2" fill="#C2410C">DINH DƯỠNG KHOÁNG · PHÂN BÓN KALI</text>
+      <rect x="34" y="27" width="7" height="24" rx="3.5" fill="#F97316" />
+      <text x="54" y="43" fontSize="13" fontWeight="900" letterSpacing="2" fill="#C2410C">DINH DƯỠNG KHOÁNG · PHÂN BÓN KALI</text>
       <text x="34" y="81" fontSize="29" fontWeight="900" letterSpacing="-.8" fill={url("title")}>
         KCl<tspan fill="#94A3B8"> vs </tspan><tspan fill="#15803D">K₂SO₄</tspan><tspan fill="#334155"> — CHỌN LOẠI NÀO?</tspan>
       </text>
@@ -297,55 +282,55 @@ export default function SvgKClvsK2SO4() {
       </text>
 
       <g transform="translate(764 91)">
-        <circle cx="0" cy="0" r="4" fill="#FB7185" filter={url("glowF")} />
-        <text x="10" y="4" fontSize="9.5" fontWeight="800" fill="#64748B">KCl</text>
-        <circle cx="57" cy="0" r="4" fill="#94A3B8" filter={url("glowF")} />
-        <text x="67" y="4" fontSize="9.5" fontWeight="800" fill="#64748B">K₂SO₄</text>
+        <circle cx="0" cy="0" r="4" fill="#FB7185" />
+        <text x="10" y="4" fontSize="12.5" fontWeight="800" fill="#64748B">KCl</text>
+        <circle cx="57" cy="0" r="4" fill="#94A3B8" />
+        <text x="67" y="4" fontSize="12.5" fontWeight="800" fill="#64748B">K₂SO₄</text>
       </g>
 
       {/* ============ 02 · THẺ TRÁI: KCl ============ */}
-      <g filter={url("panelShadow")}>
+      <g>
         <rect x="30" y="135" width="455" height="493" rx="22" fill="#FFFFFF" stroke="#FED7AA" strokeWidth="1.4" />
       </g>
       <rect x="30" y="135" width="455" height="493" rx="22" fill={url("auroraO")} opacity=".5" />
       <rect x="70" y="134" width="375" height="3" rx="1.5" fill={url("edgeL")} />
-      <rect x="90" y="132" width="335" height="7" rx="3.5" fill={url("edgeL")} opacity=".6" filter={url("blurSm")} />
+      <rect x="90" y="132" width="335" height="7" rx="3.5" fill={url("edgeL")} opacity=".6" />
 
       <rect x="50" y="153" width="37" height="37" rx="11" fill="#FFF7ED" stroke="#FED7AA" />
-      <circle cx="68.5" cy="171.5" r="22" fill="#FB923C" opacity=".22" filter={url("blurSm")} />
+      <circle cx="68.5" cy="171.5" r="22" fill="#FB923C" opacity=".22" />
       <g transform="translate(57 160)" fill="none" stroke="#C2410C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 10L12 3L22 10V25H2Z" /><path d="M7 25V15H17V25" /><path d="M0 28H24" />
       </g>
       <text x="99" y="169" fontSize="14" fontWeight="900" fill="#9A3412">KALI CLORUA</text>
-      <text x="99" y="186" fontSize="11" fontWeight="700" fill="#EA580C">KCl · MOP / MURIATE OF POTASH</text>
+      <text x="99" y="186" fontSize="13" fontWeight="700" fill="#EA580C">KCl · MOP / MURIATE OF POTASH</text>
       <rect x="362" y="158" width="104" height="27" rx="13.5" fill="#FFF7ED" stroke="#FDBA74" />
-      <text x="414" y="175.5" textAnchor="middle" fontSize="10" fontWeight="900" fill="#C2410C">0–0–60*</text>
+      <text x="414" y="175.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#C2410C">0–0–60*</text>
 
       {/* sân khấu mẫu trái */}
       <rect x="51" y="205" width="416" height="218" rx="16" fill={url("stageL")} stroke="#FFE4E6" />
       <g clipPath={url("leftStage")}>
-        <circle cx="121" cy="254" r="46" fill="#FDA4AF" opacity=".2" filter={url("blurSm")} />
-        <circle cx="402" cy="375" r="54" fill="#FB7185" opacity=".12" filter={url("blurSm")} />
+        <circle cx="121" cy="254" r="46" fill="#FDA4AF" opacity=".2" />
+        <circle cx="402" cy="375" r="54" fill="#FB7185" opacity=".12" />
 
         <rect x="67" y="217" width="45" height="23" rx="11.5" fill="#FFEDD5" stroke="#FDBA74" />
-        <text x="89.5" y="232.5" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#9A3412">K⁺</text>
-        <text x="121" y="232" fontSize="11" fontWeight="800" fill="#9A3412">+</text>
+        <text x="89.5" y="232.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#9A3412">K⁺</text>
+        <text x="121" y="232" fontSize="13" fontWeight="800" fill="#9A3412">+</text>
         <rect x="137" y="217" width="48" height="23" rx="11.5" fill="#FFE4E6" stroke="#FDA4AF" />
-        <text x="161" y="232.5" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#9F1239">Cl⁻</text>
+        <text x="161" y="232.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#9F1239">Cl⁻</text>
 
         <rect x="395" y="216" width="62" height="22" rx="11" fill="#FFE4E6" stroke="#FDA4AF" />
-        <circle cx="406" cy="227" r="3" fill="#E11D48"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite" /></circle>
-        <text x="413" y="230.2" fontSize="8.5" fontWeight="900" fill="#9F1239">CÓ CLO</text>
+        <circle cx="406" cy="227" r="3" fill="#E11D48"></circle>
+        <text x="413" y="230.2" fontSize="12.5" fontWeight="900" fill="#9F1239">CÓ CLO</text>
         <Lattice x={396} y={246} type="kcl" />
 
         {/* bóng + đĩa */}
-        <ellipse cx="258" cy="388" rx="145" ry="25" fill="#881337" opacity=".16" filter={url("blurSm")} />
+        <ellipse cx="258" cy="388" rx="145" ry="25" fill="#881337" opacity=".16" />
         <path d="M117 349C123 383 167 407 258 409C348 407 392 383 399 349L388 378C363 400 320 411 258 412C194 411 151 400 128 378Z" fill={url("pinkDish")} stroke="#FB7185" strokeWidth="1.3" />
         <ellipse cx="258" cy="350" rx="141" ry="43" fill="#FFE4E6" stroke="#FB7185" strokeWidth="2" />
         <ellipse cx="258" cy="350" rx="128" ry="33" fill="#FDA4AF" opacity=".22" />
         <ellipse cx="258" cy="344" rx="112" ry="22" fill="none" stroke="#FFFFFF" strokeWidth="1" opacity=".5" />
 
-        <ellipse cx="257" cy="329" rx="110" ry="56" fill="#FB7185" opacity=".3" filter={url("glow")} className={uid("pulse")} />
+        <ellipse cx="257" cy="329" rx="110" ry="56" fill="#FB7185" opacity=".3" className={uid("pulse")} />
 
         {/* ion bay quanh mẫu */}
         <Orbit cx={258} cy={326} rx={150} ry={58} ions={kclIons} />
@@ -356,71 +341,71 @@ export default function SvgKClvsK2SO4() {
           <circle key={i} cx={x} cy={y} r={r} fill={i % 2 === 0 ? "#FFFFFF" : "#FB7185"} stroke="#FDA4AF" strokeWidth=".65" className={uid("twinkle")} style={{ animationDelay: `${i * 0.19}s` }} />
         ))}
         {[[171, 291, 6], [251, 292, 7.5], [340, 298, 6], [222, 286, 5]].map(([x, y, r], i) => (
-          <path key={i} d={star(x + 8, y + 2, r)} fill="#FFFFFF" filter={url("glowF")} className={uid("twinkle")} style={{ animationDelay: `${i * 0.7}s` }} />
+          <path key={i} d={star(x + 8, y + 2, r)} fill="#FFFFFF" className={uid("twinkle")} style={{ animationDelay: `${i * 0.7}s` }} />
         ))}
 
         <rect x="58" y="205" width="28" height="218" fill={url("sheen")} opacity=".45" className={uid("shine")} />
         <path d="M136 357C167 388 342 388 379 357" fill="none" stroke="#FFFFFF" strokeWidth="2" opacity=".85" />
       </g>
-      <text x="67" y="402" fontSize="9.5" fontWeight="700" fill="#9F1239">TINH THỂ HỒNG / TRẮNG</text>
-      <text x="451" y="402" textAnchor="end" fontSize="9.5" fontWeight="700" fill="#9F1239">MẪU MINH HỌA</text>
+      <text x="67" y="402" fontSize="12.5" fontWeight="700" fill="#9F1239">TINH THỂ HỒNG / TRẮNG</text>
+      <text x="451" y="402" textAnchor="end" fontSize="12.5" fontWeight="700" fill="#9F1239">MẪU MINH HỌA</text>
 
       <Bar x={53} pct={60} label="60–62%" colorId="orange" ringColor="#FB7185" textColor="#C2410C" />
-      <text x="53" y="494" fontSize="10" fontWeight="600" fill="#64748B">Hàm lượng K₂O quy đổi thường cao hơn.</text>
+      <text x="53" y="494" fontSize="13" fontWeight="600" fill="#64748B">Hàm lượng K₂O quy đổi thường cao hơn.</text>
       <line x1="53" y1="504" x2="463" y2="504" stroke="#F1F5F9" strokeWidth="1.2" />
 
       <rect x="53" y="512" width="25" height="25" rx="8" fill="#FFEDD5" />
       <path d="M60 530V518M60 522C55 521 55 517 57 516C60 516 60 519 60 522ZM60 526C65 525 66 522 64 520C61 520 60 523 60 526Z" fill="none" stroke="#C2410C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="88" y="521" fontSize="11" fontWeight="900" fill="#9A3412">Phù hợp</text>
-      <text x="88" y="536" fontSize="10.5" fontWeight="600" fill="#475569">Nhiều cây trồng khi cần nguồn kali kinh tế</text>
-      <text x="53" y="557" fontSize="10" fill="#64748B">Lưu ý: KCl bổ sung ion Cl⁻, cần cân nhắc với cây</text>
-      <text x="53" y="571" fontSize="10" fill="#64748B">nhạy clo và đất có nguy cơ tích lũy muối.</text>
+      <text x="88" y="521" fontSize="13" fontWeight="900" fill="#9A3412">Phù hợp</text>
+      <text x="88" y="536" fontSize="13" fontWeight="600" fill="#475569">Nhiều cây trồng khi cần nguồn kali kinh tế</text>
+      <text x="53" y="557" fontSize="13" fill="#64748B">Lưu ý: KCl bổ sung ion Cl⁻, cần cân nhắc với cây</text>
+      <text x="53" y="571" fontSize="13" fill="#64748B">nhạy clo và đất có nguy cơ tích lũy muối.</text>
       <rect x="53" y="586" width="190" height="25" rx="12.5" fill="#FFF7ED" stroke="#FED7AA" />
-      <circle cx="67" cy="598.5" r="4" fill="#F97316" filter={url("glowF")} />
-      <text x="78" y="602" fontSize="9.5" fontWeight="800" fill="#9A3412">THƯỜNG CÓ GIÁ KINH TẾ</text>
+      <circle cx="67" cy="598.5" r="4" fill="#F97316" />
+      <text x="78" y="602" fontSize="12.5" fontWeight="800" fill="#9A3412">THƯỜNG CÓ GIÁ KINH TẾ</text>
 
       {/* ============ 03 · THẺ PHẢI: K₂SO₄ ============ */}
-      <g filter={url("panelShadow")}>
+      <g>
         <rect x="515" y="135" width="455" height="493" rx="22" fill="#FFFFFF" stroke="#BBF7D0" strokeWidth="1.4" />
       </g>
       <rect x="515" y="135" width="455" height="493" rx="22" fill={url("auroraG")} opacity=".5" />
       <rect x="555" y="134" width="375" height="3" rx="1.5" fill={url("edgeR")} />
-      <rect x="575" y="132" width="335" height="7" rx="3.5" fill={url("edgeR")} opacity=".6" filter={url("blurSm")} />
+      <rect x="575" y="132" width="335" height="7" rx="3.5" fill={url("edgeR")} opacity=".6" />
 
       <rect x="535" y="153" width="37" height="37" rx="11" fill="#DCFCE7" stroke="#BBF7D0" />
-      <circle cx="553.5" cy="171.5" r="22" fill="#22C55E" opacity=".22" filter={url("blurSm")} />
+      <circle cx="553.5" cy="171.5" r="22" fill="#22C55E" opacity=".22" />
       <g transform="translate(542 160)" fill="none" stroke="#15803D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12L12 3L22 12V25H2Z" /><path d="M7 25V15H17V25" /><path d="M0 28H24" /><path d="M17 7l5-4" />
       </g>
       <text x="584" y="169" fontSize="14" fontWeight="900" fill="#166534">KALI SUNFAT</text>
-      <text x="584" y="186" fontSize="11" fontWeight="700" fill="#16A34A">K₂SO₄ · SULFATE OF POTASH</text>
+      <text x="584" y="186" fontSize="13" fontWeight="700" fill="#16A34A">K₂SO₄ · SULFATE OF POTASH</text>
       <rect x="846" y="158" width="104" height="27" rx="13.5" fill="#F0FDF4" stroke="#86EFAC" />
-      <text x="898" y="175.5" textAnchor="middle" fontSize="10" fontWeight="900" fill="#15803D">0–0–50*</text>
+      <text x="898" y="175.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#15803D">0–0–50*</text>
 
       <rect x="533" y="205" width="416" height="218" rx="16" fill={url("stageR")} stroke="#E2E8F0" />
       <g clipPath={url("rightStage")}>
-        <circle cx="603" cy="254" r="46" fill="#BBF7D0" opacity=".28" filter={url("blurSm")} />
-        <circle cx="884" cy="375" r="54" fill="#94A3B8" opacity=".12" filter={url("blurSm")} />
+        <circle cx="603" cy="254" r="46" fill="#BBF7D0" opacity=".28" />
+        <circle cx="884" cy="375" r="54" fill="#94A3B8" opacity=".12" />
 
         <rect x="549" y="217" width="45" height="23" rx="11.5" fill="#FFEDD5" stroke="#FDBA74" />
-        <text x="571.5" y="232.5" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#9A3412">K⁺</text>
-        <text x="603" y="232" fontSize="11" fontWeight="800" fill="#64748B">+</text>
+        <text x="571.5" y="232.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#9A3412">K⁺</text>
+        <text x="603" y="232" fontSize="13" fontWeight="800" fill="#64748B">+</text>
         <rect x="619" y="217" width="81" height="23" rx="11.5" fill="#FEF3C7" stroke="#FDE68A" />
-        <text x="659.5" y="232.5" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#92400E">SO₄²⁻</text>
+        <text x="659.5" y="232.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#92400E">SO₄²⁻</text>
 
         <rect x="866" y="216" width="80" height="22" rx="11" fill="#DCFCE7" stroke="#86EFAC" />
-        <circle cx="877" cy="227" r="3" fill="#16A34A"><animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite" /></circle>
-        <text x="884" y="230.2" fontSize="8.2" fontWeight="900" fill="#15803D">CÓ LƯU HUỲNH</text>
+        <circle cx="877" cy="227" r="3" fill="#16A34A"></circle>
+        <text x="884" y="230.2" fontSize="12" fontWeight="900" fill="#15803D">CÓ LƯU HUỲNH</text>
         <Lattice x={868} y={246} type="k2so4" />
 
-        <ellipse cx="740" cy="388" rx="145" ry="25" fill="#334155" opacity=".16" filter={url("blurSm")} />
+        <ellipse cx="740" cy="388" rx="145" ry="25" fill="#334155" opacity=".16" />
         <path d="M599 349C605 383 649 407 740 409C830 407 874 383 881 349L870 378C845 400 802 411 740 412C676 411 633 400 610 378Z" fill={url("whiteDish")} stroke="#94A3B8" strokeWidth="1.3" />
         <ellipse cx="740" cy="350" rx="141" ry="43" fill="#F8FAFC" stroke="#94A3B8" strokeWidth="2" />
         <ellipse cx="740" cy="350" rx="128" ry="33" fill="#E2E8F0" opacity=".55" />
         <ellipse cx="740" cy="344" rx="112" ry="22" fill="none" stroke="#FFFFFF" strokeWidth="1" opacity=".9" />
 
-        <ellipse cx="740" cy="329" rx="110" ry="56" fill="#FFFFFF" opacity=".9" filter={url("glow")} className={uid("pulse")} />
-        <ellipse cx="740" cy="329" rx="100" ry="50" fill="#86EFAC" opacity=".18" filter={url("glow")} />
+        <ellipse cx="740" cy="329" rx="110" ry="56" fill="#FFFFFF" opacity=".9" className={uid("pulse")} />
+        <ellipse cx="740" cy="329" rx="100" ry="50" fill="#86EFAC" opacity=".18" />
 
         <Orbit cx={740} cy={326} rx={150} ry={58} ions={sulIons} />
 
@@ -430,13 +415,13 @@ export default function SvgKClvsK2SO4() {
           <circle key={i} cx={x} cy={y} r={r} fill="#FFFFFF" stroke="#CBD5E1" strokeWidth=".7" className={uid("twinkle")} style={{ animationDelay: `${i * 0.2}s` }} />
         ))}
         {[[657, 293, 6], [740, 310, 7.5], [828, 297, 6], [710, 285, 5]].map(([x, y, r], i) => (
-          <path key={i} d={star(x + 8, y + 2, r)} fill="#FFFFFF" stroke="#CBD5E1" strokeWidth=".4" filter={url("glowF")} className={uid("twinkle")} style={{ animationDelay: `${i * 0.7}s` }} />
+          <path key={i} d={star(x + 8, y + 2, r)} fill="#FFFFFF" stroke="#CBD5E1" strokeWidth=".4" className={uid("twinkle")} style={{ animationDelay: `${i * 0.7}s` }} />
         ))}
 
         {/* hạt lưu huỳnh S */}
         {[[704, 271, 12, 10, 0], [756, 267, 10, 9, 0.6], [789, 283, 8, 8, 1.1]].map(([x, y, r, fs, dl], i) => (
           <g key={i} className={uid("ionFloat")} style={{ animationDelay: `${dl}s` }}>
-            <circle cx={x} cy={y} r={r + 6} fill="#FBBF24" opacity=".4" filter={url("blurSm")} />
+            <circle cx={x} cy={y} r={r + 6} fill="#FBBF24" opacity=".4" />
             <circle cx={x} cy={y} r={r} fill={url("gold")} stroke="#FFFFFF" strokeWidth="1.5" />
             <circle cx={x} cy={y} r={r} fill={url("gloss")} />
             <text x={x} y={y + fs * 0.36} textAnchor="middle" fontSize={fs} fontWeight="900" fill="#78350F">S</text>
@@ -446,40 +431,40 @@ export default function SvgKClvsK2SO4() {
         <rect x="540" y="205" width="28" height="218" fill={url("sheen")} opacity=".75" className={uid("shine")} />
         <path d="M618 357C649 388 824 388 861 357" fill="none" stroke="#FFFFFF" strokeWidth="2.2" opacity=".95" />
       </g>
-      <text x="549" y="402" fontSize="9.5" fontWeight="700" fill="#475569">TINH THỂ TRẮNG</text>
-      <text x="933" y="402" textAnchor="end" fontSize="9.5" fontWeight="700" fill="#64748B">MẪU MINH HỌA</text>
+      <text x="549" y="402" fontSize="12.5" fontWeight="700" fill="#475569">TINH THỂ TRẮNG</text>
+      <text x="933" y="402" textAnchor="end" fontSize="12.5" fontWeight="700" fill="#64748B">MẪU MINH HỌA</text>
 
       <Bar x={535} pct={50} label="≈ 50%" colorId="green" ringColor="#22C55E" textColor="#15803D" />
-      <text x="535" y="494" fontSize="10" fontWeight="600" fill="#64748B">Cung cấp thêm lưu huỳnh cho cây trồng.</text>
+      <text x="535" y="494" fontSize="13" fontWeight="600" fill="#64748B">Cung cấp thêm lưu huỳnh cho cây trồng.</text>
       <line x1="535" y1="504" x2="945" y2="504" stroke="#F1F5F9" strokeWidth="1.2" />
 
       <rect x="535" y="512" width="25" height="25" rx="8" fill="#DCFCE7" />
       <path d="M542 530V518M542 522C537 521 537 517 539 516C542 516 542 519 542 522ZM542 526C547 525 548 522 546 520C543 520 542 523 542 526Z" fill="none" stroke="#15803D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="570" y="521" fontSize="11" fontWeight="900" fill="#166534">Phù hợp</text>
-      <text x="570" y="536" fontSize="10.5" fontWeight="600" fill="#475569">Cây nhạy clo hoặc khi cần bổ sung lưu huỳnh</text>
-      <text x="535" y="557" fontSize="10" fill="#64748B">Thường có giá cao hơn và hàm lượng K₂O</text>
-      <text x="535" y="571" fontSize="10" fill="#64748B">thấp hơn KCl theo khối lượng phân bón.</text>
+      <text x="570" y="521" fontSize="13" fontWeight="900" fill="#166534">Phù hợp</text>
+      <text x="570" y="536" fontSize="13" fontWeight="600" fill="#475569">Cây nhạy clo hoặc khi cần bổ sung lưu huỳnh</text>
+      <text x="535" y="557" fontSize="13" fill="#64748B">Thường có giá cao hơn và hàm lượng K₂O</text>
+      <text x="535" y="571" fontSize="13" fill="#64748B">thấp hơn KCl theo khối lượng phân bón.</text>
       <rect x="535" y="586" width="190" height="25" rx="12.5" fill="#F0FDF4" stroke="#BBF7D0" />
-      <circle cx="549" cy="598.5" r="4" fill="#22C55E" filter={url("glowF")} />
-      <text x="560" y="602" fontSize="9.5" fontWeight="800" fill="#166534">BỔ SUNG THÊM LƯU HUỲNH</text>
+      <circle cx="549" cy="598.5" r="4" fill="#22C55E" />
+      <text x="560" y="602" fontSize="12.5" fontWeight="800" fill="#166534">BỔ SUNG THÊM LƯU HUỲNH</text>
 
       {/* huy hiệu VS giữa hai thẻ */}
       <g transform="translate(500 380)">
-        <circle r="26" fill="#0F172A" opacity=".18" filter={url("glow")} />
-        <circle r="19" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.4" filter={url("panelShadow")} />
+        <circle r="26" fill="#0F172A" opacity=".18" />
+        <circle r="19" fill="#FFFFFF" stroke="#E2E8F0" strokeWidth="1.4" />
         <circle r="19" fill="none" stroke={url("orange")} strokeWidth="2" strokeDasharray="30 90">
           <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="6s" repeatCount="indefinite" />
         </circle>
-        <text y="4" textAnchor="middle" fontSize="11" fontWeight="900" fill="#334155" letterSpacing=".5">VS</text>
+        <text y="4" textAnchor="middle" fontSize="13" fontWeight="900" fill="#334155" letterSpacing=".5">VS</text>
       </g>
 
       {/* ============ 04 · CHÂN TRANG ============ */}
-      <g filter={url("panelShadow")}>
+      <g>
         <rect x="30" y="651" width="940" height="84" rx="19" fill={url("footer")} stroke="#E2E8F0" strokeWidth="1.3" />
       </g>
       <rect x="31" y="652" width="938" height="82" rx="18" fill="none" stroke="#FFFFFF" strokeWidth="1.2" opacity=".9" />
 
-      <circle cx="69" cy="693" r="30" fill="#34D399" opacity=".18" filter={url("blurSm")} />
+      <circle cx="69" cy="693" r="30" fill="#34D399" opacity=".18" />
       <circle cx="69" cy="693" r="23" fill="#FFFFFF" stroke="#E2E8F0" />
       <g transform="translate(54 678)" fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
         <path d="M0 8H11L15 3L20 8H29" stroke="#64748B" />
@@ -488,8 +473,8 @@ export default function SvgKClvsK2SO4() {
       </g>
 
       <text x="108" y="680" fontSize="12.5" fontWeight="900" fill="#1E293B">CHỌN PHÂN THEO NHU CẦU</text>
-      <text x="108" y="699" fontSize="10.5" fontWeight="600" fill="#64748B">Không có một loại phân kali tốt nhất cho mọi cây trồng.</text>
-      <text x="108" y="715" fontSize="9.5" fill="#64748B">* Hàm lượng điển hình; kiểm tra nhãn sản phẩm thực tế.</text>
+      <text x="108" y="699" fontSize="13" fontWeight="600" fill="#64748B">Không có một loại phân kali tốt nhất cho mọi cây trồng.</text>
+      <text x="108" y="715" fontSize="12.5" fill="#64748B">* Hàm lượng điển hình; kiểm tra nhãn sản phẩm thực tế.</text>
 
       <line x1="498" y1="666" x2="498" y2="720" stroke="#E2E8F0" strokeWidth="1.3" />
 
@@ -502,11 +487,11 @@ export default function SvgKClvsK2SO4() {
           <rect y="3" width={c.w} height="46" rx="11" fill="#0F172A" opacity=".05" />
           <rect width={c.w} height="46" rx="11" fill="#FFFFFF" stroke={c.st} />
           <rect x="1" y="1" width={c.w - 2} height="44" rx="10" fill={c.bg} opacity=".35" />
-          <circle cx="17" cy="17" r="11" fill={c.bg} opacity=".9" filter={url("blurSm")} />
+          <circle cx="17" cy="17" r="11" fill={c.bg} opacity=".9" />
           <circle cx="17" cy="17" r="8" fill={c.bg} stroke={c.st} />
-          <text x="17" y="20" textAnchor="middle" fontSize="9" fontWeight="900" fill={c.tc}>{c.n}</text>
-          <text x="31" y="16" fontSize="9.5" fontWeight="900" fill={c.hc}>{c.t}</text>
-          <text x="31" y="30" fontSize="8.5" fontWeight="600" fill="#64748B">{c.s}</text>
+          <text x="17" y="20" textAnchor="middle" fontSize="12.5" fontWeight="900" fill={c.tc}>{c.n}</text>
+          <text x="31" y="16" fontSize="12.5" fontWeight="900" fill={c.hc}>{c.t}</text>
+          <text x="31" y="30" fontSize="12.5" fontWeight="600" fill="#64748B">{c.s}</text>
         </g>
       ))}
     </svg>

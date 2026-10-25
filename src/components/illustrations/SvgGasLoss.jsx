@@ -31,8 +31,7 @@ export default function SvgGasLoss() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         {/* Nền tổng thể */}
@@ -82,24 +81,6 @@ export default function SvgGasLoss() {
           <stop offset="0%" stopColor="#FDA4AF" stopOpacity="0.55" />
           <stop offset="100%" stopColor="#FDA4AF" stopOpacity="0" />
         </radialGradient>
-
-        <filter id={ids.shadow} x="-25%" y="-25%" width="150%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="6"
-            stdDeviation="7"
-            floodColor="#472B24"
-            floodOpacity="0.12"
-          />
-        </filter>
-
-        <filter id={ids.glow} x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
 
         <marker
           id={ids.arrow}
@@ -201,7 +182,7 @@ export default function SvgGasLoss() {
           x="52"
           y="34.5"
           fill="#9A3412"
-          fontSize="10"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="1"
         >
@@ -223,7 +204,7 @@ export default function SvgGasLoss() {
           x="27"
           y="98"
           fill="#81736A"
-          fontSize="11.5"
+          fontSize="13"
           fontWeight="500"
         >
           Đất chua hóa và thất thoát nitơ khi bón phân không đúng cách
@@ -251,7 +232,6 @@ export default function SvgGasLoss() {
           fillOpacity="0.96"
           stroke="#F2C9BC"
           strokeWidth="1.4"
-          filter={`url(#${ids.shadow})`}
         />
 
         {/* Section heading */}
@@ -287,7 +267,7 @@ export default function SvgGasLoss() {
           x="79"
           y="171"
           fill="#9F7164"
-          fontSize="10"
+          fontSize="13"
           fontWeight="500"
         >
           Nitrat hóa góp phần làm đất chua thêm
@@ -308,7 +288,7 @@ export default function SvgGasLoss() {
           y="158.5"
           textAnchor="middle"
           fill="#B91C1C"
-          fontSize="10"
+          fontSize="13"
           fontWeight="900"
         >
           pH THẤP
@@ -341,7 +321,7 @@ export default function SvgGasLoss() {
         </g>
 
         {/* Stunted seedling */}
-        <g filter={`url(#${ids.shadow})`}>
+        <g>
           {/* Stem */}
           <path
             d="M183 283 Q181 255 185 225"
@@ -407,7 +387,7 @@ export default function SvgGasLoss() {
           y="209.5"
           textAnchor="middle"
           fill="#9A6700"
-          fontSize="9.5"
+          fontSize="12.5"
           fontWeight="800"
         >
           Lá vàng
@@ -549,7 +529,7 @@ export default function SvgGasLoss() {
           y="443.5"
           textAnchor="middle"
           fill="#FFF7ED"
-          fontSize="10.5"
+          fontSize="13"
           fontWeight="800"
         >
           H⁺ TÍCH TỤ • pH GIẢM
@@ -561,7 +541,7 @@ export default function SvgGasLoss() {
           y="470"
           textAnchor="middle"
           fill="#9A3412"
-          fontSize="10"
+          fontSize="13"
           fontWeight="800"
         >
           Nitrat hóa giải phóng H⁺
@@ -583,7 +563,6 @@ export default function SvgGasLoss() {
           fillOpacity="0.96"
           stroke="#F2D9A8"
           strokeWidth="1.4"
-          filter={`url(#${ids.shadow})`}
         />
 
         {/* Section heading */}
@@ -609,7 +588,7 @@ export default function SvgGasLoss() {
           x="427"
           y="154"
           fill="#92400E"
-          fontSize="11.5"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="0.15"
         >
@@ -620,7 +599,7 @@ export default function SvgGasLoss() {
           x="427"
           y="171"
           fill="#9A8061"
-          fontSize="10"
+          fontSize="13"
           fontWeight="500"
         >
           Nguy cơ thất thoát nitơ dạng NH₃
@@ -641,7 +620,7 @@ export default function SvgGasLoss() {
           y="158.5"
           textAnchor="middle"
           fill="#C2410C"
-          fontSize="9.5"
+          fontSize="12.5"
           fontWeight="900"
         >
           CẢNH BÁO
@@ -676,7 +655,7 @@ export default function SvgGasLoss() {
         />
 
         {/* NH3 bubbles */}
-        <g className="gas-bubble" filter={`url(#${ids.shadow})`}>
+        <g className="gas-bubble">
           <circle
             cx="492"
             cy="238"
@@ -700,14 +679,14 @@ export default function SvgGasLoss() {
             y="242.5"
             textAnchor="middle"
             fill="#BE123C"
-            fontSize="11.5"
+            fontSize="13"
             fontWeight="900"
           >
             NH₃
           </text>
         </g>
 
-        <g className="gas-bubble-delayed" filter={`url(#${ids.shadow})`}>
+        <g className="gas-bubble-delayed">
           <circle
             cx="572"
             cy="212"
@@ -753,7 +732,7 @@ export default function SvgGasLoss() {
             y="251"
             textAnchor="middle"
             fill="#BE123C"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="900"
           >
             NH₃
@@ -775,7 +754,7 @@ export default function SvgGasLoss() {
           y="204.5"
           textAnchor="middle"
           fill="#BE123C"
-          fontSize="9.2"
+          fontSize="12.5"
           fontWeight="900"
         >
           KHÍ BAY LÊN
@@ -848,7 +827,7 @@ export default function SvgGasLoss() {
         </g>
 
         {/* NH4+ ion */}
-        <g filter={`url(#${ids.shadow})`}>
+        <g>
           <circle
             cx="455"
             cy="326"
@@ -872,7 +851,7 @@ export default function SvgGasLoss() {
             y="330.5"
             textAnchor="middle"
             fill="#FFFFFF"
-            fontSize="11.5"
+            fontSize="13"
             fontWeight="900"
           >
             NH₄⁺
@@ -892,7 +871,7 @@ export default function SvgGasLoss() {
         </text>
 
         {/* OH- ion */}
-        <g filter={`url(#${ids.shadow})`}>
+        <g>
           <circle
             cx="537"
             cy="326"
@@ -956,7 +935,7 @@ export default function SvgGasLoss() {
           y="330.5"
           textAnchor="middle"
           fill="#854D0E"
-          fontSize="9.5"
+          fontSize="12.5"
           fontWeight="900"
         >
           VÔI / KIỀM
@@ -979,7 +958,7 @@ export default function SvgGasLoss() {
           y="382"
           textAnchor="middle"
           fill="#854D0E"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="800"
         >
           KHI pH TĂNG
@@ -1002,7 +981,7 @@ export default function SvgGasLoss() {
           y="470"
           textAnchor="middle"
           fill="#B91C1C"
-          fontSize="10"
+          fontSize="13"
           fontWeight="800"
         >
           NH₃ thoát ra → thất thoát nitơ
@@ -1023,7 +1002,6 @@ export default function SvgGasLoss() {
           fill="#FFFFFF"
           stroke="#F0C7BC"
           strokeWidth="1.3"
-          filter={`url(#${ids.shadow})`}
         />
 
         {/* Warning icon */}
@@ -1056,7 +1034,7 @@ export default function SvgGasLoss() {
           x="82"
           y="519"
           fill="#991B1B"
-          fontSize="10"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="1"
         >
@@ -1077,7 +1055,7 @@ export default function SvgGasLoss() {
           x="82"
           y="555"
           fill="#806B63"
-          fontSize="10.5"
+          fontSize="13"
           fontWeight="500"
         >
           Bón riêng thời điểm, theo khuyến cáo kỹ thuật và điều kiện đất.
@@ -1106,7 +1084,7 @@ export default function SvgGasLoss() {
             y="38"
             textAnchor="middle"
             fill="#9A3412"
-            fontSize="7.5"
+            fontSize="12"
             fontWeight="900"
           >
             LƯU Ý

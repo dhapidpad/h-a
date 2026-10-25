@@ -68,8 +68,7 @@ export default function SvgRootAtpStation() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         <linearGradient id="atpSky" x1="0" y1="0" x2="0" y2="1">
@@ -125,20 +124,6 @@ export default function SvgRootAtpStation() {
           <stop offset="1" stopColor="#F9A8D4" />
         </radialGradient>
 
-        <filter id="atpGlow" x="-40%" y="-40%" width="180%" height="180%">
-          <feGaussianBlur stdDeviation="3.5" result="b" />
-          <feMerge>
-            <feMergeNode in="b" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
-        <filter id="atpSoftGlow" x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="8" />
-        </filter>
-        <filter id="atpShadow" x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.4" />
-        </filter>
-
         <clipPath id="atpFrame">
           <rect x="10" y="8" width="620" height="544" rx="26" />
         </clipPath>
@@ -149,12 +134,7 @@ export default function SvgRootAtpStation() {
         <rect x="0" y="0" width="640" height="215" fill="url(#atpSky)" />
         {STARS.map((s, i) => (
           <circle key={i} cx={s.x} cy={s.y} r={s.r} fill="#FFF">
-            <animate
-              attributeName="opacity"
-              values="0.2;1;0.2"
-              dur={`${s.d}s`}
-              repeatCount="indefinite"
-            />
+            
           </circle>
         ))}
         <circle cx="570" cy="70" r="70" fill="url(#atpSun)" />
@@ -200,7 +180,7 @@ export default function SvgRootAtpStation() {
             fill="none"
           />
           {/* Lá trái */}
-          <g filter="url(#atpShadow)">
+          <g>
             <path
               d="M319 158 C 288 100, 232 98, 206 124 C 232 160, 284 170, 319 158 Z"
               fill="url(#atpLeaf)"
@@ -214,7 +194,7 @@ export default function SvgRootAtpStation() {
             </g>
           </g>
           {/* Lá phải */}
-          <g filter="url(#atpShadow)">
+          <g>
             <path
               d="M321 140 C 352 84, 410 84, 436 110 C 410 146, 358 154, 321 140 Z"
               fill="url(#atpLeaf)"
@@ -233,7 +213,7 @@ export default function SvgRootAtpStation() {
             <circle r="46" fill="url(#atpAura)">
               <animate attributeName="r" values="40;50;40" dur="3.5s" repeatCount="indefinite" />
             </circle>
-            <g filter="url(#atpShadow)">
+            <g>
               {Array.from({ length: 8 }, (_, i) => (
                 <ellipse
                   key={i}
@@ -278,14 +258,14 @@ export default function SvgRootAtpStation() {
         {/* Nhãn hoa & hạt */}
         <g>
           <rect x="360" y="40" width="94" height="24" rx="12" fill="#FCE7F3" stroke="#EC4899" strokeWidth="1.4" />
-          <text x="407" y="56" textAnchor="middle" fill="#9D174D" fontSize="11.5" fontWeight="800">
+          <text x="407" y="56" textAnchor="middle" fill="#9D174D" fontSize="13" fontWeight="800">
             Hoa &amp; hạt
           </text>
           <path d="M360 52 L 346 66" stroke="#EC4899" strokeWidth="1.4" fill="none" />
         </g>
 
         {/* ===== BỘ RỄ ===== */}
-        <g filter="url(#atpGlow)" fill="none" strokeLinecap="round">
+        <g fill="none" strokeLinecap="round">
           {/* Rễ cọc */}
           <path d="M320 200 C 322 260, 316 330, 320 400" stroke="#F3E8FF" strokeWidth="6" />
           {/* Rễ bên chính */}
@@ -327,17 +307,10 @@ export default function SvgRootAtpStation() {
                 begin={ion.begin}
                 repeatCount="indefinite"
               />
-              <animate
-                attributeName="opacity"
-                values="0;1;1;0"
-                keyTimes="0;0.12;0.85;1"
-                dur="4.8s"
-                begin={ion.begin}
-                repeatCount="indefinite"
-              />
-              <circle r="20" fill="#A855F7" opacity="0.25" filter="url(#atpSoftGlow)" />
+              
+              <circle r="20" fill="#A855F7" opacity="0.25" />
               <circle r="18" fill="url(#atpIon)" stroke="#D8B4FE" strokeWidth="1.6" />
-              <text y="3.5" textAnchor="middle" fill="#FFF" fontSize="9.5" fontWeight="800">
+              <text y="3.5" textAnchor="middle" fill="#FFF" fontSize="12.5" fontWeight="800">
                 {ion.label}
               </text>
             </g>
@@ -345,7 +318,7 @@ export default function SvgRootAtpStation() {
         ))}
 
         {/* Mũi tên "hấp thụ" */}
-        <g fill="#E9D5FF" opacity="0.85" fontSize="10.5" fontWeight="700">
+        <g fill="#E9D5FF" opacity="0.85" fontSize="13" fontWeight="700">
           <text x="34" y="292">Rễ hấp thụ</text>
           <text x="34" y="305">photphat</text>
           <text x="606" y="292" textAnchor="end">Rễ hấp thụ</text>
@@ -354,7 +327,7 @@ export default function SvgRootAtpStation() {
 
         {/* ===== TRẠM PIN ATP ===== */}
         <g transform="translate(255 280)">
-          <ellipse cx="65" cy="30" rx="95" ry="52" fill="#FDE047" opacity="0.28" filter="url(#atpSoftGlow)" />
+          <ellipse cx="65" cy="30" rx="95" ry="52" fill="#FDE047" opacity="0.28" />
           <rect
             x="0"
             y="0"
@@ -364,20 +337,12 @@ export default function SvgRootAtpStation() {
             fill="url(#atpBattery)"
             stroke="#FDE047"
             strokeWidth="3"
-            filter="url(#atpShadow)"
           />
           <rect x="130" y="19" width="11" height="24" rx="4" fill="url(#atpGold)" />
           {/* Vạch mức pin */}
           {[0, 1, 2, 3].map((i) => (
             <rect key={i} x={10 + i * 29} y="46" width="23" height="8" rx="3" fill="url(#atpGold)">
-              <animate
-                attributeName="opacity"
-                values="0.25;1;1"
-                keyTimes="0;0.4;1"
-                dur="3.2s"
-                begin={`${i * 0.5}s`}
-                repeatCount="indefinite"
-              />
+              
             </rect>
           ))}
           {/* Tia chớp */}
@@ -392,7 +357,7 @@ export default function SvgRootAtpStation() {
               d={`M${x} ${y - 7} L ${x + 2} ${y - 2} L ${x + 7} ${y} L ${x + 2} ${y + 2} L ${x} ${y + 7} L ${x - 2} ${y + 2} L ${x - 7} ${y} L ${x - 2} ${y - 2} Z`}
               fill="#FEF08A"
             >
-              <animate attributeName="opacity" values="0;1;0" dur="2.4s" begin={`${b}s`} repeatCount="indefinite" />
+              
             </path>
           ))}
         </g>
@@ -400,7 +365,7 @@ export default function SvgRootAtpStation() {
         {/* ===== BẢNG PHÂN TỬ ATP ===== */}
         <g>
           <rect x="52" y="440" width="536" height="96" rx="18" fill="#1A0838" opacity="0.88" stroke="#7E22CE" strokeWidth="1.5" />
-          <text x="320" y="458" textAnchor="middle" fill="#E9D5FF" fontSize="11.5" fontWeight="800">
+          <text x="320" y="458" textAnchor="middle" fill="#E9D5FF" fontSize="13" fontWeight="800">
             Cấu tạo phân tử ATP
           </text>
 
@@ -411,7 +376,7 @@ export default function SvgRootAtpStation() {
 
           {/* Ribose */}
           <polygon points="185,470 204,484 197,506 173,506 166,484" fill="#F9A8D4" stroke="#FBCFE8" strokeWidth="1.6" />
-          <text x="185" y="492" textAnchor="middle" fill="#831843" fontSize="10" fontWeight="800">Ribose</text>
+          <text x="185" y="492" textAnchor="middle" fill="#831843" fontSize="13" fontWeight="800">Ribose</text>
           <line x1="204" y1="486" x2="236" y2="490" stroke="#E9D5FF" strokeWidth="2.2" />
 
           {/* 3 nhóm photphat */}
@@ -423,22 +388,22 @@ export default function SvgRootAtpStation() {
           ))}
           <line x1="277" y1="490" x2="304" y2="490" stroke="#E9D5FF" strokeWidth="2.2" />
           {/* Liên kết giàu năng lượng */}
-          <line x1="342" y1="490" x2="369" y2="490" stroke="#FDE047" strokeWidth="3.2" strokeDasharray="4 3" filter="url(#atpGlow)">
-            <animate attributeName="opacity" values="1;0.3;1" dur="1.4s" repeatCount="indefinite" />
+          <line x1="342" y1="490" x2="369" y2="490" stroke="#FDE047" strokeWidth="3.2" strokeDasharray="4 3">
+            
           </line>
           <path d="M351 476 L 346 489 L 354 489 L 349 503 L 362 486 L 354 486 L 358 476 Z" fill="#FDE047" stroke="#B45309" strokeWidth="0.8" />
 
           {/* Chú thích */}
-          <text x="115" y="526" textAnchor="middle" fill="#BAE6FD" fontSize="10" fontWeight="700">Adenine</text>
-          <text x="185" y="526" textAnchor="middle" fill="#FBCFE8" fontSize="10" fontWeight="700">Đường</text>
-          <text x="323" y="526" textAnchor="middle" fill="#FDE68A" fontSize="10" fontWeight="700">3 nhóm photphat (P)</text>
-          <text x="488" y="486" textAnchor="middle" fill="#FDE047" fontSize="11" fontWeight="800">Bẻ liên kết P–P</text>
-          <text x="488" y="502" textAnchor="middle" fill="#FDE047" fontSize="11" fontWeight="800">giải phóng năng lượng</text>
+          <text x="115" y="526" textAnchor="middle" fill="#BAE6FD" fontSize="13" fontWeight="700">Adenine</text>
+          <text x="185" y="526" textAnchor="middle" fill="#FBCFE8" fontSize="13" fontWeight="700">Đường</text>
+          <text x="323" y="526" textAnchor="middle" fill="#FDE68A" fontSize="13" fontWeight="700">3 nhóm photphat (P)</text>
+          <text x="488" y="486" textAnchor="middle" fill="#FDE047" fontSize="13" fontWeight="800">Bẻ liên kết P–P</text>
+          <text x="488" y="502" textAnchor="middle" fill="#FDE047" fontSize="13" fontWeight="800">giải phóng năng lượng</text>
         </g>
 
         {/* ===== TIÊU ĐỀ ===== */}
         <g>
-          <rect x="22" y="16" width="292" height="30" rx="15" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.6" filter="url(#atpShadow)" />
+          <rect x="22" y="16" width="292" height="30" rx="15" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.6" />
           <text x="168" y="36" textAnchor="middle" fill="#5B21B6" fontSize="13" fontWeight="800">
             ⚡ Photpho: pin năng lượng của tế bào
           </text>

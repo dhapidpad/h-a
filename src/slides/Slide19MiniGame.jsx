@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect, useRef, memo } from 'react';
-import confetti from 'canvas-confetti';
 import { BLIND_BAGS, BASE_SCORE, PENALTY, MIN_SCORE, getRank } from '../data/miniGameData';
 import {
   kindFor, Creature, PouchSvg, MedalSvg, TrophySvg,
@@ -488,9 +487,10 @@ export default function Slide19MiniGame({ onNext, stage }) {
   const activeProg = (activeId && progress[activeId]) || emptyProgress();
 
   /* ---- Hoa giấy (số hạt giảm trên điện thoại cho nhẹ) ---- */
-  const fire = useCallback((opts, base) => {
+  const fire = useCallback(async (opts, base) => {
     const scale = sizeRef.current === 'compact' ? 0.55 : 1;
     try {
+      const { default: confetti } = await import('canvas-confetti');
       confetti({
         disableForReducedMotion: true,
         zIndex: 120,

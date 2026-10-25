@@ -29,8 +29,7 @@ export default function SvgFusedPhosphateCups() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <style>{`
         .fp-float{animation:fpFloat 4s ease-in-out infinite}
@@ -81,9 +80,6 @@ export default function SvgFusedPhosphateCups() {
           <stop offset="0" stopColor="#A78BFA" stopOpacity="0.55" />
           <stop offset="1" stopColor="#A78BFA" stopOpacity="0" />
         </radialGradient>
-        <filter id="fpShadow" x="-20%" y="-20%" width="140%" height="150%">
-          <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#0F172A" floodOpacity="0.12" />
-        </filter>
         <clipPath id="fpClipL"><path d={glass} /></clipPath>
         <clipPath id="fpClipR"><path d={glass} /></clipPath>
       </defs>
@@ -92,7 +88,7 @@ export default function SvgFusedPhosphateCups() {
 
       {/* dấu vs ở giữa */}
       <g transform="translate(270, 226)">
-        <circle r="20" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" filter="url(#fpShadow)" />
+        <circle r="20" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
         <text y="5" textAnchor="middle" fill="#64748B" fontSize="13" fontWeight="800">VS</text>
       </g>
 
@@ -110,12 +106,12 @@ export default function SvgFusedPhosphateCups() {
           {[44, 64, 84].map((x, i) => (
             <ellipse key={x} cx={x} cy="0" rx="2.2" ry="4.5" fill="#38BDF8">
               <animate attributeName="cy" values="26;68;68" keyTimes="0;0.8;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
-              <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.7;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
+              
             </ellipse>
           ))}
         </g>
 
-        <g transform="translate(24, 92)" filter="url(#fpShadow)">
+        <g transform="translate(24, 92)">
           <path d={glass} fill="#F8FCFF" />
           <g clipPath="url(#fpClipL)">
             <g className="fp-wave">
@@ -127,7 +123,7 @@ export default function SvgFusedPhosphateCups() {
             {[40, 70, 108].map((x, i) => (
               <circle key={x} cx={x} cy="200" r="2.5" fill="#FFFFFF" opacity="0.8">
                 <animate attributeName="cy" values="190;70" dur={`${3 + i}s`} begin={`${i}s`} repeatCount="indefinite" />
-                <animate attributeName="opacity" values="0.8;0" dur={`${3 + i}s`} begin={`${i}s`} repeatCount="indefinite" />
+                
               </circle>
             ))}
 
@@ -147,13 +143,13 @@ export default function SvgFusedPhosphateCups() {
           <g className="fp-float">
             <rect x="8" y="84" width="136" height="50" rx="12" fill="#FFFFFF" opacity="0.92" stroke="#7DD3FC" />
             <text x="76" y="106" textAnchor="middle" fill="#0369A1" fontSize="15" fontWeight="900">KHÔNG TAN!</text>
-            <text x="76" y="123" textAnchor="middle" fill="#0284C7" fontSize="10.5" fontWeight="600">Trơ đáy, không bị rửa trôi</text>
+            <text x="76" y="123" textAnchor="middle" fill="#0284C7" fontSize="13" fontWeight="600">Trơ đáy, không bị rửa trôi</text>
           </g>
 
           {/* Chip pH thông số khoa học */}
           <g transform="translate(6, 252)">
             <rect x="0" y="0" width="140" height="22" rx="11" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="1" />
-            <text x="70" y="15" textAnchor="middle" fill="#475569" fontSize="10.5" fontWeight="700">pH ~7 · Nước trung tính</text>
+            <text x="70" y="15" textAnchor="middle" fill="#475569" fontSize="13" fontWeight="700">pH ~7 · Nước trung tính</text>
           </g>
         </g>
       </g>
@@ -173,7 +169,7 @@ export default function SvgFusedPhosphateCups() {
           </g>
         </g>
 
-        <g transform="translate(24, 92)" filter="url(#fpShadow)">
+        <g transform="translate(24, 92)">
           <path d={glass} fill="#FCFAFF" />
           <g clipPath="url(#fpClipR)">
             <g className="fp-wave">
@@ -192,7 +188,7 @@ export default function SvgFusedPhosphateCups() {
             {[[76, 168, 0], [42, 168, 0.7], [108, 176, 1.4], [38, 98, 2.1], [118, 108, 2.8]].map(([x, y, d], i) => (
               <circle key={i} cx={x} cy={y} r="3.6" fill="#FDE047" stroke="#EAB308" strokeWidth="1">
                 <animate attributeName="cy" values={`${y};${y + 26}`} dur="2.4s" begin={`${d}s`} repeatCount="indefinite" />
-                <animate attributeName="opacity" values="1;0" dur="2.4s" begin={`${d}s`} repeatCount="indefinite" />
+                
               </circle>
             ))}
 
@@ -212,12 +208,12 @@ export default function SvgFusedPhosphateCups() {
                   <circle cx={x} cy={0} r={r} fill="url(#fpIon)">
                     <animate attributeName="cy" values={`0;${y * 1.9}`} dur="4.8s" begin={`${d}s`} repeatCount="indefinite" />
                     <animate attributeName="cx" values={`${x};${x * 0.2}`} dur="4.8s" begin={`${d}s`} repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.15;0.8;1" dur="4.8s" begin={`${d}s`} repeatCount="indefinite" />
+                    
                   </circle>
                 </g>
               ))}
             </g>
-            <text x="76" y="203" textAnchor="middle" fill="#FFFFFF" fontSize="10" fontWeight="800" opacity="0.9">H₂PO₄⁻</text>
+            <text x="76" y="203" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="800" opacity="0.9">H₂PO₄⁻</text>
             <rect className="fp-shine" x="0" y="0" width="30" height="240" fill="url(#fpGlassShine)" opacity="0.35" transform="skewX(-12)" />
           </g>
           <path d={glass} fill="none" stroke="#8C6BFA" strokeWidth="3" strokeLinejoin="round" />
@@ -231,13 +227,13 @@ export default function SvgFusedPhosphateCups() {
           {/* Chip pH thông số khoa học */}
           <g transform="translate(4, 252)">
             <rect x="0" y="0" width="144" height="22" rx="11" fill="#FAF5FF" stroke="#DDD6FE" strokeWidth="1" />
-            <text x="72" y="15" textAnchor="middle" fill="#6B21A8" fontSize="10.5" fontWeight="700">pH 5–6 · Axit hữu cơ quanh rễ</text>
+            <text x="72" y="15" textAnchor="middle" fill="#6B21A8" fontSize="13" fontWeight="700">pH 5–6 · Axit hữu cơ quanh rễ</text>
           </g>
         </g>
       </g>
 
       {/* ================= DẢI GIẢI THÍCH ================= */}
-      <g filter="url(#fpShadow)">
+      <g>
         <rect x="36" y="406" width="468" height="58" rx="18" fill="url(#fpPill)" stroke="#22C55E" strokeWidth="1.8" />
       </g>
       <g transform="translate(64, 435)">
@@ -247,7 +243,7 @@ export default function SvgFusedPhosphateCups() {
       <text x="286" y="431" textAnchor="middle" fill="#166534" fontSize="13.5" fontWeight="800">
         TÍNH KIỀM (pH 8–8,5) + GIÀU CANXI, MAGIÊ, SILIC
       </text>
-      <text x="286" y="450" textAnchor="middle" fill="#15803D" fontSize="11.5" fontWeight="600">
+      <text x="286" y="450" textAnchor="middle" fill="#15803D" fontSize="13" fontWeight="600">
         Đặc trị tuyệt vời cho đất đồi dốc dầm mưa và đất phèn trũng miền Tây
       </text>
     </svg>

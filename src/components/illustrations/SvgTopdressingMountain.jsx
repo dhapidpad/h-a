@@ -77,7 +77,6 @@ export default function SvgTopdressingMountain() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -160,42 +159,6 @@ export default function SvgTopdressingMountain() {
         </linearGradient>
 
         {/* ================= FILTERS ================= */}
-
-        <filter
-          id={uid("shadow")}
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="160%"
-        >
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="11"
-            floodColor="#0F172A"
-            floodOpacity=".07"
-          />
-        </filter>
-
-        <filter
-          id={uid("glow")}
-          x="-100%"
-          y="-100%"
-          width="300%"
-          height="300%"
-        >
-          <feGaussianBlur stdDeviation="6" />
-        </filter>
-
-        <filter
-          id={uid("softGlow")}
-          x="-100%"
-          y="-100%"
-          width="300%"
-          height="300%"
-        >
-          <feGaussianBlur stdDeviation="2.5" />
-        </filter>
 
         {/* ================= ANIMATIONS ================= */}
 
@@ -367,7 +330,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="54"
         y="43"
-        fontSize="11"
+        fontSize="13"
         fontWeight="900"
         letterSpacing="2"
         fill="#B45309"
@@ -401,7 +364,7 @@ export default function SvgTopdressingMountain() {
           02 · MAIN GRAPH PANEL
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="30"
           y="132"
@@ -451,7 +414,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="100"
         y="183"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="600"
         fill="#64748B"
       >
@@ -473,7 +436,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="826"
         y="170.5"
-        fontSize="9.5"
+        fontSize="12.5"
         fontWeight="900"
         fill="#9A3412"
       >
@@ -538,7 +501,7 @@ export default function SvgTopdressingMountain() {
         y="312"
         transform="rotate(-90 65 312)"
         textAnchor="middle"
-        fontSize="10.5"
+        fontSize="13"
         fontWeight="900"
         letterSpacing=".8"
         fill="#64748B"
@@ -550,7 +513,7 @@ export default function SvgTopdressingMountain() {
         x="83"
         y="216"
         textAnchor="end"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="700"
         fill="#94A3B8"
       >
@@ -561,7 +524,7 @@ export default function SvgTopdressingMountain() {
         x="83"
         y="419"
         textAnchor="end"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="700"
         fill="#94A3B8"
       >
@@ -583,7 +546,6 @@ export default function SvgTopdressingMountain() {
         strokeWidth="13"
         strokeLinecap="round"
         opacity=".16"
-        filter={`url(#${uid("glow")})`}
         className={uid("glowPulse")}
       />
 
@@ -627,7 +589,6 @@ export default function SvgTopdressingMountain() {
             r={i === 2 ? 19 : 12}
             fill={m.color}
             opacity=".1"
-            filter={`url(#${uid("softGlow")})`}
           />
 
           <circle
@@ -665,7 +626,6 @@ export default function SvgTopdressingMountain() {
         r="24"
         fill="#FB923C"
         opacity=".17"
-        filter={`url(#${uid("glow")})`}
         className={uid("glowPulse")}
       />
 
@@ -711,7 +671,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="592"
         y="202"
-        fontSize="10"
+        fontSize="13"
         fontWeight="900"
         fill="#9A3412"
       >
@@ -721,7 +681,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="592"
         y="214"
-        fontSize="8.8"
+        fontSize="12.5"
         fontWeight="600"
         fill="#C2410C"
       >
@@ -745,7 +705,7 @@ export default function SvgTopdressingMountain() {
         x="901"
         y="439"
         textAnchor="end"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="800"
         fill="#64748B"
       >
@@ -786,7 +746,7 @@ export default function SvgTopdressingMountain() {
               x={x + 17}
               y="467.5"
               textAnchor="middle"
-              fontSize="8.5"
+              fontSize="12.5"
               fontWeight="900"
               fill={stage.color}
             >
@@ -990,7 +950,7 @@ export default function SvgTopdressingMountain() {
               x={center}
               y="505"
               textAnchor="middle"
-              fontSize="9.3"
+              fontSize="12.5"
               fontWeight="600"
               fill="#64748B"
             >
@@ -1006,7 +966,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="74"
         y="547"
-        fontSize="10"
+        fontSize="13"
         fontWeight="600"
         fill="#64748B"
       >
@@ -1017,7 +977,7 @@ export default function SvgTopdressingMountain() {
           06 · SMART TOP-DRESSING GUIDANCE
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="30"
           y="581"
@@ -1043,7 +1003,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="51"
         y="624"
-        fontSize="10"
+        fontSize="13"
         fontWeight="500"
         fill="#64748B"
       >
@@ -1065,7 +1025,7 @@ export default function SvgTopdressingMountain() {
       <text
         x="826"
         y="610.5"
-        fontSize="9.5"
+        fontSize="12.5"
         fontWeight="900"
         fill="#166534"
       >
@@ -1097,19 +1057,19 @@ export default function SvgTopdressingMountain() {
         <path d="M5 13Q9 17 13 13" />
       </g>
 
-      <text x="100" y="656" fontSize="10" fontWeight="900" fill="#075985">
+      <text x="100" y="656" fontSize="13" fontWeight="900" fill="#075985">
         HIỂU ĐẤT TRƯỚC KHI BÓN
       </text>
 
-      <text x="100" y="672" fontSize="9.2" fill="#64748B">
+      <text x="100" y="672" fontSize="12.5" fill="#64748B">
         Đất cát, CEC thấp và mưa lớn
       </text>
 
-      <text x="100" y="685" fontSize="9.2" fill="#64748B">
+      <text x="100" y="685" fontSize="12.5" fill="#64748B">
         có thể làm tăng nguy cơ mất K.
       </text>
 
-      <text x="100" y="701" fontSize="9.2" fontWeight="700" fill="#0284C7">
+      <text x="100" y="701" fontSize="12.5" fontWeight="700" fill="#0284C7">
         Chú ý khả năng giữ dinh dưỡng
       </text>
 
@@ -1139,19 +1099,19 @@ export default function SvgTopdressingMountain() {
         <path d="M5 11h3M12 11h2" />
       </g>
 
-      <text x="408" y="656" fontSize="10" fontWeight="900" fill="#166534">
+      <text x="408" y="656" fontSize="13" fontWeight="900" fill="#166534">
         CHIA LẦN KHI CÓ LỢI
       </text>
 
-      <text x="408" y="672" fontSize="9.2" fill="#64748B">
+      <text x="408" y="672" fontSize="12.5" fill="#64748B">
         Phù hợp một số đất nhẹ hoặc
       </text>
 
-      <text x="408" y="685" fontSize="9.2" fill="#64748B">
+      <text x="408" y="685" fontSize="12.5" fill="#64748B">
         cây có nhu cầu kéo dài.
       </text>
 
-      <text x="408" y="701" fontSize="9.2" fontWeight="700" fill="#15803D">
+      <text x="408" y="701" fontSize="12.5" fontWeight="700" fill="#15803D">
         Chia theo khuyến cáo cụ thể
       </text>
 
@@ -1180,19 +1140,19 @@ export default function SvgTopdressingMountain() {
         <path d="M9 4V9L13 12" />
       </g>
 
-      <text x="716" y="656" fontSize="10" fontWeight="900" fill="#92400E">
+      <text x="716" y="656" fontSize="13" fontWeight="900" fill="#92400E">
         KHÔNG CHIA THEO TỶ LỆ CỐ ĐỊNH
       </text>
 
-      <text x="716" y="672" fontSize="9.2" fill="#64748B">
+      <text x="716" y="672" fontSize="12.5" fill="#64748B">
         Lượng và thời điểm bón phụ thuộc
       </text>
 
-      <text x="716" y="685" fontSize="9.2" fill="#64748B">
+      <text x="716" y="685" fontSize="12.5" fill="#64748B">
         cây, đất và mục tiêu năng suất.
       </text>
 
-      <text x="716" y="701" fontSize="9.2" fontWeight="700" fill="#B45309">
+      <text x="716" y="701" fontSize="12.5" fontWeight="700" fill="#B45309">
         Ưu tiên kết quả phân tích đất
       </text>
     </svg>

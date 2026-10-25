@@ -31,8 +31,7 @@ export default function SvgChlorophyllFactory() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         {/* Nền sinh học cao cấp */}
@@ -86,24 +85,6 @@ export default function SvgChlorophyllFactory() {
         >
           <circle cx="2" cy="2" r="1.15" fill="#16A34A" opacity="0.12" />
         </pattern>
-
-        <filter id={id.shadow} x="-25%" y="-25%" width="150%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="8"
-            floodColor="#14532D"
-            floodOpacity="0.13"
-          />
-        </filter>
-
-        <filter id={id.softGlow} x="-60%" y="-60%" width="220%" height="220%">
-          <feGaussianBlur stdDeviation="4" result="blur" />
-          <feMerge>
-            <feMergeNode in="blur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
 
         <marker
           id={id.arrow}
@@ -195,7 +176,7 @@ export default function SvgChlorophyllFactory() {
           x="50"
           y="34.5"
           fill="#15803D"
-          fontSize="10.5"
+          fontSize="13"
           fontWeight="800"
           letterSpacing="1"
           fontFamily="Inter, Arial, sans-serif"
@@ -238,7 +219,7 @@ export default function SvgChlorophyllFactory() {
             x="31"
             y="21"
             fill="#FFFFFF"
-            fontSize="10.5"
+            fontSize="13"
             fontWeight="800"
             letterSpacing="0.7"
             fontFamily="Inter, Arial, sans-serif"
@@ -269,7 +250,6 @@ export default function SvgChlorophyllFactory() {
           fillOpacity="0.9"
           stroke="#D4F0DC"
           strokeWidth="1.3"
-          filter={`url(#${id.shadow})`}
         />
 
         <rect
@@ -319,7 +299,7 @@ export default function SvgChlorophyllFactory() {
             x="38"
             y="163"
             fill="#739183"
-            fontSize="10"
+            fontSize="13"
             fontWeight="500"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -372,7 +352,7 @@ export default function SvgChlorophyllFactory() {
         />
 
         {/* Chiếc lá nổi khối */}
-        <g filter={`url(#${id.shadow})`}>
+        <g>
           <path
             d="
               M 139 388
@@ -448,7 +428,7 @@ export default function SvgChlorophyllFactory() {
             x="65"
             y="419.5"
             fill="#166534"
-            fontSize="10.5"
+            fontSize="13"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -463,7 +443,7 @@ export default function SvgChlorophyllFactory() {
             x="128"
             y="419.5"
             fill="#3F6C52"
-            fontSize="10"
+            fontSize="13"
             fontWeight="600"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -505,7 +485,6 @@ export default function SvgChlorophyllFactory() {
           fillOpacity="0.93"
           stroke="#D4F0DC"
           strokeWidth="1.3"
-          filter={`url(#${id.shadow})`}
         />
 
         {/* Tiêu đề thẻ */}
@@ -547,7 +526,7 @@ export default function SvgChlorophyllFactory() {
             x="22"
             y="16.5"
             fill="#15803D"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -603,7 +582,7 @@ export default function SvgChlorophyllFactory() {
           y="223"
           textAnchor="middle"
           fill="#166534"
-          fontSize="10.5"
+          fontSize="13"
           fontWeight="900"
           letterSpacing="0.5"
           fontFamily="Inter, Arial, sans-serif"
@@ -694,7 +673,7 @@ export default function SvgChlorophyllFactory() {
             y="328"
             textAnchor="middle"
             fill="#6B21A8"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -743,7 +722,7 @@ export default function SvgChlorophyllFactory() {
             y="328"
             textAnchor="middle"
             fill="#0369A1"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -782,7 +761,7 @@ export default function SvgChlorophyllFactory() {
           y="354.5"
           textAnchor="middle"
           fill="#FFFFFF"
-          fontSize="9"
+          fontSize="12.5"
           fontWeight="900"
           letterSpacing="0.4"
           fontFamily="Inter, Arial, sans-serif"
@@ -806,7 +785,7 @@ export default function SvgChlorophyllFactory() {
             x="331"
             y="398.5"
             fill="#92400E"
-            fontSize="8.7"
+            fontSize="12.5"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -816,7 +795,7 @@ export default function SvgChlorophyllFactory() {
             x="331"
             y="408.5"
             fill="#A16207"
-            fontSize="8.2"
+            fontSize="12"
             fontWeight="600"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -844,7 +823,7 @@ export default function SvgChlorophyllFactory() {
             x="523"
             y="398.5"
             fill="#166534"
-            fontSize="9.1"
+            fontSize="12.5"
             fontWeight="800"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -854,7 +833,7 @@ export default function SvgChlorophyllFactory() {
             x="523"
             y="408.5"
             fill="#15803D"
-            fontSize="8.5"
+            fontSize="12.5"
             fontWeight="600"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -878,7 +857,6 @@ export default function SvgChlorophyllFactory() {
           fillOpacity="0.95"
           stroke="#CDEBD7"
           strokeWidth="1.3"
-          filter={`url(#${id.shadow})`}
         />
 
         <text
@@ -898,7 +876,7 @@ export default function SvgChlorophyllFactory() {
           y="484.5"
           textAnchor="end"
           fill="#6B8B79"
-          fontSize="9.3"
+          fontSize="12.5"
           fontWeight="600"
           fontFamily="Inter, Arial, sans-serif"
         >
@@ -933,7 +911,7 @@ export default function SvgChlorophyllFactory() {
             y="538"
             textAnchor="middle"
             fill="#0369A1"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="700"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -978,7 +956,7 @@ export default function SvgChlorophyllFactory() {
             y="538"
             textAnchor="middle"
             fill="#0F766E"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="700"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -1023,7 +1001,7 @@ export default function SvgChlorophyllFactory() {
             y="538"
             textAnchor="middle"
             fill="#7E22CE"
-            fontSize="9.5"
+            fontSize="12.5"
             fontWeight="700"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -1057,7 +1035,7 @@ export default function SvgChlorophyllFactory() {
             y="522"
             textAnchor="middle"
             fill="#166534"
-            fontSize="11.5"
+            fontSize="13"
             fontWeight="900"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -1068,7 +1046,7 @@ export default function SvgChlorophyllFactory() {
             y="538"
             textAnchor="middle"
             fill="#15803D"
-            fontSize="9.2"
+            fontSize="12.5"
             fontWeight="700"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -1113,7 +1091,7 @@ export default function SvgChlorophyllFactory() {
             y="538"
             textAnchor="middle"
             fill="#D1FAE5"
-            fontSize="9.2"
+            fontSize="12.5"
             fontWeight="600"
             fontFamily="Inter, Arial, sans-serif"
           >
@@ -1126,7 +1104,7 @@ export default function SvgChlorophyllFactory() {
           y="566"
           textAnchor="middle"
           fill="#63816F"
-          fontSize="9.5"
+          fontSize="12.5"
           fontWeight="600"
           fontFamily="Inter, Arial, sans-serif"
         >

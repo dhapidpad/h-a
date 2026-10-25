@@ -24,7 +24,7 @@ function Pill({ x, y, w, color, children }) {
     <g>
       <rect x={x} y={y} width={w} height="20" rx="10" fill="#fff" opacity=".93" />
       <circle cx={x + 10} cy={y + 10} r="4" fill={color} />
-      <text x={x + 19} y={y + 13.5} fontSize="9.5" fontWeight="700" fill="#1E293B" fontFamily={FONT}>{children}</text>
+      <text x={x + 19} y={y + 13.5} fontSize="12.5" fontWeight="700" fill="#1E293B" fontFamily={FONT}>{children}</text>
     </g>
   );
 }
@@ -34,7 +34,7 @@ function Chip({ x, w, color, label }) {
       <rect width={w} height="32" rx="16" fill="#fff" stroke={color} strokeWidth="1.6" />
       <circle cx="16" cy="16" r="9" fill={color} />
       <path d="M11.5 16.2 l3.2 3.2 l5.8 -6.4" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <text x="31" y="20" fontSize="11" fontWeight="800" fill="#0F172A" fontFamily={FONT}>{label}</text>
+      <text x="31" y="20" fontSize="13" fontWeight="800" fill="#0F172A" fontFamily={FONT}>{label}</text>
     </g>
   );
 }
@@ -42,9 +42,9 @@ function Particle({ letter, color, path, dur, begin }) {
   return (
     <g>
       <circle r="6" fill={color} stroke="#fff" strokeWidth="1.2" />
-      <text y="2.4" textAnchor="middle" fontSize="6.8" fontWeight="800" fill="#fff" fontFamily={FONT}>{letter}</text>
+      <text y="2.4" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff" fontFamily={FONT}>{letter}</text>
       <animateMotion path={path} dur={dur} begin={begin} repeatCount="indefinite" />
-      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.85;1" dur={dur} begin={begin} repeatCount="indefinite" />
+      
     </g>
   );
 }
@@ -77,8 +77,7 @@ export default function SvgSoilBalance() {
         maxWidth: '100%',
         maxHeight: '100%',
         borderRadius: 22,
-        boxShadow: '0 12px 32px rgba(15, 23, 42, 0.08)',
-      }}
+        }}
     >
       <defs>
         <linearGradient id="sbSky" x1="0" y1="0" x2="0" y2="1">
@@ -91,16 +90,13 @@ export default function SvgSoilBalance() {
         <linearGradient id="sbBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#64748B" /><stop offset="1" stopColor="#334155" /></linearGradient>
         <radialGradient id="sbSun"><stop offset="0" stopColor="#FEF08A" /><stop offset="1" stopColor="#FACC15" /></radialGradient>
         <clipPath id="sbSoilClip"><rect x="20" y="200" width="500" height="210" rx="20" /></clipPath>
-        <filter id="sbShadow" x="-20%" y="-20%" width="140%" height="150%">
-          <feDropShadow dx="0" dy="2" stdDeviation="2.5" floodColor="#0F172A" floodOpacity=".25" />
-        </filter>
-      </defs>
+        </defs>
 
       <rect width="540" height="460" rx="22" fill="url(#sbSky)" stroke="#86EFAC" strokeWidth="1.5" />
 
       {/* ============ BẦU TRỜI ============ */}
       <text x="22" y="30" fontSize="15" fontWeight="800" fill="#0F172A">Cán cân đất khỏe</text>
-      <text x="22" y="45" fontSize="9.5" fontWeight="500" fill="#64748B">Đạm vô cơ cần đi cùng hữu cơ và vôi</text>
+      <text x="22" y="45" fontSize="12.5" fontWeight="500" fill="#64748B">Đạm vô cơ cần đi cùng hữu cơ và vôi</text>
 
       <g transform="translate(494,38)">
         <g>
@@ -121,9 +117,9 @@ export default function SvgSoilBalance() {
       {/* ============ CÁN CÂN ============ */}
       <rect x="236" y="196" width="68" height="9" rx="4.5" fill="#475569" />
       <polygon points="258,198 282,198 274,76 266,76" fill="url(#sbBeam)" />
-      <g filter="url(#sbShadow)">
+      <g>
         <rect x="228" y="116" width="84" height="22" rx="11" fill="#16A34A" />
-        <text x="270" y="131" textAnchor="middle" fontSize="10" fontWeight="800" fill="#fff">Bón cân đối</text>
+        <text x="270" y="131" textAnchor="middle" fontSize="13" fontWeight="800" fill="#fff">Bón cân đối</text>
       </g>
 
       <g transform="translate(270,70)">
@@ -138,17 +134,17 @@ export default function SvgSoilBalance() {
               <animateTransform attributeName="transform" type="rotate" values="5 0 0;-4 0 0;5 0 0" dur="6s" repeatCount="indefinite" {...ease} />
               <line x1="0" y1="0" x2="-40" y2="48" stroke="#94A3B8" strokeWidth="1.6" />
               <line x1="0" y1="0" x2="40" y2="48" stroke="#94A3B8" strokeWidth="1.6" />
-              <g filter="url(#sbShadow)">
+              <g>
                 <rect x="-24" y="8" width="48" height="40" rx="5" fill="#F8FAFC" stroke="#94A3B8" strokeWidth="1.4" />
                 <rect x="-24" y="8" width="48" height="9" rx="4" fill="#E2E8F0" />
                 <line x1="-20" y1="12.5" x2="20" y2="12.5" stroke="#94A3B8" strokeDasharray="2 2" strokeWidth=".9" />
                 <rect x="-24" y="24" width="48" height="12" fill="#2563EB" />
-                <text y="33" textAnchor="middle" fontSize="9" fontWeight="800" fill="#fff">UREA</text>
-                <text y="45" textAnchor="middle" fontSize="7" fontWeight="700" fill="#1E293B">46% N</text>
+                <text y="33" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#fff">UREA</text>
+                <text y="45" textAnchor="middle" fontSize="12" fontWeight="700" fill="#1E293B">46% N</text>
               </g>
               {[[-30, 46], [28, 46], [-34, 44], [33, 44]].map(([x, y], i) => <circle key={i} cx={x} cy={y} r="2.1" fill="#fff" stroke="#CBD5E1" strokeWidth=".6" />)}
               <path d="M-42 48 Q0 68 42 48 Z" fill="url(#sbMetal)" stroke="#64748B" strokeWidth="1" />
-              <text y="62" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1E293B">Đạm N</text>
+              <text y="62" textAnchor="middle" fontSize="12" fontWeight="800" fill="#1E293B">Đạm N</text>
             </g>
           </g>
 
@@ -158,17 +154,17 @@ export default function SvgSoilBalance() {
               <animateTransform attributeName="transform" type="rotate" values="5 0 0;-4 0 0;5 0 0" dur="6s" repeatCount="indefinite" {...ease} />
               <line x1="0" y1="0" x2="-40" y2="48" stroke="#94A3B8" strokeWidth="1.6" />
               <line x1="0" y1="0" x2="40" y2="48" stroke="#94A3B8" strokeWidth="1.6" />
-              <g filter="url(#sbShadow)">
+              <g>
                 <rect x="-36" y="14" width="34" height="34" rx="5" fill="#8A654A" stroke="#5B4030" strokeWidth="1.2" />
                 <path d="M-19 20 Q-27 26 -19 34 Q-11 26 -19 20Z" fill="#86EFAC" />
-                <text x="-19" y="43" textAnchor="middle" fontSize="7" fontWeight="800" fill="#fff">HỮU CƠ</text>
+                <text x="-19" y="43" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff">HỮU CƠ</text>
                 <rect x="2" y="22" width="32" height="26" rx="5" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.4" />
                 <rect x="2" y="30" width="32" height="7" fill="#38BDF8" />
-                <text x="18" y="36" textAnchor="middle" fontSize="6.5" fontWeight="800" fill="#fff">VÔI</text>
-                <text x="18" y="45" textAnchor="middle" fontSize="6" fontWeight="700" fill="#475569">pH ↑</text>
+                <text x="18" y="36" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff">VÔI</text>
+                <text x="18" y="45" textAnchor="middle" fontSize="12" fontWeight="700" fill="#475569">pH ↑</text>
               </g>
               <path d="M-42 48 Q0 68 42 48 Z" fill="url(#sbMetal)" stroke="#64748B" strokeWidth="1" />
-              <text y="62" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#1E293B">Hữu cơ + Vôi</text>
+              <text y="62" textAnchor="middle" fontSize="12" fontWeight="800" fill="#1E293B">Hữu cơ + Vôi</text>
             </g>
           </g>
         </g>
@@ -252,10 +248,10 @@ export default function SvgSoilBalance() {
           <circle cx="190" cy="243" r="2" fill="#FEF9C3" stroke="#CA8A04" strokeWidth=".6" />
         </g>
         <g>
-          <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur="6s" repeatCount="indefinite" />
+          
           <rect x="212" y="210" width="86" height="18" rx="9" fill="#fff" />
           <path d="M214 227 L208 236 L224 227 Z" fill="#fff" />
-          <text x="255" y="222.5" textAnchor="middle" fontSize="9" fontWeight="800" fill="#BE123C">Đất tơi xốp rồi!</text>
+          <text x="255" y="222.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#BE123C">Đất tơi xốp rồi!</text>
         </g>
       </g>
 
@@ -274,8 +270,8 @@ export default function SvgSoilBalance() {
 
       {/* ============ QUY TẮC 4 ĐÚNG ============ */}
       <rect x="14" y="418" width="92" height="32" rx="16" fill="#16A34A" />
-      <text x="60" y="431" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#DCFCE7">Quy tắc</text>
-      <text x="60" y="443" textAnchor="middle" fontSize="11" fontWeight="900" fill="#fff">4 ĐÚNG</text>
+      <text x="60" y="431" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="#DCFCE7">Quy tắc</text>
+      <text x="60" y="443" textAnchor="middle" fontSize="13" fontWeight="900" fill="#fff">4 ĐÚNG</text>
       <Chip x={112} w={94} color="#16A34A" label="Đúng loại" />
       <Chip x={212} w={94} color="#2563EB" label="Đúng lượng" />
       <Chip x={312} w={94} color="#D97706" label="Đúng lúc" />

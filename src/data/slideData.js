@@ -1,11 +1,11 @@
 // Dữ liệu trình chiếu 19 Slide - Chuẩn hóa từ NHÓM TÀI.txt và Master Plan
 export const CHAPTERS = {
-  INTRO: { id: 'INTRO', name: 'MỞ ĐẦU', color: '#2F80ED', softColor: '#EAF2FF' },
-  DAM: { id: 'DAM', name: 'PHÂN ĐẠM (N)', color: '#36B86A', softColor: '#E8F8EE', mascot: 'SPROUTY_N' },
-  LAN: { id: 'LAN', name: 'PHÂN LÂN (P)', color: '#8C6BFA', softColor: '#F0EBFF', mascot: 'SPARKY_P' },
-  KALI: { id: 'KALI', name: 'PHÂN KALI (K)', color: '#FFB547', softColor: '#FFF3DA', mascot: 'SUNNY_K' },
+  INTRO: { id: 'INTRO', name: 'MỞ ĐẦU', color: '#2563EB', softColor: '#EFF6FF' },
+  DAM: { id: 'DAM', name: 'PHÂN ĐẠM (N)', color: '#12B76A', softColor: '#ECFDF5', mascot: 'SPROUTY_N' },
+  LAN: { id: 'LAN', name: 'PHÂN LÂN (P)', color: '#7C5CFF', softColor: '#F5F3FF', mascot: 'SPARKY_P' },
+  KALI: { id: 'KALI', name: 'PHÂN KALI (K)', color: '#F79009', softColor: '#FFFAEB', mascot: 'SUNNY_K' },
   GAME: { id: 'GAME', name: 'MINI GAME', color: '#EC4899', softColor: '#FDF2F8' },
-  CLOSING: { id: 'CLOSING', name: 'TỔNG KẾT', color: '#2F80ED', softColor: '#EAF2FF' }
+  CLOSING: { id: 'CLOSING', name: 'TỔNG KẾT', color: '#2563EB', softColor: '#EFF6FF' }
 };
 
 export const TEAM_MEMBERS = [

@@ -1,10 +1,9 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import confetti from 'canvas-confetti';
 import SvgClosingEco from '../components/illustrations/SvgClosingEco';
 import CuteMascot from '../components/mascot/CuteMascot';
 
 /* ============================================================
-   DỮ LIỆU 4 ĐÚNG
+   DỮ LIỆU 4 ĐÚNG (Đồng bộ Token Mục 6.2)
 ============================================================ */
 const PRINCIPLES = [
   {
@@ -12,50 +11,47 @@ const PRINCIPLES = [
     title: 'Đúng Loại',
     short: 'Đạm cho lá, Lân cho rễ, Kali cho quả hạt',
     detail: 'N làm lá xanh – thân cao, P kích rễ – ra hoa, K chắc hạt – tăng vị ngọt, chống đổ ngã.',
-    main: '#16A34A',
-    deep: '#14532D',
-    soft: '#DCFCE7',
-    glow: 'rgba(34,197,94,.35)',
-    grad: 'linear-gradient(135deg,#4ADE80 0%,#16A34A 100%)',
+    main: 'var(--n-main)',
+    deep: 'var(--n-deep)',
+    soft: 'var(--n-tint)',
+    glow: 'var(--n-glow)',
+    hex: '#12B76A',
   },
   {
     key: 'lieu',
     title: 'Đúng Liều',
     short: 'Phân tích đất & đáp ứng đúng nhu cầu sinh lý',
     detail: 'Bón theo kết quả phân tích đất và giai đoạn cây. Thừa đạm → sâu bệnh, lốp đổ; thiếu → còi cọc.',
-    main: '#7C3AED',
-    deep: '#4C1D95',
-    soft: '#EDE9FE',
-    glow: 'rgba(139,92,246,.35)',
-    grad: 'linear-gradient(135deg,#A78BFA 0%,#6D28D9 100%)',
+    main: 'var(--p-main)',
+    deep: 'var(--p-deep)',
+    soft: 'var(--p-tint)',
+    glow: 'var(--p-glow)',
+    hex: '#7C5CFF',
   },
   {
     key: 'luc',
     title: 'Đúng Lúc',
     short: 'Lót lân đầu vụ, thúc đạm kali đón đòng nuôi hạt',
     detail: 'Lân bón lót để rễ khỏe sớm; đạm – kali chia nhiều lần, thúc đúng lúc cây cần nhất.',
-    main: '#D97706',
-    deep: '#78350F',
-    soft: '#FEF3C7',
-    glow: 'rgba(251,191,36,.4)',
-    grad: 'linear-gradient(135deg,#FCD34D 0%,#D97706 100%)',
+    main: 'var(--k-main)',
+    deep: 'var(--k-deep)',
+    soft: 'var(--k-tint)',
+    glow: 'var(--k-glow)',
+    hex: '#F79009',
   },
   {
     key: 'cach',
     title: 'Đúng Cách',
     short: 'Vùi sâu phủ kín, kết hợp hữu cơ giữ đất khỏe',
     detail: 'Vùi phân, phủ đất để giảm bay hơi – rửa trôi; trộn phân hữu cơ để đất tơi xốp, giữ ẩm tốt.',
-    main: '#0284C7',
-    deep: '#0C4A6E',
-    soft: '#E0F2FE',
-    glow: 'rgba(56,189,248,.38)',
-    grad: 'linear-gradient(135deg,#7DD3FC 0%,#0284C7 100%)',
+    main: 'var(--water)',
+    deep: 'var(--water-deep)',
+    soft: 'var(--water-tint)',
+    glow: 'rgba(14,165,233,.32)',
+    hex: '#0EA5E9',
   },
 ];
 
-/* ============================================================
-   ICON SVG TỰ VẼ (không emoji)
-============================================================ */
 function PrincipleIcon({ type, color }) {
   const common = {
     width: 26,
@@ -132,7 +128,7 @@ const PartyIcon = () => (
   </svg>
 );
 
-const ChatIcon = ({ color = '#2F80ED' }) => (
+const ChatIcon = ({ color = '#2563EB' }) => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
       d="M4 5h16a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 20 17h-8l-5 4v-4H4a1.5 1.5 0 0 1-1.5-1.5v-9A1.5 1.5 0 0 1 4 5Z"
@@ -148,9 +144,6 @@ const ChatIcon = ({ color = '#2F80ED' }) => (
   </svg>
 );
 
-/* ============================================================
-   SFX bằng Web Audio (không cần file âm thanh)
-============================================================ */
 function useSfx() {
   const ctxRef = useRef(null);
 
@@ -203,9 +196,6 @@ function useSfx() {
   return { tick, open, fanfare };
 }
 
-/* ============================================================
-   SLIDE
-============================================================ */
 export default function Slide20Closing({ slide }) {
   const [showQaModal, setShowQaModal] = useState(false);
   const [active, setActive] = useState(0);
@@ -218,11 +208,12 @@ export default function Slide20Closing({ slide }) {
   useEffect(() => () => { confettiTimers.current.forEach(clearTimeout); confettiTimers.current = []; }, []);
   const later = (fn, ms) => { confettiTimers.current.push(setTimeout(fn, ms)); };
 
-  const handleConfetti = () => {
+  const handleConfetti = async () => {
     sfx.fanfare();
     setBurst((b) => b + 1);
     if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const colors = ['#22C55E', '#86EFAC', '#8B5CF6', '#C4B5FD', '#FBBF24', '#FDE68A', '#38BDF8'];
+    const { default: confetti } = await import('canvas-confetti');
+    const colors = ['#12B76A', '#A7F3D0', '#7C5CFF', '#C4B5FD', '#F79009', '#FEDF89', '#0EA5E9'];
     confetti({ particleCount: 140, spread: 100, startVelocity: 48, origin: { y: 0.62 }, colors, scalar: 1.05 });
     later(() => confetti({ particleCount: 70, angle: 60, spread: 65, origin: { x: 0, y: 0.75 }, colors }), 180);
     later(() => confetti({ particleCount: 70, angle: 120, spread: 65, origin: { x: 1, y: 0.75 }, colors }), 180);
@@ -259,60 +250,54 @@ export default function Slide20Closing({ slide }) {
           display: grid;
           grid-template-columns: minmax(420px, 480px) 1fr;
           height: 100%;
-          gap: 32px;
+          gap: 28px;
           align-items: center;
           overflow: hidden;
           position: relative;
         }
         .s20-left {
-          display: flex; flex-direction: column; gap: 14px;
+          display: flex; flex-direction: column; gap: 12px;
           min-height: 0; overflow-y: auto; padding: 4px 8px 4px 2px;
           scrollbar-width: thin;
         }
         .s20-title {
           font-family: var(--font-display);
-          font-size: 36px; font-weight: 900; line-height: 1.12;
+          font-size: 32px; font-weight: 900; line-height: 1.14;
           margin: 0; letter-spacing: -0.4px;
-          background: linear-gradient(100deg, #14532D 0%, #16A34A 38%, #7C3AED 72%, #D97706 100%);
-          background-size: 200% 100%;
+          background: linear-gradient(100deg, var(--n-deep) 0%, var(--n-main) 38%, var(--p-main) 72%, var(--k-main) 100%);
           -webkit-background-clip: text; background-clip: text;
           -webkit-text-fill-color: transparent; color: transparent;
-          animation: s20-title-flow 9s ease-in-out infinite alternate;
         }
-        @keyframes s20-title-flow { to { background-position: 100% 0; } }
 
         .s20-pill {
           display: inline-flex; align-items: center; gap: 8px; width: fit-content;
           padding: 6px 14px; border-radius: 999px;
-          background: linear-gradient(135deg, #EAF2FF, #F0FDF4);
-          color: #2F80ED; font-size: 13px; font-weight: 900;
-          border: 1px solid #CFE1FF;
-          box-shadow: 0 4px 12px rgba(47,128,237,.12);
+          background: linear-gradient(135deg, var(--i-soft), var(--n-soft));
+          color: var(--i-main); font-size: 13px; font-weight: 900;
+          border: 1px solid var(--i-line);
+          box-shadow: 0 4px 12px rgba(37,99,235,.1);
         }
         .s20-pill i {
           width: 8px; height: 8px; border-radius: 50%;
-          background: #22C55E; box-shadow: 0 0 0 0 rgba(34,197,94,.6);
-          animation: s20-ping 2s ease-out infinite;
+          background: var(--n-main);
         }
-        @keyframes s20-ping { 70%,100% { box-shadow: 0 0 0 9px rgba(34,197,94,0); } }
 
         .s20-list { display: flex; flex-direction: column; gap: 9px; }
         .s20-card {
-          --c: #16A34A; --soft: #DCFCE7; --deep: #14532D; --glow: rgba(34,197,94,.3);
+          --c: var(--n-main); --soft: var(--n-tint); --deep: var(--n-deep); --glow: var(--n-glow);
           position: relative; display: flex; align-items: center; gap: 12px;
           width: 100%; text-align: left; font: inherit;
           padding: 9px 12px 9px 10px; border-radius: 16px; cursor: pointer;
-          background: rgba(255,255,255,.82);
+          background: rgba(255,255,255,.95);
           border: 1.5px solid var(--soft);
-          backdrop-filter: blur(6px);
-          transition: transform .25s cubic-bezier(.2,.9,.3,1.3), box-shadow .25s, background .25s, border-color .25s;
-          animation: s20-card-in .6s cubic-bezier(.2,.9,.3,1.2) both;
+          transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out), background-color .22s var(--ease-out), border-color .22s var(--ease-out);
+          animation: s20-card-in .5s var(--ease-out) both;
           overflow: hidden;
         }
         .s20-card::before {
           content: ''; position: absolute; inset: 0 auto 0 0; width: 5px;
           background: var(--c); border-radius: 16px 0 0 16px;
-          transform: scaleY(.35); transition: transform .3s;
+          transform: scaleY(.35); transition: transform .25s var(--ease-out);
         }
         .s20-card:hover { transform: translateX(4px); }
         .s20-card:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
@@ -322,28 +307,21 @@ export default function Slide20Closing({ slide }) {
           transform: translateX(6px);
         }
         .s20-card.on::before { transform: scaleY(1); }
-        .s20-card::after {
-          content: ''; position: absolute; top: 0; bottom: 0; width: 60px; left: -80px;
-          background: linear-gradient(100deg, transparent, rgba(255,255,255,.75), transparent);
-          transform: skewX(-18deg);
-        }
-        .s20-card.on::after { animation: s20-sheen 1.1s ease-out; }
-        @keyframes s20-sheen { to { left: 110%; } }
         @keyframes s20-card-in {
-          from { opacity: 0; transform: translateX(-22px) scale(.97); }
-          to   { opacity: 1; transform: translateX(0) scale(1); }
+          from { opacity: 0; transform: translateX(-18px); }
+          to   { opacity: 1; transform: translateX(0); }
         }
         .s20-icon {
           width: 42px; height: 42px; border-radius: 13px; flex-shrink: 0;
           display: grid; place-items: center;
           background: var(--soft);
-          transition: background .25s, transform .3s cubic-bezier(.2,.9,.3,1.5);
+          transition: background-color .22s var(--ease-out), transform .25s var(--ease-out);
         }
-        .s20-card.on .s20-icon { transform: rotate(-6deg) scale(1.08); box-shadow: 0 6px 14px var(--glow); }
-        .s20-txt { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; line-height: 1.35; color: #334155; }
+        .s20-card.on .s20-icon { transform: scale(1.06); box-shadow: 0 6px 14px var(--glow); }
+        .s20-txt { flex: 1; min-width: 0; font-size: 14.5px; font-weight: 600; line-height: 1.35; color: var(--ink-soft); }
         .s20-txt b { display: block; font-size: 15.5px; font-weight: 900; color: var(--deep); margin-bottom: 1px; }
-        .s20-check { flex-shrink: 0; transition: transform .3s cubic-bezier(.2,.9,.3,1.6); }
-        .s20-card.on .s20-check { transform: scale(1.15) rotate(8deg); }
+        .s20-check { flex-shrink: 0; transition: transform .25s var(--ease-out); }
+        .s20-card.on .s20-check { transform: scale(1.12); }
 
         .s20-actions { display: flex; gap: 12px; margin-top: 2px; flex-wrap: wrap; }
         .s20-btn {
@@ -351,61 +329,53 @@ export default function Slide20Closing({ slide }) {
           display: inline-flex; align-items: center; gap: 9px;
           padding: 12px 22px; font-size: 15px; font-weight: 800; cursor: pointer;
           font-family: inherit;
-          transition: transform .2s cubic-bezier(.2,.9,.3,1.5), box-shadow .2s;
+          transition: transform .2s var(--ease-out), box-shadow .2s var(--ease-out);
         }
-        .s20-btn:hover { transform: translateY(-2px) scale(1.03); }
-        .s20-btn:active { transform: translateY(1px) scale(.97); }
-        .s20-btn:focus-visible { outline: 3px solid #2F80ED; outline-offset: 3px; }
+        .s20-btn:hover { transform: translateY(-2px); }
+        .s20-btn:active { transform: translateY(1px) scale(.98); }
+        .s20-btn:focus-visible { outline: 3px solid var(--i-main); outline-offset: 3px; }
         .s20-btn.party {
           border: none; color: #fff;
-          background: linear-gradient(135deg, #34D399 0%, #059669 55%, #047857 100%);
-          box-shadow: 0 8px 22px rgba(16,185,129,.4), inset 0 1px 0 rgba(255,255,255,.35);
+          background: linear-gradient(135deg, var(--n-main) 0%, var(--n-deep) 100%);
+          box-shadow: 0 8px 22px var(--n-glow), inset 0 1px 0 rgba(255,255,255,.35);
         }
-        .s20-btn.party::after {
-          content: ''; position: absolute; top: 0; bottom: 0; width: 46px; left: -70px;
-          background: linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent);
-          transform: skewX(-18deg); animation: s20-sheen-loop 3.6s ease-in-out infinite;
-        }
-        @keyframes s20-sheen-loop { 0%, 55% { left: -70px; } 100% { left: 120%; } }
         .s20-btn.qa {
-          background: #fff; color: #2F80ED; border: 2px solid #2F80ED;
-          box-shadow: 0 4px 14px rgba(47,128,237,.14);
+          background: #fff; color: var(--i-main); border: 2px solid var(--i-main);
+          box-shadow: 0 4px 14px rgba(37,99,235,.14);
         }
-        .s20-btn.qa.open { background: #2F80ED; color: #fff; }
+        .s20-btn.qa.open { background: var(--i-main); color: #fff; }
         .s20-btn.qa.open svg path:first-child { fill: #fff; fill-opacity: .2; stroke: #fff; }
         .s20-btn.qa.open svg circle { fill: #fff; }
 
         .s20-qa {
-          background: linear-gradient(135deg, #F8FAFC, #EFF6FF);
-          border: 1.5px solid #BFDBFE; border-radius: 16px;
-          padding: 12px 14px; font-size: 13.5px; color: #334155; line-height: 1.5;
+          background: linear-gradient(135deg, #F8FAFC, var(--i-soft));
+          border: 1.5px solid var(--i-line); border-radius: 16px;
+          padding: 12px 14px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.5;
           display: flex; gap: 10px; align-items: flex-start;
-          animation: s20-pop .45s cubic-bezier(.2,.9,.3,1.3) both;
-          box-shadow: 0 8px 20px rgba(47,128,237,.1);
+          animation: s20-pop .35s var(--ease-out) both;
+          box-shadow: 0 8px 20px rgba(37,99,235,.1);
         }
         @keyframes s20-pop {
-          from { opacity: 0; transform: translateY(-8px) scale(.96); }
+          from { opacity: 0; transform: translateY(-6px); }
           to   { opacity: 1; transform: none; }
         }
 
-        .s20-mascot { animation: s20-card-in .7s .55s cubic-bezier(.2,.9,.3,1.2) both; }
+        .s20-mascot { animation: s20-card-in .55s .35s var(--ease-out) both; }
 
-        /* ---------- Panel phải ---------- */
+        /* ---------- Panel phải (Mục 1.4 & 4.2: Bỏ filter blur 46px + backdrop-filter) ---------- */
         .s20-stage {
           position: relative; width: 100%; height: 100%; min-height: 0;
           display: flex; flex-direction: column; align-items: stretch; justify-content: center; gap: 8px;
-          border-radius: 28px; padding: 8px; overflow: hidden;
+          border-radius: 26px; padding: 8px; overflow: hidden;
           background:
-            radial-gradient(120% 90% at 50% 8%, rgba(255,255,255,.98) 0%, rgba(255,255,255,.94) 55%, rgba(240,253,244,.96) 100%);
-          border: 1.5px solid rgba(226,232,240,.9);
-          box-shadow: 0 18px 44px rgba(15,23,42,.09), inset 0 0 0 1px rgba(255,255,255,.9);
+            radial-gradient(60% 55% at 15% 15%, var(--n-soft) 0%, transparent 70%),
+            radial-gradient(60% 55% at 85% 15%, var(--p-soft) 0%, transparent 70%),
+            radial-gradient(60% 55% at 50% 88%, var(--k-soft) 0%, transparent 70%),
+            #FFFFFF;
+          border: 1.5px solid rgba(11,18,32,.08);
+          box-shadow: 0 18px 44px rgba(11,18,32,.09), inset 0 0 0 1px rgba(255,255,255,.9);
+          contain: layout paint style;
         }
-        .s20-stage::before {
-          content: ''; position: absolute; inset: -40%;
-          background: conic-gradient(from 0deg, rgba(134,239,172,.28), rgba(125,211,252,.24), rgba(196,181,253,.28), rgba(253,230,138,.26), rgba(134,239,172,.28));
-          filter: blur(46px); animation: s20-aurora 26s linear infinite; opacity: .8;
-        }
-        @keyframes s20-aurora { to { transform: rotate(360deg); } }
         .s20-stage > svg, .s20-stage > .s20-art { position: relative; z-index: 1; }
         .s20-art { width: 100%; flex: 1 1 0; min-height: 0; }
         .s20-art > svg { width: 100%; height: 100%; }
@@ -415,37 +385,32 @@ export default function Slide20Closing({ slide }) {
         .s20-corner.br { bottom: 12px; right: 12px; transform: rotate(180deg); }
 
         .s20-caption {
-          --c: #16A34A; --soft: #DCFCE7; --deep: #14532D; --glow: rgba(34,197,94,.3);
+          --c: var(--n-main); --soft: var(--n-tint); --deep: var(--n-deep); --glow: var(--n-glow);
           position: relative; z-index: 3; flex: 0 0 auto; margin: 0 8px 4px;
           display: flex; align-items: center; gap: 12px;
           padding: 10px 14px; border-radius: 18px;
-          background: rgba(255,255,255,.88);
-          backdrop-filter: blur(10px);
+          background: rgba(255,255,255,.96);
           border: 1.5px solid var(--c);
-          box-shadow: 0 12px 30px var(--glow);
-          animation: s20-pop .45s cubic-bezier(.2,.9,.3,1.3) both;
+          box-shadow: 0 10px 26px var(--glow);
+          animation: s20-pop .35s var(--ease-out) both;
         }
         .s20-caption .dot {
           width: 34px; height: 34px; border-radius: 11px; flex-shrink: 0;
           display: grid; place-items: center; background: var(--soft);
         }
-        .s20-caption .t { font-size: 12.5px; line-height: 1.4; color: #334155; font-weight: 600; }
-        .s20-caption .t b { color: var(--deep); font-weight: 900; font-size: 13.5px; margin-right: 6px; }
+        .s20-caption .t { font-size: 13px; line-height: 1.4; color: var(--ink-soft); font-weight: 600; }
+        .s20-caption .t b { color: var(--deep); font-weight: 900; font-size: 14px; margin-right: 6px; }
 
         .s20-flash {
-          position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: 28px;
-          background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.95), rgba(255,255,255,0) 62%);
-          animation: s20-flash .9s ease-out both;
+          position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: 26px;
+          background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.92), rgba(255,255,255,0) 62%);
+          animation: s20-flash .8s ease-out both;
         }
-        @keyframes s20-flash { from { opacity: 1; transform: scale(.6); } to { opacity: 0; transform: scale(1.4); } }
+        @keyframes s20-flash { from { opacity: 1; transform: scale(.6); } to { opacity: 0; transform: scale(1.35); } }
 
         @media (max-width: 960px) {
           .s20-root { grid-template-columns: 1fr; overflow-y: auto; gap: 18px; }
           .s20-stage { min-height: 360px; }
-        }
-        @media (prefers-reduced-motion: reduce), (max-height: 520px) {
-          .s20-stage::before { animation: none; filter: none; inset: 0; opacity: .55; }
-          .s20-root * { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .s20-root *, .s20-root *::before, .s20-root *::after { animation: none !important; transition: none !important; }
@@ -454,12 +419,12 @@ export default function Slide20Closing({ slide }) {
 
       {/* ================= CỘT TRÁI ================= */}
       <div className="s20-left">
-        <div className="s20-pill">
+        <div className="s20-pill chapter-pill">
           <i />
-          TỔNG KẾT & KẾT THÚC
+          <span>TỔNG KẾT &amp; KẾT THÚC</span>
         </div>
 
-        <h1 className="s20-title">NPK CÂN ĐỐI — VÌ NÔNG NGHIỆP XANH BỀN VỮNG</h1>
+        <h1 className="s20-title slide-title">NPK CÂN ĐỐI — VÌ NÔNG NGHIỆP XANH BỀN VỮNG</h1>
 
         <div className="s20-list" role="tablist" aria-label="Bốn nguyên tắc bón phân">
           {PRINCIPLES.map((p, i) => (
@@ -474,21 +439,21 @@ export default function Slide20Closing({ slide }) {
                 '--soft': p.soft,
                 '--deep': p.deep,
                 '--glow': p.glow,
-                animationDelay: `${0.08 + i * 0.1}s`,
+                animationDelay: `${0.06 + i * 0.07}s`,
               }}
               onClick={() => handleSelect(i)}
               onMouseEnter={() => active !== i && setActive(i)}
               onFocus={() => setActive(i)}
             >
               <span className="s20-icon">
-                <PrincipleIcon type={p.key} color={p.main} />
+                <PrincipleIcon type={p.key} color={p.hex} />
               </span>
               <span className="s20-txt">
                 <b>{p.title}</b>
                 {p.short}
               </span>
               <span className="s20-check">
-                <CheckBadge color={p.main} active={active === i} />
+                <CheckBadge color={p.hex} active={active === i} />
               </span>
             </button>
           ))}
@@ -507,7 +472,7 @@ export default function Slide20Closing({ slide }) {
             aria-expanded={showQaModal}
           >
             <ChatIcon />
-            <span>Hỏi & Đáp (Q&A)</span>
+            <span>Hỏi &amp; Đáp (Q&amp;A)</span>
           </button>
         </div>
 
@@ -520,44 +485,41 @@ export default function Slide20Closing({ slide }) {
           </div>
         )}
 
-        {/* Mascot Banner trong cột trái, KHÔNG BAO GIỜ CHE KHUẤT HÌNH */}
         <div className="s20-mascot">
           <CuteMascot
             variant="banner"
             mascotType="SPROUTY_N"
             emotion="proud"
             speech="Cảm ơn thầy cô và các bạn đã theo dõi bài báo cáo của nhóm nha! Chúc mọi người một ngày học tập thật tuyệt vời!"
-            size={52}
+            size={50}
           />
         </div>
       </div>
 
       {/* ================= CỘT PHẢI ================= */}
       <div className="s20-stage">
-        {/* Góc trang trí SVG */}
         <svg className="s20-corner tl" viewBox="0 0 44 44" fill="none" aria-hidden>
-          <path d="M4 40V14C4 8 8 4 14 4h26" stroke="#86EFAC" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="4" cy="40" r="2.6" fill="#22C55E" />
-          <circle cx="40" cy="4" r="2.6" fill="#8B5CF6" />
+          <path d="M4 40V14C4 8 8 4 14 4h26" stroke="#A7F3D0" strokeWidth="2.4" strokeLinecap="round" />
+          <circle cx="4" cy="40" r="2.6" fill="#12B76A" />
+          <circle cx="40" cy="4" r="2.6" fill="#7C5CFF" />
         </svg>
         <svg className="s20-corner br" viewBox="0 0 44 44" fill="none" aria-hidden>
-          <path d="M4 40V14C4 8 8 4 14 4h26" stroke="#FDE68A" strokeWidth="2.4" strokeLinecap="round" />
-          <circle cx="4" cy="40" r="2.6" fill="#FBBF24" />
-          <circle cx="40" cy="4" r="2.6" fill="#38BDF8" />
+          <path d="M4 40V14C4 8 8 4 14 4h26" stroke="#FEDF89" strokeWidth="2.4" strokeLinecap="round" />
+          <circle cx="4" cy="40" r="2.6" fill="#F79009" />
+          <circle cx="40" cy="4" r="2.6" fill="#0EA5E9" />
         </svg>
 
         <div className="s20-art">
           <SvgClosingEco active={active} />
         </div>
 
-        {/* Chú thích đổi theo nguyên tắc đang chọn */}
         <div
           key={cur.key}
           className="s20-caption"
           style={{ '--c': cur.main, '--soft': cur.soft, '--deep': cur.deep, '--glow': cur.glow }}
         >
           <span className="dot">
-            <PrincipleIcon type={cur.key} color={cur.main} />
+            <PrincipleIcon type={cur.key} color={cur.hex} />
           </span>
           <span className="t">
             <b>{cur.title}</b>

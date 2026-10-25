@@ -20,7 +20,6 @@ export default function SvgStomataShield() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -92,42 +91,6 @@ export default function SvgStomataShield() {
         </linearGradient>
 
         {/* ================= FILTERS ================= */}
-
-        <filter
-          id={c("shadow")}
-          x="-20%"
-          y="-20%"
-          width="140%"
-          height="160%"
-        >
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="11"
-            floodColor="#0F172A"
-            floodOpacity=".075"
-          />
-        </filter>
-
-        <filter
-          id={c("glow")}
-          x="-100%"
-          y="-100%"
-          width="300%"
-          height="300%"
-        >
-          <feGaussianBlur stdDeviation="6" />
-        </filter>
-
-        <filter
-          id={c("softGlow")}
-          x="-100%"
-          y="-100%"
-          width="300%"
-          height="300%"
-        >
-          <feGaussianBlur stdDeviation="2.5" />
-        </filter>
 
         {/* ================= ARROWHEADS ================= */}
 
@@ -353,7 +316,7 @@ export default function SvgStomataShield() {
       <text
         x="55"
         y="43"
-        fontSize="11"
+        fontSize="13"
         fontWeight="900"
         letterSpacing="2"
         fill="#B45309"
@@ -385,17 +348,17 @@ export default function SvgStomataShield() {
 
       <g transform="translate(790 91)">
         <circle cx="0" cy="0" r="4" fill="#F59E0B" />
-        <text x="10" y="4" fontSize="10" fontWeight="800" fill="#64748B">
+        <text x="10" y="4" fontSize="13" fontWeight="800" fill="#64748B">
           K⁺
         </text>
 
         <circle cx="54" cy="0" r="4" fill="#38BDF8" />
-        <text x="64" y="4" fontSize="10" fontWeight="800" fill="#64748B">
+        <text x="64" y="4" fontSize="13" fontWeight="800" fill="#64748B">
           H₂O
         </text>
 
         <circle cx="126" cy="0" r="4" fill="#22C55E" />
-        <text x="136" y="4" fontSize="10" fontWeight="800" fill="#64748B">
+        <text x="136" y="4" fontSize="13" fontWeight="800" fill="#64748B">
           ĐƯỜNG
         </text>
       </g>
@@ -404,7 +367,7 @@ export default function SvgStomataShield() {
           02 · LEFT CARD — STOMATAL GATE
       ===================================================== */}
 
-      <g filter={`url(#${c("shadow")})`}>
+      <g>
         <rect
           x="28"
           y="135"
@@ -437,14 +400,14 @@ export default function SvgStomataShield() {
         CỔNG KHÍ KHỔNG
       </text>
 
-      <text x="100" y="188" fontSize="10.5" fontWeight="600" fill="#65A30D">
+      <text x="100" y="188" fontSize="13" fontWeight="600" fill="#65A30D">
         K⁺ · THẨM THẤU · ÁP SUẤT TRƯƠNG
       </text>
 
       <rect x="364" y="159" width="105" height="26" rx="13" fill="#F0FDF4" />
       <circle cx="378" cy="172" r="4" fill="#22C55E" />
 
-      <text x="388" y="175.5" fontSize="9.5" fontWeight="800" fill="#15803D">
+      <text x="388" y="175.5" fontSize="12.5" fontWeight="800" fill="#15803D">
         ĐANG MỞ
       </text>
 
@@ -463,7 +426,7 @@ export default function SvgStomataShield() {
       <circle cx="93" cy="265" r="26" fill="#BBF7D0" opacity=".2" />
       <circle cx="426" cy="432" r="38" fill="#A7F3D0" opacity=".18" />
 
-      <text x="65" y="234" fontSize="10" fontWeight="800" fill="#64748B">
+      <text x="65" y="234" fontSize="13" fontWeight="800" fill="#64748B">
         PHÓNG ĐẠI BỀ MẶT LÁ
       </text>
 
@@ -483,7 +446,7 @@ export default function SvgStomataShield() {
         x="261"
         y="249"
         textAnchor="middle"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="700"
         fill="#0284C7"
       >
@@ -523,10 +486,10 @@ export default function SvgStomataShield() {
         <circle cx="288" cy="280" r="2" fill="#7DD3FC" />
       </g>
 
-      <text x="299" y="265" fontSize="10" fontWeight="800" fill="#0284C7">
+      <text x="299" y="265" fontSize="13" fontWeight="800" fill="#0284C7">
         H₂O
       </text>
-      <text x="299" y="277" fontSize="9" fontWeight="600" fill="#0284C7">
+      <text x="299" y="277" fontSize="12.5" fontWeight="600" fill="#0284C7">
         Hơi nước thoát
       </text>
 
@@ -538,7 +501,6 @@ export default function SvgStomataShield() {
         ry="58"
         fill="#38BDF8"
         opacity=".22"
-        filter={`url(#${c("glow")})`}
       />
 
       <ellipse
@@ -640,7 +602,7 @@ export default function SvgStomataShield() {
 
       <g className={c("ionsLeft")}>
         <circle cx="145" cy="331" r="12" fill={`url(#${c("potassium")})`} stroke="#FFFFFF" strokeWidth="1.5" />
-        <text x="145" y="334.5" textAnchor="middle" fontSize="9" fontWeight="900" fill="#78350F">
+        <text x="145" y="334.5" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#78350F">
           K⁺
         </text>
       </g>
@@ -657,16 +619,16 @@ export default function SvgStomataShield() {
 
       <g className={c("ionsRight")}>
         <circle cx="379" cy="331" r="12" fill={`url(#${c("potassium")})`} stroke="#FFFFFF" strokeWidth="1.5" />
-        <text x="379" y="334.5" textAnchor="middle" fontSize="9" fontWeight="900" fill="#78350F">
+        <text x="379" y="334.5" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#78350F">
           K⁺
         </text>
       </g>
 
       {/* Potassium labels */}
-      <text x="93" y="312" fontSize="10" fontWeight="800" fill="#B45309">
+      <text x="93" y="312" fontSize="13" fontWeight="800" fill="#B45309">
         K⁺ vào
       </text>
-      <text x="357" y="312" fontSize="10" fontWeight="800" fill="#B45309">
+      <text x="357" y="312" fontSize="13" fontWeight="800" fill="#B45309">
         K⁺ vào
       </text>
 
@@ -714,7 +676,7 @@ export default function SvgStomataShield() {
         x="261"
         y="444.5"
         textAnchor="middle"
-        fontSize="10"
+        fontSize="13"
         fontWeight="900"
         fill="#075985"
       >
@@ -746,63 +708,63 @@ export default function SvgStomataShield() {
         <rect x="48" y="507" width="132" height="91" rx="13" fill="#FFFBEB" stroke="#FDE68A" />
 
         <circle cx="67" cy="528" r="11" fill="#FBBF24" />
-        <text x="67" y="532" textAnchor="middle" fontSize="10" fontWeight="900" fill="#78350F">
+        <text x="67" y="532" textAnchor="middle" fontSize="13" fontWeight="900" fill="#78350F">
           1
         </text>
 
-        <text x="85" y="532" fontSize="10.5" fontWeight="900" fill="#92400E">
+        <text x="85" y="532" fontSize="13" fontWeight="900" fill="#92400E">
           K⁺ TÍCH LŨY
         </text>
 
-        <text x="60" y="553" fontSize="10" fill="#78350F">
+        <text x="60" y="553" fontSize="13" fill="#78350F">
           Tăng nồng độ
         </text>
-        <text x="60" y="567" fontSize="10" fill="#78350F">
+        <text x="60" y="567" fontSize="13" fill="#78350F">
           chất tan trong
         </text>
-        <text x="60" y="581" fontSize="10" fill="#78350F">
+        <text x="60" y="581" fontSize="13" fill="#78350F">
           tế bào bảo vệ.
         </text>
 
         <rect x="190" y="507" width="132" height="91" rx="13" fill="#EFF6FF" stroke="#BFDBFE" />
 
         <circle cx="209" cy="528" r="11" fill="#60A5FA" />
-        <text x="209" y="532" textAnchor="middle" fontSize="10" fontWeight="900" fill="#FFFFFF">
+        <text x="209" y="532" textAnchor="middle" fontSize="13" fontWeight="900" fill="#FFFFFF">
           2
         </text>
 
-        <text x="227" y="532" fontSize="10.5" fontWeight="900" fill="#1D4ED8">
+        <text x="227" y="532" fontSize="13" fontWeight="900" fill="#1D4ED8">
           NƯỚC VÀO
         </text>
 
-        <text x="202" y="553" fontSize="10" fill="#1E40AF">
+        <text x="202" y="553" fontSize="13" fill="#1E40AF">
           Nước đi theo
         </text>
-        <text x="202" y="567" fontSize="10" fill="#1E40AF">
+        <text x="202" y="567" fontSize="13" fill="#1E40AF">
           thẩm thấu, tăng
         </text>
-        <text x="202" y="581" fontSize="10" fill="#1E40AF">
+        <text x="202" y="581" fontSize="13" fill="#1E40AF">
           áp suất trương.
         </text>
 
         <rect x="332" y="507" width="138" height="91" rx="13" fill="#ECFDF5" stroke="#A7F3D0" />
 
         <circle cx="351" cy="528" r="11" fill="#22C55E" />
-        <text x="351" y="532" textAnchor="middle" fontSize="10" fontWeight="900" fill="#FFFFFF">
+        <text x="351" y="532" textAnchor="middle" fontSize="13" fontWeight="900" fill="#FFFFFF">
           3
         </text>
 
-        <text x="369" y="532" fontSize="10.5" fontWeight="900" fill="#166534">
+        <text x="369" y="532" fontSize="13" fontWeight="900" fill="#166534">
           LỖ KHÍ MỞ
         </text>
 
-        <text x="344" y="553" fontSize="10" fill="#166534">
+        <text x="344" y="553" fontSize="13" fill="#166534">
           Trao đổi CO₂
         </text>
-        <text x="344" y="567" fontSize="10" fill="#166534">
+        <text x="344" y="567" fontSize="13" fill="#166534">
           và điều tiết
         </text>
-        <text x="344" y="581" fontSize="10" fill="#166534">
+        <text x="344" y="581" fontSize="13" fill="#166534">
           hơi nước.
         </text>
       </g>
@@ -811,7 +773,7 @@ export default function SvgStomataShield() {
           03 · RIGHT CARD — PHLOEM / SUGAR TRANSPORT
       ===================================================== */}
 
-      <g filter={`url(#${c("shadow")})`}>
+      <g>
         <rect
           x="510"
           y="135"
@@ -848,14 +810,14 @@ export default function SvgStomataShield() {
         DÒNG VẬN CHUYỂN ĐƯỜNG
       </text>
 
-      <text x="582" y="188" fontSize="10.5" fontWeight="600" fill="#16A34A">
+      <text x="582" y="188" fontSize="13" fontWeight="600" fill="#16A34A">
         MẠCH RÂY · NGUỒN → NƠI TIÊU THỤ
       </text>
 
       <rect x="864" y="159" width="85" height="26" rx="13" fill="#F0FDF4" />
       <circle cx="877" cy="172" r="4" fill="#22C55E" />
 
-      <text x="887" y="175.5" fontSize="9.5" fontWeight="800" fill="#15803D">
+      <text x="887" y="175.5" fontSize="12.5" fontWeight="800" fill="#15803D">
         SUCROZƠ
       </text>
 
@@ -873,7 +835,7 @@ export default function SvgStomataShield() {
       <circle cx="920" cy="244" r="23" fill="#BBF7D0" opacity=".25" />
       <circle cx="554" cy="461" r="18" fill="#A7F3D0" opacity=".3" />
 
-      <text x="547" y="233" fontSize="10" fontWeight="800" fill="#64748B">
+      <text x="547" y="233" fontSize="13" fontWeight="800" fill="#64748B">
         SẢN PHẨM QUANG HỢP ĐƯỢC PHÂN PHỐI
       </text>
 
@@ -885,7 +847,6 @@ export default function SvgStomataShield() {
         ry="36"
         fill="#86EFAC"
         opacity=".24"
-        filter={`url(#${c("glow")})`}
       />
 
       {/* Source leaf */}
@@ -921,10 +882,10 @@ export default function SvgStomataShield() {
         <circle cx="611" cy="319" r="3" fill="#ECFCCB" opacity=".8" />
       </g>
 
-      <text x="590" y="386" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#166534">
+      <text x="590" y="386" textAnchor="middle" fontSize="13" fontWeight="900" fill="#166534">
         LÁ
       </text>
-      <text x="590" y="399" textAnchor="middle" fontSize="9" fontWeight="600" fill="#15803D">
+      <text x="590" y="399" textAnchor="middle" fontSize="12.5" fontWeight="600" fill="#15803D">
         Nguồn đường
       </text>
 
@@ -1009,11 +970,11 @@ export default function SvgStomataShield() {
       {/* Phloem title */}
       <rect x="660" y="267" width="130" height="24" rx="12" fill="#DCFCE7" stroke="#86EFAC" />
 
-      <text x="725" y="282.5" textAnchor="middle" fontSize="10" fontWeight="900" fill="#166534">
+      <text x="725" y="282.5" textAnchor="middle" fontSize="13" fontWeight="900" fill="#166534">
         MẠCH RÂY
       </text>
 
-      <text x="725" y="306" textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#64748B">
+      <text x="725" y="306" textAnchor="middle" fontSize="12.5" fontWeight="600" fill="#64748B">
         Đường chủ yếu: sucrozơ
       </text>
 
@@ -1057,7 +1018,6 @@ export default function SvgStomataShield() {
           r="32"
           fill="#FDBA74"
           opacity=".35"
-          filter={`url(#${c("glow")})`}
         />
 
         <path
@@ -1090,16 +1050,16 @@ export default function SvgStomataShield() {
         <path d="M833 340l-2 5" stroke="#FFFFFF" strokeWidth="2" opacity=".7" strokeLinecap="round" />
       </g>
 
-      <text x="847" y="402" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#9A3412">
+      <text x="847" y="402" textAnchor="middle" fontSize="13" fontWeight="900" fill="#9A3412">
         QUẢ
       </text>
-      <text x="847" y="414" textAnchor="middle" fontSize="9" fontWeight="600" fill="#C2410C">
+      <text x="847" y="414" textAnchor="middle" fontSize="12.5" fontWeight="600" fill="#C2410C">
         Cơ quan tiêu thụ
       </text>
 
       {/* Potato tuber */}
       <g className={c("pulse")} style={{ animationDelay: ".7s" }}>
-        <ellipse cx="847" cy="438" rx="43" ry="32" fill="#A16207" opacity=".16" filter={`url(#${c("softGlow")})`} />
+        <ellipse cx="847" cy="438" rx="43" ry="32" fill="#A16207" opacity=".16" />
 
         <path
           d="M811 436
@@ -1123,18 +1083,18 @@ export default function SvgStomataShield() {
         </g>
       </g>
 
-      <text x="847" y="479" textAnchor="middle" fontSize="10.5" fontWeight="900" fill="#854D0E">
+      <text x="847" y="479" textAnchor="middle" fontSize="13" fontWeight="900" fill="#854D0E">
         CỦ / CƠ QUAN DỰ TRỮ
       </text>
 
       {/* Small flow captions */}
       <rect x="704" y="372" width="91" height="19" rx="9.5" fill="#F0FDF4" stroke="#BBF7D0" />
-      <text x="749.5" y="384.5" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#15803D">
+      <text x="749.5" y="384.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#15803D">
         ĐƯỜNG ĐẾN QUẢ
       </text>
 
       <rect x="704" y="451" width="91" height="19" rx="9.5" fill="#FFFBEB" stroke="#FDE68A" />
-      <text x="749.5" y="463.5" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#92400E">
+      <text x="749.5" y="463.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#92400E">
         ĐƯỜNG ĐẾN CỦ
       </text>
 
@@ -1150,17 +1110,17 @@ export default function SvgStomataShield() {
           strokeLinecap="round"
         />
 
-        <text x="569" y="532" fontSize="10.5" fontWeight="900" fill="#166534">
+        <text x="569" y="532" fontSize="13" fontWeight="900" fill="#166534">
           ĐIỀU TIẾT
         </text>
 
-        <text x="542" y="554" fontSize="10" fill="#166534">
+        <text x="542" y="554" fontSize="13" fill="#166534">
           Đóng mở khí khổng
         </text>
-        <text x="542" y="568" fontSize="10" fill="#166534">
+        <text x="542" y="568" fontSize="13" fill="#166534">
           và cân bằng nước.
         </text>
-        <text x="542" y="584" fontSize="9" fill="#15803D">
+        <text x="542" y="584" fontSize="12.5" fill="#15803D">
           Giảm thất thoát nước
         </text>
 
@@ -1176,17 +1136,17 @@ export default function SvgStomataShield() {
           strokeLinejoin="round"
         />
 
-        <text x="711" y="532" fontSize="10.5" fontWeight="900" fill="#5B21B6">
+        <text x="711" y="532" fontSize="13" fontWeight="900" fill="#5B21B6">
           HOẠT HÓA
         </text>
 
-        <text x="684" y="554" fontSize="10" fill="#5B21B6">
+        <text x="684" y="554" fontSize="13" fill="#5B21B6">
           Hỗ trợ enzyme
         </text>
-        <text x="684" y="568" fontSize="10" fill="#5B21B6">
+        <text x="684" y="568" fontSize="13" fill="#5B21B6">
           và trao đổi chất.
         </text>
-        <text x="684" y="584" fontSize="9" fill="#7C3AED">
+        <text x="684" y="584" fontSize="12.5" fill="#7C3AED">
           Hỗ trợ quang hợp
         </text>
 
@@ -1200,17 +1160,17 @@ export default function SvgStomataShield() {
           strokeLinecap="round"
         />
 
-        <text x="853" y="532" fontSize="10.5" fontWeight="900" fill="#92400E">
+        <text x="853" y="532" fontSize="13" fontWeight="900" fill="#92400E">
           VẬN CHUYỂN
         </text>
 
-        <text x="826" y="554" fontSize="10" fill="#92400E">
+        <text x="826" y="554" fontSize="13" fill="#92400E">
           Hỗ trợ chuyển
         </text>
-        <text x="826" y="568" fontSize="10" fill="#92400E">
+        <text x="826" y="568" fontSize="13" fill="#92400E">
           đường trong cây.
         </text>
-        <text x="826" y="584" fontSize="9" fill="#B45309">
+        <text x="826" y="584" fontSize="12.5" fill="#B45309">
           Tới cơ quan sử dụng
         </text>
       </g>
@@ -1256,11 +1216,11 @@ export default function SvgStomataShield() {
         KALI — DINH DƯỠNG THIẾT YẾU CHO CÂY TRỒNG
       </text>
 
-      <text x="108" y="706" fontSize="11.5" fontWeight="600" fill="#166534">
+      <text x="108" y="706" fontSize="13" fontWeight="600" fill="#166534">
         Điều tiết nước · hỗ trợ quang hợp · vận chuyển sản phẩm đồng hóa
       </text>
 
-      <text x="108" y="722" fontSize="9.5" fontWeight="500" fill="#64748B">
+      <text x="108" y="722" fontSize="12.5" fontWeight="500" fill="#64748B">
         Hiệu quả phụ thuộc giống cây, điều kiện môi trường và dinh dưỡng cân đối.
       </text>
 
@@ -1276,7 +1236,7 @@ export default function SvgStomataShield() {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <text x="25" y="12" fontSize="10.5" fontWeight="800" fill="#166534">
+        <text x="25" y="12" fontSize="13" fontWeight="800" fill="#166534">
           Sinh lý thực vật
         </text>
       </g>
@@ -1290,7 +1250,7 @@ export default function SvgStomataShield() {
           strokeWidth="1.7"
           strokeLinecap="round"
         />
-        <text x="25" y="12" fontSize="10.5" fontWeight="800" fill="#92400E">
+        <text x="25" y="12" fontSize="13" fontWeight="800" fill="#92400E">
           Dinh dưỡng kali
         </text>
       </g>

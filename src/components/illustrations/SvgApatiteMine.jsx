@@ -19,7 +19,6 @@ export default function SvgApatiteMine() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -140,24 +139,6 @@ export default function SvgApatiteMine() {
         </pattern>
 
         {/* ===== FILTERS ===== */}
-        <filter id={`${id}-shadow`} x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="11"
-            floodColor="#0F172A"
-            floodOpacity=".07"
-          />
-        </filter>
-
-        <filter id={`${id}-glow`} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
-
-        <filter id={`${id}-smallGlow`} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="2.3" />
-        </filter>
-
         {/* ===== CLIPPING ===== */}
         <clipPath id={`${id}-geologyClip`}>
           <rect x="54" y="247" width="418" height="304" rx="10" />
@@ -265,7 +246,7 @@ export default function SvgApatiteMine() {
       <text
         x="59"
         y="43"
-        fontSize="11"
+        fontSize="13"
         fontWeight="900"
         letterSpacing="2.2"
         fill="#6D28D9"
@@ -292,11 +273,11 @@ export default function SvgApatiteMine() {
       {/* Top right legend */}
       <g transform="translate(751 88)">
         <circle cx="0" cy="0" r="4" fill="#8B5CF6" />
-        <text x="10" y="4" fontSize="10" fontWeight="700" fill="#64748B">
+        <text x="10" y="4" fontSize="13" fontWeight="700" fill="#64748B">
           APATITE
         </text>
         <circle cx="95" cy="0" r="4" fill="#22C55E" />
-        <text x="105" y="4" fontSize="10" fontWeight="700" fill="#64748B">
+        <text x="105" y="4" fontSize="13" fontWeight="700" fill="#64748B">
           CHẾ BIẾN
         </text>
       </g>
@@ -305,7 +286,7 @@ export default function SvgApatiteMine() {
           02. LEFT PANEL: GEOLOGY / MINE
       ===================================================== */}
 
-      <g filter={`url(#${id}-shadow)`}>
+      <g>
         <rect
           x="30"
           y="136"
@@ -332,13 +313,13 @@ export default function SvgApatiteMine() {
       <text x="101" y="171" fontSize="15" fontWeight="900" fill="#3B245F">
         MỎ APATIT LÀO CAI
       </text>
-      <text x="101" y="188" fontSize="10.5" fontWeight="600" fill="#8B5CF6">
+      <text x="101" y="188" fontSize="13" fontWeight="600" fill="#8B5CF6">
         MẶT CẮT ĐỊA CHẤT MINH HỌA
       </text>
 
       <rect x="370" y="160" width="99" height="27" rx="13.5" fill="#F5F3FF" />
       <circle cx="384" cy="173.5" r="4" fill="#8B5CF6" />
-      <text x="394" y="177" fontSize="9.5" fontWeight="800" fill="#6D28D9">
+      <text x="394" y="177" fontSize="12.5" fontWeight="800" fill="#6D28D9">
         THÂN QUẶNG
       </text>
 
@@ -507,7 +488,6 @@ export default function SvgApatiteMine() {
           rx="37"
           ry="24"
           fill="#A78BFA"
-          filter={`url(#${id}-glow)`}
           className={`${id}-glow`}
         />
 
@@ -604,32 +584,32 @@ export default function SvgApatiteMine() {
       {/* Layer labels */}
       <g fontWeight="800">
         <rect x="68" y="254" width="108" height="22" rx="7" fill="#573D2D" opacity=".88" />
-        <text x="122" y="268.5" fontSize="10" fill="#FFFFFF" textAnchor="middle">
+        <text x="122" y="268.5" fontSize="13" fill="#FFFFFF" textAnchor="middle">
           01 · ĐẤT PHỦ
         </text>
 
         <rect x="68" y="304" width="143" height="22" rx="7" fill="#6F4F35" opacity=".9" />
-        <text x="139.5" y="318.5" fontSize="10" fill="#FFFFFF" textAnchor="middle">
+        <text x="139.5" y="318.5" fontSize="13" fill="#FFFFFF" textAnchor="middle">
           02 · ĐÁ PHONG HÓA
         </text>
 
         <rect x="68" y="361" width="191" height="26" rx="8" fill="#352A49" opacity=".88" />
-        <text x="163.5" y="372" fontSize="10" fill="#EDE9FE" textAnchor="middle">
+        <text x="163.5" y="372" fontSize="13" fill="#EDE9FE" textAnchor="middle">
           03 · VỈA QUẶNG APATITE
         </text>
-        <text x="163.5" y="381.5" fontSize="8.4" fill="#DDD6FE" textAnchor="middle">
+        <text x="163.5" y="381.5" fontSize="12" fill="#DDD6FE" textAnchor="middle">
           Khoáng vật chứa phosphat
         </text>
 
         <rect x="68" y="429" width="211" height="27" rx="8" fill="#27283C" opacity=".92" />
-        <text x="173.5" y="440" fontSize="10" fill="#F5F3FF" textAnchor="middle">
+        <text x="173.5" y="440" fontSize="13" fill="#F5F3FF" textAnchor="middle">
           04 · QUẶNG HÀM LƯỢNG THẤP HƠN
         </text>
-        <text x="173.5" y="450" fontSize="8.5" fill="#C4B5FD" textAnchor="middle">
+        <text x="173.5" y="450" fontSize="12.5" fill="#C4B5FD" textAnchor="middle">
           Có thể cần tuyển, làm giàu
         </text>
 
-        <text x="72" y="523" fontSize="10" fill="#CBD5E1">
+        <text x="72" y="523" fontSize="13" fill="#CBD5E1">
           ĐÁ GỐC
         </text>
       </g>
@@ -646,34 +626,34 @@ export default function SvgApatiteMine() {
       <circle cx="399" cy="355" r="3" fill="#EDE9FE" />
 
       <rect x="350" y="300" width="106" height="27" rx="8" fill="#F5F3FF" stroke="#DDD6FE" />
-      <text x="403" y="311" textAnchor="middle" fontSize="8.5" fontWeight="700" fill="#6D28D9">
+      <text x="403" y="311" textAnchor="middle" fontSize="12.5" fontWeight="700" fill="#6D28D9">
         TINH THỂ KHOÁNG
       </text>
-      <text x="403" y="320" textAnchor="middle" fontSize="8" fill="#7C3AED">
+      <text x="403" y="320" textAnchor="middle" fontSize="12" fill="#7C3AED">
         Minh họa
       </text>
 
       {/* Geological legend */}
       <g transform="translate(65 572)">
         <circle cx="5" cy="0" r="5" fill="#A87B51" />
-        <text x="15" y="4" fontSize="10" fontWeight="700" fill="#64748B">
+        <text x="15" y="4" fontSize="13" fontWeight="700" fill="#64748B">
           Đất phủ
         </text>
 
         <circle cx="112" cy="0" r="5" fill="#8B5CF6" />
-        <text x="122" y="4" fontSize="10" fontWeight="700" fill="#64748B">
+        <text x="122" y="4" fontSize="13" fontWeight="700" fill="#64748B">
           Vỉa khoáng
         </text>
 
         <circle cx="234" cy="0" r="5" fill="#343443" />
-        <text x="244" y="4" fontSize="10" fontWeight="700" fill="#64748B">
+        <text x="244" y="4" fontSize="13" fontWeight="700" fill="#64748B">
           Đá gốc
         </text>
       </g>
 
       <rect x="54" y="594" width="418" height="25" rx="8" fill="#F5F3FF" />
 
-      <text x="263" y="610" textAnchor="middle" fontSize="10" fontWeight="700" fill="#6D28D9">
+      <text x="263" y="610" textAnchor="middle" fontSize="13" fontWeight="700" fill="#6D28D9">
         Khai thác → tuyển quặng → nguyên liệu sản xuất
       </text>
 
@@ -681,7 +661,7 @@ export default function SvgApatiteMine() {
           03. RIGHT PANEL: FERTILIZER FACTORIES
       ===================================================== */}
 
-      <g filter={`url(#${id}-shadow)`}>
+      <g>
         <rect
           x="508"
           y="136"
@@ -706,12 +686,12 @@ export default function SvgApatiteMine() {
       <text x="579" y="171" fontSize="15" fontWeight="900" fill="#14532D">
         CỤM NHÀ MÁY PHÂN LÂN
       </text>
-      <text x="579" y="188" fontSize="10.5" fontWeight="600" fill="#16A34A">
+      <text x="579" y="188" fontSize="13" fontWeight="600" fill="#16A34A">
         CÁC CƠ SỞ TIÊU BIỂU TẠI VIỆT NAM
       </text>
 
       <rect x="868" y="160" width="80" height="27" rx="13.5" fill="#F0FDF4" />
-      <text x="908" y="177" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#15803D">
+      <text x="908" y="177" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#15803D">
         SẢN XUẤT
       </text>
 
@@ -736,12 +716,12 @@ export default function SvgApatiteMine() {
           Supe Lân Lâm Thao
         </text>
 
-        <text x="608" y="252" fontSize="10.5" fontWeight="600" fill="#64748B">
+        <text x="608" y="252" fontSize="13" fontWeight="600" fill="#64748B">
           Phú Thọ · Nhóm sản phẩm supe lân
         </text>
 
         <rect x="608" y="261" width="105" height="17" rx="8.5" fill="#F0FDF4" />
-        <text x="660.5" y="272.5" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#15803D">
+        <text x="660.5" y="272.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#15803D">
           PHÂN LÂN HÓA HỌC
         </text>
 
@@ -771,12 +751,12 @@ export default function SvgApatiteMine() {
           Lân nung chảy Văn Điển
         </text>
 
-        <text x="608" y="340" fontSize="10.5" fontWeight="600" fill="#64748B">
+        <text x="608" y="340" fontSize="13" fontWeight="600" fill="#64748B">
           Hà Nội · Nhóm sản phẩm lân nung chảy
         </text>
 
         <rect x="608" y="349" width="112" height="17" rx="8.5" fill="#F5F3FF" />
-        <text x="664" y="360.5" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#7C3AED">
+        <text x="664" y="360.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#7C3AED">
           PHÂN LÂN NUNG CHẢY
         </text>
 
@@ -806,12 +786,12 @@ export default function SvgApatiteMine() {
           Lân nung chảy Ninh Bình
         </text>
 
-        <text x="608" y="428" fontSize="10.5" fontWeight="600" fill="#64748B">
+        <text x="608" y="428" fontSize="13" fontWeight="600" fill="#64748B">
           Ninh Bình · Nhóm sản phẩm lân nung chảy
         </text>
 
         <rect x="608" y="437" width="112" height="17" rx="8.5" fill="#F0F9FF" />
-        <text x="664" y="448.5" textAnchor="middle" fontSize="8.5" fontWeight="800" fill="#0369A1">
+        <text x="664" y="448.5" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#0369A1">
           PHÂN LÂN NUNG CHẢY
         </text>
 
@@ -855,11 +835,11 @@ export default function SvgApatiteMine() {
         strokeLinecap="round"
       />
 
-      <text x="583" y="518" fontSize="11.5" fontWeight="900" fill="#9A3412">
+      <text x="583" y="518" fontSize="13" fontWeight="900" fill="#9A3412">
         THÁCH THỨC CẦN QUẢN LÝ
       </text>
 
-      <text x="583" y="532" fontSize="9.5" fontWeight="600" fill="#C2410C">
+      <text x="583" y="532" fontSize="12.5" fontWeight="600" fill="#C2410C">
         Khai thác và chế biến có trách nhiệm
       </text>
 
@@ -873,13 +853,13 @@ export default function SvgApatiteMine() {
         fill="#EA580C"
       />
 
-      <text x="579" y="560" fontSize="9.5" fontWeight="800" fill="#7C2D12">
+      <text x="579" y="560" fontSize="12.5" fontWeight="800" fill="#7C2D12">
         Bùn thải, nước thải
       </text>
-      <text x="579" y="574" fontSize="8.5" fill="#9A3412">
+      <text x="579" y="574" fontSize="12.5" fill="#9A3412">
         Kiểm soát và xử lý phù hợp
       </text>
-      <text x="579" y="585" fontSize="8.5" fill="#9A3412">
+      <text x="579" y="585" fontSize="12.5" fill="#9A3412">
         trước khi thải ra môi trường
       </text>
 
@@ -893,13 +873,13 @@ export default function SvgApatiteMine() {
         <path d="M1 5l7 4 7-4M8 9v8" />
       </g>
 
-      <text x="779" y="560" fontSize="9.5" fontWeight="800" fill="#7C2D12">
+      <text x="779" y="560" fontSize="12.5" fontWeight="800" fill="#7C2D12">
         Phụ phẩm công nghiệp
       </text>
-      <text x="779" y="574" fontSize="8.5" fill="#9A3412">
+      <text x="779" y="574" fontSize="12.5" fill="#9A3412">
         Đánh giá khả năng tái sử dụng
       </text>
-      <text x="779" y="585" fontSize="8.5" fill="#9A3412">
+      <text x="779" y="585" fontSize="12.5" fill="#9A3412">
         theo tiêu chuẩn an toàn
       </text>
 
@@ -912,7 +892,7 @@ export default function SvgApatiteMine() {
 
         <path d="M451 628h12m-4-4l4 4-4 4" fill="none" stroke="#7C3AED" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
 
-        <text x="505" y="632" textAnchor="middle" fontSize="9.5" fontWeight="800" fill="#6D28D9">
+        <text x="505" y="632" textAnchor="middle" fontSize="12.5" fontWeight="800" fill="#6D28D9">
           TUYỂN KHOÁNG
         </text>
       </g>
@@ -970,7 +950,7 @@ export default function SvgApatiteMine() {
         KHAI THÁC ĐI ĐÔI VỚI CHẾ BIẾN SÂU
       </text>
 
-      <text x="108" y="708" fontSize="11.5" fontWeight="600" fill="#6D28D9">
+      <text x="108" y="708" fontSize="13" fontWeight="600" fill="#6D28D9">
         Tối ưu thu hồi khoáng sản · tiết kiệm tài nguyên · giảm tác động môi trường
       </text>
 
@@ -987,7 +967,7 @@ export default function SvgApatiteMine() {
           strokeLinejoin="round"
         />
 
-        <text x="23" y="11" fontSize="10" fontWeight="800" fill="#166534">
+        <text x="23" y="11" fontSize="13" fontWeight="800" fill="#166534">
           Tài nguyên bền vững
         </text>
       </g>
@@ -1001,7 +981,7 @@ export default function SvgApatiteMine() {
           strokeLinecap="round"
         />
 
-        <text x="23" y="11" fontSize="10" fontWeight="800" fill="#5B21B6">
+        <text x="23" y="11" fontSize="13" fontWeight="800" fill="#5B21B6">
           Công nghệ phù hợp
         </text>
       </g>

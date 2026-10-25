@@ -55,7 +55,6 @@ export default function SvgLeafScorchAlert() {
         maxWidth: "100%",
         maxHeight: "100%",
         borderRadius: 22,
-        boxShadow: "0 12px 32px rgba(15, 23, 42, 0.08)",
         fontFamily:
           "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
       }}
@@ -149,30 +148,6 @@ export default function SvgLeafScorchAlert() {
         </pattern>
 
         {/* ================= SHADOWS ================= */}
-
-        <filter id={uid("shadow")} x="-20%" y="-20%" width="140%" height="160%">
-          <feDropShadow
-            dx="0"
-            dy="7"
-            stdDeviation="11"
-            floodColor="#0F172A"
-            floodOpacity=".07"
-          />
-        </filter>
-
-        <filter id={uid("leafShadow")} x="-30%" y="-25%" width="160%" height="160%">
-          <feDropShadow
-            dx="2"
-            dy="8"
-            stdDeviation="6"
-            floodColor="#422006"
-            floodOpacity=".22"
-          />
-        </filter>
-
-        <filter id={uid("glow")} x="-100%" y="-100%" width="300%" height="300%">
-          <feGaussianBlur stdDeviation="5" />
-        </filter>
 
         {/* ================= ANIMATIONS ================= */}
 
@@ -283,7 +258,7 @@ export default function SvgLeafScorchAlert() {
       <text
         x="54"
         y="43"
-        fontSize="11"
+        fontSize="13"
         fontWeight="900"
         letterSpacing="2"
         fill="#B45309"
@@ -311,12 +286,12 @@ export default function SvgLeafScorchAlert() {
       {/* Legend */}
       <g transform="translate(785 91)">
         <circle cx="0" cy="0" r="4" fill="#65A30D" />
-        <text x="10" y="4" fontSize="9.5" fontWeight="800" fill="#64748B">
+        <text x="10" y="4" fontSize="12.5" fontWeight="800" fill="#64748B">
           THIẾU K
         </text>
 
         <circle cx="83" cy="0" r="4" fill="#B45309" />
-        <text x="93" y="4" fontSize="9.5" fontWeight="800" fill="#64748B">
+        <text x="93" y="4" fontSize="12.5" fontWeight="800" fill="#64748B">
           CHÁY MÉP
         </text>
       </g>
@@ -325,7 +300,7 @@ export default function SvgLeafScorchAlert() {
           02 · LEFT CARD: LEAF SYMPTOM
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="30"
           y="135"
@@ -358,7 +333,7 @@ export default function SvgLeafScorchAlert() {
         DẤU HIỆU THIẾU KALI
       </text>
 
-      <text x="99" y="186" fontSize="10.5" fontWeight="600" fill="#B45309">
+      <text x="99" y="186" fontSize="13" fontWeight="600" fill="#B45309">
         THƯỜNG XUẤT HIỆN TRÊN LÁ GIÀ
       </text>
 
@@ -366,7 +341,7 @@ export default function SvgLeafScorchAlert() {
 
       <circle cx="379" cy="171.5" r="4" fill="#D97706" />
 
-      <text x="389" y="175.5" fontSize="9.5" fontWeight="900" fill="#92400E">
+      <text x="389" y="175.5" fontSize="12.5" fontWeight="900" fill="#92400E">
         CẢNH BÁO
       </text>
 
@@ -384,7 +359,7 @@ export default function SvgLeafScorchAlert() {
       <circle cx="95" cy="258" r="30" fill="#D9F99D" opacity=".23" />
       <circle cx="415" cy="423" r="35" fill="#FEF3C7" opacity=".4" />
 
-      <text x="66" y="226" fontSize="9.5" fontWeight="800" fill="#64748B">
+      <text x="66" y="226" fontSize="12.5" fontWeight="800" fill="#64748B">
         MÔ PHỎNG BỀ MẶT LÁ
       </text>
 
@@ -396,12 +371,11 @@ export default function SvgLeafScorchAlert() {
         ry="105"
         fill="#A3E635"
         opacity=".24"
-        filter={`url(#${uid("glow")})`}
         className={uid("glowMotion")}
       />
 
       {/* Whole leaf - animated together */}
-      <g className={uid("leafMotion")} filter={`url(#${uid("leafShadow")})`}>
+      <g className={uid("leafMotion")}>
         {/* Main leaf shape */}
         <path
           d="
@@ -664,7 +638,7 @@ export default function SvgLeafScorchAlert() {
         x="108.5"
         y="301"
         textAnchor="middle"
-        fontSize="9.5"
+        fontSize="12.5"
         fontWeight="900"
         fill="#92400E"
       >
@@ -688,7 +662,7 @@ export default function SvgLeafScorchAlert() {
         x="117"
         y="433"
         textAnchor="middle"
-        fontSize="9"
+        fontSize="12.5"
         fontWeight="900"
         fill="#92400E"
       >
@@ -721,29 +695,29 @@ export default function SvgLeafScorchAlert() {
       <g>
         <circle cx="75" cy="490" r="12" fill="#FEF3C7" />
 
-        <text x="75" y="494" textAnchor="middle" fontSize="10" fontWeight="900" fill="#92400E">
+        <text x="75" y="494" textAnchor="middle" fontSize="13" fontWeight="900" fill="#92400E">
           1
         </text>
 
-        <text x="95" y="488" fontSize="10.5" fontWeight="900" fill="#92400E">
+        <text x="95" y="488" fontSize="13" fontWeight="900" fill="#92400E">
           Vàng ở mép lá
         </text>
 
-        <text x="95" y="503" fontSize="9.5" fill="#64748B">
+        <text x="95" y="503" fontSize="12.5" fill="#64748B">
           Có thể là dấu hiệu ban đầu.
         </text>
 
         <circle cx="277" cy="490" r="12" fill="#FFEDD5" />
 
-        <text x="277" y="494" textAnchor="middle" fontSize="10" fontWeight="900" fill="#9A3412">
+        <text x="277" y="494" textAnchor="middle" fontSize="13" fontWeight="900" fill="#9A3412">
           2
         </text>
 
-        <text x="297" y="488" fontSize="10.5" fontWeight="900" fill="#9A3412">
+        <text x="297" y="488" fontSize="13" fontWeight="900" fill="#9A3412">
           Hoại tử mép
         </text>
 
-        <text x="297" y="503" fontSize="9.5" fill="#64748B">
+        <text x="297" y="503" fontSize="12.5" fill="#64748B">
           Có thể lan vào phiến lá.
         </text>
       </g>
@@ -759,15 +733,15 @@ export default function SvgLeafScorchAlert() {
         strokeLinecap="round"
       />
 
-      <text x="88" y="548" fontSize="10.5" fontWeight="900" fill="#92400E">
+      <text x="88" y="548" fontSize="13" fontWeight="900" fill="#92400E">
         Đừng chẩn đoán chỉ bằng một chiếc lá
       </text>
 
-      <text x="67" y="566" fontSize="9.5" fill="#78350F">
+      <text x="67" y="566" fontSize="12.5" fill="#78350F">
         Kiểm tra độ ẩm, rễ, độ mặn và các triệu chứng khác.
       </text>
 
-      <text x="67" y="581" fontSize="9.5" fill="#78350F">
+      <text x="67" y="581" fontSize="12.5" fill="#78350F">
         Xét nghiệm đất hoặc lá giúp xác nhận tình trạng dinh dưỡng.
       </text>
 
@@ -777,7 +751,7 @@ export default function SvgLeafScorchAlert() {
           03 · RIGHT CARD: CHLORIDE MANAGEMENT
       ===================================================== */}
 
-      <g filter={`url(#${uid("shadow")})`}>
+      <g>
         <rect
           x="515"
           y="135"
@@ -814,7 +788,7 @@ export default function SvgLeafScorchAlert() {
         LƯU Ý VỚI ION CLO
       </text>
 
-      <text x="584" y="186" fontSize="10.5" fontWeight="600" fill="#DC2626">
+      <text x="584" y="186" fontSize="13" fontWeight="600" fill="#DC2626">
         KHÔNG PHẢI MỌI CÂY ĐỀU NHẠY GIỐNG NHAU
       </text>
 
@@ -822,7 +796,7 @@ export default function SvgLeafScorchAlert() {
 
       <circle cx="873" cy="171.5" r="4" fill="#EF4444" />
 
-      <text x="883" y="175.5" fontSize="9.5" fontWeight="900" fill="#B91C1C">
+      <text x="883" y="175.5" fontSize="12.5" fontWeight="900" fill="#B91C1C">
         CẦN LƯU Ý
       </text>
 
@@ -835,11 +809,11 @@ export default function SvgLeafScorchAlert() {
         !
       </text>
 
-      <text x="571" y="223" fontSize="10.5" fontWeight="900" fill="#9A3412">
+      <text x="571" y="223" fontSize="13" fontWeight="900" fill="#9A3412">
         KCl cung cấp kali nhưng cũng đưa Cl⁻ vào đất.
       </text>
 
-      <text x="571" y="238" fontSize="9.5" fill="#9A3412">
+      <text x="571" y="238" fontSize="12.5" fill="#9A3412">
         Cân nhắc mức độ nhạy clo và nguy cơ tích lũy muối.
       </text>
 
@@ -960,7 +934,7 @@ export default function SvgLeafScorchAlert() {
             <text
               x="596"
               y={y + 22}
-              fontSize="11.5"
+              fontSize="13"
               fontWeight="900"
               fill="#1E293B"
             >
@@ -970,7 +944,7 @@ export default function SvgLeafScorchAlert() {
             <text
               x="596"
               y={y + 39}
-              fontSize="9.7"
+              fontSize="12.5"
               fontWeight="600"
               fill="#64748B"
             >
@@ -1019,15 +993,15 @@ export default function SvgLeafScorchAlert() {
         strokeLinejoin="round"
       />
 
-      <text x="570" y="559" fontSize="10.5" fontWeight="900" fill="#166534">
+      <text x="570" y="559" fontSize="13" fontWeight="900" fill="#166534">
         Khi cần hạn chế clo, cân nhắc K₂SO₄
       </text>
 
-      <text x="550" y="578" fontSize="9.5" fill="#166534">
+      <text x="550" y="578" fontSize="12.5" fill="#166534">
         Đồng thời có thể bổ sung lưu huỳnh; không mặc định
       </text>
 
-      <text x="550" y="591" fontSize="9.5" fill="#166534">
+      <text x="550" y="591" fontSize="12.5" fill="#166534">
         rằng K₂SO₄ luôn cần thiết hoặc luôn cho năng suất cao hơn.
       </text>
 
@@ -1068,11 +1042,11 @@ export default function SvgLeafScorchAlert() {
         NGUYÊN TẮC CHỌN PHÂN KALI
       </text>
 
-      <text x="108" y="701" fontSize="11" fontWeight="700" fill="#78350F">
+      <text x="108" y="701" fontSize="13" fontWeight="700" fill="#78350F">
         Xác định nhu cầu K · Đánh giá độ nhạy clo · Kiểm tra đất và nước tưới
       </text>
 
-      <text x="108" y="718" fontSize="9.5" fill="#64748B">
+      <text x="108" y="718" fontSize="12.5" fill="#64748B">
         Nếu nghi thiếu K, cần xác minh nguyên nhân trước khi điều chỉnh phân bón.
       </text>
 
@@ -1084,15 +1058,15 @@ export default function SvgLeafScorchAlert() {
 
         <circle cx="17" cy="17" r="8" fill="#FFEDD5" />
 
-        <text x="17" y="20" textAnchor="middle" fontSize="9" fontWeight="900" fill="#C2410C">
+        <text x="17" y="20" textAnchor="middle" fontSize="12.5" fontWeight="900" fill="#C2410C">
           K
         </text>
 
-        <text x="31" y="16" fontSize="9.5" fontWeight="900" fill="#9A3412">
+        <text x="31" y="16" fontSize="12.5" fontWeight="900" fill="#9A3412">
           Nguồn kali
         </text>
 
-        <text x="31" y="30" fontSize="8.5" fontWeight="600" fill="#64748B">
+        <text x="31" y="30" fontSize="12.5" fontWeight="600" fill="#64748B">
           Theo nhu cầu cây
         </text>
       </g>
@@ -1111,11 +1085,11 @@ export default function SvgLeafScorchAlert() {
           strokeLinejoin="round"
         />
 
-        <text x="31" y="16" fontSize="9.5" fontWeight="900" fill="#166534">
+        <text x="31" y="16" fontSize="12.5" fontWeight="900" fill="#166534">
           Dùng đúng cách
         </text>
 
-        <text x="31" y="30" fontSize="8.5" fontWeight="600" fill="#64748B">
+        <text x="31" y="30" fontSize="12.5" fontWeight="600" fill="#64748B">
           Theo nhãn và khuyến cáo
         </text>
       </g>

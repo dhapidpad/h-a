@@ -1,758 +1,598 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   Play, Pause, RotateCcw, Volume2, VolumeX,
-  Maximize2, Minimize2, ArrowRight, Sparkles, CheckCircle2
+  Maximize2, Minimize2, ArrowRight, Sparkles, CheckCircle2, Loader2
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { LinhThuDam, LinhThuLan, LinhThuKali } from '../components/mascot/CuteMascot';
 
-const formatTime = (seconds) => {
-  if (isNaN(seconds) || seconds < 0) return '00:00';
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+/* ==================================================================
+   CẤU HÌNH & HÀM TIỆN ÍCH
+================================================================== */
+const DEFAULT_RATE = 1;
+const RATES = [1, 1.25, 1.5, 2];
+const FALLBACK_DURATION = 51.77;
+const HIDE_CONTROLS_MS = 2800;
+const LEAVE_MS = 340;
+
+const formatTime = (s) => {
+  if (!Number.isFinite(s) || s < 0) return '00:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
 };
+const clamp01 = (n) => Math.max(0, Math.min(1, n));
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function startPlayback(video, rate = DEFAULT_RATE) {
+  video.defaultPlaybackRate = rate;
+  video.playbackRate = rate;
+  video.volume = 1;
+  video.muted = false;
+  try {
+    await video.play();
+    return { playing: true, blocked: false };
+  } catch {
+    video.muted = true;
+    try {
+      await video.play();
+      return { playing: true, blocked: true };
+    } catch {
+      return { playing: false, blocked: true };
+    }
+  }
+}
+
+function fadeOutAudio(video, ms = LEAVE_MS) {
+  return new Promise((resolve) => {
+    if (!video || video.muted || video.paused) return resolve();
+    const v0 = video.volume;
+    const t0 = performance.now();
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / ms);
+      video.volume = v0 * (1 - k);
+      if (k < 1) requestAnimationFrame(step);
+      else resolve();
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+/* ==================================================================
+   CSS (Mục 4.2 & 7.1: Bỏ filter blur trên video, dùng lớp phủ .v2-video-wrap.dim::after)
+================================================================== */
+const CSS = `
+.v2-root{display:flex;flex-direction:column;height:100%;gap:12px;position:relative;overflow:hidden;
+  animation:v2In .55s var(--ease-out) both;
+  transition:opacity ${LEAVE_MS}ms var(--ease-out),transform ${LEAVE_MS}ms var(--ease-out)}
+.v2-root.leaving{opacity:0;transform:scale(.988) translateY(6px);pointer-events:none}
+@keyframes v2In{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}
+
+.v2-stage{position:relative;flex:1;min-height:0;border-radius:24px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(120% 90% at 50% 0%,#12203A 0%,#050912 70%);
+  box-shadow:0 24px 60px rgba(8,15,35,.32),0 0 0 1px rgba(255,255,255,.08)}
+.v2-stage.hide-cursor{cursor:none}
+.v2-video-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.v2-video-wrap::after{content:'';position:absolute;inset:0;background:rgba(2,6,23,.58);opacity:0;pointer-events:none;transition:opacity .4s var(--ease-out)}
+.v2-video-wrap.dim::after{opacity:1}
+.v2-video{width:100%;height:100%;object-fit:contain;display:block;background:#000;transition:opacity .4s var(--ease-out)}
+.v2-video.loading{opacity:.35}
+
+.v2-chip{position:absolute;top:16px;z-index:15;display:flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;
+  background:rgba(8,15,35,.78);border:1px solid rgba(255,255,255,.16);color:#E2E8F0;font-size:12.5px;font-weight:700;
+  transition:opacity .3s ease,transform .3s ease}
+.v2-chip.l{left:16px}.v2-chip.r{right:16px;font-variant-numeric:tabular-nums}
+.v2-chip.off{opacity:0;transform:translateY(-6px);pointer-events:none}
+.v2-dot{width:8px;height:8px;border-radius:50%;background:#60A5FA;box-shadow:0 0 0 0 rgba(96,165,250,.6)}
+.v2-dot.live{animation:v2Dot 1.8s ease-out infinite}
+@keyframes v2Dot{70%{box-shadow:0 0 0 7px rgba(96,165,250,0)}100%{box-shadow:0 0 0 0 rgba(96,165,250,0)}}
+
+.v2-unmute{position:absolute;top:60px;left:50%;transform:translateX(-50%);z-index:30;display:flex;align-items:center;gap:10px;
+  padding:10px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.55);cursor:pointer;color:#fff;font-size:14px;font-weight:800;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 10px 30px rgba(37,99,235,.5);
+  animation:v2Pop .45s var(--ease-out) both}
+@keyframes v2Pop{from{opacity:0;transform:translateX(-50%) translateY(-10px) scale(.92)}to{opacity:1;transform:translateX(-50%)}}
+
+.v2-big{position:absolute;z-index:20;width:84px;height:84px;border-radius:50%;border:0;cursor:pointer;display:grid;place-items:center;
+  color:#1D4ED8;background:rgba(255,255,255,.96);box-shadow:0 16px 40px rgba(0,0,0,.4);
+  animation:v2Pop2 .32s var(--ease-out) both;transition:transform .2s var(--ease-out)}
+.v2-big:hover{transform:scale(1.08)}
+.v2-big::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(255,255,255,.55);animation:v2Ring 2.2s ease-out infinite}
+@keyframes v2Pop2{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}
+@keyframes v2Ring{0%{transform:scale(.9);opacity:.8}100%{transform:scale(1.35);opacity:0}}
+
+.v2-spin{position:absolute;z-index:18;color:#fff;animation:v2Rot 1s linear infinite}
+@keyframes v2Rot{to{transform:rotate(360deg)}}
+
+.v2-controls{position:absolute;left:0;right:0;bottom:0;z-index:20;padding:28px 20px 14px;display:flex;flex-direction:column;gap:4px;
+  background:linear-gradient(180deg,transparent 0%,rgba(5,9,18,.92) 100%);transition:opacity .3s ease,transform .3s ease}
+.v2-controls.off{opacity:0;transform:translateY(8px);pointer-events:none}
+
+.v2-bar{position:relative;height:20px;display:flex;align-items:center;cursor:pointer;touch-action:none}
+.v2-track{position:relative;width:100%;height:5px;border-radius:999px;background:rgba(255,255,255,.22);transition:height .15s ease}
+.v2-bar:hover .v2-track,.v2-bar.drag .v2-track{height:8px}
+.v2-buf{position:absolute;left:0;top:0;height:100%;width:0;border-radius:inherit;background:rgba(255,255,255,.32);pointer-events:none}
+.v2-fill{position:absolute;left:0;top:0;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#3B82F6,#93C5FD);pointer-events:none}
+.v2-thumb{position:absolute;right:-7px;top:50%;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.45);
+  transform:translateY(-50%) scale(0);transition:transform .15s ease}
+.v2-bar:hover .v2-thumb,.v2-bar.drag .v2-thumb{transform:translateY(-50%) scale(1)}
+.v2-tip{position:absolute;bottom:24px;left:0;padding:3px 8px;border-radius:7px;background:rgba(15,23,42,.92);color:#fff;font-size:11.5px;font-weight:700;
+  font-variant-numeric:tabular-nums;transform:translateX(-50%);opacity:0;pointer-events:none;transition:opacity .12s}
+.v2-bar:hover .v2-tip,.v2-bar.drag .v2-tip{opacity:1}
+
+.v2-row{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.v2-grp{display:flex;align-items:center;gap:6px}
+.v2-btn{width:36px;height:36px;border:0;border-radius:10px;background:none;color:#fff;cursor:pointer;display:grid;place-items:center;transition:background .2s ease,color .2s ease}
+.v2-btn:hover{background:rgba(255,255,255,.14)}
+.v2-btn:focus-visible,.v2-bar:focus-visible,.v2-skip:focus-visible,.v2-rate:focus-visible,.v2-big:focus-visible{outline:2px solid #93C5FD;outline-offset:2px}
+.v2-time{font-size:13px;font-weight:700;color:#E2E8F0;font-variant-numeric:tabular-nums;margin-left:4px}
+.v2-time i{font-style:normal;opacity:.5;margin:0 4px}
+.v2-vol{width:72px;height:4px;accent-color:#3B82F6;cursor:pointer}
+.v2-rate{min-width:46px;padding:4px 10px;border-radius:8px;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);color:#fff;
+  font-size:12.5px;font-weight:800;cursor:pointer;transition:background .2s ease,border-color .2s ease}
+.v2-rate:hover{background:rgba(255,255,255,.2)}
+.v2-skip{display:flex;align-items:center;gap:6px;padding:7px 14px;border:0;border-radius:10px;color:#fff;font-size:13px;font-weight:800;cursor:pointer;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 6px 18px rgba(37,99,235,.4);transition:transform .2s ease,box-shadow .2s ease}
+.v2-skip:hover{transform:translateY(-1px);box-shadow:0 10px 24px rgba(37,99,235,.5)}
+
+.v2-end{position:absolute;inset:0;z-index:25;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:24px;text-align:center;
+  background:rgba(8,15,35,.82);animation:v2Fade .4s ease both}
+@keyframes v2Fade{from{opacity:0}to{opacity:1}}
+.v2-end>*{animation:v2Up .48s var(--ease-out) both}
+.v2-end>*:nth-child(2){animation-delay:.07s}.v2-end>*:nth-child(3){animation-delay:.14s}
+@keyframes v2Up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.v2-check{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:var(--n-tint);color:var(--n-deep);box-shadow:0 0 0 8px var(--n-glow)}
+.v2-ghost{display:flex;align-items:center;gap:8px;padding:10px 20px;border-radius:14px;cursor:pointer;color:#fff;font-size:14.5px;font-weight:800;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);transition:background .2s ease}
+.v2-ghost:hover{background:rgba(255,255,255,.2)}
+.v2-cta{display:flex;align-items:center;gap:10px;padding:12px 26px;border:0;border-radius:14px;cursor:pointer;color:#fff;font-size:15px;font-weight:900;
+  background:linear-gradient(135deg,#2563EB,#1D4ED8);box-shadow:0 10px 28px rgba(37,99,235,.5);transition:transform .2s ease}
+.v2-cta:hover{transform:translateY(-2px)}
+
+.v2-dock{margin:0 auto;width:100%;max-width:980px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:8px 16px;border-radius:20px;background:rgba(255,255,255,.96);border:1px solid var(--i-line);box-shadow:0 10px 28px rgba(37,99,235,.09)}
+.v2-av{display:flex;flex-shrink:0}
+.v2-av>div{width:40px;height:40px;border-radius:50%;border:2.5px solid #fff;display:grid;place-items:center}
+.v2-av>div+div{margin-left:-10px}
+.v2-tag{display:inline-block;padding:2px 9px;border-radius:7px;background:var(--i-main);color:#fff;font-size:11.5px;font-weight:800}
+.v2-pill{display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:12px;background:var(--i-soft);border:1px solid var(--i-line);flex-shrink:0;
+  font-size:12.5px;font-weight:800;color:var(--i-deep);font-variant-numeric:tabular-nums}
+
+@media (max-width:700px){
+  .v2-vol,.v2-skip span,.v2-pill{display:none}
+  .v2-controls{padding:24px 12px 10px}
+  .v2-big{width:68px;height:68px}
+  .v2-dock{padding:8px 12px}
+}
+@media (prefers-reduced-motion:reduce){
+  .v2-root,.v2-unmute,.v2-big,.v2-big::before,.v2-dot.live,.v2-end,.v2-end>*{animation:none!important}
+  .v2-root,.v2-video,.v2-controls,.v2-chip{transition:none}
+}
+`;
 
 export default function Slide02VideoIntro({ slide, onNext }) {
   const videoRef = useRef(null);
-  const containerRef = useRef(null);
-  const progressFillRef = useRef(null);
-  const bufferFillRef = useRef(null);
-  const timeTextRef = useRef(null);
-  const durationTextRef = useRef(null);
+  const stageRef = useRef(null);
+  const fillRef = useRef(null);
+  const bufRef = useRef(null);
+  const tipRef = useRef(null);
+  const timeRef = useRef(null);
+  const remainRef = useRef(null);
+  const hideTimerRef = useRef(null);
+  const draggingRef = useRef(false);
+  const mountedRef = useRef(true);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(1);
-  const [duration, setDuration] = useState(72.92);
-  const [playbackRate, setPlaybackRate] = useState(1.5); // Mặc định tốc độ 1.5x theo yêu cầu
+  const [duration, setDuration] = useState(FALLBACK_DURATION);
+  const [playbackRate, setPlaybackRate] = useState(DEFAULT_RATE);
   const [isEnded, setIsEnded] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [autoplayBlocked, setAutoplayBlocked] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(true);
+  const [isReady, setIsReady] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const [leaving, setLeaving] = useState(false);
 
-  const hideControlsTimerRef = useRef(null);
-
-  // Kích hoạt tự động phát video VÀ BẬT TIẾNG ngay khi chuyển vào Slide 2, tốc độ chuẩn bị trước 1.5x
   useEffect(() => {
+    mountedRef.current = true;
     const video = videoRef.current;
-    if (!video) return;
+    if (!video) return undefined;
+    let cancelled = false;
 
-    video.defaultPlaybackRate = 1.5;
-    video.playbackRate = 1.5;
-    video.muted = false;
-    video.volume = 1.0;
-    setVolume(1.0);
-    setIsMuted(false);
-
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-          setAutoplayBlocked(false);
-        })
-        .catch((err) => {
-          console.warn('Autoplay unmuted bị trình duyệt hạn chế nếu chưa có click trực tiếp:', err);
-          // Dự phòng: phát tắt tiếng trước và hiện nút Bật Tiếng to rõ
-          video.muted = true;
-          setIsMuted(true);
-          setAutoplayBlocked(true);
-          video.play().then(() => {
-            setIsPlaying(true);
-          }).catch(() => {
-            setIsPlaying(false);
-          });
-        });
-    }
+    (async () => {
+      const res = await startPlayback(video, DEFAULT_RATE);
+      if (cancelled) return;
+      setIsMuted(video.muted);
+      setVolume(1);
+      setAutoplayBlocked(res.blocked);
+      setIsPlaying(res.playing);
+    })();
 
     return () => {
-      if (video) {
-        video.pause();
-      }
+      cancelled = true;
+      mountedRef.current = false;
+      clearTimeout(hideTimerRef.current);
+      video.pause();
     };
   }, []);
 
-  // Bật tiếng thủ công nếu trình duyệt cần tương tác
+  useEffect(() => {
+    const onFs = () => setIsFullscreen(document.fullscreenElement === stageRef.current);
+    document.addEventListener('fullscreenchange', onFs);
+    return () => document.removeEventListener('fullscreenchange', onFs);
+  }, []);
+
+  const safePlay = useCallback(async () => {
+    const video = videoRef.current;
+    if (!video) return;
+    try {
+      await video.play();
+    } catch {}
+  }, []);
+
   const handleUnmute = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     video.muted = false;
-    video.volume = 1.0;
+    video.volume = 1;
     setIsMuted(false);
-    setVolume(1.0);
+    setVolume(1);
     setAutoplayBlocked(false);
-    video.play().then(() => setIsPlaying(true)).catch(() => {});
-  }, []);
+    safePlay();
+  }, [safePlay]);
 
-  // Xử lý Play / Pause
   const togglePlay = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     if (video.paused || video.ended) {
-      if (autoplayBlocked) {
-        handleUnmute();
-      } else {
-        video.play().then(() => setIsPlaying(true)).catch(() => {});
-      }
+      if (autoplayBlocked) handleUnmute();
+      else safePlay();
     } else {
       video.pause();
-      setIsPlaying(false);
     }
-  }, [autoplayBlocked, handleUnmute]);
+  }, [autoplayBlocked, handleUnmute, safePlay]);
 
-  // Xử lý Tua lại từ đầu
+  const resetProgressUI = useCallback(() => {
+    if (fillRef.current) fillRef.current.style.width = '0%';
+    if (timeRef.current) timeRef.current.textContent = '00:00';
+  }, []);
+
   const handleReplay = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
     video.currentTime = 0;
     setIsEnded(false);
-    if (progressFillRef.current) progressFillRef.current.style.width = '0%';
-    if (timeTextRef.current) timeTextRef.current.textContent = '00:00';
-    video.play().then(() => setIsPlaying(true)).catch(() => {});
+    resetProgressUI();
+    safePlay();
+  }, [resetProgressUI, safePlay]);
+
+  const seekBy = useCallback((delta) => {
+    const video = videoRef.current;
+    if (!video) return;
+    const dur = video.duration || FALLBACK_DURATION;
+    video.currentTime = Math.max(0, Math.min(dur, video.currentTime + delta));
+    setIsEnded(false);
   }, []);
 
-  // Cập nhật tiến trình trực tiếp qua DOM Ref để ZERO RE-RENDER React (Triệt tiêu 100% hiện tượng khựng lag)
-  const handleTimeUpdate = () => {
+  const toggleMute = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
-    const cur = video.currentTime;
-    const dur = video.duration || 72.92;
-    if (progressFillRef.current) {
-      progressFillRef.current.style.width = `${(cur / dur) * 100}%`;
-    }
-    if (timeTextRef.current) {
-      timeTextRef.current.textContent = formatTime(cur);
-    }
-    if (bufferFillRef.current && video.buffered.length > 0) {
-      const buf = video.buffered.end(video.buffered.length - 1);
-      bufferFillRef.current.style.width = `${Math.min(100, (buf / dur) * 100)}%`;
-    }
-  };
-
-  const handleProgress = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    const dur = video.duration || 72.92;
-    if (bufferFillRef.current && video.buffered.length > 0) {
-      const buf = video.buffered.end(video.buffered.length - 1);
-      bufferFillRef.current.style.width = `${Math.min(100, (buf / dur) * 100)}%`;
-    }
-  };
-
-  const handleLoadedMetadata = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.defaultPlaybackRate = 1.5;
-    video.playbackRate = playbackRate;
-    setDuration(video.duration);
-    if (durationTextRef.current) {
-      durationTextRef.current.textContent = formatTime(video.duration);
-    }
-    if (bufferFillRef.current && video.buffered.length > 0) {
-      const buf = video.buffered.end(video.buffered.length - 1);
-      bufferFillRef.current.style.width = `${Math.min(100, (buf / video.duration) * 100)}%`;
-    }
-  };
-
-  // Khi video kết thúc
-  const handleVideoEnded = () => {
-    setIsPlaying(false);
-    setIsEnded(true);
-    confetti({
-      particleCount: 80,
-      spread: 90,
-      origin: { y: 0.7 },
-      disableForReducedMotion: true
-    });
-  };
-
-  // Kéo thanh tiến trình trực tiếp qua DOM
-  const handleSeek = (e) => {
-    const video = videoRef.current;
-    if (!video) return;
-    const dur = video.duration || 72.92;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pos = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-    const targetTime = pos * dur;
-    video.currentTime = targetTime;
-    if (progressFillRef.current) {
-      progressFillRef.current.style.width = `${pos * 100}%`;
-    }
-    if (timeTextRef.current) {
-      timeTextRef.current.textContent = formatTime(targetTime);
-    }
-  };
-
-  // Điều khiển âm lượng
-  const handleVolumeChange = (e) => {
-    const video = videoRef.current;
-    const newVol = parseFloat(e.target.value);
-    setVolume(newVol);
-    if (video) {
-      video.volume = newVol;
-      video.muted = newVol === 0;
-      setIsMuted(newVol === 0);
-    }
-    setAutoplayBlocked(false);
-  };
-
-  const toggleMute = () => {
-    const video = videoRef.current;
-    if (!video) return;
-    if (isMuted || autoplayBlocked) {
+    if (video.muted || autoplayBlocked) {
       handleUnmute();
     } else {
       video.muted = true;
       setIsMuted(true);
     }
-  };
+  }, [autoplayBlocked, handleUnmute]);
 
-  // Đổi tốc độ phát (mặc định 1.5x -> 2x -> 1x -> 1.25x -> 1.5x)
-  const cyclePlaybackRate = () => {
+  const toggleFullscreen = useCallback(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    if (!document.fullscreenElement) stage.requestFullscreen?.().catch(() => {});
+    else document.exitFullscreen?.().catch(() => {});
+  }, []);
+
+  const cycleRate = useCallback(() => {
     const video = videoRef.current;
     if (!video) return;
-    const rates = [1.5, 2, 1, 1.25];
-    const nextIdx = (rates.indexOf(playbackRate) + 1) % rates.length;
-    const nextRate = rates[nextIdx];
-    video.playbackRate = nextRate;
-    setPlaybackRate(nextRate);
-  };
+    const next = RATES[(RATES.indexOf(playbackRate) + 1) % RATES.length];
+    video.playbackRate = next;
+    setPlaybackRate(next);
+  }, [playbackRate]);
 
-  // Toàn màn hình
-  const toggleFullscreen = () => {
-    const container = containerRef.current;
-    if (!container) return;
-    if (!document.fullscreenElement) {
-      container.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
-    } else {
-      document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+  const handleNext = useCallback(async () => {
+    if (leaving) return;
+    setLeaving(true);
+    const video = videoRef.current;
+    await Promise.all([fadeOutAudio(video), wait(LEAVE_MS)]);
+    if (!mountedRef.current) return;
+    video?.pause();
+    onNext?.();
+  }, [leaving, onNext]);
+
+  const paintBuffer = useCallback((video) => {
+    const dur = video.duration || FALLBACK_DURATION;
+    if (bufRef.current && video.buffered.length > 0) {
+      const end = video.buffered.end(video.buffered.length - 1);
+      bufRef.current.style.width = `${Math.min(100, (end / dur) * 100)}%`;
     }
+  }, []);
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video || draggingRef.current) return;
+    const cur = video.currentTime;
+    const dur = video.duration || FALLBACK_DURATION;
+    if (fillRef.current) fillRef.current.style.width = `${(cur / dur) * 100}%`;
+    if (timeRef.current) timeRef.current.textContent = formatTime(cur);
+    if (remainRef.current) {
+      remainRef.current.textContent = `Còn ${formatTime((dur - cur) / (video.playbackRate || 1))}`;
+    }
+    paintBuffer(video);
   };
 
-  // Tự động ẩn thanh điều khiển khi không di chuột
-  const handleMouseMove = () => {
+  const handleLoadedMetadata = () => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.defaultPlaybackRate = playbackRate;
+    video.playbackRate = playbackRate;
+    setDuration(video.duration);
+    paintBuffer(video);
+  };
+
+  const handleEnded = async () => {
+    setIsPlaying(false);
+    setIsEnded(true);
     setShowControls(true);
-    clearTimeout(hideControlsTimerRef.current);
-    hideControlsTimerRef.current = setTimeout(() => {
-      if (isPlaying) setShowControls(false);
-    }, 2800);
+    const { default: confetti } = await import('canvas-confetti');
+    confetti({ particleCount: 80, spread: 90, origin: { y: 0.7 }, disableForReducedMotion: true });
   };
 
-  // Phím tắt nội bộ trong video
+  const seekFromPointer = useCallback((e, commit) => {
+    const video = videoRef.current;
+    const bar = e.currentTarget;
+    if (!video || !bar) return;
+    const dur = video.duration || FALLBACK_DURATION;
+    const rect = bar.getBoundingClientRect();
+    const pos = clamp01((e.clientX - rect.left) / rect.width);
+    const t = pos * dur;
+    if (fillRef.current) fillRef.current.style.width = `${pos * 100}%`;
+    if (timeRef.current) timeRef.current.textContent = formatTime(t);
+    if (tipRef.current) {
+      tipRef.current.style.left = `${pos * 100}%`;
+      tipRef.current.textContent = formatTime(t);
+    }
+    if (commit) {
+      video.currentTime = t;
+      setIsEnded(false);
+    }
+  }, []);
+
+  const onBarDown = (e) => {
+    e.currentTarget.setPointerCapture?.(e.pointerId);
+    draggingRef.current = true;
+    setIsDragging(true);
+    seekFromPointer(e, true);
+  };
+  const onBarMove = (e) => seekFromPointer(e, draggingRef.current);
+  const onBarUp = (e) => {
+    e.currentTarget.releasePointerCapture?.(e.pointerId);
+    draggingRef.current = false;
+    setIsDragging(false);
+  };
+  const onBarKey = (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); seekBy(-5); }
+    if (e.key === 'ArrowRight') { e.preventDefault(); seekBy(5); }
+  };
+
+  const handleVolumeChange = (e) => {
+    const video = videoRef.current;
+    const v = parseFloat(e.target.value);
+    setVolume(v);
+    if (video) {
+      video.volume = v;
+      video.muted = v === 0;
+      setIsMuted(v === 0);
+    }
+    setAutoplayBlocked(false);
+  };
+
+  const wakeControls = useCallback(() => {
+    setShowControls(true);
+    clearTimeout(hideTimerRef.current);
+    hideTimerRef.current = setTimeout(() => setShowControls(false), HIDE_CONTROLS_MS);
+  }, []);
+
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    if (!isPlaying) {
+      clearTimeout(hideTimerRef.current);
+      setShowControls(true);
+    } else {
+      wakeControls();
+    }
+  }, [isPlaying, wakeControls]);
+
+  useEffect(() => {
+    const onKey = (e) => {
       if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
-      if (e.key === ' ' || e.key === 'k' || e.key === 'K') {
-        e.preventDefault();
-        togglePlay();
-      } else if (e.key === 'm' || e.key === 'M') {
-        e.preventDefault();
-        toggleMute();
-      } else if (e.key === 'r' || e.key === 'R') {
-        e.preventDefault();
-        handleReplay();
-      }
+      const k = e.key.toLowerCase();
+      if (k === ' ' || k === 'k') { e.preventDefault(); togglePlay(); }
+      else if (k === 'm') { e.preventDefault(); toggleMute(); }
+      else if (k === 'r') { e.preventDefault(); handleReplay(); }
+      else if (k === 'f') { e.preventDefault(); toggleFullscreen(); }
+      else if (k === 'j') seekBy(-5);
+      else if (k === 'l') seekBy(5);
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [togglePlay, toggleMute, handleReplay]);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [togglePlay, toggleMute, handleReplay, toggleFullscreen, seekBy]);
+
+  const controlsOn = showControls || !isPlaying || isDragging;
+  const estimate = formatTime(duration / playbackRate);
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      height: '100%',
-      gap: 10,
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      {/* RẠP CHIẾU VIDEO CHÍNH (CINEMA STAGE) */}
+    <div className={`v2-root${leaving ? ' leaving' : ''}`}>
+      <style>{CSS}</style>
+
+      {/* ===== RẠP CHIẾU VIDEO ===== */}
       <div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => isPlaying && setShowControls(false)}
-        style={{
-          position: 'relative',
-          flex: 1,
-          minHeight: 0,
-          background: 'linear-gradient(180deg, #0B0F19 0%, #020617 100%)',
-          borderRadius: 22,
-          overflow: 'hidden',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 20px 50px rgba(15, 23, 42, 0.28), 0 0 0 1.5px rgba(255, 255, 255, 0.1)',
-          cursor: isPlaying && !showControls ? 'none' : 'default'
-        }}
+        ref={stageRef}
+        className={`v2-stage${isPlaying && !controlsOn ? ' hide-cursor' : ''}`}
+        onMouseMove={wakeControls}
+        onTouchStart={wakeControls}
       >
-        {/* Thẻ Video HTML5 chính thức - Tiền nạp tự động & chạy mượt 100% không khựng */}
-        <video
-          ref={videoRef}
-          src="/video_intro.mp4"
-          playsInline
-          preload="auto"
-          onTimeUpdate={handleTimeUpdate}
-          onProgress={handleProgress}
-          onLoadedMetadata={handleLoadedMetadata}
-          onCanPlay={() => {
-            if (videoRef.current) {
-              videoRef.current.playbackRate = playbackRate;
-            }
-          }}
-          onEnded={handleVideoEnded}
-          onClick={togglePlay}
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'contain',
-            display: 'block',
-            transform: 'translateZ(0)',
-            backfaceVisibility: 'hidden',
-            willChange: 'transform'
-          }}
-        />
-
-        {/* Nút nhắc BẬT TIẾNG nếu trình duyệt hạn chế autoplay âm thanh */}
-        {autoplayBlocked && (
-          <button
-            type="button"
-            onClick={handleUnmute}
-            style={{
-              position: 'absolute',
-              top: 20,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 30,
-              background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
-              color: '#FFFFFF',
-              border: '2px solid rgba(255,255,255,0.8)',
-              borderRadius: 999,
-              padding: '10px 22px',
-              fontSize: 14.5,
-              fontWeight: 800,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              boxShadow: '0 8px 30px rgba(37, 99, 235, 0.6)',
-              cursor: 'pointer',
-              animation: 'pulseGlow 1.8s infinite'
-            }}
-          >
-            <Volume2 size={20} />
-            <span>NHẤN ĐỂ BẬT TIẾNG VIDEO 🔊</span>
-          </button>
-        )}
-
-        {/* Nút Play to đùng giữa màn hình khi tạm dừng */}
-        {!isPlaying && !isEnded && (
-          <button
-            type="button"
+        <div className={`v2-video-wrap${isEnded ? ' dim' : ''}`}>
+          <video
+            ref={videoRef}
+            src="/video_intro_720.mp4"
+            poster="/poster.jpg"
+            className={`v2-video${isReady ? '' : ' loading'}`}
+            playsInline
+            preload="metadata"
             onClick={togglePlay}
-            style={{
-              position: 'absolute',
-              zIndex: 20,
-              width: 72,
-              height: 72,
-              borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.95)',
-              border: 'none',
-              color: '#1D4ED8',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              cursor: 'pointer',
-              boxShadow: '0 12px 35px rgba(0,0,0,0.4)',
-              transition: 'transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1)'
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.12)')}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
-            title="Bấm để phát video (Phím Cách)"
-          >
-            <Play size={34} fill="#1D4ED8" style={{ marginLeft: 4 }} />
+            onLoadedMetadata={handleLoadedMetadata}
+            onLoadedData={() => setIsReady(true)}
+            onCanPlay={() => { setIsBuffering(false); if (videoRef.current) videoRef.current.playbackRate = playbackRate; }}
+            onWaiting={() => setIsBuffering(true)}
+            onPlaying={() => { setIsBuffering(false); setIsPlaying(true); }}
+            onPlay={() => { setIsPlaying(true); setIsEnded(false); }}
+            onPause={() => setIsPlaying(false)}
+            onTimeUpdate={handleTimeUpdate}
+            onProgress={() => videoRef.current && paintBuffer(videoRef.current)}
+            onEnded={handleEnded}
+          />
+        </div>
+
+        {/* chip trạng thái */}
+        <div className={`v2-chip l${controlsOn ? '' : ' off'}`}>
+          <span className={`v2-dot${isPlaying ? ' live' : ''}`} />
+          Video giới thiệu
+        </div>
+        <div className={`v2-chip r${controlsOn ? '' : ' off'}`}>
+          <span ref={remainRef}>Còn {estimate}</span>
+        </div>
+
+        {autoplayBlocked && !isEnded && (
+          <button type="button" className="v2-unmute" onClick={handleUnmute}>
+            <Volume2 size={20} />
+            <span>Nhấn để bật tiếng video</span>
           </button>
         )}
 
-        {/* Khung Kết Thúc Video (Finish Screen) */}
-        {isEnded && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: 25,
-            background: 'rgba(15, 23, 42, 0.88)',
-            backdropFilter: 'blur(16px)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 16,
-            padding: 24,
-            textAlign: 'center'
-          }}>
-            <div style={{
-              width: 60,
-              height: 60,
-              borderRadius: '50%',
-              background: '#DCFCE7',
-              color: '#16A34A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              boxShadow: '0 0 25px rgba(34, 197, 94, 0.4)'
-            }}>
-              <CheckCircle2 size={36} />
-            </div>
+        {isBuffering && isPlaying && !isEnded && <Loader2 className="v2-spin" size={44} />}
 
+        {!isPlaying && !isEnded && !isBuffering && (
+          <button type="button" className="v2-big" onClick={togglePlay} title="Phát video (Phím cách)" aria-label="Phát video">
+            <Play size={36} fill="#1D4ED8" style={{ marginLeft: 4 }} />
+          </button>
+        )}
+
+        {/* màn hình kết thúc */}
+        {isEnded && (
+          <div className="v2-end">
+            <div className="v2-check"><CheckCircle2 size={38} /></div>
             <div>
-              <h3 style={{ fontSize: 24, fontWeight: 900, color: '#FFFFFF', margin: 0 }}>
-                Video Giới Thiệu Đã Hoàn Thành!
-              </h3>
-              <p style={{ fontSize: 15, color: '#94A3B8', marginTop: 6, maxWidth: 460 }}>
-                Ba bé Đạm, Lân và Kali đã sẵn sàng đồng hành cùng bạn khám phá chi tiết 15 câu hỏi hóa học thực tế!
+              <h3 style={{ fontSize: 26, fontWeight: 900, color: '#fff', margin: 0 }}>Video giới thiệu đã xem xong</h3>
+              <p style={{ fontSize: 15, color: '#A9B8CE', margin: '8px auto 0', maxWidth: 470, lineHeight: 1.5 }}>
+                Ba bé Đạm, Lân và Kali sẽ đồng hành cùng bạn qua 15 câu hỏi hóa học thực tế.
               </p>
             </div>
-
-            <div style={{ display: 'flex', gap: 14, marginTop: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
-              <button
-                type="button"
-                onClick={handleReplay}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.12)',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
-                  color: '#FFFFFF',
-                  borderRadius: 14,
-                  padding: '10px 20px',
-                  fontSize: 14.5,
-                  fontWeight: 800,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  cursor: 'pointer'
-                }}
-              >
-                <RotateCcw size={18} />
-                <span>Xem lại video</span>
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
+              <button type="button" className="v2-ghost" onClick={handleReplay}>
+                <RotateCcw size={18} /><span>Xem lại video</span>
               </button>
-
-              <button
-                type="button"
-                onClick={onNext}
-                style={{
-                  background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
-                  border: 'none',
-                  color: '#FFFFFF',
-                  borderRadius: 14,
-                  padding: '12px 26px',
-                  fontSize: 15,
-                  fontWeight: 900,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  cursor: 'pointer',
-                  boxShadow: '0 8px 24px rgba(37, 99, 235, 0.45)'
-                }}
-              >
-                <span>Sang Slide 03: Giới thiệu thành viên</span>
-                <ArrowRight size={20} />
+              <button type="button" className="v2-cta" onClick={handleNext}>
+                <span>Sang Slide 3: Giới thiệu thành viên</span><ArrowRight size={20} />
               </button>
             </div>
           </div>
         )}
 
-        {/* Thanh Điều Khiển Video Hiện Đại (Controls Bar) */}
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          zIndex: 20,
-          padding: '16px 20px 14px',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.95) 100%)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 10,
-          opacity: showControls || !isPlaying ? 1 : 0,
-          pointerEvents: showControls || !isPlaying ? 'auto' : 'none',
-          transition: 'opacity 0.25s ease'
-        }}>
-          {/* Thanh Tiến Trình (Scrub Bar) */}
+        {/* thanh điều khiển */}
+        <div className={`v2-controls${controlsOn ? '' : ' off'}`}>
           <div
-            onClick={handleSeek}
-            style={{
-              position: 'relative',
-              width: '100%',
-              height: 6,
-              background: 'rgba(255, 255, 255, 0.22)',
-              borderRadius: 999,
-              cursor: 'pointer',
-              transition: 'height 0.15s ease'
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.height = '10px')}
-            onMouseLeave={(e) => (e.currentTarget.style.height = '6px')}
-            title="Nhấn hoặc kéo để chuyển đoạn video"
+            className={`v2-bar${isDragging ? ' drag' : ''}`}
+            role="slider"
+            tabIndex={0}
+            aria-label="Tiến trình video"
+            aria-valuemin={0}
+            aria-valuemax={Math.round(duration)}
+            onPointerDown={onBarDown}
+            onPointerMove={onBarMove}
+            onPointerUp={onBarUp}
+            onPointerCancel={onBarUp}
+            onKeyDown={onBarKey}
           >
-            {/* Vạch nạp trước bộ nhớ đệm (Buffered Ahead - Chạy mượt không khựng) */}
-            <div 
-              ref={bufferFillRef}
-              style={{
-                position: 'absolute',
-                left: 0,
-                top: 0,
-                height: '100%',
-                width: '0%',
-                background: 'rgba(255, 255, 255, 0.38)',
-                borderRadius: 999,
-                pointerEvents: 'none',
-                transition: 'width 0.25s ease'
-              }} 
-            />
-
-            {/* Vạch đã phát (cập nhật trực tiếp qua Ref để zero re-render, chống giật) */}
-            <div 
-              ref={progressFillRef}
-              style={{
-                width: '0%',
-                height: '100%',
-                background: 'linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%)',
-                borderRadius: 999,
-                position: 'relative'
-              }}
-            >
-              {/* Nút tròn đầu kim */}
-              <div style={{
-                position: 'absolute',
-                right: -6,
-                top: '50%',
-                transform: 'translateY(-50%)',
-                width: 14,
-                height: 14,
-                borderRadius: '50%',
-                background: '#FFFFFF',
-                boxShadow: '0 2px 6px rgba(0,0,0,0.4)'
-              }} />
+            <div className="v2-track">
+              <div ref={bufRef} className="v2-buf" />
+              <div ref={fillRef} className="v2-fill"><span className="v2-thumb" /></div>
             </div>
+            <span ref={tipRef} className="v2-tip">00:00</span>
           </div>
 
-          {/* Các nút bấm điều khiển */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-            {/* Nhóm trái: Play/Pause, Replay, Thời gian */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <button
-                type="button"
-                onClick={togglePlay}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#FFFFFF',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 4
-                }}
-                title={isPlaying ? 'Tạm dừng (Phím Cách)' : 'Phát tiếp (Phím Cách)'}
-              >
-                {isPlaying ? <Pause size={22} /> : <Play size={22} fill="#FFFFFF" />}
+          <div className="v2-row">
+            <div className="v2-grp">
+              <button type="button" className="v2-btn" onClick={togglePlay} title={isPlaying ? 'Tạm dừng (Phím cách)' : 'Phát (Phím cách)'} aria-label={isPlaying ? 'Tạm dừng' : 'Phát'}>
+                {isPlaying ? <Pause size={22} /> : <Play size={22} fill="#fff" />}
               </button>
-
-              <button
-                type="button"
-                onClick={handleReplay}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#CBD5E1',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: 4
-                }}
-                title="Phát lại từ đầu (Phím R)"
-              >
+              <button type="button" className="v2-btn" onClick={handleReplay} title="Phát lại từ đầu (R)" aria-label="Phát lại" style={{ color: '#CBD5E1' }}>
                 <RotateCcw size={18} />
               </button>
-
-              {/* Đồng hồ thời gian cập nhật tức thì */}
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#E2E8F0', fontVariantNumeric: 'tabular-nums' }}>
-                <span ref={timeTextRef}>00:00</span>
-                <span style={{ margin: '0 4px', opacity: 0.5 }}>/</span>
-                <span ref={durationTextRef} style={{ opacity: 0.8 }}>{formatTime(duration)}</span>
+              <div className="v2-time">
+                <span ref={timeRef}>00:00</span><i>/</i><span style={{ opacity: 0.8 }}>{formatTime(duration)}</span>
               </div>
             </div>
 
-            {/* Nhóm phải: Âm lượng, Tốc độ, Toàn màn hình, Nút Chuyển Tiếp Slide */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-              {/* Cụm Âm lượng */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <button
-                  type="button"
-                  onClick={toggleMute}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: isMuted ? '#EF4444' : '#FFFFFF',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: 4
-                  }}
-                  title={isMuted ? 'Bật tiếng (Phím M)' : 'Tắt tiếng (Phím M)'}
-                >
+            <div className="v2-grp" style={{ gap: 10 }}>
+              <div className="v2-grp" style={{ gap: 4 }}>
+                <button type="button" className="v2-btn" onClick={toggleMute} title={isMuted ? 'Bật tiếng (M)' : 'Tắt tiếng (M)'} aria-label="Bật/tắt tiếng" style={{ color: isMuted ? '#F87171' : '#fff' }}>
                   {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
                 </button>
-                <input
-                  type="range"
-                  min="0"
-                  max="1"
-                  step="0.05"
-                  value={isMuted ? 0 : volume}
-                  onChange={handleVolumeChange}
-                  style={{
-                    width: 70,
-                    height: 4,
-                    accentColor: '#3B82F6',
-                    cursor: 'pointer'
-                  }}
-                  title="Thanh trượt âm lượng"
-                />
+                <input className="v2-vol" type="range" min="0" max="1" step="0.05" value={isMuted ? 0 : volume} onChange={handleVolumeChange} aria-label="Âm lượng" />
               </div>
 
-              {/* Nút tốc độ (Mặc định 1.5x) */}
-              <button
-                type="button"
-                onClick={cyclePlaybackRate}
-                style={{
-                  background: playbackRate === 1.5 ? 'linear-gradient(135deg, #2563EB, #1D4ED8)' : 'rgba(255, 255, 255, 0.14)',
-                  border: playbackRate === 1.5 ? '1.5px solid #93C5FD' : '1px solid rgba(255, 255, 255, 0.25)',
-                  color: '#FFFFFF',
-                  borderRadius: 7,
-                  padding: '3px 9px',
-                  fontSize: 12,
-                  fontWeight: 900,
-                  cursor: 'pointer',
-                  boxShadow: playbackRate === 1.5 ? '0 0 12px rgba(37, 99, 235, 0.6)' : 'none'
-                }}
-                title="Thay đổi tốc độ phát (Mặc định 1.5x)"
-              >
+              <button type="button" className="v2-rate" onClick={cycleRate} title="Đổi tốc độ phát">
                 {playbackRate}x
               </button>
 
-              {/* Toàn màn hình */}
-              <button
-                type="button"
-                onClick={toggleFullscreen}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  color: '#CBD5E1',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: 4
-                }}
-                title="Xem toàn màn hình (Phím F)"
-              >
+              <button type="button" className="v2-btn" onClick={toggleFullscreen} title="Toàn màn hình (F)" aria-label="Toàn màn hình" style={{ color: '#CBD5E1' }}>
                 {isFullscreen ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
               </button>
 
-              {/* Nút Chuyển Tiếp Sang Slide 3 */}
-              <button
-                type="button"
-                onClick={onNext}
-                style={{
-                  background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
-                  border: 'none',
-                  color: '#FFFFFF',
-                  borderRadius: 10,
-                  padding: '6px 14px',
-                  fontSize: 13,
-                  fontWeight: 800,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  cursor: 'pointer',
-                  boxShadow: '0 4px 14px rgba(37, 99, 235, 0.35)'
-                }}
-                title="Chuyển sang Slide tiếp theo (Phím →)"
-              >
-                <span>Bỏ qua sang Slide 3</span>
-                <ArrowRight size={15} />
+              <button type="button" className="v2-skip" onClick={handleNext} title="Sang slide tiếp theo">
+                <span>Bỏ qua sang Slide 3</span><ArrowRight size={15} />
               </button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Thanh Linh Thú NPK Đồng Hành Cao Cấp */}
-      <div style={{
-        margin: '0 auto',
-        width: '100%',
-        maxWidth: 980,
-        background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(240, 249, 255, 0.95) 100%)',
-        border: '1.5px solid rgba(147, 197, 253, 0.6)',
-        borderRadius: 18,
-        padding: '7px 18px',
-        boxShadow: '0 8px 24px rgba(37, 99, 235, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        gap: 16,
-        flexShrink: 0,
-        transition: 'all 0.25s ease'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          {/* Avatar 3 bé N - P - K Chibi thu nhỏ dễ thương */}
-          <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
-            <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#DCFCE7', border: '2.5px solid #FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 10px rgba(34,197,94,0.25)', zIndex: 3 }}>
-              <LinhThuDam emotion="happy" size={30} />
-            </div>
-            <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#EDE9FE', border: '2.5px solid #FFFFFF', marginLeft: -10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 10px rgba(139,92,246,0.25)', zIndex: 2 }}>
-              <LinhThuLan emotion="happy" size={30} />
-            </div>
-            <div style={{ width: 38, height: 38, borderRadius: '50%', background: '#FEF3C7', border: '2.5px solid #FFFFFF', marginLeft: -10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 3px 10px rgba(245,158,11,0.25)', zIndex: 1 }}>
-              <LinhThuKali emotion="happy" size={30} />
-            </div>
+      {/* ===== THANH LINH THÚ NPK ===== */}
+      <div className="v2-dock">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14, minWidth: 0 }}>
+          <div className="v2-av">
+            <div style={{ background: 'var(--n-tint)' }}><LinhThuDam emotion="happy" size={30} /></div>
+            <div style={{ background: 'var(--p-tint)' }}><LinhThuLan emotion="happy" size={30} /></div>
+            <div style={{ background: 'var(--k-tint)' }}><LinhThuKali emotion="happy" size={30} /></div>
           </div>
-
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 2 }}>
-              <span style={{
-                background: 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)',
-                color: '#FFFFFF',
-                fontSize: 11,
-                fontWeight: 900,
-                padding: '2px 8px',
-                borderRadius: 6,
-                letterSpacing: '0.04em'
-              }}>
-                🌾 BIỆT ĐỘI NPK TIẾP SỨC
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 800, color: '#1E293B' }}>
-                Hành trình bứt phá của hạt mầm
-              </span>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 3 }}>
+              <span className="v2-tag">Biệt đội NPK</span>
+              <span style={{ fontSize: 13.5, fontWeight: 800, color: 'var(--ink)' }}>Hành trình bứt phá của hạt mầm</span>
             </div>
-            <div style={{ fontSize: 13, color: '#475569', lineHeight: 1.35, fontWeight: 600 }}>
-              Hạt mầm lớn nhanh nhờ <strong style={{ color: '#16A34A' }}>Đạm (lá xanh)</strong> — <strong style={{ color: '#7C3AED' }}>Lân (rễ sâu)</strong> — <strong style={{ color: '#D97706' }}>Kali (chắc quả ngọt)</strong>! 🌱⚡🍊
+            <div style={{ fontSize: 13, color: 'var(--ink-soft)', lineHeight: 1.4, fontWeight: 600 }}>
+              Hạt mầm lớn nhanh nhờ <strong style={{ color: 'var(--n-deep)' }}>Đạm (lá xanh)</strong>,{' '}
+              <strong style={{ color: 'var(--p-deep)' }}>Lân (rễ sâu)</strong> và{' '}
+              <strong style={{ color: 'var(--k-deep)' }}>Kali (chắc quả, ngọt trái)</strong>.
             </div>
           </div>
         </div>
 
-        {/* Nút chỉ dẫn hoặc thời lượng video tính theo tốc độ đang phát */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 8,
-          background: 'rgba(255, 255, 255, 0.92)',
-          border: '1.2px solid #BFDBFE',
-          borderRadius: 12,
-          padding: '6px 14px',
-          flexShrink: 0
-        }}>
+        <div className="v2-pill">
           <Sparkles size={16} color="#2563EB" />
-          <span style={{ fontSize: 12.5, fontWeight: 800, color: '#1E40AF' }}>
-            Thời lượng: {playbackRate === 1.5 ? '00:49 (1.5x)' : `${formatTime(duration ? duration / playbackRate : 48.6)} (${playbackRate}x)`}
-          </span>
+          <span>Thời lượng {estimate} ({playbackRate}x)</span>
         </div>
       </div>
     </div>

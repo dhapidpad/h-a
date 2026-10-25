@@ -1,255 +1,77 @@
 import React from 'react';
-import CuteMascot from '../components/mascot/CuteMascot';
-import SvgStageCard from '../components/SvgStageCard';
+import QuestionSlide from './QuestionSlide';
 import SvgSoilCompaction from '../components/illustrations/SvgSoilCompaction';
+
+const PILLARS = [
+  {
+    id: 'ec',
+    number: '01',
+    tone: 'red',
+    title: 'TÍCH TỤ ĐỘ MẶN (EC TĂNG) — NGUY CƠ HẠN SINH LÝ',
+    badge: 'TĂNG ĐỘ MẶN EC',
+    desc: (
+      <>
+        Ion <strong>Cl⁻ dư thừa</strong> làm tăng độ dẫn điện (EC). Áp suất thẩm thấu đất cao hơn dịch rễ gây <strong>hạn sinh lý: rút ngược nước khỏi rễ</strong> làm cháy lông hút.
+      </>
+    ),
+  },
+  {
+    id: 'compaction',
+    number: '02',
+    tone: 'amber',
+    title: 'PHÁ HỦY KEO ĐẤT — NÉN CHẶT CHAI CỨNG BÍ KHÍ',
+    badge: 'ĐẤT CHAI CỨNG',
+    desc: (
+      <>
+        Cl⁻ kéo <strong>Ca²⁺, Mg²⁺</strong> tạo muối tan rửa trôi mất cầu nối keo đất. Đất mất cấu trúc viên đoàn, <strong>nén chặt bí khí</strong> làm nghẹt rễ và hại vi sinh vật.
+      </>
+    ),
+  },
+  {
+    id: 'recovery',
+    number: '03',
+    tone: 'green',
+    title: 'GIẢI PHÁP: LUÂN PHIÊN K₂SO₄ & BỒI BỔ HỮU CƠ',
+    badge: 'PHỤC HỒI HỮU CƠ',
+    desc: (
+      <>
+        Luân phiên sang <strong>K₂SO₄ hoặc kali hữu cơ</strong> (tro trấu, phân ủ), bón vôi bù Ca²⁺ và bổ sung mùn hữu cơ, nấm <strong>Trichoderma</strong> làm tơi xốp đất.
+      </>
+    ),
+  },
+];
 
 export default function Slide18KaliQ5({ onOpenNotes }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%', gap: 10, position: 'relative', overflow: 'hidden' }}>
-      {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 10 }}>
-        <div>
-          <div className="chapter-pill" style={{ backgroundColor: '#FFF3DA', color: '#D97706' }}>
-            <span style={{ fontSize: 14, fontWeight: 900 }}>PHÂN KALI (K) • CÂU HỎI 05 / 15</span>
-          </div>
-          <h2 className="slide-title" style={{ marginTop: 2, fontSize: 26, color: '#0F172A' }}>
-            HỆ LỤY LẠM DỤNG KCL: ĐẤT CHAI CỨNG &amp; BÍ KHÍ
-          </h2>
-        </div>
-
-        <div className="slide-header-badge">
-          <div className="slide-header-badge-icon" style={{ background: 'linear-gradient(135deg, #EF4444 0%, #B91C1C 100%)' }}>
-            EC
-          </div>
-          <div className="slide-header-badge-text">
-            <div className="slide-header-badge-sub" style={{ color: '#FCA5A5' }}>NGƯỠNG AN TOÀN ĐẤT</div>
-            <div className="slide-header-badge-main">Độ dẫn điện EC &lt; 1.5 mS/cm</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Banner câu hỏi */}
-      <div style={{
-        background: 'rgba(255, 255, 255, 0.95)',
-        border: '1.5px solid #FDE68A',
-        borderRadius: 14,
-        padding: '10px 18px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 12,
-        boxShadow: '0 4px 14px rgba(217, 119, 6, 0.07)'
-      }}>
-        <div style={{
-          width: 34,
-          height: 34,
-          borderRadius: 9,
-          background: '#FEF3C7',
-          color: '#D97706',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexShrink: 0,
-          fontWeight: 900,
-          fontSize: 15
-        }}>
-          ?
-        </div>
-        <div style={{ fontSize: 14.5, fontWeight: 700, color: '#0F172A', lineHeight: 1.4 }}>
-          <span style={{ color: '#D97706', fontWeight: 900 }}>Câu hỏi thảo luận: </span>
-          Lạm dụng phân KCl lâu dài làm gia tăng độ mặn (EC) của đất ra sao? Phá vỡ cấu trúc đất, làm đất chai cứng và tiêu diệt vi sinh vật như thế nào?
-        </div>
-      </div>
-
-      {/* Grid 2 cột */}
-      <div className="slide-main-grid">
-        {/* Cột trái */}
-        <div className="slide-content-col">
-          {/* Card 1: Gia tăng độ mặn đất & hạn sinh lý */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #EF4444',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#FEE2E2',
-              color: '#EF4444',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              01
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#B91C1C' }}>
-                  TÍCH TỤ ĐỘ MẶN (EC TĂNG) — NGUY CƠ HẠN SINH LÝ
-                </span>
-                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#FEE2E2', color: '#B91C1C', padding: '2px 8px', borderRadius: 6 }}>
-                  TÍCH TỤ ĐỘ MẶN
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Ion Cl⁻ dư thừa làm tăng chỉ số độ dẫn điện (EC) trong đất. Áp suất thẩm thấu dung dịch đất cao hơn dịch tế bào rễ, dẫn đến hiện tượng <strong>hạn sinh lý: rễ bị hút ngược nước ra ngoài</strong>, lông hút rễ teo tóp khô héo.
-              </div>
-            </div>
-          </div>
-
-          {/* Card 2: Phá vỡ kết cấu đất chai cứng */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #F59E0B',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#FEF3C7',
-              color: '#F59E0B',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              02
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#B45309' }}>
-                  PHÁ HỦY KEO ĐẤT — NÉN CHẶT CHAI CỨNG BÍ KHÍ
-                </span>
-                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#FEF3C7', color: '#B45309', padding: '2px 8px', borderRadius: 6 }}>
-                  ĐẤT CHAI CỨNG
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Cl⁻ liên kết với Ca²⁺, Mg²⁺ tạo muối tan bị trôi theo dòng nước ngầm. Thiếu các cation đa hóa trị làm <strong>tan rã hạt keo đất viên đoàn</strong>, đất bị nén chặt như bê tông, mất khe hở mao quản khiến rễ bị nghẹt oxy.
-              </div>
-            </div>
-          </div>
-
-          {/* Card 3: Phục hồi & Luân phiên */}
-          <div style={{
-            background: 'rgba(255, 255, 255, 0.96)',
-            borderRadius: 14,
-            padding: '9px 14px',
-            borderLeft: '5px solid #16A34A',
-            borderTop: '1px solid #E2E8F0',
-            borderRight: '1px solid #E2E8F0',
-            borderBottom: '1px solid #E2E8F0',
-            boxShadow: '0 3px 10px rgba(15, 23, 42, 0.04)',
-            display: 'flex',
-            gap: 12,
-            alignItems: 'flex-start'
-          }}>
-            <div style={{
-              width: 38,
-              height: 38,
-              borderRadius: 11,
-              background: '#DCFCE7',
-              color: '#16A34A',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontWeight: 900,
-              fontSize: 16,
-              flexShrink: 0
-            }}>
-              03
-            </div>
-            <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 2 }}>
-                <span style={{ fontSize: 15, fontWeight: 800, color: '#15803D' }}>
-                  GIẢI PHÁP: LUÂN PHIÊN K₂SO₄ & BỒI BỔ HỮU CƠ
-                </span>
-                <span style={{ fontSize: 12.5, fontWeight: 900, background: '#DCFCE7', color: '#15803D', padding: '2px 8px', borderRadius: 6 }}>
-                  PHỤC HỒI HỮU CƠ
-                </span>
-              </div>
-              <div style={{ fontSize: 14, color: '#1E293B', lineHeight: 1.42 }}>
-                Luân phiên sang <strong>K₂SO₄ hoặc nguồn kali hữu cơ</strong> (tro trấu, phân trùn quế). Xới xáo phá váng bề mặt, bón vôi nông nghiệp bù lại Ca²⁺ và bổ sung nấm đối kháng Trichoderma phục hồi độ xốp đất.
-              </div>
-            </div>
-          </div>
-
-          {/* Practical Note */}
-          <div style={{
-            background: '#FFFBEB',
-            borderRadius: 12,
-            padding: '9px 14px',
-            border: '1.5px dashed #F59E0B',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            fontSize: 14,
-            color: '#78350F'
-          }}>
-            <div style={{
-              width: 26,
-              height: 26,
-              borderRadius: 6,
-              background: '#FEF3C7',
-              color: '#D97706',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontWeight: 900,
-              fontSize: 12.5
-            }}>
-              EC
-            </div>
-            <span>
-              <strong>Kiểm tra định kỳ:</strong> Sử dụng bút đo độ mặn EC (&lt; 1.5 mS/cm là ngưỡng an toàn) trước khi quyết định bổ sung thêm muối kali khoáng vào đất.
-            </span>
-          </div>
-
-          {/* Linh thú Bé Kali */}
-          <CuteMascot 
-            variant="banner"
-            mascotType="SUNNY_K"
-            emotion="worried"
-            speech="Đừng bón KCl quá liều kẻo đất bị nghẹt thở và khát nước ngược đó nha! 🩺🧪"
-            size={44}
-            onClick={onOpenNotes}
-          />
-        </div>
-
-        {/* Cột phải: SVG Showcase Stage */}
-        <SvgStageCard
-          title="THOÁI HÓA ĐẤT & BẢO VỆ ĐẤT BỀN VỮNG"
-          subtitle="Tích lũy muối Cl⁻ • Gia tăng độ dẫn điện EC & phá vỡ keo đất chai cứng"
-          chapter="kali"
-          badge="EC < 1.5 mS/cm"
-          takeaway="Lạm dụng KCl liên tục tích tụ gốc clo làm tăng chỉ số độ mặn EC của dung dịch đất, gây hiện tượng hạn sinh lý rút ngược nước khỏi tế bào rễ, đồng thời rửa trôi canxi làm đất bị nén chặt chai cứng và suy kiệt vi sinh vật có ích."
-        >
-          <SvgSoilCompaction />
-        </SvgStageCard>
-      </div>
-    </div>
+    <QuestionSlide
+      chapter="kali"
+      pillText="PHÂN KALI (K) • CÂU HỎI 05 / 15"
+      title="HỆ LỤY LẠM DỤNG KCL: ĐẤT CHAI CỨNG & BÍ KHÍ"
+      badgeIcon={{ text: 'EC', bg: 'linear-gradient(135deg, var(--danger) 0%, var(--danger-deep) 100%)' }}
+      badgeSub="NGƯỠNG AN TOÀN ĐẤT"
+      badgeMain="Độ dẫn điện EC < 1.5 mS/cm"
+      question="Lạm dụng KCl lâu dài làm tăng độ mặn (EC) đất ra sao? Cơ chế phá vỡ cấu trúc keo đất, làm đất chai cứng bí khí và suy giảm vi sinh vật?"
+      pillars={PILLARS}
+      note={{
+        tag: 'EC',
+        title: 'Kiểm soát định kỳ:',
+        text: 'Đo độ dẫn điện EC đất (< 1.5 mS/cm là an toàn) trước khi quyết định bón thêm phân muối khoáng KCl.',
+      }}
+      mascot={{
+        mascotType: 'SUNNY_K',
+        emotion: 'worried',
+        speech: 'Đừng bón KCl quá liều kẻo đất bị nghẹt thở và khát nước ngược đó nha! 🩺🧪',
+      }}
+      svgCard={{
+        title: 'THOÁI HÓA ĐẤT & BẢO VỆ ĐẤT BỀN VỮNG',
+        subtitle: 'Tích lũy muối Cl⁻ • Gia tăng độ dẫn điện EC & phá vỡ keo đất chai cứng',
+        badge: 'EC < 1.5 mS/cm',
+        takeaway:
+          'Lạm dụng KCl liên tục tích tụ gốc clo làm tăng chỉ số độ mặn EC của dung dịch đất, gây hiện tượng hạn sinh lý rút ngược nước khỏi tế bào rễ, đồng thời rửa trôi canxi làm đất bị nén chặt chai cứng và suy kiệt vi sinh vật có ích.',
+      }}
+      onOpenNotes={onOpenNotes}
+    >
+      <SvgSoilCompaction />
+    </QuestionSlide>
   );
 }

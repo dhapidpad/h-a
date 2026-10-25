@@ -70,16 +70,16 @@ const Bubble = ({ x, y, t, c, delay }) => (
     <g className="sv-rise" style={{ animationDelay: `${delay}s` }}>
       <circle r="10" fill="#FFFFFF" stroke={c} strokeWidth="1.8" />
       <circle cx="-3.5" cy="-3.5" r="2" fill={c} opacity="0.25" />
-      <text y="3.6" textAnchor="middle" fontSize="10" fontWeight="800" fill={c} fontFamily={FONT}>{t}</text>
+      <text y="3.6" textAnchor="middle" fontSize="13" fontWeight="800" fill={c} fontFamily={FONT}>{t}</text>
     </g>
   </g>
 );
 
 const Nameplate = ({ y, stroke, color, label }) => (
   <g transform={`translate(0 ${y})`}>
-    <rect x="-66" y="-11" width="132" height="24" rx="12" fill="#FFFFFF" stroke={stroke} strokeWidth="1.6" filter="url(#svSoft)" />
+    <rect x="-66" y="-11" width="132" height="24" rx="12" fill="#FFFFFF" stroke={stroke} strokeWidth="1.6" />
     <circle cx="-54" cy="1" r="3.2" fill={stroke} />
-    <text x="4" y="5" textAnchor="middle" fill={color} fontSize="11" fontWeight="800" fontFamily={FONT}>{label}</text>
+    <text x="4" y="5" textAnchor="middle" fill={color} fontSize="13" fontWeight="800" fontFamily={FONT}>{label}</text>
   </g>
 );
 
@@ -95,8 +95,8 @@ const Arm = ({ s, x = 33, color, hand, edge, delay = 0 }) => (
 const Chip = ({ x, y, w, t, c, delay = 0, style }) => (
   <g transform={`translate(${x} ${y})`} style={style}>
     <g className="sv-drift" style={{ animationDelay: `${delay}s` }}>
-      <rect x={-w / 2} y="-11" width={w} height="22" rx="11" fill="#FFFFFF" stroke={c} strokeWidth="1.4" filter="url(#svSoft)" />
-      <text y="4" textAnchor="middle" fontSize="11" fontWeight="800" fill={c} fontFamily={FONT}>{t}</text>
+      <rect x={-w / 2} y="-11" width={w} height="22" rx="11" fill="#FFFFFF" stroke={c} strokeWidth="1.4" />
+      <text y="4" textAnchor="middle" fontSize="13" fontWeight="800" fill={c} fontFamily={FONT}>{t}</text>
     </g>
   </g>
 );
@@ -211,19 +211,7 @@ export default function SvgTopic({ focus = null }) {
         </radialGradient>
 
         {/* Bóng đổ */}
-        <filter id="svSoft" x="-20%" y="-40%" width="140%" height="200%">
-          <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#0F172A" floodOpacity="0.1" />
-        </filter>
-        <filter id="svShadowN" x="-40%" y="-40%" width="180%" height="190%">
-          <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#22C55E" floodOpacity="0.4" />
-        </filter>
-        <filter id="svShadowP" x="-40%" y="-40%" width="180%" height="190%">
-          <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#8C6BFA" floodOpacity="0.4" />
-        </filter>
-        <filter id="svShadowK" x="-40%" y="-40%" width="180%" height="190%">
-          <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#F59E0B" floodOpacity="0.45" />
-        </filter>
-      </defs>
+        </defs>
 
       {/* ============ NỀN: quầng sáng 3 màu hoà vào nhau ============ */}
       <g>
@@ -338,7 +326,7 @@ export default function SvgTopic({ focus = null }) {
           <Arm s={1} x={34} color="#22C55E" hand="#86EFAC" edge="#15803D" delay={-1.1} />
 
           {/* Thân */}
-          <circle cx="0" cy="0" r="38" fill="url(#sproutOrb)" stroke="#15803D" strokeWidth="2.5" filter="url(#svShadowN)" />
+          <circle cx="0" cy="0" r="38" fill="url(#sproutOrb)" stroke="#15803D" strokeWidth="2.5" />
           <ellipse cx="0" cy="22" rx="19" ry="12" fill="#BBF7D0" opacity="0.45" />
           <ellipse cx="-17" cy="-22" rx="9" ry="5" fill="#FFFFFF" opacity="0.32" transform="rotate(-35 -17 -22)" />
 
@@ -376,7 +364,7 @@ export default function SvgTopic({ focus = null }) {
           {/* Huy hiệu lục giác N trước bụng */}
           <g transform="translate(0 25)">
             <polygon points="0,-9 8,-4.5 8,4.5 0,9 -8,4.5 -8,-4.5" fill="#FFFFFF" stroke="#15803D" strokeWidth="1.5" />
-            <text y="3.4" textAnchor="middle" fontSize="10" fontWeight="800" fill="#15803D" fontFamily={FONT}>N</text>
+            <text y="3.4" textAnchor="middle" fontSize="13" fontWeight="800" fill="#15803D" fontFamily={FONT}>N</text>
           </g>
         </g>
 
@@ -400,7 +388,7 @@ export default function SvgTopic({ focus = null }) {
 
           {/* Thân củ rễ phát quang */}
           <path d="M 0 -36 C 28 -36, 36 -2, 28 22 C 20 38, 10 40, 0 40 C -10 40, -20 38, -28 22 C -36 -2, -28 -36, 0 -36 Z"
-            fill="url(#sparkyOrb)" stroke="#5B21B6" strokeWidth="2.5" filter="url(#svShadowP)" />
+            fill="url(#sparkyOrb)" stroke="#5B21B6" strokeWidth="2.5" />
           <ellipse cx="-14" cy="-20" rx="8" ry="4.6" fill="#FFFFFF" opacity="0.35" transform="rotate(-38 -14 -20)" />
           <path d="M -18 30 Q -8 36 0 36 M 10 33 Q 16 30 20 26" fill="none" stroke="#DDD6FE" strokeWidth="1.4" strokeLinecap="round" opacity="0.5" />
 
@@ -453,7 +441,7 @@ export default function SvgTopic({ focus = null }) {
           <Arm s={1} x={34} color="#F59E0B" hand="#FEF08A" edge="#B45309" delay={-0.4} />
 
           {/* Thân quả cam tròn vo núng nính */}
-          <circle cx="0" cy="0" r="38" fill="url(#sunnyOrb)" stroke="#B45309" strokeWidth="2.5" filter="url(#svShadowK)" />
+          <circle cx="0" cy="0" r="38" fill="url(#sunnyOrb)" stroke="#B45309" strokeWidth="2.5" />
           <ellipse cx="-16" cy="-22" rx="9" ry="5" fill="#FFFFFF" opacity="0.38" transform="rotate(-35 -16 -22)" />
           {[[-8, 20], [10, 24], [22, 14], [-22, 14], [0, 30]].map(([x, y], i) => (
             <circle key={i} cx={x} cy={y} r="1.1" fill="#B45309" opacity="0.3" />
@@ -490,7 +478,7 @@ export default function SvgTopic({ focus = null }) {
             <g className="sv-ear" style={{ animationDuration: '3.8s' }}>
               <path d="M 12 0 C 24 1, 25 15, 12 28 C -1 15, 0 1, 12 0 Z" fill="#22C55E" stroke="#15803D" strokeWidth="1.8" strokeLinejoin="round" />
               <path d="M 12 4 C 18 5, 19 14, 12 23 C 5 14, 6 5, 12 4 Z" fill="none" stroke="#BBF7D0" strokeWidth="1" opacity="0.7" />
-              <text x="12" y="17" textAnchor="middle" fontSize="11" fontWeight="800" fill="#FFFFFF" fontFamily={FONT}>K</text>
+              <text x="12" y="17" textAnchor="middle" fontSize="13" fontWeight="800" fill="#FFFFFF" fontFamily={FONT}>K</text>
             </g>
           </g>
         </g>
