@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgSoilCompaction from '../components/illustrations/SvgSoilCompaction';
 
 export default function Slide18KaliQ5({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide18KaliQ5({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Gia tăng độ mặn đất & hạn sinh lý */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide18KaliQ5({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="THOÁI HÓA ĐẤT & BẢO VỆ ĐẤT BỀN VỮNG"
+          subtitle="Tích lũy muối Cl⁻ • Gia tăng độ dẫn điện EC & phá vỡ keo đất chai cứng"
+          chapter="kali"
+          badge="EC < 1.5 mS/cm"
+          takeaway="Lạm dụng KCl liên tục tích tụ gốc clo làm tăng chỉ số độ mặn EC của dung dịch đất, gây hiện tượng hạn sinh lý rút ngược nước khỏi tế bào rễ, đồng thời rửa trôi canxi làm đất bị nén chặt chai cứng và suy kiệt vi sinh vật có ích."
+        >
           <SvgSoilCompaction />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgPercentTubes from '../components/illustrations/SvgPercentTubes';
 
 const FERTILIZER_RANKING = [
@@ -110,24 +111,9 @@ export default function Slide05DamQ2({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Tiêu chuẩn %N */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -302,10 +288,16 @@ export default function Slide05DamQ2({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="BẢNG ĐO %N & ỐNG NGHIỆM ĐẠM"
+          subtitle="So sánh hàm lượng % khối lượng Nitơ nguyên chất • Urê quán quân 46%"
+          chapter="dam"
+          badge="46.7% N"
+          takeaway="Độ dinh dưỡng của phân đạm được tính bằng %N = (m_N / M_phân) × 100%. Phân Urê CO(NH₂)₂ chiếm ngôi vị quán quân với ~46% N, tiết kiệm tối đa chi phí bao bì, vận chuyển và công bón."
+        >
           <SvgPercentTubes selectedId={selectedTube} onSelect={setSelectedTube} />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

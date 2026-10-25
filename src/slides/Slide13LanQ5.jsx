@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgApatiteMine from '../components/illustrations/SvgApatiteMine';
 
 export default function Slide13LanQ5({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide13LanQ5({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Mỏ Apatit Lào Cai */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -255,10 +241,16 @@ export default function Slide13LanQ5({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="MỎ APATITE LÀO CAI & CÔNG NGHIỆP LÂN"
+          subtitle="Tài nguyên quốc gia • 3 trụ cột Lâm Thao, Văn Điển, Ninh Bình & Kinh tế tuần hoàn"
+          chapter="lan"
+          badge="Quặng Loại 1–4"
+          takeaway="Quặng Apatit Lào Cai là nguồn báu vật tự nhiên duy nhất sản xuất phân lân tại Việt Nam. Công nghệ hiện đại tuyển quặng nghèo và tái chế phụ phẩm xỉ quặng làm xi măng thúc đẩy nền kinh tế tuần hoàn bền vững."
+        >
           <SvgApatiteMine />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

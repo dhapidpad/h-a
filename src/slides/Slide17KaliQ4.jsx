@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgTopdressingMountain from '../components/illustrations/SvgTopdressingMountain';
 
 export default function Slide17KaliQ4({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Đường cong sinh lý cây trồng */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -255,10 +241,16 @@ export default function Slide17KaliQ4({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="ĐỈNH ĐỒI BÓN THÚC ĐÚNG THỜI ĐIỂM"
+          subtitle="Chiến lược bón chia đợt • Đón đòng, nuôi hạt & dồn đường nuôi quả ngọt"
+          chapter="kali"
+          badge="Bón Thúc Đúng Lúc"
+          takeaway="Kali tan nhanh và dễ bị rửa trôi nếu bón lót quá nhiều từ đầu vụ. Cây cần kali nhiều nhất vào các giai đoạn sinh sản: làm đòng, trổ hoa và nuôi quả để bơm tinh bột chắc hạt và tích tụ đường thơm ngọt."
+        >
           <SvgTopdressingMountain />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

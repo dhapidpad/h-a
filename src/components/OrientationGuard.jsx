@@ -32,11 +32,17 @@ export default function OrientationGuard({ onContinueAnyway }) {
 
   if (!isPortraitMobile || dismissed) return null;
 
+  // Hai bước độc lập: fullscreen bị từ chối (vd. iOS Safari) không được chặn việc thử khóa hướng ngang,
+  // và ngược lại. Lỗi chỉ ghi log; người dùng luôn còn nút "Tiếp tục xem ở chế độ dọc".
   const requestLandscapeFullscreen = async () => {
     try {
-      if (document.documentElement.requestFullscreen) {
+      if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
         await document.documentElement.requestFullscreen();
       }
+    } catch (err) {
+      console.warn('Fullscreen fallback:', err);
+    }
+    try {
       if (window.screen?.orientation?.lock) {
         await window.screen.orientation.lock('landscape');
       }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgChlorophyllFactory from '../components/illustrations/SvgChlorophyllFactory';
 
 const PILLARS = [
@@ -115,24 +116,9 @@ export default function Slide04DamQ1({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {PILLARS.map((item) => {
             const isSelected = activeCard === item.id;
             return (
@@ -257,10 +243,16 @@ export default function Slide04DamQ1({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="NHÀ MÁY DIỆP LỤC & LỤC LẠP"
+          subtitle="Động cơ quang hợp • Cấu trúc C₅₅H₇₂O₅N₄Mg & tổng hợp Protein"
+          chapter="dam"
+          badge="C₅₅H₇₂O₅N₄Mg"
+          takeaway="Nitơ là nguyên tử trung tâm xây dựng phân tử Diệp Lục (C₅₅H₇₂O₅N₄Mg) và Axit Amin để tổng hợp toàn bộ Protein thực vật. Bộ rễ chỉ hút được Nitơ khoáng hòa tan ở 2 dạng ion: Amoni (NH₄⁺) và Nitrat (NO₃⁻)."
+        >
           <SvgChlorophyllFactory />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

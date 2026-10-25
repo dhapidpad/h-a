@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgVietnamFactories from '../components/illustrations/SvgVietnamFactories';
 
 export default function Slide07DamQ4({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide07DamQ4({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Khí thiên nhiên */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -255,10 +241,16 @@ export default function Slide07DamQ4({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="BẢN ĐỒ CÔNG NGHIỆP PHÂN ĐẠM VN"
+          subtitle="Tổ hợp 4 đại công trình: Phú Mỹ, Cà Mau (Khí) & Hà Bắc, Ninh Bình (Than)"
+          chapter="dam"
+          badge="> 2.6 Triệu Tấn/Năm"
+          takeaway="Việt Nam hoàn toàn tự chủ sản xuất phân đạm với công suất vượt 2.6 triệu tấn Urê/năm, chuyển hóa khí thiên nhiên đồng hành miền Nam và than đá Quảng Ninh miền Bắc thành nguồn dinh dưỡng bảo đảm vững chắc an ninh lương thực quốc gia."
+        >
           <SvgVietnamFactories />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

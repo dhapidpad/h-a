@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgSuperPhosphatePouch from '../components/illustrations/SvgSuperPhosphatePouch';
 
 export default function Slide10LanQ2({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide10LanQ2({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Supephotphat đơn */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -250,10 +236,16 @@ export default function Slide10LanQ2({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="SUPEPHOTPHAT ĐƠN VS KÉP"
+          subtitle="So sánh thành phần hóa học • Ca(H₂PO₄)₂ tinh khiết vs chứa thạch cao CaSO₄"
+          chapter="lan"
+          badge="TSP 40–50% P₂O₅"
+          takeaway="Supe đơn (SSP, 14–20% P₂O₅) chứa tới ~50% thạch cao CaSO₄ làm tăng khối lượng vận chuyển. Supe kép (TSP, 40–50% P₂O₅) được điều chế bằng axit photphoric, loại bỏ hoàn toàn CaSO₄, cho độ đậm đặc lân gấp 2.5 lần."
+        >
           <SvgSuperPhosphatePouch />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

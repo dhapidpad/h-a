@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgKClvsK2SO4 from '../components/illustrations/SvgKClvsK2SO4';
 
 export default function Slide15KaliQ2({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Tiêu chuẩn %K2O */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide15KaliQ2({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="ĐỐI CHIẾU KALI CLORUA VS SUNFAT"
+          subtitle="Độ dinh dưỡng %K₂O • KCl 60% K₂O (đỏ ớt) vs K₂SO₄ 50% K₂O + Lưu huỳnh"
+          chapter="kali"
+          badge="Độ Dinh Dưỡng %K₂O"
+          takeaway="Độ dinh dưỡng của phân kali tính bằng %K₂O. KCl (60% K₂O) giá rẻ nhất, chiếm 90% lượng tiêu thụ nhưng chứa Cl⁻ gây hại cây mẫn cảm. K₂SO₄ (50% K₂O + 18% S) là phân bón cao cấp không clo giúp quả ngọt, tinh bột thơm ngon."
+        >
           <SvgKClvsK2SO4 />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgBasalRocket from '../components/illustrations/SvgBasalRocket';
 
 export default function Slide12LanQ4({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide12LanQ4({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Di chuyển cực chậm */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide12LanQ4({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="BỆ PHÓNG BÓN LÓT RỄ SÂU"
+          subtitle="Chiến lược 100% bón lót sâu • Khắc phục tính di động chậm của ion Photphat"
+          chapter="lan"
+          badge="Bón Lót 100%"
+          takeaway="Photpho di động cực chậm trong đất (chỉ vài mm/tháng) và dễ bị cố định thành hợp chất khó tan. Bón lót sâu 10–15 cm trước gieo cấy đưa dinh dưỡng tới đúng tầng rễ hoạt động, làm bệ phóng kích hoạt rễ non bung tỏa sớm."
+        >
           <SvgBasalRocket />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

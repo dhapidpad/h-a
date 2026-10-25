@@ -162,6 +162,8 @@ html, body {
   position: relative;
   width: 100%;
   height: calc(100vh - 64px);
+  height: calc(var(--app-h, 100dvh) - var(--dock-h, 64px));
+  padding: 0; /* khoảng đệm nằm trong .slide-canvas; không đệm ở đây để khớp phép tính zoom trong App.jsx */
   overflow: hidden;
 }
 
@@ -185,46 +187,24 @@ html, body {
   transform-style: flat;
 }
 
-.slide-transition-box.slide-glide-next {
-  animation: glideInNext 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity, filter;
-}
-
+.slide-transition-box.slide-glide-next,
 .slide-transition-box.slide-glide-prev {
-  animation: glideInPrev 0.38s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: transform, opacity, filter;
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  animation-fill-mode: both;
+  will-change: transform, opacity; /* chỉ tồn tại trong lúc animation chạy: App gỡ class khi animationend */
 }
+.slide-transition-box.slide-glide-next { animation-name: glideInNext; }
+.slide-transition-box.slide-glide-prev { animation-name: glideInPrev; }
 
+/* Chuyển slide: chỉ transform + opacity (không blur toàn slide) */
 @keyframes glideInNext {
-  0% {
-    transform: translate3d(38px, 0, 0) scale(0.984);
-    opacity: 0.12;
-    filter: blur(4px);
-  }
-  70% {
-    filter: blur(0.5px);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 1;
-    filter: blur(0px);
-  }
+  from { transform: translate3d(34px, 0, 0); opacity: 0; }
+  to   { transform: translate3d(0, 0, 0); opacity: 1; }
 }
-
 @keyframes glideInPrev {
-  0% {
-    transform: translate3d(-38px, 0, 0) scale(0.984);
-    opacity: 0.12;
-    filter: blur(4px);
-  }
-  70% {
-    filter: blur(0.5px);
-  }
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 1;
-    filter: blur(0px);
-  }
+  from { transform: translate3d(-34px, 0, 0); opacity: 0; }
+  to   { transform: translate3d(0, 0, 0); opacity: 1; }
 }
 
 /* ==========================================================================
@@ -482,7 +462,7 @@ html, body {
     0 16px 36px rgba(15, 23, 42, 0.12),
     0 2px 8px rgba(15, 23, 42, 0.04),
     inset 0 1px 1px rgba(255, 255, 255, 0.85);
-  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease;
 }
 
 .dock-capsule:hover {
@@ -561,6 +541,7 @@ html, body {
 }
 
 .dock-segment-pill {
+  position: relative;
   height: 6px;
   width: clamp(7px, 0.85vw, 13px);
   border-radius: var(--radius-full);
@@ -568,7 +549,7 @@ html, body {
   cursor: pointer;
   padding: 0;
   outline: none;
-  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.22s ease, opacity 0.22s ease, box-shadow 0.22s ease;
 }
 
 .dock-segment-pill:hover {
@@ -597,7 +578,7 @@ html, body {
   justify-content: center;
   border: none;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .dock-prev-btn {
@@ -651,7 +632,7 @@ html, body {
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 }
 
 .dock-tool-btn:hover {
@@ -692,7 +673,7 @@ html, body {
   justify-content: center;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   outline: none;
   padding: 0;
   flex-shrink: 0;
@@ -742,7 +723,7 @@ html, body {
   font-size: 13.5px;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   outline: none;
   white-space: nowrap;
   flex-shrink: 0;
@@ -771,8 +752,8 @@ html, body {
 }
 
 /* ==========================================================================
-   SVG ILLUSTRATION STAGE CARD
-   Hiển thị hình minh họa SVG tràn đầy, không bị bọc khung thừa và không khoảng trắng
+   ULTRA-PREMIUM SVG ILLUSTRATION STAGE SHOWCASE & LIGHTBOX SYSTEM
+   Bệ phóng trình chiếu SVG 2.5D đỉnh cao, siêu sắc nét, có chế độ Zoom Theater
    ========================================================================== */
 
 .svg-stage-card {
@@ -796,6 +777,459 @@ html, body {
   box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
 }
 
+.svg-stage-showcase {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(120% 90% at 50% 8%, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.93) 55%, rgba(248, 250, 252, 0.95) 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-radius: 22px;
+  box-shadow: 
+    0 16px 36px -8px rgba(15, 23, 42, 0.08),
+    0 4px 12px rgba(15, 23, 42, 0.03),
+    0 0 0 1px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.svg-stage-showcase:hover {
+  box-shadow: 
+    0 22px 48px -10px rgba(15, 23, 42, 0.12),
+    0 6px 16px rgba(15, 23, 42, 0.04),
+    0 0 0 1px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+/* Hào quang nguyên tố phản chiếu dưới nền sân khấu */
+.svg-stage-showcase::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 80%;
+  height: 80%;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.15;
+  z-index: 0;
+  transition: opacity 0.3s ease;
+}
+
+.svg-stage-showcase.chapter-theme-dam::before {
+  background: radial-gradient(circle, #22C55E 0%, transparent 70%);
+}
+
+.svg-stage-showcase.chapter-theme-lan::before {
+  background: radial-gradient(circle, #8B5CF6 0%, transparent 70%);
+}
+
+.svg-stage-showcase.chapter-theme-kali::before {
+  background: radial-gradient(circle, #F59E0B 0%, transparent 70%);
+}
+
+/* Thanh công cụ đỉnh sân khấu */
+.svg-stage-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px 6px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.svg-stage-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.svg-stage-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+  animation: svgPulse 2s ease-in-out infinite;
+}
+
+@keyframes svgPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { transform: translateX(-50%) scale(1); box-shadow: 0 8px 30px rgba(37, 99, 235, 0.6); }
+  50% { transform: translateX(-50%) scale(1.05); box-shadow: 0 12px 40px rgba(37, 99, 235, 0.9); }
+}
+
+.svg-stage-topbar-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 800;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.svg-stage-topbar-badge {
+  font-size: 11px;
+  font-weight: 900;
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.svg-stage-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.svg-stage-zoom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: #FFFFFF;
+  color: #1E293B;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.svg-stage-zoom-btn:hover {
+  background: #0F172A;
+  color: #FFFFFF;
+  border-color: #0F172A;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
+}
+
+.svg-stage-zoom-btn:hover .svg-stage-kbd {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.svg-stage-kbd {
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 900;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  color: #64748B;
+}
+
+/* Vùng hiển thị hình SVG */
+.svg-stage-canvas-box {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 10px 8px;
+  cursor: zoom-in;
+}
+
+.svg-stage-canvas-box > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 18px;
+  filter: drop-shadow(0 10px 24px rgba(15, 23, 42, 0.08));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.svg-stage-canvas-box:hover > svg {
+  filter: drop-shadow(0 14px 30px rgba(15, 23, 42, 0.12));
+}
+
+/* Thanh chân trang ghi chú phụ */
+.svg-stage-footer-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px 6px;
+  background: rgba(255, 255, 255, 0.75);
+  border-top: 1px solid rgba(15, 23, 42, 0.05);
+  font-size: 11.5px;
+  color: #475569;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.svg-stage-footer-icon {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.svg-stage-footer-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ==========================================================================
+   THEATER LIGHTBOX MODAL (PHÓNG TO SVG TOÀN CẢNH SIÊU NÉT)
+   ========================================================================== */
+
+.svg-lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 32px;
+  animation: lightboxFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lightboxFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.svg-lightbox-container {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  max-height: 94vh;
+  display: flex;
+  flex-direction: column;
+  background: rgba(30, 41, 59, 0.96);
+  border: 1.5px solid rgba(255, 255, 255, 0.18);
+  border-radius: 26px;
+  box-shadow: 
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  overflow: hidden;
+  animation: lightboxScaleUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes lightboxScaleUp {
+  from { transform: scale(0.95) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.svg-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 22px;
+  background: rgba(15, 23, 42, 0.7);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.svg-lightbox-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.svg-lightbox-chapter-chip {
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.svg-lightbox-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.svg-lightbox-formula-pill {
+  font-size: 13px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.svg-lightbox-header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.svg-lightbox-close-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.svg-lightbox-close-btn:hover {
+  background: #EF4444;
+  border-color: #EF4444;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.4);
+}
+
+.svg-lightbox-kbd {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #E2E8F0;
+}
+
+.svg-lightbox-graphic-stage {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 20px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.5) 0%, rgba(15, 23, 42, 0.98) 100%);
+}
+
+.svg-lightbox-graphic-inner {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-lightbox-graphic-inner > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
+.svg-lightbox-takeaway-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 11px 22px;
+  background: rgba(15, 23, 42, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.svg-lightbox-takeaway-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.svg-lightbox-takeaway-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: #F1F5F9;
+}
+
+.svg-lightbox-takeaway-text strong {
+  color: #38BDF8;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   UNIFIED SLIDE GRID & CARD LAYOUT SYSTEM (SIÊU ĐẸP, KHÔNG BỊ TRÀN)
+   ========================================================================== */
+
+.slide-main-grid {
+  display: grid;
+  grid-template-columns: minmax(380px, 0.88fr) minmax(580px, 1.32fr);
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.slide-content-col {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  justify-content: flex-start;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.slide-content-col::-webkit-scrollbar {
+  width: 5px;
+}
+
+.slide-content-col::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slide-content-col::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.14);
+  border-radius: 999px;
+}
+
+.slide-content-col::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.28);
+}
+
 /* ==========================================================================
    HEADER SCI-TECH BADGE (Huy hiệu thông số khoa học góc trên bên phải)
    Thiết kế Pill Glassmorphism sang trọng, nổi bật và có chiều sâu
@@ -812,7 +1246,7 @@ html, body {
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease, box-shadow 0.2s ease;
   flex-shrink: 0;
   user-select: none;
 }
@@ -946,9 +1380,6 @@ html, body {
    ========================================================================== */
 
 @media (max-width: 900px) {
-  .slide-stage-container {
-    padding: 20px 24px 10px 24px;
-  }
   .mascot-companion-wrap {
     display: none; /* Ẩn mascot góc trên màn hình nhỏ để tránh che nút */
   }
@@ -977,20 +1408,6 @@ html, body {
 }
 .slide-stage-container {
   height: calc(var(--app-h, 100vh) - var(--dock-h, 64px));
-}
-
-/* Chuyển slide: chỉ dùng transform + opacity (bỏ blur toàn slide — nguyên nhân giật chính trên điện thoại) */
-@keyframes glideInNext {
-  0%   { transform: translate3d(34px, 0, 0); opacity: 0; }
-  100% { transform: translate3d(0, 0, 0); opacity: 1; }
-}
-@keyframes glideInPrev {
-  0%   { transform: translate3d(-34px, 0, 0); opacity: 0; }
-  100% { transform: translate3d(0, 0, 0); opacity: 1; }
-}
-.slide-transition-box.slide-glide-next,
-.slide-transition-box.slide-glide-prev {
-  animation-duration: 0.3s;
 }
 
 /* Màn hình cảm ứng: bỏ hiệu ứng hover "dính" sau khi chạm */
@@ -1031,4 +1448,34 @@ html, body {
 @media (prefers-reduced-motion: reduce) {
   .slide-transition-box.slide-glide-next,
   .slide-transition-box.slide-glide-prev { animation: none; }
+}
+
+/* Ghi chú thuyết trình cần chọn/sao chép được; phần còn lại giữ user-select: none để tránh bôi đen khi chạm/vuốt */
+.notes-drawer-panel { user-select: text; -webkit-user-select: text; }
+
+/* Giảm chuyển động: bỏ blur nền của dock/tooltip/badge, thay bằng nền đặc hơn (vẫn giữ viền + bóng kiểu kính) */
+@media (prefers-reduced-motion: reduce) {
+  .dock-tooltip, .dock-capsule, .slide-header-badge {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dock-capsule { background: rgba(255, 255, 255, 0.97); }
+  .dock-tooltip { background: rgba(255, 255, 255, 0.97); }
+}
+
+/* Vùng chạm của vạch timeline: vạch chỉ cao 6px nên mở rộng vùng bấm vô hình (không chồng lấn vạch bên cạnh) */
+.dock-segment-pill::after {
+  content: '';
+  position: absolute;
+  inset: -20px -1.5px;
+}
+
+/* Focus bàn phím rõ ràng cho các điều khiển của dock (trước đây outline bị tắt hoàn toàn) */
+.dock-segment-pill:focus-visible,
+.dock-circle-btn:focus-visible,
+.dock-tool-btn:focus-visible,
+.orientation-btn-action:focus-visible,
+.orientation-btn-dismiss:focus-visible {
+  outline: 3px solid #2F80ED;
+  outline-offset: 3px;
 }

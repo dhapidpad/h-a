@@ -25,7 +25,8 @@ export default function SlideNavigation({
     confetti({
       particleCount: 60,
       spread: 80,
-      origin: { y: 0.88 }
+      origin: { y: 0.88 },
+      disableForReducedMotion: true
     });
   };
 
@@ -67,7 +68,7 @@ export default function SlideNavigation({
         {/* Thanh chia tách thanh mảnh */}
         <div className="dock-divider" />
 
-        {/* Nhóm 2: Thanh tiến độ 19 phân đoạn tương tác (Segmented Timeline) */}
+        {/* Nhóm 2: Thanh tiến độ 20 phân đoạn tương tác (Segmented Timeline) */}
         <div className="dock-timeline-track" title="Click vào bất kỳ vạch nào để nhảy đến slide tương ứng">
           {SLIDES.map((s, idx) => {
             const isCurrent = idx === currentIndex;
@@ -133,7 +134,7 @@ export default function SlideNavigation({
             type="button"
             className="dock-tool-btn dock-confetti-btn" 
             onClick={triggerConfetti}
-            title="Bắn hoa giấy chúc mừng! (Phím C)"
+            title="Bắn hoa giấy chúc mừng!"
             aria-label="Bắn hoa giấy"
           >
             <Sparkles size={18} />

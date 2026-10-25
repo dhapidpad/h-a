@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgLeafScorchAlert from '../components/illustrations/SvgLeafScorchAlert';
 
 export default function Slide16KaliQ3({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide16KaliQ3({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Bệnh cháy rìa mép lá */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -255,10 +241,16 @@ export default function Slide16KaliQ3({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="CẢNH BÁO CHÁY CHÓP LÁ & NGỘ ĐỘC CLO"
+          subtitle="Triệu chứng đói Kali mép lá già • Nguy cơ sượng cơm sầu riêng do ion Cl⁻"
+          chapter="kali"
+          badge="Cảnh Báo Cháy Lá"
+          takeaway="Thiếu Kali làm mép lá già khô cháy quăn lại như hơ lửa do K rút lên nuôi chồi non. Nhóm cây mẫn cảm clo (sầu riêng, thanh long, khoai tây) tuyệt đối không dùng KCl vì tích tụ Cl⁻ gây sượng múi cơm, teo củ và rụng hoa hàng loạt."
+        >
           <SvgLeafScorchAlert />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

@@ -30,10 +30,15 @@ npm run preview
 |---|---|
 | `→` / `Space` / `PageDown` | Chuyển sang Slide tiếp theo |
 | `←` / `PageUp` | Quay lại Slide trước đó |
-| `Home` / `End` | Nhảy về Slide đầu tiên (Slide 01) / Slide cuối (Slide 19) |
+| `Home` / `End` | Nhảy về Slide đầu tiên (Slide 01) / Slide cuối (Slide 20) |
 | `N` | Bật / Tắt ngăn kéo Ghi chú người thuyết trình (Speaker Notes) |
 | `F` | Bật / Tắt chế độ Toàn Màn Hình (Fullscreen) |
 | `Esc` | Đóng ngăn kéo ghi chú |
+| `1`–`5` | Nhảy nhanh tới chương Mở đầu / Đạm / Lân / Kali / Tổng kết |
+| `K` / `M` | (Chỉ ở Slide 02) Phát–dừng video / Bật–tắt tiếng |
+| `Z` | (Ở các slide 04-18) Phóng to rạp chiếu SVG Lightbox xem cận cảnh nét căng |
+
+> Phím tắt không hoạt động khi đang gõ trong ô nhập; `Space`/`Enter` trên nút dành cho chính nút đó. `Ctrl/⌘/Alt` + phím luôn nhường cho trình duyệt.
 
 ---
 
@@ -46,7 +51,7 @@ npm run preview
 
 ## 🎨 Cấu trúc 20 Slide
 1. **Slide 01:** Trang bìa chủ đề "NPK — Bộ ba nuôi dưỡng mùa xanh"
-2. **Slide 02:** Video Intro chuyển động React (16s Motion-Graphic mầm cây vươn chồi)
+2. **Slide 02:** Rạp chiếu Video Intro hành trình hạt mầm (MP4 âm thanh sống động, tự động phát mượt mà ở tốc độ 1.5x)
 3. **Slide 03:** Giới thiệu biệt đội 9 thành viên nhóm
 4. **Slide 04 – 08:** Phân Đạm (5 câu hỏi: Khái niệm & vai trò N, %N Ure dẫn đầu, đạm amoni với đất vôi/chua, 3 nhà máy Phú Mỹ/Cà Mau/Ninh Bình, phục hồi đất chua)
 5. **Slide 09 – 13:** Phân Lân (5 câu hỏi: Dạng ion & pin ATP, Supe đơn vs Supe kép, Lân nung chảy khử phèn, lý do bón lót, mỏ Apatit Lào Cai)

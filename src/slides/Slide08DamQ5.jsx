@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgSoilBalance from '../components/illustrations/SvgSoilBalance';
 
 export default function Slide08DamQ5({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide08DamQ5({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Bón vôi khử chua */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide08DamQ5({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="CÂN BẰNG ĐẤT & NGUYÊN TẮC 4 ĐÚNG"
+          subtitle="Khử chua bằng vôi • Tái tạo keo đất với vi sinh hữu cơ"
+          chapter="dam"
+          badge="4 ĐÚNG"
+          takeaway="Khắc phục đất chua thoái hóa bằng chiến lược phối hợp: Bón vôi nông nghiệp nâng pH, bổ sung phân hữu cơ vi sinh gia tăng dung tích hấp phụ CEC và tuân thủ nghiêm ngặt nguyên tắc bón phân 4 Đúng."
+        >
           <SvgSoilBalance />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

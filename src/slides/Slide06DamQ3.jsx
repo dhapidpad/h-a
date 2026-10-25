@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgGasLoss from '../components/illustrations/SvgGasLoss';
 
 const LOSS_CARDS = [
@@ -98,24 +99,9 @@ export default function Slide06DamQ3({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {LOSS_CARDS.map((card) => {
             const isSelected = activeCard === card.id;
             return (
@@ -220,10 +206,16 @@ export default function Slide06DamQ3({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="BỐC HƠI NH₃ & RỬA TRÔI NITRAT"
+          subtitle="Cơ chế thủy phân Urê • Tương kỵ NH₄⁺ + OH⁻ ⟶ NH₃↑ & rửa trôi NO₃⁻"
+          chapter="dam"
+          badge="NH₃↑ Bốc hơi"
+          takeaway="Trộn đạm với vôi hoặc bón rải mặt gặp nắng gắt làm NH₄⁺ chuyển thành khí NH₃ bay hơi mất 30–50% đạm. Ion NO₃⁻ không bám keo đất dễ bị mưa lớn cuốn trôi gây ô nhiễm nguồn nước ngầm."
+        >
           <SvgGasLoss />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

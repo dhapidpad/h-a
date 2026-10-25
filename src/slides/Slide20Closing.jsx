@@ -214,14 +214,19 @@ export default function Slide20Closing({ slide }) {
 
   const cur = PRINCIPLES[active];
 
+  const confettiTimers = useRef([]);
+  useEffect(() => () => { confettiTimers.current.forEach(clearTimeout); confettiTimers.current = []; }, []);
+  const later = (fn, ms) => { confettiTimers.current.push(setTimeout(fn, ms)); };
+
   const handleConfetti = () => {
     sfx.fanfare();
     setBurst((b) => b + 1);
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const colors = ['#22C55E', '#86EFAC', '#8B5CF6', '#C4B5FD', '#FBBF24', '#FDE68A', '#38BDF8'];
     confetti({ particleCount: 140, spread: 100, startVelocity: 48, origin: { y: 0.62 }, colors, scalar: 1.05 });
-    setTimeout(() => confetti({ particleCount: 70, angle: 60, spread: 65, origin: { x: 0, y: 0.75 }, colors }), 180);
-    setTimeout(() => confetti({ particleCount: 70, angle: 120, spread: 65, origin: { x: 1, y: 0.75 }, colors }), 180);
-    setTimeout(
+    later(() => confetti({ particleCount: 70, angle: 60, spread: 65, origin: { x: 0, y: 0.75 }, colors }), 180);
+    later(() => confetti({ particleCount: 70, angle: 120, spread: 65, origin: { x: 1, y: 0.75 }, colors }), 180);
+    later(
       () =>
         confetti({
           particleCount: 50,
@@ -437,6 +442,10 @@ export default function Slide20Closing({ slide }) {
         @media (max-width: 960px) {
           .s20-root { grid-template-columns: 1fr; overflow-y: auto; gap: 18px; }
           .s20-stage { min-height: 360px; }
+        }
+        @media (prefers-reduced-motion: reduce), (max-height: 520px) {
+          .s20-stage::before { animation: none; filter: none; inset: 0; opacity: .55; }
+          .s20-root * { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
         }
         @media (prefers-reduced-motion: reduce) {
           .s20-root *, .s20-root *::before, .s20-root *::after { animation: none !important; transition: none !important; }

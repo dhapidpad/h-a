@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgStomataShield from '../components/illustrations/SvgStomataShield';
 
 export default function Slide14KaliQ1({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Điều tiết khí khổng */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide14KaliQ1({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="BƠM ION K⁺ & LÁ CHẮN KHÍ KHỔNG"
+          subtitle="Áp suất thẩm thấu • Cơ chế đóng mở tế bào hạt đậu & vận chuyển đường bột"
+          chapter="kali"
+          badge="Ion K⁺ Tự Do"
+          takeaway="Kali không tham gia cấu trúc hữu cơ mà tồn tại tự do dạng ion K⁺ trong dịch bào. Bơm K⁺ điều hòa đóng mở khí khổng giữ nước chống hạn hán và hoạt hóa hơn 60 enzyme vận chuyển đường bột vào quả ngọt."
+        >
           <SvgStomataShield />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

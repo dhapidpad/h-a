@@ -28,17 +28,26 @@ import './theme.css';
 // Chiều cao thanh điều hướng: thu gọn trên điện thoại ngang (màn hình thấp) để nhường chỗ cho nội dung
 const dockHeightFor = (viewportH) => (viewportH < 520 ? 54 : 64);
 
+// Phần tử đang tự xử lý bàn phím: không cướp phím điều hướng của chúng.
+const isTextEntryTarget = (el) =>
+  !!el && el.nodeType === 1 &&
+  (/^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName) || el.isContentEditable);
+// Nút/liên kết: Space/Enter là phím kích hoạt gốc của trình duyệt, không dùng để chuyển slide.
+const isActivationTarget = (el) =>
+  !!el && el.nodeType === 1 && /^(BUTTON|A|SUMMARY)$/.test(el.tagName);
+
 export default function App() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const [isNotesOpen, setIsNotesOpen] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showPortraitWarning, setShowPortraitWarning] = useState(true);
   const [slideAnimClass, setSlideAnimClass] = useState('slide-glide-next');
+  const [animKey, setAnimKey] = useState(0);
   const [stage, setStage] = useState({ zoom: 1, width: 1280, height: 720 });
 
   const touchStartXRef = useRef(null);
   const touchStartYRef = useRef(0);
-  const animTimeoutRef = useRef(null);
+  const currentIndexRef = useRef(0);
 
   const currentSlide = SLIDES[currentSlideIndex];
 
@@ -98,91 +107,78 @@ export default function App() {
   }, []);
 
 
-  // Cột nội dung bên trái tự co/giãn (0.8–1.18) cho vừa kín chiều cao: không bị cắt, không để trống.
-  // Chạy lại sau khi font tải xong và sau khi animation chuyển slide kết thúc để số đo luôn chính xác.
-  useEffect(() => {
-    const fitColumns = () => {
-      document.querySelectorAll('.slide-canvas [style*="overflow-y: auto"]').forEach((el) => {
-        el.style.position = 'relative';
-        // Cột nằm giữa lưới (căn giữa theo chiều dọc) không có chiều cao cố định để so sánh -> giữ nguyên
-        if (getComputedStyle(el.parentElement).alignItems === 'center') {
-          el.style.zoom = 1;
-          return;
-        }
-        const last = () => el.lastElementChild;
-        const fits = (z) => {
-          el.style.zoom = z;
-          const l = last();
-          return el.scrollHeight <= el.clientHeight && (!l || l.offsetTop + l.offsetHeight <= el.clientHeight - 12);
-        };
-        // Tìm hệ số zoom lớn nhất vẫn vừa khung (chia đôi)
-        let lo = 0.8;
-        let hi = 1.18;
-        if (fits(hi)) lo = hi;
-        else {
-          for (let i = 0; i < 7; i += 1) {
-            const mid = (lo + hi) / 2;
-            if (fits(mid)) lo = mid;
-            else hi = mid;
-          }
-        }
-        while (lo > 0.7 && !fits(lo)) lo -= 0.01;
-        el.style.zoom = lo;
-      });
-    };
-
-    const raf = requestAnimationFrame(fitColumns);
-    const timers = [450, 1100].map((ms) => setTimeout(fitColumns, ms));
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitColumns);
-    return () => {
-      cancelAnimationFrame(raf);
-      timers.forEach(clearTimeout);
-    };
-  }, [currentSlideIndex, stage]);
 
 
-  // Chuyển slide siêu tốc, mượt mà 60fps không bị khựng
-  const triggerSlideChange = useCallback((targetIndex, direction = 'next') => {
-    if (targetIndex < 0 || targetIndex >= SLIDES.length) return;
-    if (targetIndex === currentSlideIndex) return;
 
-    if (animTimeoutRef.current) clearTimeout(animTimeoutRef.current);
+  // Điểm vào DUY NHẤT để đổi slide: hướng animation luôn suy ra từ vị trí đích so với slide hiện tại
+  // (Next/Prev, click thanh timeline, chương, Home/End). Đọc vị trí qua ref nên bấm nhanh không dùng giá trị cũ.
+  const triggerSlideChange = useCallback((targetIndex) => {
+    const from = currentIndexRef.current;
+    if (!Number.isInteger(targetIndex) || targetIndex < 0 || targetIndex >= SLIDES.length) return;
+    if (targetIndex === from) return;
 
+    currentIndexRef.current = targetIndex;
     setCurrentSlideIndex(targetIndex);
-    setSlideAnimClass(direction === 'next' ? 'slide-glide-next' : 'slide-glide-prev');
+    setSlideAnimClass(targetIndex > from ? 'slide-glide-next' : 'slide-glide-prev');
+    setAnimKey((k) => k + 1); // đổi key => animation khởi động lại từ frame đầu ở mỗi lần đổi slide
+  }, []);
 
-    animTimeoutRef.current = setTimeout(() => {
-      setSlideAnimClass('');
-    }, 380);
-  }, [currentSlideIndex]);
+  // Gỡ class animation khi animation của chính hộp chuyển slide kết thúc (bỏ qua animationend nổi bọt từ SVG con)
+  const handleTransitionEnd = (e) => {
+    if (e.target === e.currentTarget) setSlideAnimClass('');
+  };
 
   // Tiến 1 slide
   const goToNextSlide = useCallback(() => {
     if (currentSlideIndex < SLIDES.length - 1) {
-      triggerSlideChange(currentSlideIndex + 1, 'next');
+      triggerSlideChange(currentSlideIndex + 1);
     }
   }, [currentSlideIndex, triggerSlideChange]);
 
   // Lùi 1 slide
   const goToPrevSlide = useCallback(() => {
     if (currentSlideIndex > 0) {
-      triggerSlideChange(currentSlideIndex - 1, 'prev');
+      triggerSlideChange(currentSlideIndex - 1);
     }
   }, [currentSlideIndex, triggerSlideChange]);
 
   // Nhảy trực tiếp đến chương chỉ định (Mở đầu, Đạm, Lân, Kali, Tổng kết)
   const goToChapter = useCallback((chapterId) => {
     const targetIdx = SLIDES.findIndex(s => s.chapter.id === chapterId);
-    if (targetIdx !== -1 && targetIdx !== currentSlideIndex) {
-      const dir = targetIdx > currentSlideIndex ? 'next' : 'prev';
-      triggerSlideChange(targetIdx, dir);
+    if (targetIdx !== -1) triggerSlideChange(targetIdx);
+  }, [triggerSlideChange]);
+
+  // Toàn màn hình: state luôn lấy từ trình duyệt qua sự kiện fullscreenchange
+  // (Esc, UI trình duyệt, nút của intro/orientation guard đều được đồng bộ).
+  useEffect(() => {
+    const sync = () => setIsFullscreen(Boolean(document.fullscreenElement));
+    sync();
+    document.addEventListener('fullscreenchange', sync);
+    return () => document.removeEventListener('fullscreenchange', sync);
+  }, []);
+
+  const toggleFullscreen = useCallback(async () => {
+    try {
+      if (document.fullscreenElement) {
+        await document.exitFullscreen();
+      } else if (document.documentElement.requestFullscreen) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        console.warn('Trình duyệt này không hỗ trợ toàn màn hình (iOS Safari: dùng "Thêm vào Màn hình chính").');
+      }
+    } catch (err) {
+      console.warn('Fullscreen toggle:', err);
     }
-  }, [currentSlideIndex, triggerSlideChange]);
+  }, []);
 
   // Điều khiển bằng phím tắt
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
+      if (e.defaultPrevented || e.repeat) return;
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (isTextEntryTarget(e.target)) return;
+      // Space/Enter trên nút hay liên kết thuộc về chính nút đó
+      if (isActivationTarget(e.target) && (e.key === ' ' || e.key === 'Enter')) return;
 
       switch (e.key) {
         case 'ArrowRight':
@@ -200,12 +196,12 @@ export default function App() {
 
         case 'Home':
           e.preventDefault();
-          triggerSlideChange(0, 'prev');
+          triggerSlideChange(0);
           break;
 
         case 'End':
           e.preventDefault();
-          triggerSlideChange(SLIDES.length - 1, 'next');
+          triggerSlideChange(SLIDES.length - 1);
           break;
 
         // Phím số 1-5 chuyển nhanh 5 phần
@@ -248,7 +244,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [goToNextSlide, goToPrevSlide, triggerSlideChange, goToChapter, isNotesOpen]);
+  }, [goToNextSlide, goToPrevSlide, triggerSlideChange, goToChapter, isNotesOpen, toggleFullscreen]);
 
   // Thao tác vuốt trên thiết bị di động
   // - Bỏ qua vùng đánh dấu data-no-swipe (câu hỏi minigame) để chạm/cuộn không bị nhảy slide ngoài ý muốn
@@ -276,21 +272,6 @@ export default function App() {
       }
     }
     touchStartXRef.current = null;
-  };
-
-  // Toàn màn hình
-  const toggleFullscreen = async () => {
-    try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
-        setIsFullscreen(true);
-      } else {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
-      }
-    } catch (err) {
-      console.warn('Fullscreen toggle:', err);
-    }
   };
 
   // Render từng Slide độc lập từ thư mục src/slides/
@@ -355,7 +336,7 @@ export default function App() {
       {/* Sân khấu trình chiếu tràn viền Full Screen */}
       <div className="slide-stage-container">
         <main className="slide-canvas" style={{ zoom: stage.zoom, width: stage.width, height: stage.height }}>
-          <div className={`slide-transition-box ${slideAnimClass}`}>
+          <div key={animKey} className={`slide-transition-box ${slideAnimClass}`} onAnimationEnd={handleTransitionEnd}>
             {renderCurrentSlide()}
           </div>
         </main>
@@ -368,7 +349,7 @@ export default function App() {
         chapter={currentSlide.chapter}
         onPrev={goToPrevSlide}
         onNext={goToNextSlide}
-        onSelectSlide={triggerSlideChange}
+        onSelectSlide={(idx) => triggerSlideChange(idx)}
         onToggleNotes={() => setIsNotesOpen(!isNotesOpen)}
         isNotesOpen={isNotesOpen}
         isFullscreen={isFullscreen}

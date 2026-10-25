@@ -1,5 +1,6 @@
 import React from 'react';
 import CuteMascot from '../components/mascot/CuteMascot';
+import SvgStageCard from '../components/SvgStageCard';
 import SvgFusedPhosphateCups from '../components/illustrations/SvgFusedPhosphateCups';
 
 export default function Slide11LanQ3({ onOpenNotes }) {
@@ -60,24 +61,9 @@ export default function Slide11LanQ3({ onOpenNotes }) {
       </div>
 
       {/* Grid 2 cột */}
-      <div style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'minmax(400px, 0.94fr) minmax(540px, 1.26fr)', 
-        gap: 16, 
-        flex: 1, 
-        minHeight: 0,
-        alignItems: 'stretch'
-      }}>
+      <div className="slide-main-grid">
         {/* Cột trái */}
-        <div style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: 7, 
-          justifyContent: 'flex-start',
-          minHeight: 0,
-          overflowY: 'auto',
-          paddingRight: 5
-        }}>
+        <div className="slide-content-col">
           {/* Card 1: Không tan trong nước */}
           <div style={{
             background: 'rgba(255, 255, 255, 0.96)',
@@ -253,10 +239,16 @@ export default function Slide11LanQ3({ onOpenNotes }) {
           />
         </div>
 
-        {/* Cột phải: SVG */}
-        <div className="svg-stage-card">
+        {/* Cột phải: SVG Showcase Stage */}
+        <SvgStageCard
+          title="ĐỘ TAN CỦA LÂN NUNG CHẢY"
+          subtitle="Thí nghiệm 2 cốc: Không tan trong nước mưa • Tan tốt trong axit rễ cây"
+          chapter="lan"
+          badge="FMP Tính Kiềm"
+          takeaway="Lân nung chảy (Văn Điển, Ninh Bình) không tan trong nước mưa nên không bị rửa trôi trên đất đồi dốc. Axit hữu cơ do đầu rễ cây tiết ra hòa tan từ từ lân, đồng thời thành phần vôi và magie kiềm hóa khử chua đất phèn hiệu quả."
+        >
           <SvgFusedPhosphateCups />
-        </div>
+        </SvgStageCard>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, Play } from 'lucide-react';
 import SvgTopic from '../components/illustrations/SvgTopic';
 
 /* Mỗi nguyên tố giữ đúng màu & vai trò đã dùng trong SVG */
@@ -174,10 +174,15 @@ export default function Slide01Topic({ slide, onNext }) {
           ))}
         </div>
 
-        {/* Nút Khám phá */}
+        {/* Nút Bắt đầu */}
         <div className="s1-cta s1-in" style={{ '--d': '0.55s' }}>
-          <button className="s1-btn" onClick={onNext} title="Bắt đầu xem Video Intro (Phím →)">
-            <span>Khám phá chủ đề</span>
+          <button 
+            className="s1-btn" 
+            onClick={onNext} 
+            title="Bắt đầu xem Video Intro có tiếng (Phím →)"
+          >
+            <Play size={18} fill="#FFFFFF" style={{ marginLeft: 2 }} />
+            <span>Bắt đầu</span>
             <ArrowRight size={20} />
           </button>
           <span className="s1-key">hoặc nhấn <kbd>→</kbd></span>
