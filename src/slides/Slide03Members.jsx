@@ -1,348 +1,237 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState } from 'react';
 import { TEAM_MEMBERS } from '../data/slideData';
 import {
-  Sparkles, Shuffle, Eye, RotateCcw, Trophy,
-  FlaskConical, Leaf, Sprout, Atom, Droplets, Microscope, BarChart3, BookOpen, Lightbulb,
+  Sparkles,
+  FlaskConical,
+  Leaf,
+  Sprout,
+  Atom,
+  Droplets,
+  Microscope,
+  BarChart3,
+  BookOpen,
+  Lightbulb,
+  Check
 } from 'lucide-react';
 import LinhThuBietDoi from '../components/mascot/LinhThuBietDoi';
 
-/* Đồng bộ theo hệ token màu chương NPK (Mục 6.2) */
+/* ==========================================================================
+   SLIDE 03 — GIỚI THIỆU 9 THÀNH VIÊN (bản nâng cấp)
+   - Giữ nguyên: lưới 3×3, hiện sẵn cả 9 tên + vai trò, không ellipsis.
+   - Nâng cấp:
+     • Điểm nhấn duy nhất: ánh sáng mềm bám theo con trỏ trên từng thẻ.
+     • Avatar dạng "con dấu" gradient + vòng sáng, icon trắng nổi bật.
+     • Số thứ tự khổng lồ mờ làm watermark nền (thay cho "#01" nhỏ).
+     • Nhiệm vụ tách thành chip nhỏ, dễ quét mắt hơn chuỗi dấu chấm.
+     • Thẻ đang chọn: viền gradient + dấu tích + nền ngả màu.
+     • Sửa a11y: role="listitem" nằm ở wrapper, nút chỉ giữ aria-pressed.
+   ========================================================================== */
+
 const PALETTE = [
-  { c: '#2563EB', dark: '#1E3A8A', bg: '#EFF6FF' },
-  { c: '#EC4899', dark: '#831843', bg: '#FDF2F8' },
-  { c: '#12B76A', dark: '#065F46', bg: '#ECFDF5' },
-  { c: '#7C5CFF', dark: '#4C1D95', bg: '#F5F3FF' },
-  { c: '#F79009', dark: '#7A2E0E', bg: '#FFFAEB' },
-  { c: '#0EA5E9', dark: '#0369A1', bg: '#F0F9FF' },
-  { c: '#7C5CFF', dark: '#4C1D95', bg: '#EDE9FE' },
-  { c: '#F79009', dark: '#7A2E0E', bg: '#FEF0C7' },
-  { c: '#12B76A', dark: '#065F46', bg: '#D1FAE5' },
+  { c: '#174B37', soft: '#E8F3EE', line: '#B8D4C5', badgeBg: '#174B37' },
+  { c: '#16A36A', soft: '#ECFDF5', line: '#A5E6C6', badgeBg: '#116946' },
+  { c: '#7862E8', soft: '#F5F2FE', line: '#C9BEF8', badgeBg: '#4A36B0' },
+  { c: '#E8A13A', soft: '#FFF8EB', line: '#F7D394', badgeBg: '#965710' },
+  { c: '#16A36A', soft: '#ECFDF5', line: '#A5E6C6', badgeBg: '#116946' },
+  { c: '#7862E8', soft: '#F5F2FE', line: '#C9BEF8', badgeBg: '#4A36B0' },
+  { c: '#E8A13A', soft: '#FFF8EB', line: '#F7D394', badgeBg: '#965710' },
+  { c: '#174B37', soft: '#E8F3EE', line: '#B8D4C5', badgeBg: '#174B37' },
+  { c: '#16A36A', soft: '#ECFDF5', line: '#A5E6C6', badgeBg: '#116946' }
 ];
-const ICONS = [FlaskConical, Leaf, Sprout, Atom, Droplets, Microscope, BarChart3, BookOpen, Lightbulb];
-const GOLD = '#FBBF24';
+
+const ICONS = [
+  FlaskConical,
+  Leaf,
+  Sprout,
+  Atom,
+  Droplets,
+  Microscope,
+  BarChart3,
+  BookOpen,
+  Lightbulb
+];
 
 const CSS = `
-.m3-wrap{position:relative;height:100%;min-height:0;perspective:1200px;cursor:pointer;outline:none;
-  -webkit-tap-highlight-color:transparent;
-  content-visibility:auto;contain-intrinsic-size:320px 160px;
-  transition:transform .22s var(--ease-out);
-  animation:m3-in .48s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 40ms)}
-.m3-wrap:hover{transform:translateY(-4px)}
-.m3-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;
-  transition:transform .68s cubic-bezier(.22,1,.36,1)}
-.m3-wrap.on .m3-inner{transform:rotateY(180deg)}
-.m3-face{position:absolute;inset:0;border-radius:18px;overflow:hidden;
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  box-shadow:0 2px 4px rgba(11,18,32,.08),0 14px 26px -12px var(--glow);
-  transition:box-shadow .22s var(--ease-out)}
-.m3-wrap:hover .m3-face{box-shadow:0 2px 4px rgba(11,18,32,.08),0 22px 34px -12px var(--glow)}
-.m3-wrap:focus-visible .m3-face{box-shadow:0 0 0 3px #fff,0 0 0 6px var(--c)}
-.m3-front{transform:rotateY(180deg)}
+.m3-root{display:flex;flex-direction:column;height:100%;gap:14px;position:relative}
+.m3-header{display:flex;align-items:center;justify-content:space-between;gap:18px}
+.m3-header-left{display:flex;flex-direction:column;gap:4px;min-width:0}
+.m3-sub{font-size:15px;font-weight:600;color:var(--ink-soft);margin:0;max-width:62ch;line-height:1.4}
 
-.m3-back::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.35) 50%,transparent 62%);
-  transform:translateX(-130%);transition:transform .8s ease}
-.m3-wrap:hover .m3-back::after{transform:translateX(130%)}
+.m3-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));
+  gap:16px;flex:1;min-height:0}
+.m3-cell{display:flex;min-height:0;min-width:0}
 
-.m3-front::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(115deg,transparent 32%,rgba(255,255,255,.85) 50%,transparent 68%);
-  transform:translateX(-130%)}
-.m3-wrap.on .m3-front::after{animation:m3-shine .9s .35s ease-out 1 forwards}
-.m3-wrap.on .m3-rv{animation:m3-up .45s var(--ease-out) backwards;animation-delay:calc(.3s + var(--r,0) * 60ms)}
-.m3-wrap.on .m3-medal{animation:m3-pop .5s var(--ease-out) .25s backwards}
+/* ---------- Thẻ ---------- */
+.m3-card{position:relative;isolation:isolate;display:flex;align-items:center;gap:16px;width:100%;
+  padding:14px 18px 14px 22px;border-radius:20px;
+  background:linear-gradient(180deg,#FFFFFF 0%,color-mix(in srgb,var(--soft) 55%,#FFFFFF) 100%);
+  border:1.5px solid var(--bd);
+  box-shadow:0 1px 0 #FFFFFF inset,0 2px 4px rgba(16,37,30,.04),0 14px 28px -16px rgba(16,37,30,.22);
+  text-align:left;font-family:inherit;cursor:pointer;overflow:hidden;
+  transition:transform .28s var(--ease-out),box-shadow .28s var(--ease-out),border-color .28s var(--ease-out),background .28s var(--ease-out);
+  animation:m3In .5s var(--ease-out) backwards;animation-delay:calc(var(--i,0) * 45ms)}
 
-.m3-btn{display:inline-flex;align-items:center;gap:6px;font-weight:800;font-size:12.5px;padding:8px 14px;
-  border-radius:12px;border:1.5px solid var(--c);background:#fff;color:var(--c);cursor:pointer;
-  transition:transform .2s var(--ease-out),background-color .2s,color .2s,box-shadow .2s}
-.m3-btn:hover:not(:disabled){background:var(--c);color:#fff;transform:translateY(-2px);box-shadow:0 8px 16px -8px var(--c)}
-.m3-btn:active:not(:disabled){transform:scale(.96)}
-.m3-btn:focus-visible{outline:3px solid var(--c);outline-offset:2px}
-.m3-btn:disabled{opacity:.4;cursor:default}
+/* dải màu bên trái */
+.m3-card::before{content:'';position:absolute;left:0;top:14px;bottom:14px;width:5px;border-radius:0 6px 6px 0;
+  background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 55%,#FFFFFF));
+  transition:width .28s var(--ease-out),top .28s var(--ease-out),bottom .28s var(--ease-out)}
 
-.m3-title{background:linear-gradient(90deg,var(--i-main),var(--p-main) 55%,var(--g-main));
-  -webkit-background-clip:text;background-clip:text;color:transparent}
-.m3-seg{width:26px;height:9px;border-radius:5px;
-  transition:background-color .3s,box-shadow .3s,transform .3s var(--ease-out)}
-.m3-seg.f{transform:scaleY(1.2)}
-.m3-win{position:relative;overflow:hidden;animation:m3-pop .5s var(--ease-out) both}
-.m3-win::after{content:'';position:absolute;inset:0;
-  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.6) 50%,transparent 65%);
-  transform:translateX(-120%);animation:m3-shine 1.3s .5s ease-out 1 forwards}
+/* ánh sáng bám theo con trỏ */
+.m3-card::after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
+  background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),
+    color-mix(in srgb,var(--c) 18%,transparent),transparent 62%);
+  transition:opacity .3s var(--ease-out)}
 
-@keyframes m3-in{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
-@keyframes m3-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes m3-pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
-@keyframes m3-shine{to{transform:translateX(130%)}}
+/* số thứ tự khổng lồ làm watermark */
+.m3-ghost{position:absolute;right:10px;bottom:-14px;z-index:-1;pointer-events:none;
+  font-family:var(--font-display);font-weight:900;font-size:92px;line-height:1;letter-spacing:-.04em;
+  color:var(--c);opacity:.07;transition:opacity .3s var(--ease-out),transform .4s var(--ease-out)}
 
+@media (hover:hover){
+  .m3-card:hover{transform:translateY(-3px);border-color:var(--c);
+    box-shadow:0 1px 0 #FFFFFF inset,0 20px 34px -18px color-mix(in srgb,var(--c) 55%,transparent)}
+  .m3-card:hover::after{opacity:1}
+  .m3-card:hover::before{top:10px;bottom:10px;width:7px}
+  .m3-card:hover .m3-ghost{opacity:.12;transform:translateX(-4px)}
+}
+.m3-card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+
+/* thẻ đang chọn */
+.m3-card.is-active{border-color:var(--c);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--soft) 70%,#FFFFFF) 0%,var(--soft) 100%);
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--c) 14%,transparent),
+    0 18px 34px -18px color-mix(in srgb,var(--c) 60%,transparent)}
+.m3-card.is-active::before{top:10px;bottom:10px;width:7px}
+.m3-card.is-active .m3-ghost{opacity:.13}
+
+.m3-check{position:absolute;top:10px;right:12px;width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:var(--c);color:#FFFFFF;
+  box-shadow:0 4px 10px -3px color-mix(in srgb,var(--c) 70%,transparent);
+  animation:m3Pop .32s var(--ease-out)}
+
+/* ---------- Avatar ---------- */
+.m3-avatar{position:relative;width:60px;height:60px;border-radius:18px;flex-shrink:0;color:#FFFFFF;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--c) 82%,#FFFFFF) 0%,var(--c) 45%,color-mix(in srgb,var(--c) 70%,#000000) 100%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45),inset 0 -6px 10px -6px rgba(0,0,0,.25),
+    0 10px 18px -8px color-mix(in srgb,var(--c) 75%,transparent);
+  transition:transform .35s var(--ease-out)}
+.m3-avatar::after{content:'';position:absolute;inset:-5px;border-radius:22px;
+  border:1.5px solid color-mix(in srgb,var(--c) 30%,transparent);pointer-events:none}
+@media (hover:hover){
+  .m3-card:hover .m3-avatar{transform:rotate(-6deg) scale(1.06)}
+}
+.m3-card.is-active .m3-avatar{transform:scale(1.04)}
+
+/* ---------- Nội dung ---------- */
+.m3-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+.m3-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-right:22px}
+.m3-name{font-family:var(--font-display);font-size:19px;font-weight:800;color:var(--ink);line-height:1.2;letter-spacing:-.005em}
+.m3-badge{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:999px;
+  background:var(--badge-bg);color:#FFFFFF;white-space:nowrap;flex-shrink:0;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.m3-role{font-size:14.2px;font-weight:700;color:var(--c);line-height:1.3}
+
+.m3-tasks{display:flex;flex-wrap:wrap;gap:5px;margin:2px 0 0;padding:0;list-style:none}
+.m3-task{font-size:12.2px;font-weight:600;color:var(--ink-soft);line-height:1.25;
+  padding:3px 9px;border-radius:8px;
+  background:color-mix(in srgb,var(--c) 8%,#FFFFFF);
+  border:1px solid color-mix(in srgb,var(--c) 18%,transparent)}
+
+@keyframes m3In{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes m3Pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:scale(1)}}
 @media (prefers-reduced-motion:reduce){
-  .m3-wrap,.m3-win,.m3-wrap.on .m3-rv,.m3-wrap.on .m3-medal,.m3-wrap.on .m3-front::after{animation:none}
-  .m3-wrap,.m3-inner,.m3-back::after{transition-duration:.01s}
+  .m3-card,.m3-avatar,.m3-ghost,.m3-card::before,.m3-card::after{animation:none!important;transition:none!important}
+  .m3-check{animation:none}
 }
 `;
 
-function Medal({ idx, pal, size }) {
-  const id = `m3m${idx}`;
-  const Icon = ICONS[idx % ICONS.length];
-  return (
-    <div className="m3-medal" style={{ position: 'relative', width: size, height: size, flexShrink: 0 }}>
-      <svg viewBox="0 0 80 80" width={size} height={size} style={{ position: 'absolute', inset: 0 }} aria-hidden="true">
-        <defs>
-          <linearGradient id={`${id}f`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor={pal.c} /><stop offset="1" stopColor={pal.dark} />
-          </linearGradient>
-          <linearGradient id={`${id}g`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#FEF0C7" /><stop offset=".5" stopColor={GOLD} /><stop offset="1" stopColor="#7A2E0E" />
-          </linearGradient>
-          <radialGradient id={`${id}h`} cx=".3" cy=".22" r=".7">
-            <stop offset="0" stopColor="#fff" stopOpacity=".7" /><stop offset="1" stopColor="#fff" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <circle cx="40" cy="40" r="37" fill={`url(#${id}g)`} />
-        <circle cx="40" cy="40" r="32" fill={`url(#${id}f)`} />
-        <circle cx="40" cy="40" r="32" fill="none" stroke="#fff" strokeOpacity=".35" strokeDasharray="2 3" />
-        <ellipse cx="31" cy="26" rx="18" ry="11" fill={`url(#${id}h)`} />
-      </svg>
-      <div style={{ position: 'absolute', inset: 0, display: 'grid', placeItems: 'center' }}>
-        <Icon size={Math.round(size * 0.42)} color="#fff" strokeWidth={2.3} />
-      </div>
-    </div>
-  );
+/* Ánh sáng bám theo con trỏ: chỉ cập nhật 2 biến CSS, không re-render React */
+function trackPointer(e) {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`);
 }
-
-function CardBack({ idx, pal }) {
-  const id = `m3b${idx}`;
-  return (
-    <svg viewBox="0 0 320 160" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" aria-hidden="true">
-      <defs>
-        <linearGradient id={`${id}g`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor={pal.c} /><stop offset="1" stopColor={pal.dark} />
-        </linearGradient>
-        <linearGradient id={`${id}s`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#FEF0C7" /><stop offset=".5" stopColor={GOLD} /><stop offset="1" stopColor="#7A2E0E" />
-        </linearGradient>
-        <radialGradient id={`${id}r`}>
-          <stop offset="0" stopColor="#fff" stopOpacity=".4" /><stop offset="1" stopColor="#fff" stopOpacity="0" />
-        </radialGradient>
-        <pattern id={`${id}p`} width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <path d="M11 0V22M0 11H22" stroke="#fff" strokeOpacity=".07" />
-          <circle cx="11" cy="11" r="1.6" fill="#fff" fillOpacity=".18" />
-        </pattern>
-      </defs>
-      <rect width="320" height="160" fill={`url(#${id}g)`} />
-      <rect width="320" height="160" fill={`url(#${id}p)`} />
-      <circle cx="160" cy="80" r="92" fill={`url(#${id}r)`} />
-
-      <rect x="9" y="9" width="302" height="142" rx="13" fill="none" stroke="#fff" strokeOpacity=".4" strokeDasharray="2 5" />
-      <rect x="15" y="15" width="290" height="130" rx="10" fill="none" stroke={`url(#${id}s)`} strokeOpacity=".85" strokeWidth="1.4" />
-      {[[15, 15, 1, 1], [305, 15, -1, 1], [15, 145, 1, -1], [305, 145, -1, -1]].map(([x, y, sx, sy], i) => (
-        <g key={i} transform={`translate(${x} ${y}) scale(${sx} ${sy})`}>
-          <path d="M0 20 Q0 0 20 0" fill="none" stroke={`url(#${id}s)`} strokeWidth="2.2" strokeLinecap="round" />
-          <circle cx="5" cy="5" r="2.3" fill={`url(#${id}s)`} />
-        </g>
-      ))}
-
-      <circle cx="160" cy="80" r="50" fill="none" stroke="#fff" strokeOpacity=".45" strokeDasharray="3 6" />
-      <polygon points="160,47 188.6,63.5 188.6,96.5 160,113 131.4,96.5 131.4,63.5"
-        fill={pal.dark} fillOpacity=".7" stroke={`url(#${id}s)`} strokeWidth="2.2" />
-      <polygon points="160,55 181.7,67.5 181.7,92.5 160,105 138.3,92.5 138.3,67.5" fill="none" stroke="#fff" strokeOpacity=".3" />
-      <text x="160" y="94" textAnchor="middle" fontSize="38" fontWeight="900" fill={`url(#${id}s)`}
-        style={{ fontFamily: 'Georgia, serif' }}>?</text>
-
-      <text x="30" y="38" fontSize="12" fontWeight="900" fill="#fff" fillOpacity=".85" letterSpacing="2">NPK</text>
-      <text x="290" y="38" textAnchor="end" fontSize="13.5" fontWeight="900" fill="#FEF0C7">#{String(idx + 1).padStart(2, '0')}</text>
-      <text x="160" y="136" textAnchor="middle" fontSize="12" fontWeight="800" fill="#fff" fillOpacity=".9" letterSpacing="2">
-        CHẠM ĐỂ LẬT
-      </text>
-    </svg>
-  );
-}
-
-function CardFront({ member, idx, pal }) {
-  const tasks = (member.tasks || []).slice(0, 3);
-  return (
-    <div style={{
-      position: 'absolute', inset: 0, borderRadius: 18,
-      border: '2.5px solid transparent',
-      background: `linear-gradient(160deg,#FFFFFF 0%,#FFFFFF 55%,${pal.bg} 100%) padding-box,
-                   linear-gradient(135deg,${pal.c},${GOLD} 50%,${pal.dark}) border-box`,
-      display: 'flex', alignItems: 'center', gap: 'clamp(10px,1.2vw,16px)',
-      padding: 'clamp(8px,1.2vh,14px) 14px clamp(8px,1.2vh,14px) 20px',
-    }}>
-      <svg viewBox="0 0 320 160" preserveAspectRatio="xMaxYMax slice" width="100%" height="100%"
-        style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} aria-hidden="true">
-        <defs>
-          <linearGradient id={`m3f${idx}`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor={pal.c} /><stop offset="1" stopColor={pal.dark} />
-          </linearGradient>
-        </defs>
-        <text x="314" y="154" textAnchor="end" fontSize="92" fontWeight="900" fill={pal.c} fillOpacity=".06">
-          {String(idx + 1).padStart(2, '0')}
-        </text>
-        <path d="M0 148 Q80 130 160 146 T320 140 V160 H0Z" fill={pal.c} fillOpacity=".08" />
-        <rect x="0" y="0" width="7" height="160" fill={`url(#m3f${idx})`} />
-      </svg>
-
-      <Medal idx={idx} pal={pal} size={70} />
-
-      <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: 5, minWidth: 0, flex: 1 }}>
-        <div className="m3-rv" style={{ '--r': 0, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-          <span style={{
-            fontSize: 'clamp(15px,1.95vh,19px)', fontWeight: 900, color: 'var(--ink)', lineHeight: 1.15,
-            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}>
-            {member.name}
-          </span>
-          {member.badge && (
-            <span style={{
-              fontSize: 11, fontWeight: 900, padding: '3px 9px', borderRadius: 999, flexShrink: 0,
-              background: `linear-gradient(135deg,${pal.c},${pal.dark})`, color: '#fff',
-              boxShadow: `0 3px 8px ${pal.c}55`,
-            }}>
-              {member.badge}
-            </span>
-          )}
-        </div>
-
-        <div className="m3-rv" style={{ '--r': 1, display: 'flex' }}>
-          <span style={{
-            fontSize: 'clamp(12px,1.45vh,13.5px)', fontWeight: 800, color: pal.dark, lineHeight: 1.2,
-            background: `${pal.c}1A`, border: `1px solid ${pal.c}55`, padding: '2px 10px', borderRadius: 8,
-            maxWidth: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-          }}>
-            {member.role}
-          </span>
-        </div>
-
-        {tasks.length > 0 && (
-          <>
-            <div className="m3-rv" style={{
-              '--r': 2, height: 2, borderRadius: 2, margin: '1px 0',
-              background: `linear-gradient(90deg,${pal.c},${pal.c}00)`,
-            }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {tasks.map((task, t) => (
-                <div key={t} className="m3-rv" title={task} style={{
-                  '--r': 3 + t, display: 'flex', alignItems: 'flex-start', gap: 6,
-                  fontSize: 'clamp(12px,1.45vh,13.5px)', color: 'var(--ink-soft)', fontWeight: 600, lineHeight: 1.3,
-                }}>
-                  <svg width="13" height="13" viewBox="0 0 16 16" style={{ marginTop: 1.5, flexShrink: 0 }} aria-hidden="true">
-                    <circle cx="8" cy="8" r="8" fill={pal.c} />
-                    <path d="M4.5 8.3l2.3 2.3 4.7-5" fill="none" stroke="#fff" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 1, WebkitBoxOrient: 'vertical' }}>
-                    {task}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-const FlipCard = memo(function FlipCard({ member, idx, isOpen, onToggle }) {
-  const pal = PALETTE[idx % PALETTE.length];
-  return (
-    <div
-      className={`m3-wrap${isOpen ? ' on' : ''}`}
-      role="button"
-      tabIndex={0}
-      aria-pressed={isOpen}
-      aria-label={isOpen ? `Thẻ ${member.name}, bấm để úp lại` : `Thẻ bí ẩn số ${idx + 1}, bấm để lật`}
-      onClick={() => onToggle(member.id)}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onToggle(member.id); } }}
-      style={{ '--c': pal.c, '--glow': `${pal.c}77`, '--i': idx }}
-    >
-      <div className="m3-inner">
-        <div className="m3-face m3-back"><CardBack idx={idx} pal={pal} /></div>
-        <div className="m3-face m3-front"><CardFront member={member} idx={idx} pal={pal} /></div>
-      </div>
-    </div>
-  );
-});
 
 export default function Slide03Members() {
-  const [open, setOpen] = useState({});
-  const total = TEAM_MEMBERS.length;
-  const count = TEAM_MEMBERS.filter((m) => open[m.id]).length;
-  const done = count === total;
-
-  const toggle = useCallback((id) => setOpen((o) => ({ ...o, [id]: !o[id] })), []);
-  const revealAll = () => setOpen(Object.fromEntries(TEAM_MEMBERS.map((m) => [m.id, true])));
-  const resetAll = () => setOpen({});
-  const pickRandom = () => {
-    const pool = TEAM_MEMBERS.filter((m) => !open[m.id]);
-    if (!pool.length) return;
-    const pick = pool[Math.floor(Math.random() * pool.length)];
-    setOpen((o) => ({ ...o, [pick.id]: true }));
-  };
+  const [selectedId, setSelectedId] = useState('01');
 
   return (
-    <div style={{
-      display: 'flex', flexDirection: 'column', height: '100%', gap: 12, position: 'relative',
-    }}>
+    <div className="m3-root">
       <style>{CSS}</style>
 
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
-        <div>
-          <div className="chapter-pill" style={{ background: 'var(--p-tint)', color: 'var(--p-deep)', borderColor: 'var(--p-line)' }}>
-            <Sparkles size={16} />
-            <span>Phân công nhiệm vụ nhóm</span>
+      {/* Header */}
+      <header className="m3-header">
+        <div className="m3-header-left">
+          <div className="chapter-pill">
+            <Sparkles size={15} />
+            <span>Đội ngũ thực hiện báo cáo • 9 thành viên</span>
           </div>
-          <h2 className="slide-title m3-title" style={{ marginTop: 4 }}>
-            Biệt đội NPK — 9 thành viên
+          <h2 className="slide-title" style={{ marginTop: 2 }}>
+            GIỚI THIỆU 9 THÀNH VIÊN NHÓM
           </h2>
+          <p className="m3-sub">
+            Phối hợp tra cứu tài liệu, biên tập nội dung, trực quan hóa sơ đồ, thiết kế slide/video và kiểm duyệt khoa học
+          </p>
         </div>
+
         <LinhThuBietDoi />
-      </div>
+      </header>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', gap: 4, alignItems: 'center' }} role="status" aria-label={`Đã lật ${count}/${total}`}>
-          {TEAM_MEMBERS.map((m, i) => (
-            <span key={m.id} className={`m3-seg${open[m.id] ? ' f' : ''}`} style={{
-              background: open[m.id] ? PALETTE[i % 9].c : '#CBD5E1',
-              boxShadow: open[m.id] ? `0 0 8px ${PALETTE[i % 9].c}99` : 'none',
-            }} />
-          ))}
-          <span style={{ marginLeft: 8, fontWeight: 900, fontSize: 13, color: 'var(--ink-soft)', fontVariantNumeric: 'tabular-nums' }}>
-            {count}/{total}
-          </span>
-        </div>
+      {/* Lưới 3×3 hiển thị trực tiếp cả 9 thành viên */}
+      <div className="m3-grid" role="list" aria-label="Danh sách 9 thành viên nhóm">
+        {TEAM_MEMBERS.map((member, idx) => {
+          const pal = PALETTE[idx % PALETTE.length];
+          const Icon = ICONS[idx % ICONS.length];
+          const isSelected = selectedId === member.id;
+          const tasks = Array.isArray(member.tasks) ? member.tasks : [];
 
-        {done ? (
-          <div className="m3-win" style={{
-            display: 'inline-flex', alignItems: 'center', gap: 6, padding: '6px 14px', borderRadius: 12,
-            background: 'linear-gradient(90deg,var(--k-main),var(--g-main))', color: '#fff', fontWeight: 900, fontSize: 13,
-            boxShadow: '0 8px 18px -8px var(--g-glow)',
-          }}>
-            <Trophy size={15} /> Đã mở khóa cả biệt đội
-          </div>
-        ) : (
-          <span style={{ fontSize: 13, color: 'var(--ink-mute)', fontWeight: 600 }}>Chạm vào thẻ để lật và xem từng thành viên</span>
-        )}
+          return (
+            <div className="m3-cell" role="listitem" key={member.id}>
+              <button
+                type="button"
+                aria-pressed={isSelected}
+                onClick={() => setSelectedId(member.id)}
+                onPointerMove={trackPointer}
+                className={`m3-card${isSelected ? ' is-active' : ''}`}
+                style={{
+                  '--i': idx,
+                  '--c': pal.c,
+                  '--soft': pal.soft,
+                  '--bd': pal.line,
+                  '--badge-bg': pal.badgeBg
+                }}
+              >
+                <span className="m3-ghost" aria-hidden="true">{member.id}</span>
 
-        <div style={{ display: 'flex', gap: 8, marginLeft: 'auto' }}>
-          <button className="m3-btn" style={{ '--c': '#7C5CFF' }} onClick={pickRandom} disabled={done}>
-            <Shuffle size={14} /> Lật ngẫu nhiên
-          </button>
-          <button className="m3-btn" style={{ '--c': '#2563EB' }} onClick={revealAll} disabled={done}>
-            <Eye size={14} /> Lật tất cả
-          </button>
-          <button className="m3-btn" style={{ '--c': '#EC4899' }} onClick={resetAll} disabled={count === 0}>
-            <RotateCcw size={14} /> Úp lại
-          </button>
-        </div>
-      </div>
+                {isSelected && (
+                  <span className="m3-check" aria-hidden="true">
+                    <Check size={13} strokeWidth={3.2} />
+                  </span>
+                )}
 
-      <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gridTemplateRows: 'repeat(3, minmax(0, 1fr))',
-        gap: 'clamp(10px, 1.5vh, 18px)', flex: 1, minHeight: 0,
-      }}>
-        {TEAM_MEMBERS.map((member, idx) => (
-          <FlipCard key={member.id} member={member} idx={idx} isOpen={!!open[member.id]} onToggle={toggle} />
-        ))}
+                <div className="m3-avatar" aria-hidden="true">
+                  <Icon size={26} strokeWidth={2.1} />
+                </div>
+
+                <div className="m3-body">
+                  <div className="m3-top">
+                    <span className="m3-name">{member.name}</span>
+                    {member.badge && <span className="m3-badge">{member.badge}</span>}
+                  </div>
+                  <div className="m3-role">{member.role}</div>
+                  {tasks.length > 0 && (
+                    <ul className="m3-tasks">
+                      {tasks.map((t, i) => (
+                        <li className="m3-task" key={i}>{t}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

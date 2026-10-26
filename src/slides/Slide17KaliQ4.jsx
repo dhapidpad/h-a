@@ -2,73 +2,81 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgTopdressingMountain from '../components/illustrations/SvgTopdressingMountain';
 
+/* ==========================================================================
+   SLIDE 17 — KALI CÂU 4: THỜI ĐIỂM BÓN (MỤC 5 - SLIDE 17)
+   - Tiêu đề: CHIA LẦN BÓN K THEO NHU CẦU CỦA CÂY VÀ ĐIỀU KIỆN ĐẤT
+   - Màn hình (timeline giai đoạn):
+     1. Sinh trưởng đầu kỳ: nhu cầu theo cây và lượng K đất
+     2. Ra hoa/tạo hạt/phình củ/nuôi quả: theo khuyến cáo có thể cần tăng cung cấp
+     3. Chia lần để giảm thất thoát khi đất nhẹ/mưa nhiều hoặc tưới lớn
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'curve',
+    id: 'early',
     number: '01',
-    tone: 'amber',
-    title: 'ĐƯỜNG CONG NHU CẦU: CAO TRÀO ĐƠM HOA KẾT TRÁI',
-    badge: 'ĐỈNH CAO TRÀO',
+    tone: 'slate',
+    title: 'SINH TRƯỞNG ĐẦU KỲ: NHU CẦU THEO CÂY VÀ LƯỢNG K TRONG ĐẤT',
+    badge: 'Đầu vụ · Phân tích đất',
     desc: (
       <>
-        Cây con sinh khối nhỏ cần ít Kali. Nhu cầu K⁺ <strong>tăng vọt lên đỉnh khi làm đòng, phân hóa hoa, phình củ và nuôi quả</strong> để vận chuyển đường bột.
+        Lượng K bón đầu vụ dựa vào <strong>loại cây trồng và khả năng cung cấp K của đất</strong>; một số hệ thống canh tác vẫn kết hợp bón lót một phần hợp lý.
       </>
-    ),
+    )
   },
   {
-    id: 'leach',
+    id: 'peak',
     number: '02',
-    tone: 'blue',
-    title: 'TAN CỰC NHANH — BÓN LÓT SỚM DỄ BỊ RỬA TRÔI',
-    badge: 'DỄ RỬA TRÔI',
+    tone: 'amber',
+    title: 'RA HOA / TẠO HẠT / PHÌNH CỦ / NUÔI QUẢ: NHU CẦU K THƯỜNG TĂNG',
+    badge: 'Giai đoạn cao điểm',
     desc: (
       <>
-        Muối kali (KCl, K₂SO₄) tan rất nhanh trong nước. Nếu bón lót 100% từ đầu, mưa lớn sẽ <strong>rửa trôi K⁺ xuống tầng sâu</strong> trước khi rễ kịp hấp thu.
+        Trong các giai đoạn tăng sinh khối, <strong>ra hoa, tạo hạt, phình củ hoặc nuôi quả</strong>, cây thường cần nhiều K hơn để vận chuyển đường và tích lũy chất khô.
       </>
-    ),
+    )
   },
   {
-    id: 'schedule',
+    id: 'split',
     number: '03',
     tone: 'green',
-    title: 'PHÂN BỔ KHOA HỌC: 60% – 70% KALI BÓN THÚC',
-    badge: 'BÓN THÚC 70%',
+    title: 'CHIA LẦN BÓN ĐỂ GIẢM THẤT THOÁT KHI ĐẤT NHẸ / MƯA NHIỀU',
+    badge: 'Giảm rửa trôi K⁺',
     desc: (
       <>
-        • Bón lót đầu vụ: <strong>20–30% K</strong>.<br />
-        • Bón thúc đón đòng / trổ hoa: <strong>40% K</strong> • Bón thúc nuôi hạt / dưỡng quả ngọt: <strong>30% K</strong>.
+        Vì phân kali dễ tan, <strong>chia lần bón thúc theo khuyến cáo kỹ thuật</strong> giúp giảm rửa trôi ở đất cát nhẹ, mưa lớn hoặc tưới nhiều và tránh tăng muối cục bộ.
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide17KaliQ4({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="kali"
-      pillText="PHÂN KALI (K) • CÂU HỎI 04 / 15"
-      title="THỜI ĐIỂM VÀNG CHO BÓN THÚC KALI"
-      badgeIcon="70%"
-      badgeSub="TỶ LỆ BÓN THÚC"
-      badgeMain="Dành 60% – 70% Kali bón thúc"
-      question="Tại sao phân kali luôn được ưu tiên bón thúc vào giai đoạn đón đòng, trổ hoa, phình củ, nuôi quả thay vì bón lót toàn bộ từ đầu?"
+      pillText="PHÂN KALI (K) • CÂU 14 / 15"
+      title="CHIA LẦN BÓN K THEO NHU CẦU CỦA CÂY VÀ ĐIỀU KIỆN ĐẤT"
+      badgeIcon="K⁺"
+      badgeSub="THỜI ĐIỂM BÓN"
+      badgeMain="Chia lần theo giai đoạn & đất"
+      question="Nhu cầu K thường tăng khi tạo hạt, củ, quả; chia lần bón giúp nâng cao hiệu quả và giảm thất thoát."
       pillars={PILLARS}
       note={{
-        tag: 'LÚA',
-        title: 'Bí quyết nhà nông:',
-        text: 'Bón thúc kali đón đòng trước trổ 15–20 ngày giúp bông lúa trổ thoát, hạt vàng sáng chắc mẩy và giảm tỷ lệ lép.',
+        tag: 'NGUYÊN TẮC',
+        title: 'Linh hoạt theo điều kiện:',
+        text: 'Tỷ lệ bón lót và bón thúc không cố định cho mọi loại cây; cần dựa vào phân tích đất, thành phần cơ giới đất, lượng mưa và quy trình kỹ thuật.'
       }}
       mascot={{
         mascotType: 'SUNNY_K',
         emotion: 'happy',
-        speech: 'Cứ đón đòng và nuôi trái là tớ xuất hiện tiếp sức ngay, mùa màng bội thu chắc luôn! 🌾✨',
+        speech: 'Chia lần bón kali theo giai đoạn ra hoa, tạo hạt, phình củ, nuôi quả giúp cây hấp thu hiệu quả hơn! 🌾'
       }}
       svgCard={{
-        title: 'ĐỈNH ĐỒI BÓN THÚC ĐÚNG THỜI ĐIỂM',
-        subtitle: 'Chiến lược bón chia đợt • Đón đòng, nuôi hạt & dồn đường nuôi quả ngọt',
-        badge: 'Bón Thúc Đúng Lúc',
+        title: 'ĐƯỜNG CONG NHU CẦU KALI MINH HỌA THEO GIAI ĐOẠN',
+        subtitle: 'Minh họa khái niệm (thay đổi theo cây trồng) · Chú trọng giai đoạn ra hoa, tạo hạt, củ, quả',
+        badge: 'Chia lần bón hợp lý',
         takeaway:
-          'Kali tan nhanh và dễ bị rửa trôi nếu bón lót quá nhiều từ đầu vụ. Cây cần kali nhiều nhất vào các giai đoạn sinh sản: làm đòng, trổ hoa và nuôi quả để bơm tinh bột chắc hạt và tích tụ đường thơm ngọt.',
+          'Nhu cầu K thường tăng cao ở giai đoạn hình thành và nuôi hạt, củ, quả. Chia lần bón theo đặc tính đất và lượng mưa/tưới giúp sử dụng K hiệu quả hơn.'
       }}
       onOpenNotes={onOpenNotes}
     >

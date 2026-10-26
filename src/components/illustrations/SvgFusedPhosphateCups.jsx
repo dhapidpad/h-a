@@ -1,251 +1,366 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 /**
- * Lân nung chảy: so sánh trong nước mưa vs. axit rễ cây tiết ra.
- * Thuần SVG + SMIL/CSS animation, không phụ thuộc thư viện.
+ * Lân nung chảy (Slide 11) — bản remake: so sánh nước trung tính và môi trường acid yếu
+ * (axit hữu cơ vùng rễ / axit citric 2%).
+ *
+ * Nội dung giữ đúng tinh thần Master Spec mục 5 (Slide 11) & 6.3:
+ * - Không dùng câu tuyệt đối ("trơ đáy", "đặc trị"...). Chỉ nói "ít tan" / "hòa tan P hữu hiệu".
+ * - Thành phần ghi là mức tham khảo, tuỳ nhà sản xuất; luôn nhắc xem nhãn sản phẩm.
+ * - ID trong <defs> dùng useId() để không xung đột khi mở Lightbox.
+ *
+ * Props
+ * - width:     chiều rộng (số px hoặc '100%', '36rem'...). Mặc định '100%'.
+ * - height:    chiều cao. Mặc định 'auto' (giữ tỉ lệ 600:618).
+ * - maxWidth:  giới hạn chiều rộng (tuỳ chọn).
+ * - animated:  bật/tắt chuyển động (mặc định true). Tự tắt khi bật "reduce motion".
+ * - className, style: truyền thêm cho thẻ <svg>.
+ * Ví dụ: <SvgFusedPhosphateCups width={600} />
+ *
+ * Hiệu năng: toàn bộ chuyển động bằng CSS (transform/opacity), không SMIL, không blur động;
+ * chỉ có một filter đổ bóng tĩnh dùng chung.
  */
-export default function SvgFusedPhosphateCups() {
-  const glass = 'M 0 0 L 16 226 Q 76 244, 136 226 L 152 0 Z';
-  const liquid = 'M 5 52 L 16 222 Q 76 238, 135 222 L 147 52 Z';
 
-  // hạt lân tan: [x, y, r, delay]
-  const ions = [
-    [-38, -34, 8, 0], [-14, -52, 9, 0.8], [14, -40, 8, 1.6],
-    [38, -60, 9, 2.4], [-2, -78, 8, 3.2], [-30, -88, 7, 4],
-  ];
+const W = 600;
+const H = 618;
+const FONT = "'Be Vietnam Pro','Segoe UI',Roboto,system-ui,sans-serif";
+
+const GLASS = 'M-66 0L-52 190Q0 204 52 190L66 0Z';
+const LIQ = 'M-63 40L-51.5 187Q0 200 51.5 187L63 40Z';
+
+const Txt = ({ x, y, size = 13, weight = 700, fill = '#1E293B', anchor, spacing, children }) => (
+  <text x={x} y={y} fontSize={size} fontWeight={weight} fill={fill} textAnchor={anchor} letterSpacing={spacing}>
+    {children}
+  </text>
+);
+
+/* Mảnh thủy tinh silicat: đa giác góc cạnh + mặt sáng */
+function Grain({ x, y, s = 1, rot = 0, u, lit = false }) {
+  return (
+    <g transform={`translate(${x} ${y}) rotate(${rot}) scale(${s})`}>
+      {lit && <circle r="15" fill={u('glow')} />}
+      <polygon points="-8,-2 -3,-8 7,-6 10,2 3,8 -6,7" fill={u(lit ? 'grainLit' : 'grain')} stroke={lit ? '#6D28D9' : '#334155'} strokeWidth=".8" strokeLinejoin="round" />
+      <polygon points="-8,-2 -3,-8 1,-1" fill="#fff" opacity={lit ? 0.5 : 0.4} />
+      <polygon points="1,-1 7,-6 10,2" fill="#fff" opacity=".12" />
+      <polygon points="1,-1 10,2 3,8 -6,7" fill="#000" opacity=".16" />
+    </g>
+  );
+}
+
+/* Cốc thủy tinh 3D: bóng, vành sau, nội dung (cắt theo lòng cốc), phản chiếu, vành trước, đế, vạch chia */
+function Cup({ cx, y, tint, rim, u, children, overlay }) {
+  return (
+    <g transform={`translate(${cx} ${y})`}>
+      <ellipse cx="3" cy="208" rx="76" ry="9" fill="#0F172A" opacity=".18" />
+      <ellipse cx="0" cy="0" rx="66" ry="10" fill="#fff" opacity=".55" stroke={rim} strokeWidth="1.5" />
+      <path d={GLASS} fill={tint} opacity=".35" />
+      <g clipPath={u('clip')}>{children}</g>
+      <path d={GLASS} fill={u('sheen')} />
+      <path d="M-58 12L-47 176" stroke="#fff" strokeWidth="5" strokeLinecap="round" opacity=".75" />
+      <path d="M52 14L44 160" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" opacity=".5" />
+      <g stroke={rim} strokeWidth="1.3" opacity=".55" strokeLinecap="round">
+        {[60, 90, 120, 150].map((t) => {
+          const hw = 66 - (14 * t) / 190;
+          return <path key={t} d={`M${hw - 12} ${t}H${hw - 2}`} />;
+        })}
+      </g>
+      <path d="M-66 0A66 10 0 0 0 66 0" fill="none" stroke={rim} strokeWidth="2.6" />
+      <path d={GLASS} fill="none" stroke={rim} strokeWidth="3" strokeLinejoin="round" />
+      <path d="M-52 190Q0 204 52 190" fill="none" stroke="#fff" strokeWidth="2" opacity=".7" strokeLinecap="round" transform="translate(0 -4)" />
+      <ellipse cx="0" cy="0" rx="66" ry="10" fill="none" stroke="#fff" strokeWidth="1" opacity=".8" transform="translate(0 -1)" />
+      {overlay}
+    </g>
+  );
+}
+
+function PhBar({ cx, y, pos, u, color }) {
+  const x0 = cx - 70;
+  return (
+    <g>
+      <rect x={x0} y={y} width="140" height="8" rx="4" fill={u('ph')} />
+      <rect x={x0} y={y} width="140" height="3" rx="1.5" fill="#fff" opacity=".35" />
+      <g transform={`translate(${x0 + 140 * pos} ${y + 4})`}>
+        <circle r="7" fill="#fff" stroke={color} strokeWidth="2.4" />
+        <circle r="2.6" fill={color} />
+      </g>
+      <Txt x={x0} y={y + 22} size={11.5} weight={700} fill="#64748B">0</Txt>
+      <Txt x={x0 + 70} y={y + 22} size={11.5} weight={700} fill="#64748B" anchor="middle">7</Txt>
+      <Txt x={x0 + 140} y={y + 22} size={11.5} weight={700} fill="#64748B" anchor="end">14</Txt>
+    </g>
+  );
+}
+
+export default function SvgFusedPhosphateCups({
+  width = '100%',
+  height = 'auto',
+  maxWidth,
+  animated = true,
+  className,
+  style,
+}) {
+  const rid = useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const n = (s) => `fp-${rid}-${s}`;
+  const u = (s) => `url(#${n(s)})`;
+
+  const LX = 155;
+  const RX = 445;
+  const CY = 214;
 
   return (
     <svg
-      viewBox="0 0 540 480"
-      width="100%"
-      height="100%"
+      className={`${animated ? 'fp-anim' : ''}${className ? ` ${className}` : ''}`}
+      viewBox={`0 0 ${W} ${H}`}
+      width={width}
+      height={height}
       preserveAspectRatio="xMidYMid meet"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
       role="img"
-      aria-label="So sánh lân nung chảy trong nước mưa và trong axit rễ cây"
-      style={{
-        display: 'block',
-        width: '100%',
-        height: '100%',
-        maxWidth: '100%',
-        maxHeight: '100%',
-        borderRadius: 22,
-        }}
+      aria-label="So sánh độ hòa tan của phân lân nung chảy trong nước trung tính và trong môi trường acid yếu"
+      fontFamily={FONT}
+      style={{ display: 'block', maxWidth: maxWidth ?? '100%', aspectRatio: `${W} / ${H}`, borderRadius: 24, ...style }}
     >
-      <style>{`
-        .fp-float{animation:fpFloat 4s ease-in-out infinite}
-        .fp-wave{animation:fpWave 3.2s ease-in-out infinite}
-        .fp-sway{transform-origin:75px 0;animation:fpSway 5s ease-in-out infinite}
-        .fp-pulse{transform-box:fill-box;transform-origin:center;animation:fpPulse 2s ease-in-out infinite}
-        .fp-shine{animation:fpShine 6s linear infinite}
-        @keyframes fpFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-        @keyframes fpWave{0%,100%{transform:translateX(0)}50%{transform:translateX(-6px)}}
-        @keyframes fpSway{0%,100%{transform:rotate(-1.5deg)}50%{transform:rotate(1.5deg)}}
-        @keyframes fpPulse{0%,100%{transform:scale(1);opacity:.9}50%{transform:scale(1.35);opacity:1}}
-        @keyframes fpShine{0%{transform:translateX(-80px)}100%{transform:translateX(620px)}}
-        @media (prefers-reduced-motion:reduce){.fp-float,.fp-wave,.fp-sway,.fp-pulse,.fp-shine{animation:none}}
-      `}</style>
-
       <defs>
-        <linearGradient id="fpBg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#F8FBFF" />
-          <stop offset="0.5" stopColor="#FFFFFF" />
-          <stop offset="1" stopColor="#F7F2FF" />
+        <linearGradient id={n('bg')} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#F4F9FF" /><stop offset=".5" stopColor="#FFFFFF" /><stop offset="1" stopColor="#F6F0FF" />
         </linearGradient>
-        <linearGradient id="fpWater" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#E0F2FE" />
-          <stop offset="1" stopColor="#7DD3FC" />
+        <radialGradient id={n('auroraB')}><stop offset="0" stopColor="#7DD3FC" stopOpacity=".35" /><stop offset="1" stopColor="#7DD3FC" stopOpacity="0" /></radialGradient>
+        <radialGradient id={n('auroraV')}><stop offset="0" stopColor="#A78BFA" stopOpacity=".33" /><stop offset="1" stopColor="#A78BFA" stopOpacity="0" /></radialGradient>
+        <pattern id={n('dots')} width="18" height="18" patternUnits="userSpaceOnUse">
+          <circle cx="2" cy="2" r="1" fill="#6366F1" opacity=".1" />
+        </pattern>
+        <linearGradient id={n('cardL')} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F2FAFF" /><stop offset="1" stopColor="#FFFFFF" /></linearGradient>
+        <linearGradient id={n('cardR')} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F6F1FF" /><stop offset="1" stopColor="#FFFFFF" /></linearGradient>
+        <linearGradient id={n('water')} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#E7F6FF" /><stop offset="1" stopColor="#6CC6F6" /></linearGradient>
+        <linearGradient id={n('sap')} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#F5EDFF" /><stop offset="1" stopColor="#B99BFA" /></linearGradient>
+        <linearGradient id={n('sheen')} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#fff" stopOpacity=".5" /><stop offset=".25" stopColor="#fff" stopOpacity=".05" />
+          <stop offset=".7" stopColor="#fff" stopOpacity="0" /><stop offset="1" stopColor="#64748B" stopOpacity=".18" />
         </linearGradient>
-        <linearGradient id="fpSap" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#F3E8FF" />
-          <stop offset="1" stopColor="#C4A5FB" />
+        <linearGradient id={n('gloss')} x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#fff" stopOpacity=".85" /><stop offset="1" stopColor="#fff" stopOpacity="0" /></linearGradient>
+        <linearGradient id={n('ph')} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#EF4444" /><stop offset=".25" stopColor="#F59E0B" /><stop offset=".5" stopColor="#22C55E" /><stop offset=".75" stopColor="#38BDF8" /><stop offset="1" stopColor="#7C3AED" />
         </linearGradient>
-        <linearGradient id="fpPill" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#ECFDF5" />
-          <stop offset="1" stopColor="#F0FDF4" />
-        </linearGradient>
-        <linearGradient id="fpGlassShine" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#FFFFFF" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#FFFFFF" stopOpacity="0.75" />
-          <stop offset="1" stopColor="#FFFFFF" stopOpacity="0" />
-        </linearGradient>
-        <radialGradient id="fpGrain" cx="0.35" cy="0.3" r="0.8">
-          <stop offset="0" stopColor="#94A3B8" />
-          <stop offset="1" stopColor="#475569" />
-        </radialGradient>
-        <radialGradient id="fpIon" cx="0.35" cy="0.3" r="0.8">
-          <stop offset="0" stopColor="#C4B5FD" />
-          <stop offset="1" stopColor="#7C3AED" />
-        </radialGradient>
-        <radialGradient id="fpGlow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0" stopColor="#A78BFA" stopOpacity="0.55" />
-          <stop offset="1" stopColor="#A78BFA" stopOpacity="0" />
-        </radialGradient>
-        <clipPath id="fpClipL"><path d={glass} /></clipPath>
-        <clipPath id="fpClipR"><path d={glass} /></clipPath>
+        <linearGradient id={n('band')} x1="0" y1="0" x2="1" y2="0"><stop offset="0" stopColor="#ECFDF5" /><stop offset="1" stopColor="#F0FDF4" /></linearGradient>
+        <radialGradient id={n('grain')} cx=".35" cy=".3" r=".9"><stop offset="0" stopColor="#A9B6C8" /><stop offset="1" stopColor="#3F4D63" /></radialGradient>
+        <radialGradient id={n('grainLit')} cx=".35" cy=".3" r=".9"><stop offset="0" stopColor="#DDD2FF" /><stop offset="1" stopColor="#8C6BFA" /></radialGradient>
+        <radialGradient id={n('glow')}><stop offset="0" stopColor="#A78BFA" stopOpacity=".6" /><stop offset="1" stopColor="#A78BFA" stopOpacity="0" /></radialGradient>
+        <radialGradient id={n('ionP')} cx=".35" cy=".3" r=".85"><stop offset="0" stopColor="#D8CCFF" /><stop offset="1" stopColor="#6D28D9" /></radialGradient>
+        <radialGradient id={n('ionCa')} cx=".35" cy=".3" r=".85"><stop offset="0" stopColor="#99F6E4" /><stop offset="1" stopColor="#0F766E" /></radialGradient>
+        <radialGradient id={n('ionMg')} cx=".35" cy=".3" r=".85"><stop offset="0" stopColor="#FDE68A" /><stop offset="1" stopColor="#D97706" /></radialGradient>
+        <filter id={n('shadow')} x="-8%" y="-6%" width="116%" height="116%">
+          <feDropShadow dx="0" dy="8" stdDeviation="9" floodColor="#312E81" floodOpacity=".12" />
+        </filter>
+        <clipPath id={n('clip')}><path d="M-66 -4L-51.5 187Q0 200 51.5 187L66 -4Z" /></clipPath>
+
+        <style>{`
+          @media (prefers-reduced-motion:no-preference){
+            .fp-anim .fp-float{animation:fpFloat 4.4s ease-in-out infinite}
+            .fp-anim .fp-wave{animation:fpWave 3.4s ease-in-out infinite}
+            .fp-anim .fp-sway{transform-origin:0 0;animation:fpSway 5s ease-in-out infinite}
+            .fp-anim .fp-pulse{transform-box:fill-box;transform-origin:center;animation:fpPulse 2.4s ease-in-out infinite}
+            .fp-anim .fp-rain{animation:fpRain 2.4s ease-in infinite}
+            .fp-anim .fp-bub{animation:fpBub 4s ease-in infinite}
+            .fp-anim .fp-ion{animation:fpIon 4.2s ease-in-out infinite}
+            .fp-anim .fp-drip{animation:fpDrip 3.2s ease-in infinite}
+            .fp-anim .fp-ring{transform-box:fill-box;transform-origin:center;animation:fpRing 2.6s ease-out infinite}
+            .fp-anim .fp-vs{transform-box:fill-box;transform-origin:center;animation:fpVs 3.6s ease-in-out infinite}
+          }
+          .fp-ion,.fp-rain,.fp-drip,.fp-bub{opacity:1}
+          @keyframes fpFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+          @keyframes fpWave{0%,100%{transform:translateX(0)}50%{transform:translateX(-10px)}}
+          @keyframes fpSway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.4deg)}}
+          @keyframes fpPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.25);opacity:1}}
+          @keyframes fpRain{0%{transform:translateY(0);opacity:0}12%{opacity:.95}85%{opacity:.95}100%{transform:translateY(86px);opacity:0}}
+          @keyframes fpBub{0%{transform:translateY(0);opacity:0}15%{opacity:.85}100%{transform:translateY(-110px);opacity:0}}
+          @keyframes fpIon{0%{transform:translateY(0);opacity:0}15%{opacity:1}75%{opacity:1}100%{transform:translateY(-56px);opacity:0}}
+          @keyframes fpDrip{0%{transform:translateY(0);opacity:0}15%{opacity:1}100%{transform:translateY(74px);opacity:0}}
+          @keyframes fpRing{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.9);opacity:0}}
+          @keyframes fpVs{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+        `}</style>
       </defs>
 
-      <rect x="0" y="0" width="540" height="480" rx="24" fill="url(#fpBg)" stroke="#DDD6FE" strokeWidth="1.5" />
+      {/* ============ NỀN & TIÊU ĐỀ ============ */}
+      <rect width={W} height={H} rx="24" fill={u('bg')} stroke="#DDD6FE" strokeWidth="1.5" />
+      <ellipse cx="90" cy="120" rx="260" ry="170" fill={u('auroraB')} />
+      <ellipse cx="520" cy="140" rx="260" ry="170" fill={u('auroraV')} />
+      <rect width={W} height={H} rx="24" fill={u('dots')} />
+      <rect x="1" y="1" width={W - 2} height={H - 2} rx="23" fill="none" stroke="#fff" strokeWidth="2" opacity=".9" />
 
-      {/* dấu vs ở giữa */}
-      <g transform="translate(270, 226)">
-        <circle r="20" fill="#FFFFFF" stroke="#CBD5E1" strokeWidth="1.5" />
-        <text y="5" textAnchor="middle" fill="#64748B" fontSize="13" fontWeight="800">VS</text>
+      <rect x="24" y="18" width="276" height="26" rx="13" fill="#fff" stroke="#DDD6FE" />
+      <circle cx="40" cy="31" r="4.5" fill="#8B5CF6" />
+      <Txt x={52} y={35.5} size={12.5} weight={900} fill="#5B21B6" spacing={1}>AGRI SCIENCE / LÂN NUNG CHẢY</Txt>
+      <Txt x={24} y={72} size={25} weight={900} fill="#1E1B4B" spacing={-0.5}>Lân nung chảy và độ hòa tan của P</Txt>
+      <Txt x={25} y={90} size={13} weight={500} fill="#5B6478">So sánh nước trung tính với môi trường acid yếu vùng rễ</Txt>
+
+      {/* ============ THẺ TRÁI: NƯỚC TRUNG TÍNH ============ */}
+      <rect x="20" y="102" width="270" height="378" rx="22" fill={u('cardL')} stroke="#BAE6FD" strokeWidth="1.5" filter={u('shadow')} />
+      <rect x="22" y="104" width="266" height="50" rx="20" fill={u('gloss')} opacity=".6" />
+      <g transform="translate(40 114)">
+        <rect width="230" height="32" rx="16" fill="#F0F9FF" stroke="#38BDF8" strokeWidth="1.5" />
+        <path d="M20 8C25 14 27 17 27 20A7 7 0 0 1 13 20C13 17 16 14 20 8Z" fill="#38BDF8" />
+        <ellipse cx="17.5" cy="19" rx="1.8" ry="2.8" fill="#fff" opacity=".7" />
+        <Txt x={36} y={21} size={12.5} weight={800} fill="#0369A1" spacing={0.4}>NƯỚC TRUNG TÍNH</Txt>
       </g>
 
-      {/* ================= CỐC 1: NƯỚC MƯA ================= */}
-      <g transform="translate(46, 14)">
-        <rect x="0" y="0" width="200" height="32" rx="16" fill="#F0F9FF" stroke="#38BDF8" strokeWidth="1.5" />
-        <text x="100" y="21" textAnchor="middle" fill="#0369A1" fontSize="12.5" fontWeight="800">💧 TRONG NƯỚC MƯA</text>
-
-        {/* mây + giọt mưa */}
-        <g transform="translate(24, 44)">
-          <g fill="#E0F2FE" stroke="#BAE6FD" strokeWidth="1.5">
-            <circle cx="40" cy="14" r="14" /><circle cx="62" cy="8" r="17" /><circle cx="86" cy="14" r="13" />
-            <rect x="26" y="14" width="74" height="14" rx="7" stroke="none" />
-          </g>
-          {[44, 64, 84].map((x, i) => (
-            <ellipse key={x} cx={x} cy="0" rx="2.2" ry="4.5" fill="#38BDF8">
-              <animate attributeName="cy" values="26;68;68" keyTimes="0;0.8;1" dur="1.8s" begin={`${i * 0.5}s`} repeatCount="indefinite" />
-              
-            </ellipse>
-          ))}
+      {/* mây + mưa */}
+      <g transform={`translate(${LX} ${CY - 62})`}>
+        <g fill="#E0F2FE" stroke="#BAE6FD" strokeWidth="1.4">
+          <circle cx="-18" cy="0" r="12" /><circle cx="2" cy="-6" r="15" /><circle cx="22" cy="0" r="11" />
+          <rect x="-30" y="0" width="64" height="12" rx="6" stroke="none" />
         </g>
-
-        <g transform="translate(24, 92)">
-          <path d={glass} fill="#F8FCFF" />
-          <g clipPath="url(#fpClipL)">
-            <g className="fp-wave">
-              <path d={liquid} fill="url(#fpWater)" opacity="0.85" />
-              <path d="M -10 52 Q 12 44, 34 52 T 78 52 T 122 52 T 166 52 L 166 70 L -10 70 Z" fill="#BAE6FD" opacity="0.9" />
-            </g>
-
-            {/* bọt khí */}
-            {[40, 70, 108].map((x, i) => (
-              <circle key={x} cx={x} cy="200" r="2.5" fill="#FFFFFF" opacity="0.8">
-                <animate attributeName="cy" values="190;70" dur={`${3 + i}s`} begin={`${i}s`} repeatCount="indefinite" />
-                
-              </circle>
-            ))}
-
-            {/* hạt lân nằm trơ đáy */}
-            {[[44, 208, 10], [66, 214, 11], [90, 208, 9], [112, 213, 10], [78, 198, 8], [54, 196, 7]].map(([x, y, r], i) => (
-              <g key={i}>
-                <circle cx={x} cy={y} r={r} fill="url(#fpGrain)" />
-                <circle cx={x - r * 0.3} cy={y - r * 0.35} r={r * 0.25} fill="#FFFFFF" opacity="0.45" />
-              </g>
-            ))}
-            <rect className="fp-shine" x="0" y="0" width="30" height="240" fill="url(#fpGlassShine)" opacity="0.35" transform="skewX(-12)" />
-          </g>
-          <path d={glass} fill="none" stroke="#38BDF8" strokeWidth="3" strokeLinejoin="round" />
-          <path d="M 12 14 L 22 196" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" opacity="0.7" />
-
-          {/* nhãn */}
-          <g className="fp-float">
-            <rect x="8" y="84" width="136" height="50" rx="12" fill="#FFFFFF" opacity="0.92" stroke="#7DD3FC" />
-            <text x="76" y="106" textAnchor="middle" fill="#0369A1" fontSize="15" fontWeight="900">KHÔNG TAN!</text>
-            <text x="76" y="123" textAnchor="middle" fill="#0284C7" fontSize="13" fontWeight="600">Trơ đáy, không bị rửa trôi</text>
-          </g>
-
-          {/* Chip pH thông số khoa học */}
-          <g transform="translate(6, 252)">
-            <rect x="0" y="0" width="140" height="22" rx="11" fill="#F8FAFC" stroke="#CBD5E1" strokeWidth="1" />
-            <text x="70" y="15" textAnchor="middle" fill="#475569" fontSize="13" fontWeight="700">pH ~7 · Nước trung tính</text>
-          </g>
+        <ellipse cx="2" cy="-12" rx="9" ry="3.5" fill="#fff" opacity=".7" />
+      </g>
+      {[-20, 0, 20].map((dx, i) => (
+        <g key={dx} transform={`translate(${LX + dx} ${CY - 44})`}>
+          <ellipse className="fp-rain" style={{ animationDelay: `${i * 0.7}s` }} rx="2.4" ry="4.8" fill="#38BDF8" />
         </g>
+      ))}
+
+      <Cup cx={LX} y={CY} tint="#BAE6FD" rim="#38BDF8" u={u}>
+        <rect x="-70" y="-6" width="140" height="210" fill={u('water')} opacity=".9" />
+        <g className="fp-wave">
+          <path d="M-90 40Q-70 33-50 40T-10 40T30 40T70 40T110 40V64H-90Z" fill="#BAE6FD" opacity=".95" />
+          <path d="M-90 40Q-70 33-50 40T-10 40T30 40T70 40T110 40" fill="none" stroke="#fff" strokeWidth="1.6" opacity=".9" />
+        </g>
+        {[-30, -4, 24].map((dx, i) => (
+          <circle key={dx} className="fp-bub" style={{ animationDelay: `${i * 1.1}s` }} cx={dx} cy="176" r="2.6" fill="#fff" opacity=".8" />
+        ))}
+        {[[-38, 176, 1.05, 12], [-18, 184, 1.2, -20], [6, 180, 1.1, 30], [28, 184, 1.15, -8], [44, 174, 0.95, 40], [-4, 168, 0.9, 70], [-30, 166, 0.85, -40], [18, 166, 0.85, 15]].map(([x, y, s, r], i) => (
+          <Grain key={i} x={x} y={y} s={s} rot={r} u={u} />
+        ))}
+        <g className="fp-float">
+          <rect x="-57" y="70" width="114" height="46" rx="13" fill="#fff" opacity=".95" stroke="#7DD3FC" />
+          <rect x="-54" y="72" width="108" height="14" rx="7" fill="#fff" />
+          <Txt x={0} y={91} size={14} weight={900} fill="#0369A1" anchor="middle">ÍT TAN</Txt>
+          <Txt x={0} y={107} size={11.5} weight={700} fill="#0284C7" anchor="middle">thủy tinh silicat</Txt>
+        </g>
+      </Cup>
+
+      <PhBar cx={LX} y={424} pos={0.5} u={u} color="#16A34A" />
+      <g transform={`translate(${LX - 84} 450)`}>
+        <rect y="1.5" width="168" height="24" rx="12" fill="#0F172A" opacity=".06" />
+        <rect width="168" height="24" rx="12" fill="#F8FAFC" stroke="#CBD5E1" />
+        <Txt x={84} y={16.5} size={12.5} weight={700} fill="#475569" anchor="middle">Nước trung tính (pH ~7)</Txt>
       </g>
 
-      {/* ================= CỐC 2: AXIT RỄ CÂY ================= */}
-      <g transform="translate(294, 14)">
-        <rect x="0" y="0" width="200" height="32" rx="16" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.5" />
-        <text x="100" y="21" textAnchor="middle" fill="#5B21B6" fontSize="12.5" fontWeight="800">🌱 AXIT RỄ CÂY TIẾT RA</text>
+      {/* ============ THẺ PHẢI: ACID YẾU ============ */}
+      <rect x="310" y="102" width="270" height="378" rx="22" fill={u('cardR')} stroke="#C4B5FD" strokeWidth="1.5" filter={u('shadow')} />
+      <rect x="312" y="104" width="266" height="50" rx="20" fill={u('gloss')} opacity=".6" />
+      <g transform="translate(330 114)">
+        <rect width="230" height="32" rx="16" fill="#F3EEFF" stroke="#8C6BFA" strokeWidth="1.5" />
+        <path d="M13 24C13 15 19 10 27 9C27 18 22 24 13 24Z" fill="#8C6BFA" />
+        <path d="M13 24L22 14" stroke="#fff" strokeWidth="1.4" strokeLinecap="round" />
+        <Txt x={36} y={21} size={12.5} weight={800} fill="#5B21B6" spacing={0.4}>MÔI TRƯỜNG ACID YẾU</Txt>
+      </g>
 
-        {/* thân cây nhỏ phía trên */}
-        <g transform="translate(100, 46)">
-          <path d="M 0 48 Q -2 26, 0 10" stroke="#16A34A" strokeWidth="4.5" strokeLinecap="round" fill="none" />
-          <g className="fp-sway" style={{ transformOrigin: '0px 36px' }}>
-            <path d="M 0 22 Q -26 10, -34 24 Q -14 34, 0 22 Z" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.2" />
-            <path d="M 0 16 Q 26 2, 36 16 Q 16 28, 0 16 Z" fill="#86EFAC" stroke="#16A34A" strokeWidth="1.2" />
-            <path d="M 0 10 Q -6 -6, 4 -12 Q 10 2, 0 10 Z" fill="#22C55E" stroke="#16A34A" strokeWidth="1.2" />
-          </g>
-        </g>
-
-        <g transform="translate(24, 92)">
-          <path d={glass} fill="#FCFAFF" />
-          <g clipPath="url(#fpClipR)">
-            <g className="fp-wave">
-              <path d={liquid} fill="url(#fpSap)" opacity="0.85" />
-              <path d="M -10 52 Q 12 44, 34 52 T 78 52 T 122 52 T 166 52 L 166 70 L -10 70 Z" fill="#DDD6FE" opacity="0.95" />
-            </g>
-
-            {/* rễ chính + rễ phụ + lông hút */}
-            <g className="fp-sway" strokeLinecap="round" fill="none">
-              <path d="M 76 0 Q 84 60, 74 110 Q 70 140, 76 168" stroke="#8A654A" strokeWidth="7" />
-              <path d="M 77 70 Q 58 88, 38 98 M 75 100 Q 100 112, 118 108 M 74 130 Q 54 146, 42 168 M 75 140 Q 98 156, 108 176" stroke="#A47551" strokeWidth="3.5" />
-              <path d="M 52 92 l -8 -6 M 48 96 l -8 4 M 106 112 l 8 -6 M 112 110 l 8 5 M 56 146 l -8 -2 M 98 156 l 8 -4" stroke="#D6B896" strokeWidth="1.6" />
-            </g>
-
-            {/* giọt axit hữu cơ rỉ ra từ rễ */}
-            {[[76, 168, 0], [42, 168, 0.7], [108, 176, 1.4], [38, 98, 2.1], [118, 108, 2.8]].map(([x, y, d], i) => (
-              <circle key={i} cx={x} cy={y} r="3.6" fill="#FDE047" stroke="#EAB308" strokeWidth="1">
-                <animate attributeName="cy" values={`${y};${y + 26}`} dur="2.4s" begin={`${d}s`} repeatCount="indefinite" />
-                
-              </circle>
-            ))}
-
-            {/* hạt lân đang rã */}
-            {[[40, 214, 10], [64, 218, 9], [92, 216, 10], [116, 213, 9]].map(([x, y, r], i) => (
-              <g key={i}>
-                <circle cx={x} cy={y} r={r + 7} fill="url(#fpGlow)" className="fp-pulse" style={{ animationDelay: `${i * 0.4}s` }} />
-                <circle cx={x} cy={y} r={r} fill="#8C6BFA" opacity={0.55 - i * 0.04} />
-                <circle cx={x - 7} cy={y - 7} r="2" fill="#FFFFFF" opacity="0.6" />
-              </g>
-            ))}
-
-            {/* ion photphat bay lên rễ */}
-            <g transform="translate(76, 206)">
-              {ions.map(([x, y, r, d], i) => (
-                <g key={i}>
-                  <circle cx={x} cy={0} r={r} fill="url(#fpIon)">
-                    <animate attributeName="cy" values={`0;${y * 1.9}`} dur="4.8s" begin={`${d}s`} repeatCount="indefinite" />
-                    <animate attributeName="cx" values={`${x};${x * 0.2}`} dur="4.8s" begin={`${d}s`} repeatCount="indefinite" />
-                    
-                  </circle>
-                </g>
-              ))}
-            </g>
-            <text x="76" y="203" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="800" opacity="0.9">H₂PO₄⁻</text>
-            <rect className="fp-shine" x="0" y="0" width="30" height="240" fill="url(#fpGlassShine)" opacity="0.35" transform="skewX(-12)" />
-          </g>
-          <path d={glass} fill="none" stroke="#8C6BFA" strokeWidth="3" strokeLinejoin="round" />
-          <path d="M 12 14 L 22 196" stroke="#FFFFFF" strokeWidth="4" strokeLinecap="round" opacity="0.7" />
-
-          <g className="fp-float">
-            <rect x="4" y="60" width="144" height="26" rx="13" fill="#6D28D9" />
-            <text x="76" y="78" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="900">TAN NHANH CHÓNG!</text>
-          </g>
-
-          {/* Chip pH thông số khoa học */}
-          <g transform="translate(4, 252)">
-            <rect x="0" y="0" width="144" height="22" rx="11" fill="#FAF5FF" stroke="#DDD6FE" strokeWidth="1" />
-            <text x="72" y="15" textAnchor="middle" fill="#6B21A8" fontSize="13" fontWeight="700">pH 5–6 · Axit hữu cơ quanh rễ</text>
-          </g>
+      {/* cây + rễ (phần trên cốc) */}
+      <g transform={`translate(${RX} ${CY})`}>
+        <g className="fp-sway">
+          <path d="M0 4Q-3-20 0-48" stroke="#16A34A" strokeWidth="4.6" strokeLinecap="round" fill="none" />
+          <path d="M0-14Q-26-24-34-8Q-14 2 0-14Z" fill="#4ADE80" stroke="#16A34A" strokeWidth="1.2" />
+          <path d="M0-26Q26-38 36-22Q16-10 0-26Z" fill="#86EFAC" stroke="#16A34A" strokeWidth="1.2" />
+          <path d="M0-46Q-8-62 4-70Q12-54 0-46Z" fill="#22C55E" stroke="#16A34A" strokeWidth="1.2" />
+          <path d="M-24-16Q-14-14-6-12M24-24Q14-22 6-20" stroke="#fff" strokeOpacity=".5" strokeWidth="1.2" fill="none" strokeLinecap="round" />
         </g>
       </g>
 
-      {/* ================= DẢI GIẢI THÍCH ================= */}
-      <g>
-        <rect x="36" y="406" width="468" height="58" rx="18" fill="url(#fpPill)" stroke="#22C55E" strokeWidth="1.8" />
+      <Cup cx={RX} y={CY} tint="#DDD6FE" rim="#8C6BFA" u={u}>
+        <rect x="-70" y="-6" width="140" height="210" fill={u('sap')} opacity=".9" />
+        <g className="fp-wave">
+          <path d="M-90 40Q-70 33-50 40T-10 40T30 40T70 40T110 40V64H-90Z" fill="#E4DCFF" opacity=".95" />
+          <path d="M-90 40Q-70 33-50 40T-10 40T30 40T70 40T110 40" fill="none" stroke="#fff" strokeWidth="1.6" opacity=".9" />
+        </g>
+
+        {/* giọt axit hữu cơ từ rễ rơi xuống hạt */}
+        {[[-44, 74, 0], [44, 82, 1.1], [-30, 60, 2.2]].map(([x, y, d], i) => (
+          <circle key={i} className="fp-drip" style={{ animationDelay: `${d}s` }} cx={x} cy={y} r="3.6" fill="#FDE047" stroke="#EAB308" strokeWidth="1" />
+        ))}
+
+        {/* ion đi lên về phía rễ (vẽ trước nhãn) */}
+        {[
+          [-34, 160, 9, 'ionP', 'H₂PO₄⁻', 0],
+          [-6, 164, 7.5, 'ionCa', 'Ca²⁺', 1.0],
+          [22, 160, 9, 'ionP', 'H₂PO₄⁻', 2.0],
+          [42, 166, 7, 'ionMg', 'Mg²⁺', 3.0],
+        ].map(([x, y, r, g, t, d], i) => (
+          <g key={i} transform={`translate(${x} ${y})`}>
+            <g className="fp-ion" style={{ animationDelay: `${d}s` }}>
+              <circle r={r + 3} fill="#fff" opacity=".25" />
+              <circle r={r} fill={u(g)} stroke="#fff" strokeWidth="1.2" />
+              <circle cx={-r * 0.3} cy={-r * 0.35} r={r * 0.26} fill="#fff" opacity=".6" />
+              {t.length < 6 && <Txt x={0} y={3.2} size={8} weight={900} fill="#fff" anchor="middle">{t}</Txt>}
+            </g>
+          </g>
+        ))}
+
+        {/* hạt đang hòa tan (nhỏ dần, phát sáng) */}
+        {[[-34, 180, 0.95, 12, 0], [-10, 186, 0.8, -20, 0.5], [16, 182, 0.9, 30, 1], [38, 186, 0.78, -8, 1.5], [-22, 170, 0.6, 40, 0.8], [30, 172, 0.55, 15, 1.2]].map(([x, y, s, r, d], i) => (
+          <g key={i} className="fp-pulse" style={{ animationDelay: `${d}s` }}>
+            <Grain x={x} y={y} s={s} rot={r} u={u} lit />
+          </g>
+        ))}
+
+        {/* rễ trong dung dịch */}
+        <g className="fp-sway" strokeLinecap="round" fill="none">
+          <path d="M0-4Q6 24 -2 52Q-6 74 0 94" stroke="#8A654A" strokeWidth="6" />
+          <path d="M2 38Q-20 52-36 62M0 62Q22 72 36 70M-3 80Q-18 90-30 98" stroke="#A47551" strokeWidth="3.2" />
+          <path d="M-14 46l-7-5M-26 56l-8-1M-20 53l-4 7M26 68l7-4M32 70l6 4M-12 88l-6-4M-22 94l-8 0" stroke="#D6B896" strokeWidth="1.5" />
+        </g>
+        <circle className="fp-ring" cx="0" cy="94" r="7" fill="none" stroke="#16A34A" strokeWidth="1.6" />
+        <circle className="fp-ring" style={{ animationDelay: '1.3s' }} cx="-30" cy="98" r="5" fill="none" stroke="#16A34A" strokeWidth="1.4" />
+
+        <g className="fp-float">
+          <rect x="-52" y="104" width="104" height="26" rx="13" fill="#6D28D9" stroke="#fff" strokeWidth="1.4" />
+          <rect x="-49" y="106" width="98" height="9" rx="4.5" fill="#fff" opacity=".2" />
+          <circle cx="-38" cy="117" r="6" fill="#fff" />
+          <path d="M-41 117l2.2 2.2l4-4.6" stroke="#6D28D9" strokeWidth="1.8" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+          <Txt x={6} y={121.5} size={12.5} weight={900} fill="#fff" anchor="middle">HÒA TAN P</Txt>
+        </g>
+      </Cup>
+
+      <PhBar cx={RX} y={424} pos={0.3} u={u} color="#8C6BFA" />
+      <g transform={`translate(${RX - 90} 450)`}>
+        <rect y="1.5" width="180" height="24" rx="12" fill="#0F172A" opacity=".06" />
+        <rect width="180" height="24" rx="12" fill="#FAF5FF" stroke="#DDD6FE" />
+        <Txt x={90} y={16.5} size={12.5} weight={700} fill="#6B21A8" anchor="middle">Acid yếu / axit citric 2%</Txt>
       </g>
-      <g transform="translate(64, 435)">
-        <circle r="15" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1.5" />
-        <text y="5" textAnchor="middle" fontSize="16">⛰️</text>
+
+      {/* VS */}
+      <g transform="translate(300 292)">
+        <circle className="fp-vs" r="24" fill="#312E81" opacity=".12" />
+        <circle r="20" fill="#fff" stroke="#CBD5E1" strokeWidth="1.5" />
+        <circle r="20" fill={u('gloss')} opacity=".6" />
+        <Txt x={0} y={5} size={13.5} weight={900} fill="#475569" anchor="middle">VS</Txt>
       </g>
-      <text x="286" y="431" textAnchor="middle" fill="#166534" fontSize="13.5" fontWeight="800">
-        TÍNH KIỀM (pH 8–8,5) + GIÀU CANXI, MAGIÊ, SILIC
-      </text>
-      <text x="286" y="450" textAnchor="middle" fill="#15803D" fontSize="13" fontWeight="600">
-        Đặc trị tuyệt vời cho đất đồi dốc dầm mưa và đất phèn trũng miền Tây
-      </text>
+
+      {/* ============ THÀNH PHẦN THAM KHẢO ============ */}
+      <rect x="20" y="492" width="560" height="36" rx="18" fill="#fff" stroke="#E2E8F0" filter={u('shadow')} />
+      <Txt x={36} y={507} size={12.5} weight={800} fill="#334155">Thành phần điển hình</Txt>
+      <Txt x={36} y={521} size={11.5} weight={600} fill="#64748B">tham khảo, tùy nhà sản xuất</Txt>
+      {[
+        { x: 200, w: 126, t: 'P₂O₅ hữu hiệu ~15–17%', c: '#6D28D9', bg: '#F3EEFF', st: '#DDD6FE', big: true },
+        { x: 334, w: 70, t: 'CaO', c: '#0F766E', bg: '#E6FFFA', st: '#99F6E4' },
+        { x: 412, w: 70, t: 'MgO', c: '#B45309', bg: '#FFF7E0', st: '#FDE68A' },
+        { x: 490, w: 76, t: 'SiO₂', c: '#475569', bg: '#F1F5F9', st: '#CBD5E1' },
+      ].map((c) => (
+        <g key={c.t} transform={`translate(${c.x} 498)`}>
+          <rect width={c.w} height="24" rx="12" fill={c.bg} stroke={c.st} />
+          <rect x="3" y="2" width={c.w - 6} height="9" rx="4.5" fill="#fff" opacity=".6" />
+          <Txt x={c.w / 2} y={16.5} size={c.big ? 11.5 : 12.5} weight={800} fill={c.c} anchor="middle">{c.t}</Txt>
+        </g>
+      ))}
+
+      {/* ============ DẢI GIẢI THÍCH ============ */}
+      <rect x="20" y="540" width="560" height="62" rx="20" fill={u('band')} stroke="#16A36A" strokeWidth="1.8" filter={u('shadow')} />
+      <rect x="23" y="542" width="554" height="22" rx="18" fill={u('gloss')} opacity=".6" />
+      <g transform="translate(54 571)">
+        <circle r="16" fill="#DCFCE7" stroke="#16A34A" strokeWidth="1.6" />
+        <circle cx="-5" cy="-6" r="4" fill="#fff" opacity=".6" />
+        <Txt x={0} y={5} size={13} weight={900} fill="#15803D" anchor="middle">P+</Txt>
+      </g>
+      <Txt x={318} y={566} size={13.5} weight={900} fill="#166534" anchor="middle">CUNG CẤP P HỮU HIỆU CÙNG Ca, Mg, Si (TÙY SẢN PHẨM)</Txt>
+      <Txt x={318} y={586} size={12.5} weight={600} fill="#15803D" anchor="middle">Phù hợp một số đất chua / cần Ca–Mg · Chọn theo pH đất, cây trồng &amp; nhãn</Txt>
     </svg>
   );
 }

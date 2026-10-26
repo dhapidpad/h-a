@@ -2,72 +2,89 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgApatiteMine from '../components/illustrations/SvgApatiteMine';
 
+/* ==========================================================================
+   SLIDE 13 — LÂN CÂU 5: APATIT LÀO CAI, NHÀ MÁY & TÀI NGUYÊN (MỤC 5 - SLIDE 13)
+   - Tiêu đề: TỪ QUẶNG APATIT ĐẾN PHÂN LÂN — TÀI NGUYÊN CẦN SỬ DỤNG HIỆU QUẢ
+   - Màn hình bắt buộc:
+     1. Nguyên liệu tự nhiên: quặng apatit, phosphorit · Mỏ apatit tiêu biểu: Lào Cai
+     2. Nhà máy tiêu biểu: Supe Lâm Thao · Lân nung chảy Văn Điển · Phân lân Ninh Bình (NIFERCO)
+     3. Thách thức: chất lượng quặng, tuyển quặng, bãi thải, nước/bụi và phục hồi môi trường
+   - Tuyệt đối phân biệt Phân lân Ninh Bình (NIFERCO) với Đạm Ninh Bình (ở Slide 7).
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'mine',
+    id: 'ore',
     number: '01',
     tone: 'purple',
-    title: 'MỎ APATIT LÀO CAI: TRỮ LƯỢNG HÀNG ĐẦU ĐÔNG NAM Á',
-    badge: 'LÀO CAI ~2.5B TẤN',
+    title: 'NGUYÊN LIỆU TỰ NHIÊN: QUẶNG APATIT, PHOSPHORIT · MỎ LÀO CAI',
+    badge: 'Apatit Lào Cai',
     desc: (
       <>
-        Quặng Apatit <strong>3Ca₃(PO₄)₂·CaF₂</strong> tại Lào Cai dài hơn <strong>100 km dọc sông Hồng</strong> (trữ lượng ~2.5 tỷ tấn) là mỏ photphat lớn nhất Đông Nam Á.
+        Nguyên liệu photphat tự nhiên chính gồm <strong>quặng apatit và phosphorit</strong>; tại Việt Nam, <strong>mỏ apatit Lào Cai</strong> là nguồn cung cấp quặng chủ lực.
       </>
-    ),
+    )
   },
   {
-    id: 'factories',
+    id: 'plants',
     number: '02',
-    tone: 'blue',
-    title: '3 NHÀ MÁY TRỤ CỘT NGÀNH LÂN VIỆT NAM',
-    badge: '3 ĐẠI NHÀ MÁY',
+    tone: 'green',
+    title: 'NHÀ MÁY TIÊU BIỂU: SUPE LÂM THAO · VĂN ĐIỂN · PHÂN LÂN NINH BÌNH (NIFERCO)',
+    badge: '3 cơ sở phân lân',
     desc: (
       <>
-        1. <strong>Supe Phốt phát Lâm Thao</strong> (Phú Thọ) • 2. <strong>Lân Nung Chảy Văn Điển</strong> (Hà Nội) • 3. <strong>Lân Nung Chảy Ninh Bình</strong>.
+        • <strong>Supe Phốt phát &amp; Hóa chất Lâm Thao</strong> (Phú Thọ — supe lân/NPK) ·{' '}
+        • <strong>Phân lân nung chảy Văn Điển</strong> (Hà Nội) ·{' '}
+        • <strong>Công ty CP Phân lân Ninh Bình (NIFERCO)</strong> (lân nung chảy/NPK).
       </>
-    ),
+    )
   },
   {
     id: 'challenge',
     number: '03',
     tone: 'red',
-    title: 'THÁCH THỨC: CẠN KIỆT QUẶNG GIÀU LOẠI 1',
-    badge: 'TUYỂN NỔI QUẶNG',
+    title: 'THÁCH THỨC: CHẤT LƯỢNG QUẶNG, TUYỂN QUẶNG, BÃI THẢI & PHỤC HỒI MÔI TRƯỜNG',
+    badge: 'Tài nguyên & Môi trường',
     desc: (
       <>
-        Quặng loại 1 (&gt;28% P₂O₅) dần cạn kiệt; phải đẩy mạnh <strong>công nghệ tuyển nổi quặng nghèo loại 2, 3</strong> và xử lý bãi thải thạch cao phosphogypsum.
+        Quặng giàu giảm dần đòi hỏi <strong>tuyển quặng nghèo tốn năng lượng</strong>; cần quản lý chặt <strong>bãi thải, bùn/nước thải, bụi</strong> và phục hồi môi trường sau khai thác.
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide13LanQ5({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="lan"
-      pillText="PHÂN LÂN (P) • CÂU HỎI 05 / 15"
-      title="QUẶNG APATIT LÀO CAI & BÀI TOÁN TÀI NGUYÊN"
-      badgeIcon="2.5B"
-      badgeSub="MỎ APATIT LÀO CAI"
-      badgeMain="Trữ lượng hàng đầu Đông Nam Á"
-      question="Nguyên liệu tự nhiên sản xuất phân lân là gì? Vai trò của mỏ Apatit Lào Cai, 3 nhà máy lớn và thách thức cạn kiệt quặng giàu?"
+      pillText="PHÂN LÂN (P) • CÂU 10 / 15"
+      title="TỪ QUẶNG APATIT ĐẾN PHÂN LÂN — TÀI NGUYÊN CẦN SỬ DỤNG HIỆU QUẢ"
+      badgeIcon="P"
+      badgeSub="KHOÁNG SẢN & CÔNG NGHIỆP"
+      badgeMain="Mỏ Lào Cai · 3 Nhà máy lân"
+      question="Sử dụng hiệu quả quặng apatit Lào Cai, nâng cao công nghệ tuyển/chế biến và kiểm soát môi trường bền vững."
+      questionChips={[
+        { label: 'Lâm Thao', tone: 'green' },
+        { label: 'Văn Điển', tone: 'purple' },
+        { label: 'NIFERCO Ninh Bình', tone: 'blue' }
+      ]}
       pillars={PILLARS}
       note={{
-        tag: 'ECO',
-        title: 'Kinh tế tuần hoàn:',
-        text: 'Tận dụng xỉ quặng lân nung chảy và bã thạch cao nhân tạo sau chế biến để sản xuất phụ gia xi măng và vật liệu xây dựng.',
+        tag: 'PHÂN BIỆT',
+        title: 'Đúng tên cơ sở:',
+        text: 'Công ty Cổ phần Phân lân Ninh Bình (NIFERCO) sản xuất phân lân nung chảy & NPK — hoàn toàn khác với Nhà máy Đạm Ninh Bình (sản xuất urê từ than).'
       }}
       mascot={{
         mascotType: 'SPARKY_P',
         emotion: 'curious',
-        speech: 'Tài nguyên quặng tự nhiên là hữu hạn, chúng mình phải khai thác tiết kiệm và tái chế tuần hoàn bạn nhé! 🏔️⚡',
+        speech: 'Từ mỏ apatit Lào Cai đến Lâm Thao, Văn Điển và Phân lân Ninh Bình (NIFERCO) — hãy dùng tài nguyên thật tiết kiệm! ⛏️'
       }}
       svgCard={{
-        title: 'MỎ APATITE LÀO CAI & CÔNG NGHIỆP LÂN',
-        subtitle: 'Tài nguyên quốc gia • 3 trụ cột Lâm Thao, Văn Điển, Ninh Bình & Kinh tế tuần hoàn',
-        badge: 'Quặng Loại 1–4',
+        title: 'MỎ APATIT LÀO CAI & BA CƠ SỞ SẢN XUẤT PHÂN LÂN',
+        subtitle: 'Khai thác Lào Cai → Tuyển/chế biến quặng → Lâm Thao · Văn Điển · Phân lân Ninh Bình (NIFERCO)',
+        badge: 'Apatit → Phân lân',
         takeaway:
-          'Quặng Apatit Lào Cai là nguồn báu vật tự nhiên duy nhất sản xuất phân lân tại Việt Nam. Công nghệ hiện đại tuyển quặng nghèo và tái chế phụ phẩm xỉ quặng làm xi măng thúc đẩy nền kinh tế tuần hoàn bền vững.',
+          'Quặng apatit Lào Cai là nguồn nguyên liệu quan trọng cho Supe Lâm Thao, Lân nung chảy Văn Điển và Phân lân Ninh Bình (NIFERCO). Cần kết hợp tuyển quặng hợp lý, xử lý chất thải và phục hồi môi trường.'
       }}
       onOpenNotes={onOpenNotes}
     >

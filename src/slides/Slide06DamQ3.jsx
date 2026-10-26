@@ -2,46 +2,54 @@ import React, { useState } from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgGasLoss from '../components/illustrations/SvgGasLoss';
 
+/* ==========================================================================
+   SLIDE 06 — ĐẠM CÂU 3: ĐẠM AMONI, ĐẤT CHUA VÀ BÓN VÔI (MỤC 5 - SLIDE 06)
+   - Tiêu đề: ĐẠM AMONI + VẬT LIỆU KIỀM: CÓ THỂ MẤT N DẠNG NH₃
+   - Màn hình (split-screen 2 trường hợp + nguyên tắc):
+     1. Bón cùng vật liệu kiềm/vôi: NH₄⁺ + OH⁻ ⇌ NH₃↑ + H₂O → nguy cơ bay hơi NH₃.
+     2. Quá trình nitrat hóa: NH₄⁺ + 2O₂ → NO₃⁻ + 2H⁺ + H₂O → có thể làm đất chua thêm.
+   - Không tuyên bố cứng "cách đúng 15 ngày cho mọi đất/cây".
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'hydrolysis',
-    number: '01',
-    tone: 'blue',
-    title: 'CƠ CHẾ THỦY PHÂN URÊ TRONG ĐẤT',
-    badge: 'THỦY PHÂN',
-    equation: 'Phản ứng: CO(NH₂)₂ + 2H₂O ⟶ (NH₄)₂CO₃',
-    desc: (
-      <>
-        Nhờ enzyme Urease của vi sinh vật đất, Urê chuyển thành <strong>(NH₄)₂CO₃</strong> tan trong nước, phân li ra ion <strong>NH₄⁺</strong> cho rễ hấp thu.
-      </>
-    ),
-  },
-  {
     id: 'lime',
-    number: '02',
+    number: '01',
     tone: 'red',
-    title: 'BỐC HƠI KHI GẶP ĐẤT KIỀM / TRỘN VÔI',
-    badge: 'MẤT NH₃↑',
-    equation: 'Phản ứng: NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O',
+    title: 'BÓN CÙNG VẬT LIỆU KIỀM / VÔI: NGUY CƠ BAY HƠI NH₃',
+    badge: 'NH₃↑ Thất thoát',
+    equation: 'NH₄⁺ + OH⁻ ⇌ NH₃↑ + H₂O',
     desc: (
       <>
-        Gốc <strong>OH⁻</strong> của vôi kiềm đẩy NH₄⁺ thành khí <strong>NH₃ bay hơi</strong>. Trộn vôi hoặc phơi nắng mặt ruộng làm mất <strong>30% – 50% đạm</strong>!
+        Trong môi trường kiềm, ion <strong>NH₄⁺</strong> chuyển dịch cân bằng sang khí <strong>amoniac (NH₃) dễ bay hơi</strong>, gây thất thoát nitơ.
       </>
-    ),
+    )
   },
   {
-    id: 'leaching',
-    number: '03',
+    id: 'acid',
+    number: '02',
     tone: 'amber',
-    title: 'RỬA TRÔI NƯỚC NGẦM & CHUA HÓA ĐẤT',
-    badge: 'RỬA TRÔI',
-    equation: 'Nitrat hóa: NH₄⁺ + 2O₂ ⟶ NO₃⁻ + 2H⁺ + H₂O',
+    title: 'QUÁ TRÌNH NITRAT HÓA: CÓ THỂ LÀM ĐẤT CHUA THÊM',
+    badge: 'Sinh ra H⁺',
+    equation: 'NH₄⁺ + 2O₂ → NO₃⁻ + 2H⁺ + H₂O',
     desc: (
       <>
-        Ion <strong>NO₃⁻ (-)</strong> không bám keo đất âm nên dễ bị mưa rửa trôi gây phú dưỡng; còn <strong>H⁺ sinh ra</strong> làm đất chua càng thêm chua.
+        Vi sinh vật oxy hóa <strong>NH₄⁺ thành NO₃⁻</strong> và giải phóng ion <strong>H⁺</strong>; dùng lặp lại các nguồn N có tính acid hóa có thể làm giảm pH đất.
       </>
-    ),
+    )
   },
+  {
+    id: 'rule',
+    number: '03',
+    tone: 'green',
+    title: 'NGUYÊN TẮC: KHÔNG TRỘN / BÓN ĐỒNG THỜI ĐẠM AMONI VỚI VÔI',
+    badge: 'Bón cách thời điểm',
+    desc: (
+      <>
+        Không trộn hoặc bón cùng lúc phân đạm amoni với vôi/vật liệu kiềm mạnh; <strong>bón cách thời điểm</strong> theo kết quả phân tích đất, loại vật liệu và hướng dẫn canh tác.
+      </>
+    )
+  }
 ];
 
 export default function Slide06DamQ3({ onOpenNotes }) {
@@ -50,34 +58,31 @@ export default function Slide06DamQ3({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="dam"
-      pillText="PHÂN ĐẠM (N) • CÂU HỎI 03 / 15"
-      title="ĐẠM AMONI VỚI ĐẤT CHUA & ĐẤT VÔI (THẤT THOÁT NH₃)"
+      pillText="PHÂN ĐẠM (N) • CÂU 03 / 15"
+      title="ĐẠM AMONI + VẬT LIỆU KIỀM: CÓ THỂ MẤT N DẠNG NH₃"
       badgeIcon={{ text: 'NH₃↑', bg: 'linear-gradient(135deg, var(--danger) 0%, var(--danger-deep) 100%)' }}
-      badgeSub="TƯƠNG KỴ HÓA HỌC"
-      badgeMain="NH₄⁺ + OH⁻ ⟶ NH₃↑ + H₂O"
-      question="Urê chuyển hóa trong đất thế nào? Tại sao bón đạm amoni trên đất chua làm đất thêm chua, còn trộn chung với vôi bột lại bay hơi mất đạm?"
+      badgeSub="CÂN BẰNG HÓA HỌC"
+      badgeMain="NH₄⁺ + OH⁻ ⇌ NH₃↑ + H₂O"
+      question="Không trộn hoặc bón đồng thời đạm amoni với vôi; quản lý pH đất chua hợp lý để hạn chế thất thoát N."
       pillars={PILLARS}
       activeCardId={activeCard}
       onSelectCard={setActiveCard}
       note={{
-        tag: 'MẸO',
-        title: 'Kỹ thuật chống mất đạm:',
-        text: 'Vùi sâu 5–7 cm rồi lấp đất kín; cách ly thời gian bón vôi khử chua và bón đạm ít nhất 15–20 ngày.',
+        tag: 'LƯU Ý',
+        title: 'Phân biệt vật liệu vôi:',
+        text: 'Đá vôi nghiền CaCO₃ và vôi tôi Ca(OH)₂ có độ kiềm và tốc độ phản ứng khác nhau; cần bón theo pH đất thực tế.'
       }}
       mascot={{
         mascotType: 'SPROUTY_N',
         emotion: activeCard === 'lime' ? 'shocked' : 'teacher',
-        speech:
-          activeCard === 'lime'
-            ? 'Ối dồi ôi! Gặp vôi bột là tớ biến thành khí NH₃ bay mất lên mây liền, phí tiền của bà con lắm đó! 😱'
-            : 'Hãy vùi sâu tớ xuống đất rồi tưới ẩm nhẹ nhàng, rễ cây sẽ hút trọn vẹn 100% nha! 🌱✨',
+        speech: 'Không trộn chung phân đạm amoni với vôi để tránh mất nitơ dưới dạng khí NH₃ bay hơi nhé! ⚠️'
       }}
       svgCard={{
-        title: 'BỐC HƠI NH₃ & RỬA TRÔI NITRAT',
-        subtitle: 'Cơ chế thủy phân Urê • Tương kỵ NH₄⁺ + OH⁻ ⟶ NH₃↑ & rửa trôi NO₃⁻',
-        badge: 'NH₃↑ Bốc hơi',
+        title: 'SO SÁNH 2 QUÁ TRÌNH: ĐẤT CHUA & GẶP VÔI KIỀM',
+        subtitle: 'Nitrat hóa tạo H⁺ (NH₄⁺ + 2O₂ → NO₃⁻ + 2H⁺ + H₂O) · Gặp kiềm bay hơi NH₃↑',
+        badge: 'NH₄⁺ ⇌ NH₃↑',
         takeaway:
-          'Trộn đạm với vôi hoặc bón rải mặt gặp nắng gắt làm NH₄⁺ chuyển thành khí NH₃ bay hơi mất 30–50% đạm. Ion NO₃⁻ không bám keo đất dễ bị mưa lớn cuốn trôi gây ô nhiễm nguồn nước ngầm.',
+          'Bón đạm amoni cùng vôi/kiềm thúc đẩy phản ứng NH₄⁺ + OH⁻ ⇌ NH₃↑ + H₂O làm mất đạm. Quá trình nitrat hóa NH₄⁺ sinh ra H⁺ nên đất chua cần được quản lý pH và hữu cơ cân đối.'
       }}
       onOpenNotes={onOpenNotes}
     >

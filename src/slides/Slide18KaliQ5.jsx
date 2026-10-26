@@ -2,72 +2,82 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgSoilCompaction from '../components/illustrations/SvgSoilCompaction';
 
+/* ==========================================================================
+   SLIDE 18 — KALI CÂU 5: LẠM DỤNG KCl, ĐẤT MẶN & HỆ SINH THÁI ĐẤT (MỤC 5 - SLIDE 18)
+   - Tiêu đề: LẠM DỤNG MUỐI PHÂN BÓN: THEO DÕI EC, THOÁT NƯỚC VÀ CÂN BẰNG DINH DƯỠNG
+   - Màn hình (3 hệ quả có điều kiện + dòng giải pháp):
+     1. Muối hòa tan tích lũy → EC tăng, rễ khó hút nước
+     2. Cl⁻ cao có thể gây stress cho cây nhạy chloride
+     3. Độ mặn cao có thể làm thay đổi hoạt động vi sinh và tăng stress đất
+   - Dòng giải pháp: Đúng liều · kiểm tra EC/pH · bảo đảm thoát nước · bổ sung hữu cơ phù hợp.
+   ========================================================================== */
+
 const PILLARS = [
   {
     id: 'ec',
     number: '01',
     tone: 'red',
-    title: 'TÍCH TỤ ĐỘ MẶN (EC TĂNG) — NGUY CƠ HẠN SINH LÝ',
-    badge: 'TĂNG ĐỘ MẶN EC',
+    title: 'MUỐI HÒA TAN TÍCH LŨY → EC TĂNG, RỄ KHÓ HÚT NƯỚC',
+    badge: 'Tăng áp suất thẩm thấu',
     desc: (
       <>
-        Ion <strong>Cl⁻ dư thừa</strong> làm tăng độ dẫn điện (EC). Áp suất thẩm thấu đất cao hơn dịch rễ gây <strong>hạn sinh lý: rút ngược nước khỏi rễ</strong> làm cháy lông hút.
+        Khi dùng KCl quá mức (nhất là nơi thoát nước kém hoặc nước tưới có muối), ion hòa tan tích lũy làm <strong>độ dẫn điện EC tăng</strong>, khiến rễ khó hút nước.
       </>
-    ),
+    )
   },
   {
-    id: 'compaction',
+    id: 'chloride',
     number: '02',
     tone: 'amber',
-    title: 'PHÁ HỦY KEO ĐẤT — NÉN CHẶT CHAI CỨNG BÍ KHÍ',
-    badge: 'ĐẤT CHAI CỨNG',
+    title: 'Cl⁻ CAO CÓ THỂ GÂY STRESS CHO CÂY NHẠY CHLORIDE',
+    badge: 'Stress ion Cl⁻',
     desc: (
       <>
-        Cl⁻ kéo <strong>Ca²⁺, Mg²⁺</strong> tạo muối tan rửa trôi mất cầu nối keo đất. Đất mất cấu trúc viên đoàn, <strong>nén chặt bí khí</strong> làm nghẹt rễ và hại vi sinh vật.
+        Nồng độ <strong>ion clorua (Cl⁻) cao</strong> trong vùng rễ có thể gây stress sinh lý và làm giảm phẩm chất ở các cây trồng nhạy cảm với chloride.
       </>
-    ),
+    )
   },
   {
-    id: 'recovery',
+    id: 'microbe',
     number: '03',
     tone: 'green',
-    title: 'GIẢI PHÁP: LUÂN PHIÊN K₂SO₄ & BỒI BỔ HỮU CƠ',
-    badge: 'PHỤC HỒI HỮU CƠ',
+    title: 'ĐỘ MẶN CAO ẢNH HƯỞNG VI SINH VẬT & CẦN QUẢN LÝ TỔNG HỢP CẤU TRÚC ĐẤT',
+    badge: 'Hệ sinh thái đất',
     desc: (
       <>
-        Luân phiên sang <strong>K₂SO₄ hoặc kali hữu cơ</strong> (tro trấu, phân ủ), bón vôi bù Ca²⁺ và bổ sung mùn hữu cơ, nấm <strong>Trichoderma</strong> làm tơi xốp đất.
+        Độ mặn cao có thể làm thay đổi <strong>hoạt động vi sinh đất</strong>; riêng cấu trúc đất suy giảm (nén chặt, bí khí) còn phụ thuộc hữu cơ, natri trao đổi, cơ giới đất và tưới tiêu.
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide18KaliQ5({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="kali"
-      pillText="PHÂN KALI (K) • CÂU HỎI 05 / 15"
-      title="HỆ LỤY LẠM DỤNG KCL: ĐẤT CHAI CỨNG & BÍ KHÍ"
+      pillText="PHÂN KALI (K) • CÂU 15 / 15"
+      title="LẠM DỤNG MUỐI PHÂN BÓN: THEO DÕI EC, THOÁT NƯỚC VÀ CÂN BẰNG DINH DƯỠNG"
       badgeIcon={{ text: 'EC', bg: 'linear-gradient(135deg, var(--danger) 0%, var(--danger-deep) 100%)' }}
-      badgeSub="NGƯỠNG AN TOÀN ĐẤT"
-      badgeMain="Độ dẫn điện EC < 1.5 mS/cm"
-      question="Lạm dụng KCl lâu dài làm tăng độ mặn (EC) đất ra sao? Cơ chế phá vỡ cấu trúc keo đất, làm đất chai cứng bí khí và suy giảm vi sinh vật?"
+      badgeSub="QUẢN LÝ MẶN & ĐẤT"
+      badgeMain="Theo dõi EC · Thoát nước · Hữu cơ"
+      question="Giải pháp: Đúng liều · kiểm tra EC/pH · bảo đảm thoát nước · bổ sung hữu cơ phù hợp."
       pillars={PILLARS}
       note={{
-        tag: 'EC',
-        title: 'Kiểm soát định kỳ:',
-        text: 'Đo độ dẫn điện EC đất (< 1.5 mS/cm là an toàn) trước khi quyết định bón thêm phân muối khoáng KCl.',
+        tag: 'GIẢI PHÁP',
+        title: 'Phòng ngừa tích lũy muối:',
+        text: 'Đúng liều · kiểm tra EC/pH đất và nước tưới · bảo đảm thoát nước · bổ sung phân hữu cơ và chọn nguồn K phù hợp.'
       }}
       mascot={{
         mascotType: 'SUNNY_K',
         emotion: 'worried',
-        speech: 'Đừng bón KCl quá liều kẻo đất bị nghẹt thở và khát nước ngược đó nha! 🩺🧪',
+        speech: 'Bón đúng liều, kiểm tra EC/pH, giữ thoát nước tốt và bổ sung hữu cơ để bảo vệ rễ và vi sinh vật đất! 🩺'
       }}
       svgCard={{
-        title: 'THOÁI HÓA ĐẤT & BẢO VỆ ĐẤT BỀN VỮNG',
-        subtitle: 'Tích lũy muối Cl⁻ • Gia tăng độ dẫn điện EC & phá vỡ keo đất chai cứng',
-        badge: 'EC < 1.5 mS/cm',
+        title: 'CÂN BẰNG MUỐI HÒA TAN (EC) — NƯỚC — RỄ — VI SINH ĐẤT',
+        subtitle: 'Tích lũy muối hòa tan làm tăng EC · Phân biệt độ mặn (EC) với các yếu tố cấu trúc đất',
+        badge: 'Quản lý EC & Hữu cơ',
         takeaway:
-          'Lạm dụng KCl liên tục tích tụ gốc clo làm tăng chỉ số độ mặn EC của dung dịch đất, gây hiện tượng hạn sinh lý rút ngược nước khỏi tế bào rễ, đồng thời rửa trôi canxi làm đất bị nén chặt chai cứng và suy kiệt vi sinh vật có ích.',
+          'Lạm dụng KCl trong điều kiện thoát nước kém làm tăng muối hòa tan (EC), khiến rễ khó hút nước và ảnh hưởng vi sinh đất. Cần bón đúng liều, bảo đảm thoát nước và bổ sung chất hữu cơ.'
       }}
       onOpenNotes={onOpenNotes}
     >

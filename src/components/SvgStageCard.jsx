@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Maximize2, Minimize2, Sparkles } from 'lucide-react';
 
 /**
- * SvgStageCard - Khung trình chiếu minh họa SVG cao cấp (Morph & High-FPS Edition)
+ * SvgStageCard - Khung trình chiếu minh họa SVG cao cấp (Morph & TV 16:9 Edition)
  *
- * Nâng cấp theo mục 4.4, 5.2f & 6.2:
+ * Nâng cấp theo Master Spec:
  * 1. Đồng bộ hoàn toàn theo CSS token chương (--c-main, --c-deep, --c-tint, --c-line).
- * 2. Khi mở Lightbox (isZoomed), thêm class `is-paused` cho khung inline để đóng băng animation
- *    nằm dưới, không nhân đôi chi phí render.
- * 3. Hỗ trợ nhấn đúp (onDoubleClick) hoặc chạm đúp (double-tap) vào sơ đồ để mở phóng to nhanh.
+ * 2. Khi mở Lightbox (isZoomed), render qua createPortal(document.body) để thoát khỏi
+ *    transform: scale() của .slide-canvas, đảm bảo hiển thị toàn màn hình thực chất.
+ * 3. Đóng băng animation inline (CSS + SMIL pauseAnimations) khi Lightbox đang mở.
+ * 4. Hỗ trợ nhấn đúp (onDoubleClick), chạm đúp (double-tap), phím Z để bật/tắt, Esc để đóng.
  */
 const CHAPTER_META = {
-  dam:  { name: 'PHÂN ĐẠM (N)' },
-  lan:  { name: 'PHÂN LÂN (P)' },
-  kali: { name: 'PHÂN KALI (K)' },
+  dam: { name: 'PHÂN ĐẠM (N)' },
+  lan: { name: 'PHÂN LÂN (P)' },
+  kali: { name: 'PHÂN KALI (K)' }
 };
 
 export default function SvgStageCard({
@@ -26,11 +28,41 @@ export default function SvgStageCard({
 }) {
   const [isZoomed, setIsZoomed] = useState(false);
   const lastTapRef = useRef(0);
+  const inlineBoxRef = useRef(null);
+  const closeBtnRef = useRef(null);
 
-  // Phím tắt bàn phím: Z để bật/tắt phóng to, Esc để đóng
+  // Khi mở lightbox, SVG được render lần hai; dừng SMIL ở bản thu nhỏ để tránh nhân đôi chi phí animation
+  useEffect(() => {
+    if (!isZoomed) return undefined;
+    const inlineSvg = inlineBoxRef.current?.querySelector('svg');
+    if (inlineSvg && typeof inlineSvg.pauseAnimations === 'function') {
+      try {
+        inlineSvg.pauseAnimations();
+      } catch {
+        // Ignore if unsupported
+      }
+    }
+    // Đưa focus vào nút đóng trong Lightbox để hỗ trợ bàn phím
+    const focusTimer = setTimeout(() => {
+      closeBtnRef.current?.focus?.();
+    }, 30);
+
+    return () => {
+      clearTimeout(focusTimer);
+      if (inlineSvg && typeof inlineSvg.unpauseAnimations === 'function') {
+        try {
+          inlineSvg.unpauseAnimations();
+        } catch {
+          // Ignore if unsupported
+        }
+      }
+    };
+  }, [isZoomed]);
+
+  // Phím tắt bàn phím: Z để bật/tắt phóng to, Esc để đóng (ưu tiên trước Speaker Notes)
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
+      if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
       if (e.key === 'Escape' && isZoomed) {
         e.preventDefault();
         e.stopPropagation();
@@ -62,6 +94,80 @@ export default function SvgStageCard({
 
   const chapterName = (CHAPTER_META[chapter] && CHAPTER_META[chapter].name) || 'HÓA HỌC NPK';
 
+  const lightboxModal =
+    isZoomed && typeof document !== 'undefined'
+      ? createPortal(
+          <div
+            className={`svg-lightbox-backdrop chapter-theme-${chapter}`}
+            onClick={handleModalBackdropClick}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Sơ đồ phóng to: ${title}`}
+            data-no-swipe
+          >
+            <div className="svg-lightbox-container">
+              {/* Header Modal */}
+              <div className="svg-lightbox-header">
+                <div className="svg-lightbox-header-left">
+                  <span
+                    className="svg-lightbox-chapter-chip"
+                    style={{ backgroundColor: 'var(--c-tint)', color: 'var(--c-deep)' }}
+                  >
+                    {chapterName}
+                  </span>
+                  <h3 className="svg-lightbox-title">{title}</h3>
+                  {badge && (
+                    <span
+                      className="svg-lightbox-formula-pill"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.14)', color: '#F8FAFC' }}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                </div>
+
+                <div className="svg-lightbox-header-right">
+                  <button
+                    ref={closeBtnRef}
+                    type="button"
+                    className="svg-lightbox-close-btn"
+                    onClick={() => setIsZoomed(false)}
+                    title="Thu nhỏ lại (Phím tắt: Esc)"
+                    aria-label="Đóng phóng to"
+                  >
+                    <Minimize2 size={16} />
+                    <span>Thu nhỏ</span>
+                    <kbd className="svg-lightbox-kbd">Esc</kbd>
+                  </button>
+                </div>
+              </div>
+
+              {/* Nội dung SVG phóng cực đại */}
+              <div className="svg-lightbox-graphic-stage">
+                <div className="svg-lightbox-graphic-inner">{children}</div>
+              </div>
+
+              {/* Footer Modal tóm tắt kiến thức cốt lõi */}
+              {takeaway && (
+                <div className="svg-lightbox-takeaway-bar">
+                  <div
+                    className="svg-lightbox-takeaway-icon"
+                    style={{ backgroundColor: 'var(--c-tint)', color: 'var(--c-deep)' }}
+                  >
+                    <Sparkles size={18} />
+                  </div>
+                  <div className="svg-lightbox-takeaway-text">
+                    <strong>Ý nghĩa cốt lõi: </strong>
+                    {takeaway}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
+
   return (
     <>
       {/* ============================================================
@@ -73,11 +179,7 @@ export default function SvgStageCard({
           <div className="svg-stage-topbar-left">
             <span className="svg-stage-pulse-dot" />
             <span className="svg-stage-topbar-title">{title}</span>
-            {badge && (
-              <span className="svg-stage-topbar-badge">
-                {badge}
-              </span>
-            )}
+            {badge && <span className="svg-stage-topbar-badge">{badge}</span>}
           </div>
 
           <div className="svg-stage-topbar-right">
@@ -98,6 +200,7 @@ export default function SvgStageCard({
 
         {/* Khung hiển thị hình minh họa SVG */}
         <div
+          ref={inlineBoxRef}
           className="svg-stage-canvas-box"
           onDoubleClick={() => setIsZoomed(true)}
           onTouchEnd={handleTouchEnd}
@@ -121,78 +224,7 @@ export default function SvgStageCard({
         )}
       </div>
 
-      {/* ============================================================
-          THEATER / LIGHTBOX MODAL (CHẾ ĐỘ PHÓNG TO TOÀN CẢNH)
-          ============================================================ */}
-      {isZoomed && (
-        <div
-          className={`svg-lightbox-backdrop chapter-theme-${chapter}`}
-          onClick={handleModalBackdropClick}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Sơ đồ phóng to: ${title}`}
-        >
-          <div className="svg-lightbox-container">
-            {/* Header Modal */}
-            <div className="svg-lightbox-header">
-              <div className="svg-lightbox-header-left">
-                <span
-                  className="svg-lightbox-chapter-chip"
-                  style={{ backgroundColor: 'var(--c-tint)', color: 'var(--c-deep)' }}
-                >
-                  {chapterName}
-                </span>
-                <h3 className="svg-lightbox-title">{title}</h3>
-                {badge && (
-                  <span
-                    className="svg-lightbox-formula-pill"
-                    style={{ backgroundColor: 'rgba(255,255,255,0.14)', color: '#F8FAFC' }}
-                  >
-                    {badge}
-                  </span>
-                )}
-              </div>
-
-              <div className="svg-lightbox-header-right">
-                <button
-                  type="button"
-                  className="svg-lightbox-close-btn"
-                  onClick={() => setIsZoomed(false)}
-                  title="Thu nhỏ lại (Phím tắt: Esc)"
-                  aria-label="Đóng phóng to"
-                >
-                  <Minimize2 size={16} />
-                  <span>Thu nhỏ</span>
-                  <kbd className="svg-lightbox-kbd">Esc</kbd>
-                </button>
-              </div>
-            </div>
-
-            {/* Nội dung SVG phóng cực đại */}
-            <div className="svg-lightbox-graphic-stage">
-              <div className="svg-lightbox-graphic-inner">
-                {children}
-              </div>
-            </div>
-
-            {/* Footer Modal tóm tắt kiến thức cốt lõi */}
-            {takeaway && (
-              <div className="svg-lightbox-takeaway-bar">
-                <div
-                  className="svg-lightbox-takeaway-icon"
-                  style={{ backgroundColor: 'var(--c-tint)', color: 'var(--c-deep)' }}
-                >
-                  <Sparkles size={18} />
-                </div>
-                <div className="svg-lightbox-takeaway-text">
-                  <strong>Ý nghĩa cốt lõi: </strong>
-                  {takeaway}
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {lightboxModal}
     </>
   );
 }

@@ -2,72 +2,88 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgRootAtpStation from '../components/illustrations/SvgRootAtpStation';
 
+/* ==========================================================================
+   SLIDE 09 — LÂN CÂU 1: ION PHOTPHAT, RỄ, RA HOA VÀ ATP (MỤC 5 - SLIDE 09)
+   - Tiêu đề: P — NĂNG LƯỢNG ATP VÀ GIAI ĐOẠN HÌNH THÀNH RỄ
+   - Màn hình:
+     1. Cây hấp thụ P chủ yếu dạng H₂PO₄⁻ / HPO₄²⁻
+     2. P tham gia ATP, axit nucleic và màng tế bào
+     3. Hỗ trợ phát triển rễ và sinh trưởng sinh sản khi không thiếu/thừa
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'atp',
+    id: 'ions',
     number: '01',
     tone: 'purple',
-    title: 'TRẠM PIN NĂNG LƯỢNG ATP TẾ BÀO',
-    badge: 'ATP ~30.5 kJ/mol',
+    title: 'CÂY HẤP THỤ P CHỦ YẾU DẠNG H₂PO₄⁻ VÀ HPO₄²⁻',
+    badge: 'H₂PO₄⁻ / HPO₄²⁻',
     desc: (
       <>
-        Photpho là trung tâm cấu tạo phân tử <strong>ATP (Adenosine Triphosphate)</strong>. Liên kết photphat cao năng giải phóng năng lượng cho mọi hoạt động sống của tế bào.
+        Trong dung dịch đất, cây hấp thụ photpho chủ yếu ở dạng ion photphat vô cơ <strong>H₂PO₄⁻</strong> và{' '}
+        <strong>HPO₄²⁻</strong>; tỷ lệ tương đối phụ thuộc độ pH đất.
       </>
-    ),
+    )
   },
   {
-    id: 'root',
+    id: 'atp',
     number: '02',
-    tone: 'green',
-    title: 'KÍCH BỘ RỄ ĐÂM SÂU TỎA RỘNG',
-    badge: 'BỘ RỄ KHỎE',
+    tone: 'blue',
+    title: 'P THAM GIA ATP, AXIT NUCLEIC VÀ MÀNG TẾ BÀO',
+    badge: 'ATP ↔ ADP + Pi',
     desc: (
       <>
-        Thúc đẩy phân chia tế bào mô phân sinh chóp rễ, giúp <strong>rễ cọc ăn sâu, rễ tơ bung rộng</strong>, tăng khả năng hút nước và chống hạn, chống đổ ngã.
+        Photpho là thành phần cấu tạo của hệ thống truyền năng lượng <strong>ATP/ADP, axit nucleic (ADN, ARN)</strong> và lớp màng tế bào{' '}
+        <strong>phospholipid</strong>.
       </>
-    ),
+    )
   },
   {
-    id: 'flower',
+    id: 'roots',
     number: '03',
-    tone: 'amber',
-    title: 'ĐẬU QUẢ SỚM & 2 DẠNG ION HẤP THỤ',
-    badge: 'H₂PO₄⁻ & HPO₄²⁻',
+    tone: 'green',
+    title: 'HỖ TRỢ PHÁT TRIỂN RỄ & SINH TRƯỞNG SINH SẢN KHI CÂN ĐỐI',
+    badge: 'Rễ · Hoa · Hạt · Quả',
     desc: (
       <>
-        Kích thích phân hóa mầm hoa, hạt mẩy chín sớm. Rễ hút P dưới dạng ion <strong>H₂PO₄⁻ (đất chua nhẹ)</strong> và <strong>HPO₄²⁻ (đất trung tính/kiềm)</strong>.
+        Đủ P giúp <strong>bộ rễ non phát triển sớm</strong> và hỗ trợ các giai đoạn hình thành hoa, hạt và quả khi dinh dưỡng được cân đối (không thiếu/thừa).
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide09LanQ1({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="lan"
-      pillText="PHÂN LÂN (P) • CÂU HỎI 01 / 15"
-      title="PHOTPHO (P) — NĂNG LƯỢNG ATP & BỘ RỄ ĐÂM SÂU"
+      pillText="PHÂN LÂN (P) • CÂU 06 / 15"
+      title="P — NĂNG LƯỢNG ATP VÀ GIAI ĐOẠN HÌNH THÀNH RỄ"
       badgeIcon="P"
-      badgeSub="TIÊU CHUẨN ĐỘ LÂN"
-      badgeMain="Đo bằng %P₂O₅ tương ứng"
-      question="Phân lân cung cấp nguyên tố nào, dưới dạng ion gì? Vai trò cốt lõi của Photpho với bộ rễ, ra hoa đậu quả và năng lượng ATP?"
+      badgeSub="DẠNG HẤP THỤ"
+      badgeMain="H₂PO₄⁻ và HPO₄²⁻"
+      question="Photpho tham gia chuyển hóa năng lượng ATP, cấu trúc tế bào và hỗ trợ hình thành bộ rễ khỏe."
+      questionChips={[
+        { label: 'H₂PO₄⁻', tone: 'purple' },
+        { label: 'HPO₄²⁻', tone: 'blue' },
+        { label: 'ATP', tone: 'green' }
+      ]}
       pillars={PILLARS}
       note={{
-        tag: 'P₂O₅',
-        title: 'Chỉ tiêu đánh giá:',
-        text: 'Độ dinh dưỡng của mọi loại phân lân đều được quy đổi và tính toán theo % khối lượng P₂O₅ tương ứng.',
+        tag: 'QUY ƯỚC',
+        title: 'Chỉ số %P₂O₅ trên nhãn:',
+        text: 'Là cách quy đổi hàm lượng dinh dưỡng thương mại trên bao bì, không có nghĩa trong phân chứa phân tử P₂O₅ tự do.'
       }}
       mascot={{
         mascotType: 'SPARKY_P',
         emotion: 'scientist',
-        speech: 'Có tớ tiếp lửa ATP, rễ non sẽ bung tỏa đâm sâu giữ đất vững vàng, hoa trái trĩu cành nha! ⚡🌱',
+        speech: 'Rễ hấp thụ ion H₂PO₄⁻ và HPO₄²⁻ để tạo năng lượng ATP và phát triển hệ rễ khỏe mạnh! ⚡'
       }}
       svgCard={{
-        title: 'TRẠM PIN ATP & HỆ RỄ CÂY',
-        subtitle: 'Chuyển hóa năng lượng sinh học • Kích thích bộ rễ đâm sâu & đậu quả',
-        badge: 'ATP ~30.5 kJ/mol',
+        title: 'CHU TRÌNH NĂNG LƯỢNG ATP ↔ ADP + Pi & HỆ RỄ',
+        subtitle: 'Hấp thụ ion H₂PO₄⁻ / HPO₄²⁻ · Chuyển hóa ATP · Phát triển bộ rễ & cơ quan sinh sản',
+        badge: 'ATP ↔ ADP + Pi',
         takeaway:
-          'Photpho là trung tâm cấu tạo đồng tiền năng lượng ATP và axit nucleic ADN/ARN. Cây hút ion H₂PO₄⁻ và HPO₄²⁻ giúp hệ rễ phân nhánh khỏe mạnh, chịu hạn tốt và kích hoạt phân hóa mầm hoa.',
+          'Cây hấp thụ photpho dạng ion H₂PO₄⁻ và HPO₄²⁻. Photpho có mặt trong ATP/ADP, axit nucleic và phospholipid, hỗ trợ phát triển rễ non và quá trình hình thành hoa, hạt, quả.'
       }}
       onOpenNotes={onOpenNotes}
     >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 /* ---------- Dữ liệu tính trước (ổn định giữa các lần render) ---------- */
 const seeded = (seed) => {
@@ -53,12 +53,18 @@ const IONS = [
 ];
 
 export default function SvgRootAtpStation() {
+  const instanceId = useId().replace(/:/g, '');
+  const uid = (name) => `atp-${instanceId}-${name}`;
+  const paint = (name) => `url(#${uid(name)})`;
+
   return (
     <svg
       viewBox="0 0 640 560"
       width="100%"
       height="100%"
       preserveAspectRatio="xMidYMid meet"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
       role="img"
       aria-label="Rễ cây hấp thụ photphat và tạo ra năng lượng ATP giúp cây ra hoa, kết hạt"
       style={{
@@ -71,73 +77,73 @@ export default function SvgRootAtpStation() {
         }}
     >
       <defs>
-        <linearGradient id="atpSky" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('sky')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#1E1B4B" />
           <stop offset="0.6" stopColor="#4C1D95" />
           <stop offset="1" stopColor="#C2410C" stopOpacity="0.75" />
         </linearGradient>
-        <linearGradient id="atpSoil" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('soil')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#4C1D95" />
           <stop offset="0.45" stopColor="#2E1065" />
           <stop offset="1" stopColor="#1A0838" />
         </linearGradient>
-        <linearGradient id="atpGrass" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('grass')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#4ADE80" />
           <stop offset="1" stopColor="#15803D" />
         </linearGradient>
-        <linearGradient id="atpStem" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={uid('stem')} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0" stopColor="#15803D" />
           <stop offset="0.5" stopColor="#4ADE80" />
           <stop offset="1" stopColor="#16A34A" />
         </linearGradient>
-        <linearGradient id="atpLeaf" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={uid('leaf')} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#86EFAC" />
           <stop offset="1" stopColor="#15803D" />
         </linearGradient>
-        <linearGradient id="atpRoot" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('root')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#F3E8FF" />
           <stop offset="1" stopColor="#A855F7" />
         </linearGradient>
-        <linearGradient id="atpBattery" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('battery')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#581C87" />
           <stop offset="1" stopColor="#2E1065" />
         </linearGradient>
-        <linearGradient id="atpGold" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('gold')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#FEF08A" />
           <stop offset="1" stopColor="#F59E0B" />
         </linearGradient>
-        <radialGradient id="atpSun" cx="0.5" cy="0.5" r="0.5">
+        <radialGradient id={uid('sun')} cx="0.5" cy="0.5" r="0.5">
           <stop offset="0" stopColor="#FEF3C7" />
           <stop offset="0.35" stopColor="#FCD34D" stopOpacity="0.8" />
           <stop offset="1" stopColor="#F59E0B" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="atpAura" cx="0.5" cy="0.5" r="0.5">
+        <radialGradient id={uid('aura')} cx="0.5" cy="0.5" r="0.5">
           <stop offset="0" stopColor="#FDE047" stopOpacity="0.55" />
           <stop offset="1" stopColor="#FDE047" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="atpIon" cx="0.35" cy="0.3" r="0.8">
+        <radialGradient id={uid('ion')} cx="0.35" cy="0.3" r="0.8">
           <stop offset="0" stopColor="#C084FC" />
           <stop offset="1" stopColor="#4C1D95" />
         </radialGradient>
-        <radialGradient id="atpPetal" cx="0.5" cy="0.9" r="0.9">
+        <radialGradient id={uid('petal')} cx="0.5" cy="0.9" r="0.9">
           <stop offset="0" stopColor="#BE185D" />
           <stop offset="1" stopColor="#F9A8D4" />
         </radialGradient>
 
-        <clipPath id="atpFrame">
+        <clipPath id={uid('frame')}>
           <rect x="10" y="8" width="620" height="544" rx="26" />
         </clipPath>
       </defs>
 
-      <g clipPath="url(#atpFrame)">
+      <g clipPath={paint('frame')}>
         {/* ===== BẦU TRỜI ===== */}
-        <rect x="0" y="0" width="640" height="215" fill="url(#atpSky)" />
+        <rect x="0" y="0" width="640" height="215" fill={paint('sky')} />
         {STARS.map((s, i) => (
           <circle key={i} cx={s.x} cy={s.y} r={s.r} fill="#FFF">
             
           </circle>
         ))}
-        <circle cx="570" cy="70" r="70" fill="url(#atpSun)" />
+        <circle cx="570" cy="70" r="70" fill={paint('sun')} />
         <circle cx="570" cy="70" r="20" fill="#FEF3C7" />
 
         {/* Đồi xa */}
@@ -148,7 +154,7 @@ export default function SvgRootAtpStation() {
         />
 
         {/* ===== ĐẤT ===== */}
-        <rect x="0" y="198" width="640" height="362" fill="url(#atpSoil)" />
+        <rect x="0" y="198" width="640" height="362" fill={paint('soil')} />
         {/* Các tầng đất */}
         <path d="M0 262 C 160 250, 300 276, 640 258" stroke="#6B21A8" strokeWidth="1.2" fill="none" opacity="0.4" />
         <path d="M0 340 C 200 354, 420 328, 640 346" stroke="#6B21A8" strokeWidth="1.2" fill="none" opacity="0.35" />
@@ -160,7 +166,7 @@ export default function SvgRootAtpStation() {
         {/* Thảm cỏ */}
         <path
           d="M0 198 Q 40 190 80 198 T 160 198 T 240 198 T 320 198 T 400 198 T 480 198 T 560 198 T 640 198 L640 212 L0 212 Z"
-          fill="url(#atpGrass)"
+          fill={paint('grass')}
         />
         {[40, 95, 150, 215, 430, 490, 545, 600].map((x, i) => (
           <g key={x} stroke="#4ADE80" strokeWidth="2.2" strokeLinecap="round" fill="none">
@@ -174,7 +180,7 @@ export default function SvgRootAtpStation() {
           {/* Thân */}
           <path
             d="M320 200 C 316 170, 324 140, 320 100"
-            stroke="url(#atpStem)"
+            stroke={paint('stem')}
             strokeWidth="9"
             strokeLinecap="round"
             fill="none"
@@ -183,7 +189,7 @@ export default function SvgRootAtpStation() {
           <g>
             <path
               d="M319 158 C 288 100, 232 98, 206 124 C 232 160, 284 170, 319 158 Z"
-              fill="url(#atpLeaf)"
+              fill={paint('leaf')}
             />
             <path d="M319 158 Q 262 128 212 124" stroke="#166534" strokeWidth="2" fill="none" opacity="0.7" />
             <g stroke="#166534" strokeWidth="1" opacity="0.5" fill="none">
@@ -197,7 +203,7 @@ export default function SvgRootAtpStation() {
           <g>
             <path
               d="M321 140 C 352 84, 410 84, 436 110 C 410 146, 358 154, 321 140 Z"
-              fill="url(#atpLeaf)"
+              fill={paint('leaf')}
             />
             <path d="M321 140 Q 378 112 430 110" stroke="#166534" strokeWidth="2" fill="none" opacity="0.7" />
             <g stroke="#166534" strokeWidth="1" opacity="0.5" fill="none">
@@ -210,7 +216,7 @@ export default function SvgRootAtpStation() {
 
           {/* Hoa */}
           <g transform="translate(320 84)">
-            <circle r="46" fill="url(#atpAura)">
+            <circle r="46" fill={paint('aura')}>
               <animate attributeName="r" values="40;50;40" dur="3.5s" repeatCount="indefinite" />
             </circle>
             <g>
@@ -221,14 +227,14 @@ export default function SvgRootAtpStation() {
                   cy="-19"
                   rx="9"
                   ry="19"
-                  fill="url(#atpPetal)"
+                  fill={paint('petal')}
                   stroke="#9D174D"
                   strokeWidth="0.8"
                   transform={`rotate(${i * 45})`}
                 />
               ))}
             </g>
-            <circle r="12" fill="url(#atpGold)" stroke="#B45309" strokeWidth="1.2" />
+            <circle r="12" fill={paint('gold')} stroke="#B45309" strokeWidth="1.2" />
             {[[-4, -3], [3, -5], [5, 3], [-3, 5], [0, 0]].map(([x, y], i) => (
               <circle key={i} cx={x} cy={y} r="1.4" fill="#92400E" />
             ))}
@@ -269,8 +275,8 @@ export default function SvgRootAtpStation() {
           {/* Rễ cọc */}
           <path d="M320 200 C 322 260, 316 330, 320 400" stroke="#F3E8FF" strokeWidth="6" />
           {/* Rễ bên chính */}
-          <path d="M320 205 C 280 240, 220 270, 170 340 C 150 370, 135 395, 120 420" stroke="url(#atpRoot)" strokeWidth="4.5" />
-          <path d="M320 205 C 360 240, 420 270, 470 340 C 490 370, 505 395, 520 420" stroke="url(#atpRoot)" strokeWidth="4.5" />
+          <path d="M320 205 C 280 240, 220 270, 170 340 C 150 370, 135 395, 120 420" stroke={paint('root')} strokeWidth="4.5" />
+          <path d="M320 205 C 360 240, 420 270, 470 340 C 490 370, 505 395, 520 420" stroke={paint('root')} strokeWidth="4.5" />
           {/* Rễ nhánh */}
           <path d="M250 255 C 200 255, 150 275, 105 315" stroke="#D8B4FE" strokeWidth="3" />
           <path d="M390 255 C 440 255, 490 275, 535 315" stroke="#D8B4FE" strokeWidth="3" />
@@ -309,7 +315,7 @@ export default function SvgRootAtpStation() {
               />
               
               <circle r="20" fill="#A855F7" opacity="0.25" />
-              <circle r="18" fill="url(#atpIon)" stroke="#D8B4FE" strokeWidth="1.6" />
+              <circle r="18" fill={paint('ion')} stroke="#D8B4FE" strokeWidth="1.6" />
               <text y="3.5" textAnchor="middle" fill="#FFF" fontSize="12.5" fontWeight="800">
                 {ion.label}
               </text>
@@ -334,19 +340,19 @@ export default function SvgRootAtpStation() {
             width="130"
             height="62"
             rx="14"
-            fill="url(#atpBattery)"
+            fill={paint('battery')}
             stroke="#FDE047"
             strokeWidth="3"
           />
-          <rect x="130" y="19" width="11" height="24" rx="4" fill="url(#atpGold)" />
+          <rect x="130" y="19" width="11" height="24" rx="4" fill={paint('gold')} />
           {/* Vạch mức pin */}
           {[0, 1, 2, 3].map((i) => (
-            <rect key={i} x={10 + i * 29} y="46" width="23" height="8" rx="3" fill="url(#atpGold)">
+            <rect key={i} x={10 + i * 29} y="46" width="23" height="8" rx="3" fill={paint('gold')}>
               
             </rect>
           ))}
           {/* Tia chớp */}
-          <path d="M70 6 L 50 30 L 66 30 L 58 44 L 86 22 L 70 22 Z" fill="url(#atpGold)" stroke="#B45309" strokeWidth="1" strokeLinejoin="round" />
+          <path d="M70 6 L 50 30 L 66 30 L 58 44 L 86 22 L 70 22 Z" fill={paint('gold')} stroke="#B45309" strokeWidth="1" strokeLinejoin="round" />
           <text x="65" y="-10" textAnchor="middle" fill="#FDE047" fontSize="14" fontWeight="900" letterSpacing="1.5">
             NĂNG LƯỢNG ATP
           </text>
@@ -382,7 +388,7 @@ export default function SvgRootAtpStation() {
           {/* 3 nhóm photphat */}
           {[258, 323, 388].map((cx, i) => (
             <g key={cx}>
-              <circle cx={cx} cy="490" r="19" fill="url(#atpGold)" stroke="#B45309" strokeWidth="1.6" />
+              <circle cx={cx} cy="490" r="19" fill={paint('gold')} stroke="#B45309" strokeWidth="1.6" />
               <text x={cx} y="495" textAnchor="middle" fill="#78350F" fontSize="14" fontWeight="900">P</text>
             </g>
           ))}

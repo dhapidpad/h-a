@@ -2,73 +2,88 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgVietnamFactories from '../components/illustrations/SvgVietnamFactories';
 
+/* ==========================================================================
+   SLIDE 07 — ĐẠM CÂU 4: NHÀ MÁY ĐẠM Ở VIỆT NAM & NGUYÊN LIỆU (MỤC 5 - SLIDE 07)
+   - Tiêu đề: BA NHÀ MÁY — HAI NHÓM NGUYÊN LIỆU CHÍNH
+   - Màn hình:
+     1. Đạm Phú Mỹ — Khí thiên nhiên — sản xuất urê/NH₃.
+     2. Đạm Cà Mau — Khí thiên nhiên — nguồn khí gồm PM3-CAA và mỏ Cái Nước qua hệ thống khí PM3–Cà Mau.
+     3. Đạm Ninh Bình — Than cám → khí hóa than → NH₃ → urê (phân biệt rõ với Phân lân Ninh Bình/NIFERCO).
+   - Chân trang: Góp phần chủ động nguồn cung phân bón trong nước và hỗ trợ sản xuất nông nghiệp.
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'gas',
+    id: 'phumy',
     number: '01',
     tone: 'green',
-    title: 'ĐẠM PHÚ MỸ & CÀ MAU: KHÍ THIÊN NHIÊN',
-    badge: 'CH₄ + H₂O',
+    title: 'ĐẠM PHÚ MỸ: NGUYÊN LIỆU KHÍ THIÊN NHIÊN',
+    badge: 'Khí thiên nhiên → NH₃ → Urê',
     desc: (
       <>
-        • <strong>Đạm Phú Mỹ</strong> (BR-VT): Khí bể Nam Côn Sơn &amp; Bạch Hổ.<br />
-        • <strong>Đạm Cà Mau</strong>: Khí mỏ PM3-CAA vịnh Thái Lan. Tổng hợp NH₃ theo quy trình Haber-Bosch hiện đại.
+        Sử dụng <strong>khí thiên nhiên</strong> (hệ thống khí khu vực phía Nam) làm nguyên liệu và nhiên liệu tổng hợp{' '}
+        <strong>ammonia (NH₃) và phân đạm urê</strong>.
       </>
-    ),
+    )
   },
   {
-    id: 'coal',
+    id: 'camau',
     number: '02',
-    tone: 'slate',
-    title: 'ĐẠM NINH BÌNH & HÀ BẮC: KHÍ HÓA THAN ĐÁ',
-    badge: 'THAN CÁM QN',
+    tone: 'blue',
+    title: 'ĐẠM CÀ MAU: KHÍ THIÊN NHIÊN (PM3-CAA & MỎ CÁI NƯỚC)',
+    badge: 'Hệ thống khí PM3–Cà Mau',
     desc: (
       <>
-        Sử dụng nguồn <strong>than cám vùng mỏ Quảng Ninh</strong>, khí hóa ở 1300°C tạo khí tổng hợp CO + H₂ sản xuất Urê phục vụ đồng bằng Bắc Bộ.
+        Sử dụng nguồn <strong>khí thiên nhiên từ lô PM3-CAA và mỏ Cái Nước</strong> qua hệ thống đường ống khí PM3–Cà Mau để sản xuất NH₃ và urê hạt đục.
       </>
-    ),
+    )
   },
   {
-    id: 'security',
+    id: 'ninhbinh',
     number: '03',
-    tone: 'blue',
-    title: 'TỰ CHỦ 100% NHU CẦU & XUẤT KHẨU',
-    badge: 'TỰ CHỦ 100%',
+    tone: 'slate',
+    title: 'ĐẠM NINH BÌNH: THAN CÁM → KHÍ HÓA THAN → NH₃ → URÊ',
+    badge: 'Công nghệ khí hóa than',
     desc: (
       <>
-        Tổng công suất 4 nhà máy đạt <strong>&gt; 2.6 triệu tấn Urê/năm</strong>, giúp Việt Nam tự chủ hoàn toàn nguồn đạm nội địa và xuất khẩu thu ngoại tệ.
+        Sử dụng <strong>than cám qua công nghệ khí hóa than</strong> tạo khí tổng hợp, sau tinh chế dùng sản xuất NH₃ rồi tổng hợp urê (khác với Phân lân Ninh Bình/NIFERCO).
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide07DamQ4({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="dam"
-      pillText="PHÂN ĐẠM (N) • CÂU HỎI 04 / 15"
-      title="CÔNG NGHIỆP ĐẠM VIỆT NAM: KHÍ THIÊN NHIÊN & THAN ĐÁ"
+      pillText="PHÂN ĐẠM (N) • CÂU 04 / 15"
+      title="BA NHÀ MÁY — HAI NHÓM NGUYÊN LIỆU CHÍNH"
       badgeIcon="VN"
-      badgeSub="NĂNG LỰC SẢN XUẤT"
-      badgeMain="> 2.6 Triệu tấn Urê / năm"
-      question="Các nhà máy đạm lớn tại Việt Nam (Phú Mỹ, Cà Mau, Ninh Bình, Hà Bắc) dùng 2 nguồn nguyên liệu tự nhiên nào và đóng góp gì cho kinh tế?"
+      badgeSub="NGUYÊN LIỆU TỰ NHIÊN"
+      badgeMain="Khí thiên nhiên & Than cám"
+      question="Góp phần chủ động nguồn cung phân bón trong nước, giảm một phần phụ thuộc nhập khẩu và hỗ trợ sản xuất nông nghiệp."
+      questionChips={[
+        { label: 'Đạm Phú Mỹ', tone: 'green' },
+        { label: 'Đạm Cà Mau', tone: 'blue' },
+        { label: 'Đạm Ninh Bình', tone: 'slate' }
+      ]}
       pillars={PILLARS}
       note={{
-        tag: 'TOP',
-        title: 'An ninh lương thực:',
-        text: '4 nhà máy đạm quốc gia là lá chắn bình ổn giá phân bón cho nông dân trước biến động thị trường thế giới.',
+        tag: 'PHÂN BIỆT',
+        title: 'Lưu ý tên đơn vị tại Ninh Bình:',
+        text: 'Đạm Ninh Bình sản xuất urê từ than cám; còn Công ty CP Phân lân Ninh Bình (NIFERCO, ở Slide 13) sản xuất phân lân nung chảy và NPK.'
       }}
       mascot={{
         mascotType: 'SPROUTY_N',
         emotion: 'proud',
-        speech: 'Việt Nam mình tự sản xuất được hơn 2.6 triệu tấn Đạm mỗi năm từ dầu khí và than đá, xịn lắm đúng không nào! 🏭🌾',
+        speech: 'Đạm Phú Mỹ & Cà Mau đi từ khí thiên nhiên; Đạm Ninh Bình đi từ khí hóa than cám! 🏭'
       }}
       svgCard={{
-        title: 'BẢN ĐỒ CÔNG NGHIỆP PHÂN ĐẠM VN',
-        subtitle: 'Tổ hợp 4 đại công trình: Phú Mỹ, Cà Mau (Khí) & Hà Bắc, Ninh Bình (Than)',
-        badge: '> 2.6 Triệu Tấn/Năm',
+        title: 'BA NHÀ MÁY ĐẠM TIÊU BIỂU & SƠ ĐỒ NGUYÊN LIỆU',
+        subtitle: 'Khí thiên nhiên (Phú Mỹ, Cà Mau) hoặc Than cám (Đạm Ninh Bình) → khí tổng hợp/NH₃ → urê',
+        badge: 'Khí & Than → Urê',
         takeaway:
-          'Việt Nam hoàn toàn tự chủ sản xuất phân đạm với công suất vượt 2.6 triệu tấn Urê/năm, chuyển hóa khí thiên nhiên đồng hành miền Nam và than đá Quảng Ninh miền Bắc thành nguồn dinh dưỡng bảo đảm vững chắc an ninh lương thực quốc gia.',
+          'Đạm Phú Mỹ và Đạm Cà Mau sử dụng khí thiên nhiên; Đạm Ninh Bình sử dụng công nghệ khí hóa than cám. Các nhà máy góp phần chủ động nguồn cung nội địa và hỗ trợ chuỗi cung ứng nông nghiệp.'
       }}
       onOpenNotes={onOpenNotes}
     >

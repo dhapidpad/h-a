@@ -10,6 +10,8 @@ export default function SvgApatiteMine() {
       width="100%"
       height="100%"
       preserveAspectRatio="xMidYMid meet"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
       role="img"
       aria-labelledby={`${id}-title ${id}-desc`}
       style={{
@@ -314,13 +316,13 @@ export default function SvgApatiteMine() {
         MỎ APATIT LÀO CAI
       </text>
       <text x="101" y="188" fontSize="13" fontWeight="600" fill="#8B5CF6">
-        MẶT CẮT ĐỊA CHẤT MINH HỌA
+        VỊ TRÍ: MỎ LÀO CAI · APATIT & PHOSPHORIT
       </text>
 
       <rect x="370" y="160" width="99" height="27" rx="13.5" fill="#F5F3FF" />
       <circle cx="384" cy="173.5" r="4" fill="#8B5CF6" />
       <text x="394" y="177" fontSize="12.5" fontWeight="800" fill="#6D28D9">
-        THÂN QUẶNG
+        LÀO CAI · VN
       </text>
 
       {/* Geological cutaway */}
@@ -713,11 +715,11 @@ export default function SvgApatiteMine() {
         </g>
 
         <text x="608" y="234" fontSize="12.5" fontWeight="900" fill="#1E293B">
-          Supe Lân Lâm Thao
+          Supe Phốt phát & Hóa chất Lâm Thao
         </text>
 
         <text x="608" y="252" fontSize="13" fontWeight="600" fill="#64748B">
-          Phú Thọ · Nhóm sản phẩm supe lân
+          Phú Thọ — Supe lân / NPK
         </text>
 
         <rect x="608" y="261" width="105" height="17" rx="8.5" fill="#F0FDF4" />
@@ -748,11 +750,11 @@ export default function SvgApatiteMine() {
         </g>
 
         <text x="608" y="322" fontSize="12.5" fontWeight="900" fill="#1E293B">
-          Lân nung chảy Văn Điển
+          Phân lân nung chảy Văn Điển
         </text>
 
         <text x="608" y="340" fontSize="13" fontWeight="600" fill="#64748B">
-          Hà Nội · Nhóm sản phẩm lân nung chảy
+          Hà Nội — Lân nung chảy / NPK
         </text>
 
         <rect x="608" y="349" width="112" height="17" rx="8.5" fill="#F5F3FF" />
@@ -783,11 +785,11 @@ export default function SvgApatiteMine() {
         </g>
 
         <text x="608" y="410" fontSize="12.5" fontWeight="900" fill="#1E293B">
-          Lân nung chảy Ninh Bình
+          Phân lân Ninh Bình (NIFERCO)
         </text>
 
         <text x="608" y="428" fontSize="13" fontWeight="600" fill="#64748B">
-          Ninh Bình · Nhóm sản phẩm lân nung chảy
+          Ninh Bình — Lân nung chảy / NPK (Khác Đạm Ninh Bình)
         </text>
 
         <rect x="608" y="437" width="112" height="17" rx="8.5" fill="#F0F9FF" />
@@ -946,12 +948,12 @@ export default function SvgApatiteMine() {
         />
       </g>
 
-      <text x="108" y="687" fontSize="13" fontWeight="900" fill="#5B21B6">
-        KHAI THÁC ĐI ĐÔI VỚI CHẾ BIẾN SÂU
+      <text x="108" y="687" fontSize="12" fontWeight="900" fill="#5B21B6">
+        KHAI THÁC → TUYỂN/CHẾ BIẾN → NGUYÊN LIỆU PHOSPHATE → SẢN XUẤT PHÂN
       </text>
 
       <text x="108" y="708" fontSize="13" fontWeight="600" fill="#6D28D9">
-        Tối ưu thu hồi khoáng sản · tiết kiệm tài nguyên · giảm tác động môi trường
+        Kiểm soát chất thải/phục hồi môi trường · Tài nguyên – Môi trường – Nông nghiệp
       </text>
 
       <line x1="690" y1="676" x2="690" y2="719" stroke="#C4B5FD" strokeWidth="1.2" />

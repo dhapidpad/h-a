@@ -147,64 +147,66 @@ const Leaf = ({ flip, d, vein, fill, delay = 0 }) => (
 );
 
 export default function SvgTopic({ focus = null }) {
+  const instanceId = React.useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const uid = (name) => `topic-${instanceId}-${name}`;
   const reduce = useReducedMotion();
   /* Khi rê chuột vào N/P/K ở slide, 2 nguyên tố còn lại mờ đi */
   const dim = (k) => ({ opacity: focus && focus !== k ? 0.28 : 1, transition: 'opacity .35s ease' });
 
   return (
-    <svg className="sv-root" viewBox="0 0 560 480" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Ba bé Đạm, Lân, Kali nuôi cây non lớn khỏe">
+    <svg className="sv-root" viewBox="0 0 560 480" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" shapeRendering="geometricPrecision" textRendering="geometricPrecision" role="img" aria-label="Ba bé Đạm, Lân, Kali nuôi cây non lớn khỏe">
       <style>{css}</style>
       <defs>
         {/* Quầng sáng */}
-        <radialGradient id="ringGlowN" cx="50%" cy="50%" r="50%">
+        <radialGradient id={uid('ringGlowN')} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#36B86A" stopOpacity="0.45" />
           <stop offset="100%" stopColor="#36B86A" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="ringGlowP" cx="50%" cy="50%" r="50%">
+        <radialGradient id={uid('ringGlowP')} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#8C6BFA" stopOpacity="0.45" />
           <stop offset="100%" stopColor="#8C6BFA" stopOpacity="0" />
         </radialGradient>
-        <radialGradient id="ringGlowK" cx="50%" cy="50%" r="50%">
+        <radialGradient id={uid('ringGlowK')} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#FFB547" stopOpacity="0.5" />
           <stop offset="100%" stopColor="#FFB547" stopOpacity="0" />
         </radialGradient>
 
         {/* Thân 3 nhân vật */}
-        <radialGradient id="sproutOrb" cx="40%" cy="35%" r="65%">
+        <radialGradient id={uid('sproutOrb')} cx="40%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#86EFAC" />
           <stop offset="60%" stopColor="#22C55E" />
           <stop offset="100%" stopColor="#15803D" />
         </radialGradient>
-        <radialGradient id="sparkyOrb" cx="40%" cy="35%" r="65%">
+        <radialGradient id={uid('sparkyOrb')} cx="40%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#DDD6FE" />
           <stop offset="60%" stopColor="#8C6BFA" />
           <stop offset="100%" stopColor="#5B21B6" />
         </radialGradient>
-        <radialGradient id="sunnyOrb" cx="40%" cy="35%" r="65%">
+        <radialGradient id={uid('sunnyOrb')} cx="40%" cy="35%" r="65%">
           <stop offset="0%" stopColor="#FEF08A" />
           <stop offset="60%" stopColor="#FFB547" />
           <stop offset="100%" stopColor="#D97706" />
         </radialGradient>
 
         {/* Cây trung tâm */}
-        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={uid('leafGrad')} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#4ADE80" />
           <stop offset="100%" stopColor="#16A34A" />
         </linearGradient>
-        <linearGradient id="leafLight" x1="0" y1="0" x2="1" y2="1">
+        <linearGradient id={uid('leafLight')} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0%" stopColor="#BBF7D0" />
           <stop offset="100%" stopColor="#4ADE80" />
         </linearGradient>
-        <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+        <linearGradient id={uid('stemGrad')} x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stopColor="#16A34A" />
           <stop offset="50%" stopColor="#4ADE80" />
           <stop offset="100%" stopColor="#15803D" />
         </linearGradient>
-        <linearGradient id="soilGrad" x1="0" y1="0" x2="0" y2="1">
+        <linearGradient id={uid('soilGrad')} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#A47551" />
           <stop offset="100%" stopColor="#6B4A33" />
         </linearGradient>
-        <radialGradient id="fruitGrad" cx="38%" cy="32%" r="70%">
+        <radialGradient id={uid('fruitGrad')} cx="38%" cy="32%" r="70%">
           <stop offset="0%" stopColor="#FEF08A" />
           <stop offset="55%" stopColor="#FFB547" />
           <stop offset="100%" stopColor="#EA580C" />
@@ -215,10 +217,10 @@ export default function SvgTopic({ focus = null }) {
 
       {/* ============ NỀN: quầng sáng 3 màu hoà vào nhau ============ */}
       <g>
-        <circle className="sv-pulse" cx="280" cy="235" r="190" fill="url(#ringGlowN)" opacity="0.4" />
-        <circle className="sv-pulse" cx="215" cy="205" r="120" fill="url(#ringGlowN)" style={{ animationDelay: '-1s' }} />
-        <circle className="sv-pulse" cx="345" cy="205" r="120" fill="url(#ringGlowP)" style={{ animationDelay: '-2s' }} />
-        <circle className="sv-pulse" cx="280" cy="300" r="120" fill="url(#ringGlowK)" style={{ animationDelay: '-0.5s' }} />
+        <circle className="sv-pulse" cx="280" cy="235" r="190" fill={`url(#${uid('ringGlowN')})`} opacity="0.4" />
+        <circle className="sv-pulse" cx="215" cy="205" r="120" fill={`url(#${uid('ringGlowN')})`} style={{ animationDelay: '-1s' }} />
+        <circle className="sv-pulse" cx="345" cy="205" r="120" fill={`url(#${uid('ringGlowP')})`} style={{ animationDelay: '-2s' }} />
+        <circle className="sv-pulse" cx="280" cy="300" r="120" fill={`url(#${uid('ringGlowK')})`} style={{ animationDelay: '-0.5s' }} />
       </g>
 
       {/* Hạt bụi sáng trôi lơ lửng */}
@@ -256,7 +258,7 @@ export default function SvgTopic({ focus = null }) {
           ==================================================================== */}
       <g transform="translate(280, 235)">
         {/* Mặt cắt đất */}
-        <path d="M -58 42 Q 0 34 58 42 L 58 80 Q 58 90 48 90 L -48 90 Q -58 90 -58 80 Z" fill="url(#soilGrad)" opacity="0.38" />
+        <path d="M -58 42 Q 0 34 58 42 L 58 80 Q 58 90 48 90 L -48 90 Q -58 90 -58 80 Z" fill={`url(#${uid('soilGrad')})`} opacity="0.38" />
         <path d="M -58 42 Q 0 34 58 42" fill="none" stroke="#6B4A33" strokeWidth="2" opacity="0.5" strokeLinecap="round" />
         {[[-40, 66], [-22, 80], [30, 74], [44, 58], [14, 84], [-46, 52]].map(([x, y], i) => (
           <circle key={i} cx={x} cy={y} r={i % 2 ? 1.6 : 2.4} fill="#4A3324" opacity="0.4" />
@@ -289,18 +291,18 @@ export default function SvgTopic({ focus = null }) {
         {/* Thân + lá + quả: cả cụm đung đưa theo gió */}
         <g className="sv-sway">
           {/* Thân vươn cao (nhờ Đạm) */}
-          <path d="M 0 42 C 3 22 -3 2 0 -20" stroke="url(#stemGrad)" strokeWidth="7" strokeLinecap="round" fill="none" />
+          <path d="M 0 42 C 3 22 -3 2 0 -20" stroke={`url(#${uid('stemGrad')})`} strokeWidth="7" strokeLinecap="round" fill="none" />
 
           {/* Lá lớn */}
-          <Leaf d="M 0 14 C -12 -4 -40 -6 -58 -26 C -26 -42 -2 -26 0 14 Z" vein="M 0 12 Q -24 -8 -50 -25" fill="url(#leafGrad)" delay={0} />
-          <Leaf flip d="M 0 14 C -12 -4 -40 -6 -58 -26 C -26 -42 -2 -26 0 14 Z" vein="M 0 12 Q -24 -8 -50 -25" fill="url(#leafGrad)" delay={-1.2} />
+          <Leaf d="M 0 14 C -12 -4 -40 -6 -58 -26 C -26 -42 -2 -26 0 14 Z" vein="M 0 12 Q -24 -8 -50 -25" fill={`url(#${uid('leafGrad')})`} delay={0} />
+          <Leaf flip d="M 0 14 C -12 -4 -40 -6 -58 -26 C -26 -42 -2 -26 0 14 Z" vein="M 0 12 Q -24 -8 -50 -25" fill={`url(#${uid('leafGrad')})`} delay={-1.2} />
           {/* Lá nhỏ phía trên */}
-          <Leaf d="M 0 -4 C -8 -16 -26 -18 -38 -34 C -16 -42 0 -28 0 -4 Z" vein="M 0 -5 Q -16 -16 -32 -31" fill="url(#leafLight)" delay={-0.6} />
-          <Leaf flip d="M 0 -4 C -8 -16 -26 -18 -38 -34 C -16 -42 0 -28 0 -4 Z" vein="M 0 -5 Q -16 -16 -32 -31" fill="url(#leafLight)" delay={-1.8} />
+          <Leaf d="M 0 -4 C -8 -16 -26 -18 -38 -34 C -16 -42 0 -28 0 -4 Z" vein="M 0 -5 Q -16 -16 -32 -31" fill={`url(#${uid('leafLight')})`} delay={-0.6} />
+          <Leaf flip d="M 0 -4 C -8 -16 -26 -18 -38 -34 C -16 -42 0 -28 0 -4 Z" vein="M 0 -5 Q -16 -16 -32 -31" fill={`url(#${uid('leafLight')})`} delay={-1.8} />
 
           {/* Nụ quả ngọt trĩu hạt (nhờ Kali) */}
           <circle className="sv-pulse" cx="0" cy="-34" r="19" fill="#FFB547" opacity="0.28" />
-          <circle cx="0" cy="-34" r="11" fill="url(#fruitGrad)" stroke="#FFFFFF" strokeWidth="2" />
+          <circle cx="0" cy="-34" r="11" fill={`url(#${uid('fruitGrad')})`} stroke="#FFFFFF" strokeWidth="2" />
           <ellipse cx="-3.5" cy="-38" rx="3.2" ry="2" fill="#FFFFFF" opacity="0.7" transform="rotate(-30 -3.5 -38)" />
           <path d="M 0 -45 L -4.5 -41 L 0 -42 L 4.5 -41 Z" fill="#16A34A" />
         </g>
@@ -314,7 +316,7 @@ export default function SvgTopic({ focus = null }) {
           1. BÉ ĐẠM (SPROUTY N) — GÓC TRÊN TRÁI
           ==================================================================== */}
       <g transform="translate(130, 110)" style={dim('N')}>
-        <circle className="sv-pulse" cx="0" cy="0" r="50" fill="url(#ringGlowN)" opacity="0.8" />
+        <circle className="sv-pulse" cx="0" cy="0" r="50" fill={`url(#${uid('ringGlowN')})`} opacity="0.8" />
 
         <g className="sv-float">
           {/* Chân */}
@@ -326,7 +328,7 @@ export default function SvgTopic({ focus = null }) {
           <Arm s={1} x={34} color="#22C55E" hand="#86EFAC" edge="#15803D" delay={-1.1} />
 
           {/* Thân */}
-          <circle cx="0" cy="0" r="38" fill="url(#sproutOrb)" stroke="#15803D" strokeWidth="2.5" />
+          <circle cx="0" cy="0" r="38" fill={`url(#${uid('sproutOrb')})`} stroke="#15803D" strokeWidth="2.5" />
           <ellipse cx="0" cy="22" rx="19" ry="12" fill="#BBF7D0" opacity="0.45" />
           <ellipse cx="-17" cy="-22" rx="9" ry="5" fill="#FFFFFF" opacity="0.32" transform="rotate(-35 -17 -22)" />
 
@@ -375,7 +377,7 @@ export default function SvgTopic({ focus = null }) {
           2. BÉ LÂN (SPARKY P) — GÓC TRÊN PHẢI
           ==================================================================== */}
       <g transform="translate(430, 110)" style={dim('P')}>
-        <circle className="sv-pulse" cx="0" cy="0" r="50" fill="url(#ringGlowP)" opacity="0.8" style={{ animationDelay: '-1.2s' }} />
+        <circle className="sv-pulse" cx="0" cy="0" r="50" fill={`url(#${uid('ringGlowP')})`} opacity="0.8" style={{ animationDelay: '-1.2s' }} />
 
         <g className="sv-float" style={{ animationDelay: '-1.4s' }}>
           {/* Chân */}
@@ -388,7 +390,7 @@ export default function SvgTopic({ focus = null }) {
 
           {/* Thân củ rễ phát quang */}
           <path d="M 0 -36 C 28 -36, 36 -2, 28 22 C 20 38, 10 40, 0 40 C -10 40, -20 38, -28 22 C -36 -2, -28 -36, 0 -36 Z"
-            fill="url(#sparkyOrb)" stroke="#5B21B6" strokeWidth="2.5" />
+            fill={`url(#${uid('sparkyOrb')})`} stroke="#5B21B6" strokeWidth="2.5" />
           <ellipse cx="-14" cy="-20" rx="8" ry="4.6" fill="#FFFFFF" opacity="0.35" transform="rotate(-38 -14 -20)" />
           <path d="M -18 30 Q -8 36 0 36 M 10 33 Q 16 30 20 26" fill="none" stroke="#DDD6FE" strokeWidth="1.4" strokeLinecap="round" opacity="0.5" />
 
@@ -430,7 +432,7 @@ export default function SvgTopic({ focus = null }) {
           3. BÉ KALI (SUNNY K) — GÓC DƯỚI TRUNG TÂM
           ==================================================================== */}
       <g transform="translate(280, 365)" style={dim('K')}>
-        <circle className="sv-pulse" cx="0" cy="0" r="50" fill="url(#ringGlowK)" opacity="0.8" style={{ animationDelay: '-2.2s' }} />
+        <circle className="sv-pulse" cx="0" cy="0" r="50" fill={`url(#${uid('ringGlowK')})`} opacity="0.8" style={{ animationDelay: '-2.2s' }} />
 
         <g className="sv-float" style={{ animationDelay: '-2.6s' }}>
           {/* Chân */}
@@ -441,7 +443,7 @@ export default function SvgTopic({ focus = null }) {
           <Arm s={1} x={34} color="#F59E0B" hand="#FEF08A" edge="#B45309" delay={-0.4} />
 
           {/* Thân quả cam tròn vo núng nính */}
-          <circle cx="0" cy="0" r="38" fill="url(#sunnyOrb)" stroke="#B45309" strokeWidth="2.5" />
+          <circle cx="0" cy="0" r="38" fill={`url(#${uid('sunnyOrb')})`} stroke="#B45309" strokeWidth="2.5" />
           <ellipse cx="-16" cy="-22" rx="9" ry="5" fill="#FFFFFF" opacity="0.38" transform="rotate(-35 -16 -22)" />
           {[[-8, 20], [10, 24], [22, 14], [-22, 14], [0, 30]].map(([x, y], i) => (
             <circle key={i} cx={x} cy={y} r="1.1" fill="#B45309" opacity="0.3" />

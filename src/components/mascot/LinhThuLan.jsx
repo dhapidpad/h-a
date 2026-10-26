@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useId,  useState } from 'react';
 
 /**
  * LINH THÚ 2: BÉ LÂN — SPARKY P (Củ Rễ Tím Năng Lượng ATP Siêu Cấp)
@@ -10,6 +10,7 @@ import React, { useState } from 'react';
  * - Slide 13: miner (đội mũ thợ mỏ đèn pha LED, ôm tinh thể quặng Apatit Lào Cai)
  */
 export default function LinhThuLan({ emotion = 'happy', size = 140, className = '' }) {
+  const rawId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const [booped, setBooped] = useState(false);
 
   const handleBoop = () => {
@@ -63,7 +64,7 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
       >
         <defs>
           {/* Thân củ rễ thạch anh tím 3D */}
-          <radialGradient id="lanBody3D" cx="35%" cy="28%" r="68%">
+          <radialGradient id={`${rawId}-lanBody3D`} cx="35%" cy="28%" r="68%">
             <stop offset="0%" stopColor="#F3E8FF" />
             <stop offset="30%" stopColor="#C4B5FD" />
             <stop offset="68%" stopColor="#8B5CF6" />
@@ -71,20 +72,20 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
           </radialGradient>
 
           {/* Hào quang bụng phát sáng */}
-          <radialGradient id="lanBellyGlow" cx="50%" cy="45%" r="50%">
+          <radialGradient id={`${rawId}-lanBellyGlow`} cx="50%" cy="45%" r="50%">
             <stop offset="0%" stopColor="#FEF08A" stopOpacity="0.55" />
             <stop offset="100%" stopColor="#C4B5FD" stopOpacity="0" />
           </radialGradient>
 
           {/* Vương miện & Tia chớp vàng */}
-          <linearGradient id="lanGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`${rawId}-lanGoldGrad`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FEF08A" />
             <stop offset="50%" stopColor="#FACC15" />
             <stop offset="100%" stopColor="#CA8A04" />
           </linearGradient>
 
           {/* Tinh thể Apatit */}
-          <linearGradient id="lanCrystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`${rawId}-lanCrystalGrad`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#F5D0FE" />
             <stop offset="50%" stopColor="#C084FC" />
             <stop offset="100%" stopColor="#6B21A8" />
@@ -133,14 +134,14 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
         <g>
           <path
             d="M 90 48 C 134 48, 146 98, 134 132 C 122 154, 106 155, 90 155 C 74 155, 58 154, 46 132 C 34 98, 46 48, 90 48 Z"
-            fill="url(#lanBody3D)"
+            fill={`url(#${rawId}-lanBody3D)`}
             stroke="#4C1D95"
             strokeWidth="3.2"
           />
           {/* Specular 3D Highlight */}
           <ellipse cx="70" cy="74" rx="20" ry="9" transform="rotate(-22 70 74)" fill="#FFFFFF" opacity="0.42" />
           <circle cx="52" cy="88" r="3.5" fill="#FFFFFF" opacity="0.38" />
-          <ellipse cx="90" cy="124" rx="32" ry="22" fill="url(#lanBellyGlow)" />
+          <ellipse cx="90" cy="124" rx="32" ry="22" fill={`url(#${rawId}-lanBellyGlow)`} />
         </g>
 
         {/* 3. MŨ & VƯƠNG MIỆN THEO TỪNG VAI TRÒ SLIDE */}
@@ -194,7 +195,7 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
             <path d="M 90 48 C 104 34, 120 38, 112 48" fill="#A855F7" stroke="#4C1D95" strokeWidth="2" />
             <polygon
               points="66,48 74,24 90,38 106,24 114,48"
-              fill="url(#lanGoldGrad)"
+              fill={`url(#${rawId}-lanGoldGrad)`}
               stroke="#B45309"
               strokeWidth="2.5"
               strokeLinejoin="round"
@@ -280,7 +281,7 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
         {/* Slide 13: Tinh thể quặng Apatit Lào Cai phát sáng (miner) */}
         {emotion === 'miner' && (
           <g transform="translate(68, 120)">
-            <polygon points="6,4 38,0 44,22 22,30 0,20" fill="url(#lanCrystalGrad)" stroke="#4C1D95" strokeWidth="2.2" />
+            <polygon points="6,4 38,0 44,22 22,30 0,20" fill={`url(#${rawId}-lanCrystalGrad)`} stroke="#4C1D95" strokeWidth="2.2" />
             <polygon points="12,6 32,4 36,18 20,24 6,16" fill="#F3E8FF" opacity="0.55" />
             <text x="22" y="19" textAnchor="middle" fill="#3B0764" fontSize="8.5" fontWeight="900">APATIT</text>
           </g>
@@ -289,7 +290,7 @@ export default function LinhThuLan({ emotion = 'happy', size = 140, className = 
         {/* Slide 09 & Default: Viên Pin Sinh Học ATP Siêu Năng Lượng trước ngực */}
         {emotion !== 'detective' && emotion !== 'scientist' && emotion !== 'astronaut' && emotion !== 'miner' && (
           <g transform="translate(68, 122)">
-            <rect x="0" y="0" width="40" height="22" rx="6" fill="url(#lanGoldGrad)" stroke="#1E1B4B" strokeWidth="2.4" />
+            <rect x="0" y="0" width="40" height="22" rx="6" fill={`url(#${rawId}-lanGoldGrad)`} stroke="#1E1B4B" strokeWidth="2.4" />
             <rect x="40" y="6" width="5" height="10" rx="2" fill="#1E1B4B" />
             <path d="M 22 3 L 14 12 L 21 12 L 18 19 L 28 10 L 21 10 Z" fill="#DC2626" />
             <text x="9" y="15" fill="#78350F" fontSize="7.5" fontWeight="900">ATP</text>

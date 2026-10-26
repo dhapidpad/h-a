@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useId,  useState, useRef, useEffect } from 'react';
 
 /**
  * LINH THÚ BIỆT ĐỘI NPK (SLIDE 03) — phiên bản cute++
@@ -80,6 +80,7 @@ function Eyes({ x = 8, y = -2, r = 3.6, color = '#052E16', delay = '0s' }) {
 }
 
 export default function LinhThuBietDoi({ className = '' }) {
+  const rawId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const [cheering, setCheering] = useState(false);
   const [count, setCount] = useState(0);
   const timer = useRef(null);
@@ -131,28 +132,28 @@ export default function LinhThuBietDoi({ className = '' }) {
       <div style={{ width: 150, height: 98, flexShrink: 0 }}>
         <svg viewBox="0 0 170 110" width="100%" height="100%" style={{ overflow: 'visible' }} aria-hidden="true">
           <defs>
-            <radialGradient id="ltN" cx="35%" cy="30%" r="70%">
+            <radialGradient id={`${rawId}-ltN`} cx="35%" cy="30%" r="70%">
               <stop offset="0" stopColor="#ECFCCB" /><stop offset=".35" stopColor="#86EFAC" />
               <stop offset=".75" stopColor="#22C55E" /><stop offset="1" stopColor="#15803D" />
             </radialGradient>
-            <radialGradient id="ltP" cx="35%" cy="30%" r="70%">
+            <radialGradient id={`${rawId}-ltP`} cx="35%" cy="30%" r="70%">
               <stop offset="0" stopColor="#F5F3FF" /><stop offset=".4" stopColor="#C4B5FD" />
               <stop offset=".75" stopColor="#8B5CF6" /><stop offset="1" stopColor="#4C1D95" />
             </radialGradient>
-            <radialGradient id="ltK" cx="35%" cy="30%" r="70%">
+            <radialGradient id={`${rawId}-ltK`} cx="35%" cy="30%" r="70%">
               <stop offset="0" stopColor="#FEF9C3" /><stop offset=".4" stopColor="#FDE047" />
               <stop offset=".75" stopColor="#F59E0B" /><stop offset="1" stopColor="#B45309" />
             </radialGradient>
-            <linearGradient id="ltGold" x1="0" y1="0" x2="1" y2="1">
+            <linearGradient id={`${rawId}-ltGold`} x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stopColor="#FEF08A" /><stop offset="1" stopColor="#D97706" />
             </linearGradient>
-            <linearGradient id="ltStepN" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={`${rawId}-ltStepN`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="#86EFAC" /><stop offset="1" stopColor="#16A34A" />
             </linearGradient>
-            <linearGradient id="ltStepP" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={`${rawId}-ltStepP`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="#C4B5FD" /><stop offset="1" stopColor="#7C3AED" />
             </linearGradient>
-            <linearGradient id="ltStepK" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={`${rawId}-ltStepK`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0" stopColor="#FDE047" /><stop offset="1" stopColor="#D97706" />
             </linearGradient>
           </defs>
@@ -172,7 +173,7 @@ export default function LinhThuBietDoi({ className = '' }) {
             { x: 112, y: 81, w: 44, g: 'ltStepK', n: '3' },
           ].map((s) => (
             <g key={s.n}>
-              <rect x={s.x} y={s.y} width={s.w} height={99 - s.y} rx="4" fill={`url(#${s.g})`} />
+              <rect x={s.x} y={s.y} width={s.w} height={99 - s.y} rx="4" fill={`url(#${rawId}-${s.g})`} />
               <rect x={s.x + 2} y={s.y + 1} width={s.w - 4} height="3" rx="1.5" fill="#fff" opacity=".5" />
               <text x={s.x + s.w / 2} y={s.y + 14} textAnchor="middle" fontSize="9" fontWeight="900" fill="#fff" opacity=".9">{s.n}</text>
             </g>
@@ -187,11 +188,11 @@ export default function LinhThuBietDoi({ className = '' }) {
               <circle cx="15" cy="-15" r="2.6" fill="#F9A8D4" />
               <ellipse cx="-8" cy="21" rx="6" ry="3" fill="#4C1D95" />
               <ellipse cx="8" cy="21" rx="6" ry="3" fill="#4C1D95" />
-              <ellipse cx="0" cy="0" rx="20" ry="21" fill="url(#ltP)" stroke="#4C1D95" strokeWidth="2" />
+              <ellipse cx="0" cy="0" rx="20" ry="21" fill={`url(#${rawId}-ltP)`} stroke="#4C1D95" strokeWidth="2" />
               <ellipse cx="0" cy="10" rx="11" ry="9" fill="#F5F3FF" opacity=".75" />
               <ellipse cx="-7" cy="-10" rx="6.5" ry="3" transform="rotate(-20 -7 -10)" fill="#fff" opacity=".45" />
               {/* vương miện */}
-              <path d="M-10 -19 L-12 -31 L-5 -25 L0 -34 L5 -25 L12 -31 L10 -19Z" fill="url(#ltGold)" stroke="#B45309" strokeWidth="1.3" strokeLinejoin="round" />
+              <path d="M-10 -19 L-12 -31 L-5 -25 L0 -34 L5 -25 L12 -31 L10 -19Z" fill={`url(#${rawId}-ltGold)`} stroke="#B45309" strokeWidth="1.3" strokeLinejoin="round" />
               <circle cx="0" cy="-23" r="1.8" fill="#EC4899" />
               <circle cx="-6" cy="-21.5" r="1.2" fill="#38BDF8" />
               <circle cx="6" cy="-21.5" r="1.2" fill="#38BDF8" />
@@ -208,7 +209,7 @@ export default function LinhThuBietDoi({ className = '' }) {
               {/* tay trái cầm đũa phép */}
               <g className="lt-wave" style={{ '--d': '.2s' }}>
                 <line x1="-19" y1="5" x2="-27" y2="-14" stroke="#92400E" strokeWidth="1.8" strokeLinecap="round" />
-                <g transform="translate(-27 -18)"><path d={STAR5} fill="url(#ltGold)" stroke="#B45309" strokeWidth=".8" transform="scale(.95)" /></g>
+                <g transform="translate(-27 -18)"><path d={STAR5} fill={`url(#${rawId}-ltGold)`} stroke="#B45309" strokeWidth=".8" transform="scale(.95)" /></g>
                 <circle cx="-19" cy="5" r="3.8" fill="#C4B5FD" stroke="#4C1D95" strokeWidth="1.1" />
               </g>
               <ellipse cx="20" cy="6" rx="3.4" ry="4" fill="#C4B5FD" stroke="#4C1D95" strokeWidth="1.1" />
@@ -220,7 +221,7 @@ export default function LinhThuBietDoi({ className = '' }) {
             <g className="lt-bob" style={{ '--d': '.45s' }}>
               <ellipse cx="-8" cy="21" rx="6" ry="3" fill="#92400E" />
               <ellipse cx="8" cy="21" rx="6" ry="3" fill="#92400E" />
-              <circle cx="0" cy="0" r="21" fill="url(#ltK)" stroke="#92400E" strokeWidth="2" />
+              <circle cx="0" cy="0" r="21" fill={`url(#${rawId}-ltK)`} stroke="#92400E" strokeWidth="2" />
               <ellipse cx="0" cy="10" rx="11" ry="9" fill="#FFFBEB" opacity=".8" />
               <ellipse cx="-7" cy="-10" rx="6.5" ry="3" transform="rotate(-20 -7 -10)" fill="#fff" opacity=".5" />
               {/* hoa cài đầu */}
@@ -260,7 +261,7 @@ export default function LinhThuBietDoi({ className = '' }) {
               <path d="M6 -22 Q18 -30 24 -22" fill="none" stroke="#15803D" strokeWidth=".9" opacity=".7" />
               <ellipse cx="-10" cy="25" rx="7" ry="3.4" fill="#15803D" />
               <ellipse cx="10" cy="25" rx="7" ry="3.4" fill="#15803D" />
-              <circle cx="0" cy="0" r="25" fill="url(#ltN)" stroke="#14532D" strokeWidth="2.3" />
+              <circle cx="0" cy="0" r="25" fill={`url(#${rawId}-ltN)`} stroke="#14532D" strokeWidth="2.3" />
               <ellipse cx="0" cy="10" rx="14" ry="11" fill="#ECFCCB" opacity=".8" />
               <ellipse cx="-8" cy="-12" rx="8.5" ry="3.8" transform="rotate(-18 -8 -12)" fill="#fff" opacity=".45" />
               {/* mũ đội trưởng */}

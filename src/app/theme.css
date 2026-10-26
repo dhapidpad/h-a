@@ -1,76 +1,92 @@
 /* ==========================================================================
-   NPK PRESENTATION DESIGN SYSTEM & THEME (FULL-BLEED IMMERSIVE — MORPH EDITION)
+   NPK PRESENTATION DESIGN SYSTEM & THEME (TV 16:9 EDITION — MASTER SPEC)
+   Bảng màu chuẩn Mục 3.2:
+   - Nền tối sâu: #10251E
+   - Nền sáng ấm: #F7F5EC
+   - Xanh rừng: #174B37
+   - Đạm N: #16A36A
+   - Lân P: #7862E8
+   - Kali K: #E8A13A
+   - Cảnh báo: #C94F52
+   - Chữ chính: #1C2923
+   - Chữ phụ: #52645A
+   - Viền nhẹ: #D8DED5
    ========================================================================== */
 
 @property --accent {
   syntax: '<color>';
   inherits: true;
-  initial-value: #2563EB;
+  initial-value: #174B37;
 }
 
 :root {
-  /* Nền & Chữ (Mục 6.2) */
-  --canvas: #F6F8FB;
+  /* Nền & Chữ (Mục 3.2) */
+  --bg-dark-deep: #10251E;
+  --bg-warm-light: #F7F5EC;
+  --forest-green: #174B37;
+
+  --canvas: #F7F5EC;
   --surface: #FFFFFF;
-  --surface-glass: rgba(255, 255, 255, 0.92);
-  --ink: #0B1220;
-  --ink-soft: #334155;
-  --ink-mute: #5B6B82;
-  --ink-muted: #5B6B82;
-  --line: rgba(11, 18, 32, 0.08);
-  --line-strong: rgba(11, 18, 32, 0.16);
+  --surface-glass: rgba(255, 255, 255, 0.95);
+  --ink: #1C2923;
+  --ink-soft: #3D4F45;
+  --ink-mute: #52645A;
+  --ink-muted: #52645A;
+  --line: #D8DED5;
+  --line-strong: #BCC6B9;
 
-  /* ĐẠM (N) — xanh ngọc */
-  --n-main: #12B76A;
-  --n-deep: #065F46;
-  --n-tint: #D1FAE5;
-  --n-soft: #ECFDF5;
-  --n-line: #A7F3D0;
-  --n-glow: rgba(18, 183, 106, 0.28);
+  /* ĐẠM (N) — #16A36A */
+  --n-main: #16A36A;
+  --n-deep: #116946;
+  --n-tint: #D5F5E5;
+  --n-soft: #EEFBF4;
+  --n-line: #A5E6C6;
+  --n-glow: rgba(22, 163, 106, 0.24);
 
-  /* LÂN (P) — tím chàm */
-  --p-main: #7C5CFF;
-  --p-deep: #4C1D95;
-  --p-tint: #EDE9FE;
-  --p-soft: #F5F3FF;
-  --p-line: #C4B5FD;
-  --p-glow: rgba(124, 92, 255, 0.28);
+  /* LÂN (P) — #7862E8 */
+  --p-main: #7862E8;
+  --p-deep: #4A36B0;
+  --p-tint: #E9E4FC;
+  --p-soft: #F5F2FE;
+  --p-line: #C9BEF8;
+  --p-glow: rgba(120, 98, 232, 0.24);
 
-  /* KALI (K) — hổ phách */
-  --k-main: #F79009;
-  --k-deep: #7A2E0E;
-  --k-tint: #FEF0C7;
-  --k-soft: #FFFAEB;
-  --k-line: #FEDF89;
-  --k-glow: rgba(247, 144, 9, 0.30);
+  /* KALI (K) — #E8A13A */
+  --k-main: #E8A13A;
+  --k-deep: #965710;
+  --k-tint: #FDECCE;
+  --k-soft: #FFF8EB;
+  --k-line: #F7D394;
+  --k-glow: rgba(232, 161, 58, 0.26);
 
-  /* Mở đầu / Tổng kết / Minigame */
-  --i-main: #2563EB;
-  --i-deep: #1E3A8A;
-  --i-tint: #DBEAFE;
-  --i-soft: #EFF6FF;
-  --i-line: #BFDBFE;
-  --i-glow: rgba(37, 99, 235, 0.25);
+  /* Mở đầu / Tổng kết (Xanh rừng #174B37) */
+  --i-main: #174B37;
+  --i-deep: #10251E;
+  --i-tint: #DCECE4;
+  --i-soft: #F0F6F2;
+  --i-line: #B8D4C5;
+  --i-glow: rgba(23, 75, 55, 0.22);
 
-  --g-main: #EC4899;
-  --g-deep: #831843;
-  --g-tint: #FCE7F3;
-  --g-soft: #FDF2F8;
-  --g-line: #FBCFE8;
-  --g-glow: rgba(236, 72, 153, 0.28);
+  /* Minigame */
+  --g-main: #16A36A;
+  --g-deep: #174B37;
+  --g-tint: #D5F5E5;
+  --g-soft: #EEFBF4;
+  --g-line: #A5E6C6;
+  --g-glow: rgba(22, 163, 106, 0.24);
 
-  /* Token màu ngữ nghĩa cố định (Mục 6.3) */
-  --danger: #E5484D;
-  --danger-deep: #991B1B;
-  --danger-soft: #FEF2F2;
-  --danger-tint: #FEE2E2;
-  --danger-line: #FECACA;
-  --water: #0EA5E9;
-  --water-deep: #0369A1;
-  --water-soft: #F0F9FF;
-  --water-tint: #E0F2FE;
-  --water-line: #BAE6FD;
-  --soil: #8B5E3C;
+  /* Token màu ngữ nghĩa cố định (Cảnh báo #C94F52) */
+  --danger: #C94F52;
+  --danger-deep: #8C282B;
+  --danger-soft: #FDF2F2;
+  --danger-tint: #FADCD9;
+  --danger-line: #F3B7B9;
+  --water: #1D75A8;
+  --water-deep: #124E73;
+  --water-soft: #F0F8FC;
+  --water-tint: #DCEFF9;
+  --water-line: #B3D9EE;
+  --soil: #7D5638;
 
   /* Biến chương hiện hành — tự động đổi theo .chapter-* */
   --c-main: var(--i-main);
@@ -94,24 +110,24 @@
   --potassium-dark: var(--k-deep);
   --potassium-soft: var(--k-soft);
   --potassium-glow: var(--k-glow);
-  --accent-blue: var(--i-main);
-  --accent-blue-soft: var(--i-soft);
+  --accent-blue: var(--water);
+  --accent-blue-soft: var(--water-soft);
   --accent-coral: var(--danger);
   --accent-coral-soft: var(--danger-soft);
 
-  /* Easing & Thời lượng dùng chung (Mục 2.4) */
+  /* Easing & Thời lượng dùng chung (Mục 8.1) */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --dur-fast: 180ms;
   --dur-base: 320ms;
-  --dur-slow: 560ms;
+  --dur-slow: 460ms;
 
   /* Elevation */
-  --shadow-sm: 0 2px 8px rgba(11, 18, 32, 0.04);
-  --shadow-md: 0 8px 24px rgba(11, 18, 32, 0.08);
-  --shadow-lg: 0 16px 40px rgba(11, 18, 32, 0.12);
+  --shadow-sm: 0 2px 8px rgba(16, 37, 30, 0.05);
+  --shadow-md: 0 8px 24px rgba(16, 37, 30, 0.08);
+  --shadow-lg: 0 16px 38px rgba(16, 37, 30, 0.12);
 
   /* Radii */
   --radius-sm: 10px;
@@ -119,12 +135,12 @@
   --radius-lg: 24px;
   --radius-full: 9999px;
 
-  /* Typography */
-  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  /* Typography — Tối đa 2 họ font hỗ trợ tiếng Việt tốt */
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Space Grotesk', var(--font-main);
 }
 
-/* Đổi biến màu theo chương (Mục 6.2) */
+/* Đổi biến màu theo chương */
 .chapter-intro, .chapter-closing {
   --c-main: var(--i-main);
   --c-deep: var(--i-deep);
@@ -188,7 +204,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: var(--canvas);
+  background-color: var(--bg-dark-deep);
   font-family: var(--font-main);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
@@ -207,8 +223,8 @@ html, body {
 }
 
 /* ==========================================================================
-   FULL-BLEED PRESENTATION VIEWPORT & BG-STACK (MỤC 2.5 & 7.4)
-   Crossfade bằng opacity trên compositor, bỏ transition: background
+   FULL-BLEED PRESENTATION VIEWPORT & BG-STACK
+   Crossfade bằng opacity trên compositor
    ========================================================================== */
 
 .presentation-viewport {
@@ -218,7 +234,11 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background-color: var(--canvas);
+  background-color: var(--bg-warm-light);
+}
+
+.presentation-viewport.is-dark-stage {
+  background-color: var(--bg-dark-deep);
 }
 
 .bg-stack {
@@ -229,12 +249,12 @@ html, body {
   contain: strict;
 }
 
-/* Lưới chấm nhẹ bằng data-URI tĩnh, không dùng mask-image tốn kém */
+/* Lưới chấm nhẹ tĩnh */
 .bg-stack::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(11, 18, 32, 0.038) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(23, 75, 55, 0.05) 1.2px, transparent 1.2px);
   background-size: 28px 28px;
   opacity: 0.85;
 }
@@ -243,7 +263,7 @@ html, body {
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 900ms var(--ease-inout);
+  transition: opacity 720ms var(--ease-inout);
   will-change: opacity;
 }
 
@@ -253,49 +273,52 @@ html, body {
 
 .bg-intro {
   background:
-    radial-gradient(60% 55% at 88% 12%, rgba(37, 99, 235, 0.16) 0%, transparent 70%),
-    radial-gradient(55% 50% at 12% 85%, rgba(18, 183, 106, 0.14) 0%, transparent 70%),
-    radial-gradient(50% 45% at 50% 0%, rgba(124, 92, 255, 0.12) 0%, transparent 70%),
-    linear-gradient(145deg, #F0F9FF 0%, var(--canvas) 52%, #EFF6FF 100%);
+    radial-gradient(60% 55% at 88% 12%, rgba(22, 163, 106, 0.14) 0%, transparent 70%),
+    radial-gradient(55% 50% at 12% 85%, rgba(120, 98, 232, 0.10) 0%, transparent 70%),
+    radial-gradient(50% 45% at 50% 0%, rgba(232, 161, 58, 0.11) 0%, transparent 70%),
+    linear-gradient(145deg, #FBF9F2 0%, var(--bg-warm-light) 55%, #EFF5EE 100%);
 }
 
 .bg-dam {
   background:
-    radial-gradient(60% 55% at 88% 10%, var(--n-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 10% 90%, var(--n-tint) 0%, transparent 70%),
-    linear-gradient(145deg, var(--n-soft) 0%, var(--canvas) 52%, #ECFDF5 100%);
+    radial-gradient(60% 55% at 88% 10%, rgba(22, 163, 106, 0.16) 0%, transparent 70%),
+    radial-gradient(55% 50% at 10% 90%, rgba(22, 163, 106, 0.12) 0%, transparent 70%),
+    linear-gradient(145deg, #F4FAF5 0%, var(--bg-warm-light) 58%, #ECF7EF 100%);
 }
 
 .bg-lan {
   background:
-    radial-gradient(60% 55% at 88% 10%, var(--p-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 10% 90%, var(--p-tint) 0%, transparent 70%),
-    linear-gradient(145deg, var(--p-soft) 0%, var(--canvas) 52%, #F5F3FF 100%);
+    radial-gradient(60% 55% at 88% 10%, rgba(120, 98, 232, 0.15) 0%, transparent 70%),
+    radial-gradient(55% 50% at 10% 90%, rgba(120, 98, 232, 0.11) 0%, transparent 70%),
+    linear-gradient(145deg, #F7F5FC 0%, var(--bg-warm-light) 58%, #F2EFFB 100%);
 }
 
 .bg-kali {
   background:
-    radial-gradient(60% 55% at 88% 10%, var(--k-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 10% 90%, var(--k-tint) 0%, transparent 70%),
-    linear-gradient(145deg, var(--k-soft) 0%, var(--canvas) 52%, #FEF3C7 100%);
+    radial-gradient(60% 55% at 88% 10%, rgba(232, 161, 58, 0.16) 0%, transparent 70%),
+    radial-gradient(55% 50% at 10% 90%, rgba(232, 161, 58, 0.12) 0%, transparent 70%),
+    linear-gradient(145deg, #FCF8EE 0%, var(--bg-warm-light) 58%, #FAF2E1 100%);
 }
 
 .bg-game {
   background:
-    radial-gradient(60% 55% at 86% 14%, var(--g-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 14% 82%, var(--p-glow) 0%, transparent 70%),
-    linear-gradient(145deg, #FFF1F2 0%, var(--g-soft) 50%, var(--p-soft) 100%);
+    radial-gradient(60% 55% at 86% 14%, rgba(22, 163, 106, 0.14) 0%, transparent 70%),
+    radial-gradient(55% 50% at 14% 82%, rgba(120, 98, 232, 0.12) 0%, transparent 70%),
+    linear-gradient(145deg, #F6FAF5 0%, var(--bg-warm-light) 55%, #F2EFFB 100%);
 }
 
 .bg-closing {
   background:
-    radial-gradient(55% 50% at 15% 15%, var(--n-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 85% 15%, var(--p-glow) 0%, transparent 70%),
-    radial-gradient(55% 50% at 50% 90%, var(--k-glow) 0%, transparent 70%),
-    linear-gradient(145deg, var(--n-soft) 0%, var(--p-soft) 50%, var(--k-soft) 100%);
+    radial-gradient(55% 50% at 15% 15%, rgba(22, 163, 106, 0.15) 0%, transparent 70%),
+    radial-gradient(55% 50% at 85% 15%, rgba(120, 98, 232, 0.13) 0%, transparent 70%),
+    radial-gradient(55% 50% at 50% 90%, rgba(232, 161, 58, 0.14) 0%, transparent 70%),
+    linear-gradient(145deg, #F2F9F4 0%, var(--bg-warm-light) 52%, #FBF6EA 100%);
 }
 
-/* Khung nội dung chính chiếm trọn màn hình */
+/* ==========================================================================
+   STAGE 16:9 CỐ ĐỊNH 1280×720 CĂN GIỮA & SAFE AREA CHO TV (MỤC 9.1)
+   ========================================================================== */
+
 .slide-stage-container {
   position: relative;
   z-index: 1;
@@ -303,23 +326,33 @@ html, body {
   height: calc(var(--app-h, 100vh) - var(--dock-h, 64px));
   padding: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Khung trình chiếu: kích thước & zoom do App.jsx tính */
+.slide-scale-frame {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+/* Khung nội dung gốc 1280×720 với TV safe area (~3.2%–4% mỗi cạnh: 20px dọc, 38px ngang) */
 .slide-canvas {
   position: relative;
-  margin: 0 auto;
-  padding: 16px 28px 10px;
+  width: 1280px;
+  height: 720px;
+  padding: 12px 34px 10px;
   display: flex;
   flex-direction: column;
+  will-change: transform;
 }
 
 /* ==========================================================================
-   KIẾN TRÚC CHUYỂN CẢNH MORPH (MỤC 2.1, 2.3, 2.4, 3.4)
-   Tầng A: View Transitions API · Tầng B: Overlap Stack · Tầng C: Stagger Reveal
+   KIẾN TRÚC CHUYỂN CẢNH MORPH (MỤC 8.1 & 8.2)
+   Tầng A: View Transitions API (420ms) · Tầng B: Overlap Stack (420ms)
    ========================================================================== */
 
-/* Lớp slide dùng cho cả View Transitions và Overlap Stack */
 .slide-layer,
 .slide-transition-box {
   width: 100%;
@@ -336,20 +369,20 @@ html, body {
 .slide-layer.is-leaving,
 .slide-layer.is-entering {
   position: absolute;
-  inset: 16px 28px 10px;
+  inset: 12px 34px 10px;
   width: auto;
   height: auto;
   contain: layout paint style;
 }
 
 .slide-layer.is-leaving {
-  animation: layerOut 280ms var(--ease-in) both;
+  animation: layerOut 420ms var(--ease-in) both;
   pointer-events: none;
   z-index: 1;
 }
 
 .slide-layer.is-entering {
-  animation: layerIn 520ms var(--ease-out) 60ms both;
+  animation: layerIn 420ms var(--ease-out) both;
   will-change: transform, opacity;
   z-index: 2;
 }
@@ -366,14 +399,14 @@ html, body {
   to { opacity: 0; transform: translate3d(-28px, 0, 0); }
 }
 @keyframes layerIn {
-  from { opacity: 0; transform: translate3d(40px, 0, 0); }
+  from { opacity: 0; transform: translate3d(36px, 0, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 @keyframes layerOutPrev {
   to { opacity: 0; transform: translate3d(28px, 0, 0); }
 }
 @keyframes layerInPrev {
-  from { opacity: 0; transform: translate3d(-40px, 0, 0); }
+  from { opacity: 0; transform: translate3d(-36px, 0, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
@@ -400,16 +433,16 @@ html, body {
 }
 
 ::view-transition-group(*) {
-  animation-duration: 540ms;
+  animation-duration: 420ms;
   animation-timing-function: var(--ease-out);
 }
 
 ::view-transition-old(v-body) {
-  animation: vtOut 250ms var(--ease-in) both;
+  animation: vtOut 220ms var(--ease-in) both;
 }
 
 ::view-transition-new(v-body) {
-  animation: vtIn 500ms var(--ease-out) 70ms both;
+  animation: vtIn 400ms var(--ease-out) 25ms both;
 }
 
 html[data-dir="prev"]::view-transition-old(v-body) {
@@ -421,31 +454,31 @@ html[data-dir="prev"]::view-transition-new(v-body) {
 }
 
 @keyframes vtOut {
-  to { opacity: 0; transform: translate3d(-28px, 0, 0) scale(0.992); }
+  to { opacity: 0; transform: translate3d(-26px, 0, 0) scale(0.992); }
 }
 @keyframes vtIn {
-  from { opacity: 0; transform: translate3d(40px, 0, 0) scale(0.992); }
+  from { opacity: 0; transform: translate3d(34px, 0, 0) scale(0.992); }
 }
 @keyframes vtOutPrev {
-  to { opacity: 0; transform: translate3d(28px, 0, 0) scale(0.992); }
+  to { opacity: 0; transform: translate3d(26px, 0, 0) scale(0.992); }
 }
 @keyframes vtInPrev {
-  from { opacity: 0; transform: translate3d(-40px, 0, 0) scale(0.992); }
+  from { opacity: 0; transform: translate3d(-34px, 0, 0) scale(0.992); }
 }
 
-/* Tầng C — Stagger reveal (Mục 2.4): các khối bên trong cột trái xuất hiện nhịp nhàng */
+/* Tầng C — Stagger reveal: các khối bên trong cột trái xuất hiện nhịp nhàng, gọn */
 .reveal > * {
   opacity: 0;
-  animation: rise 500ms var(--ease-out) forwards;
-  animation-delay: calc(var(--i, 0) * 55ms + 120ms);
+  animation: rise 320ms var(--ease-out) forwards;
+  animation-delay: calc(var(--i, 0) * 30ms + 40ms);
 }
 
 @keyframes rise {
-  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
   to   { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* Mục 3.4: Tạm dừng animation vô hạn trong SVG/mascot đúng lúc chuyển cảnh để 60fps tuyệt đối */
+/* Tạm dừng animation vô hạn trong SVG/mascot đúng lúc chuyển cảnh */
 html[data-vt] .svg-stage-canvas-box *,
 html[data-vt] .mascot-companion-wrap *,
 html[data-vt] .mascot-companion-banner *,
@@ -454,7 +487,8 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 /* ==========================================================================
-   HEADER, CHAPTER PILL & COMPACT QUESTION SUBTITLE (MỤC 5.2 & 5.3)
+   HEADER, CHAPTER PILL & COMPACT QUESTION SUBTITLE (MỤC 3.3 & 3.4)
+   Không dùng text-overflow: ellipsis cho nội dung cốt lõi
    ========================================================================== */
 
 .chapter-pill {
@@ -465,32 +499,30 @@ html[data-vt] .mascot-companion-banner *,
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   width: fit-content;
   background-color: var(--c-tint);
   color: var(--c-deep);
   box-shadow: var(--shadow-sm);
   border: 1.5px solid var(--c-line);
-  transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out), border-color 400ms var(--ease-out);
+  transition: background-color 360ms var(--ease-out), color 360ms var(--ease-out), border-color 360ms var(--ease-out);
 }
 
 .slide-title {
   font-family: var(--font-display);
-  font-size: clamp(26px, 2.3vw, 32px);
+  font-size: 31px;
   font-weight: 800;
-  line-height: 1.16;
+  line-height: 1.15;
   color: var(--ink);
   letter-spacing: -0.02em;
 }
 
-/* Header chuẩn của Slide câu hỏi (4–18): Tích hợp câu hỏi thảo luận thành 1 dòng gọn gàng trên header,
-   nhường ~54px chiều cao quý giá cho khung SVG (Mục 5.2b & 5.3) */
 .q-slide {
   display: flex;
   flex-direction: column;
   height: 100%;
-  gap: 10px;
+  gap: 9px;
   position: relative;
   overflow: hidden;
 }
@@ -507,7 +539,6 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  flex-wrap: wrap;
 }
 
 .q-header-titles {
@@ -515,6 +546,7 @@ html[data-vt] .mascot-companion-banner *,
   flex-direction: column;
   gap: 3px;
   min-width: 0;
+  flex: 1;
 }
 
 .q-question-strip {
@@ -524,9 +556,9 @@ html[data-vt] .mascot-companion-banner *,
   gap: 12px;
   padding: 5px 14px;
   border-radius: 12px;
-  background: linear-gradient(90deg, var(--c-soft) 0%, rgba(255, 255, 255, 0.94) 100%);
+  background: linear-gradient(90deg, var(--c-soft) 0%, rgba(255, 255, 255, 0.96) 100%);
   border: 1px solid var(--c-line);
-  font-size: 14.5px;
+  font-size: 15px;
   line-height: 1.35;
   color: var(--ink-soft);
 }
@@ -559,14 +591,11 @@ html[data-vt] .mascot-companion-banner *,
   white-space: nowrap;
 }
 
+/* Cho phép câu thông điệp chính hiển thị trọn vẹn, không cắt ellipsis */
 .q-question-text {
   font-weight: 600;
   color: var(--ink);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  min-width: 0;
 }
 
 .q-question-chips {
@@ -577,14 +606,14 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 /* ==========================================================================
-   UNIFIED SLIDE GRID & CARD LAYOUT SYSTEM (MỤC 5.2a, 5.3, 6.4)
-   Nhường diện tích lớn (62%+) cho SVG để chữ trong sơ đồ to và rõ
+   UNIFIED SLIDE GRID & CARD LAYOUT SYSTEM (MỤC 3.3 & 3.4)
+   Lưới 2 cột cân bằng giữa nội dung chữ lớn rõ trên TV và sơ đồ SVG
    ========================================================================== */
 
 .slide-main-grid {
   display: grid;
-  grid-template-columns: minmax(340px, 0.72fr) minmax(0, 1.5fr);
-  gap: 18px;
+  grid-template-columns: minmax(430px, 0.94fr) minmax(0, 1.18fr);
+  gap: 16px;
   flex: 1;
   min-height: 0;
   align-items: stretch;
@@ -597,7 +626,7 @@ html[data-vt] .mascot-companion-banner *,
   justify-content: space-between;
   min-height: 0;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 2px;
   contain: layout style;
 }
 
@@ -610,19 +639,19 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .slide-content-col::-webkit-scrollbar-thumb {
-  background: rgba(11, 18, 32, 0.14);
+  background: rgba(28, 41, 35, 0.16);
   border-radius: 999px;
 }
 
-/* Thẻ trụ cột đồng bộ (Mục 6.4): Không dùng transition: all */
+/* Thẻ trụ cột đồng bộ: chữ lớn, dễ đọc từ cuối lớp, không dùng transition: all */
 .card,
 .pillar-card {
-  background: linear-gradient(180deg, #FFFFFF 0%, var(--c-soft) 160%);
-  border: 1px solid var(--c-line);
+  background: linear-gradient(180deg, #FFFFFF 0%, var(--c-soft) 170%);
+  border: 1.2px solid var(--c-line);
   border-left: 5px solid var(--card-accent, var(--c-main));
   border-radius: 16px;
   padding: 9px 13px;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 8px 22px -14px rgba(11, 18, 32, 0.14);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 8px 20px -14px rgba(16, 37, 30, 0.14);
   display: flex;
   gap: 11px;
   align-items: flex-start;
@@ -630,24 +659,34 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .pillar-card.is-interactive {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  color: inherit;
   cursor: pointer;
+}
+
+.pillar-card.is-interactive:focus-visible {
+  outline: 3px solid var(--card-accent, var(--c-main));
+  outline-offset: 2px;
 }
 
 .pillar-card.is-interactive:hover {
   transform: translateY(-1px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 12px 26px -12px rgba(11, 18, 32, 0.18);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.95) inset, 0 12px 24px -12px rgba(16, 37, 30, 0.18);
 }
 
 .card.is-active,
 .pillar-card.is-active {
   background: #FFFFFF;
   border-color: var(--card-accent, var(--c-main));
-  box-shadow: 0 0 0 3px var(--c-glow), 0 12px 28px -12px rgba(11, 18, 32, 0.2);
+  box-shadow: 0 0 0 2.5px var(--c-glow), 0 12px 26px -12px rgba(16, 37, 30, 0.2);
 }
 
 .pillar-num {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 10px;
   background: var(--card-soft, var(--c-tint));
   color: var(--card-deep, var(--c-deep));
@@ -655,7 +694,7 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   justify-content: center;
   font-weight: 900;
-  font-size: 15px;
+  font-size: 14.5px;
   flex-shrink: 0;
 }
 
@@ -666,14 +705,17 @@ html[data-vt] .mascot-companion-banner *,
 
 .pillar-head {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 6px;
-  margin-bottom: 2px;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-bottom: 3px;
 }
 
 .pillar-title {
-  font-size: 15px;
+  min-width: 0;
+  flex: 1 1 175px;
+  font-size: 15.5px;
   font-weight: 800;
   color: var(--card-deep, var(--c-deep));
   line-height: 1.25;
@@ -686,14 +728,16 @@ html[data-vt] .mascot-companion-banner *,
   color: var(--card-deep, var(--c-deep));
   padding: 2px 8px;
   border-radius: 6px;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  max-width: 100%;
   flex-shrink: 0;
 }
 
 .pillar-desc {
-  font-size: 13.8px;
+  font-size: 14.2px;
   color: var(--ink-soft);
-  line-height: 1.4;
+  line-height: 1.38;
 }
 
 .pillar-desc strong {
@@ -709,7 +753,7 @@ html[data-vt] .mascot-companion-banner *,
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13.5px;
+  font-size: 13.8px;
   line-height: 1.38;
   color: var(--c-deep);
 }
@@ -717,7 +761,7 @@ html[data-vt] .mascot-companion-banner *,
 .practical-note-tag {
   min-width: 28px;
   height: 26px;
-  padding: 0 6px;
+  padding: 0 7px;
   border-radius: 7px;
   background: var(--c-tint);
   color: var(--c-deep);
@@ -730,7 +774,54 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 /* ==========================================================================
-   MASCOT COMPANION & BUBBLE (NORMAL IDLE STATE & BANNER)
+   BẢNG SO SÁNH CHUẨN TRÊN SLIDE (SLIDE 10, SLIDE 15 - MỤC 4 & MỤC 5)
+   ========================================================================== */
+
+.spec-compare-table-wrap {
+  background: #FFFFFF;
+  border: 1.5px solid var(--c-line);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.spec-compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.6px;
+  line-height: 1.35;
+}
+
+.spec-compare-table th {
+  background: var(--c-tint);
+  color: var(--c-deep);
+  font-weight: 900;
+  text-align: left;
+  padding: 7px 10px;
+  border-bottom: 1.5px solid var(--c-line);
+  font-size: 13px;
+}
+
+.spec-compare-table td {
+  padding: 6.5px 10px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-soft);
+  vertical-align: top;
+}
+
+.spec-compare-table tr:last-child td {
+  border-bottom: none;
+}
+
+.spec-compare-table td:first-child {
+  font-weight: 800;
+  color: var(--ink);
+  width: 28%;
+  background: rgba(247, 245, 236, 0.55);
+}
+
+/* ==========================================================================
+   MASCOT COMPANION & BUBBLE
    ========================================================================== */
 
 .mascot-companion-wrap {
@@ -758,7 +849,7 @@ html[data-vt] .mascot-companion-banner *,
   font-size: 14px;
   font-weight: 800;
   color: var(--ink);
-  box-shadow: 0 10px 25px rgba(11, 18, 32, 0.12);
+  box-shadow: 0 10px 25px rgba(16, 37, 30, 0.12);
   max-width: 250px;
   line-height: 1.35;
   animation: bubbleFloat 3s ease-in-out infinite;
@@ -801,7 +892,7 @@ html[data-vt] .mascot-companion-banner *,
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(11, 18, 32, 0.94);
+  background: rgba(16, 37, 30, 0.95);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -810,8 +901,8 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .orientation-guard-card {
-  background: #1E293B;
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  background: #174B37;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 28px;
   padding: 36px 28px;
   max-width: 420px;
@@ -863,12 +954,12 @@ html[data-vt] .mascot-companion-banner *,
 .orientation-desc {
   font-size: 15px;
   line-height: 1.55;
-  color: #94A3B8;
+  color: #DCECE4;
   margin-bottom: 24px;
 }
 
 .orientation-btn-action {
-  background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%);
+  background: linear-gradient(135deg, #16A36A 0%, #116946 100%);
   color: #FFFFFF;
   border: none;
   border-radius: var(--radius-full);
@@ -876,7 +967,7 @@ html[data-vt] .mascot-companion-banner *,
   font-size: 16px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 6px 20px rgba(22, 163, 106, 0.4);
   transition: transform 0.2s var(--ease-out);
 }
 
@@ -886,7 +977,7 @@ html[data-vt] .mascot-companion-banner *,
 
 .orientation-btn-dismiss {
   background: transparent;
-  color: #64748B;
+  color: #A5E6C6;
   border: none;
   font-size: 14px;
   cursor: pointer;
@@ -895,17 +986,16 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .orientation-btn-dismiss:hover {
-  color: #94A3B8;
+  color: #FFFFFF;
 }
 
 /* ==========================================================================
-   DYNAMIC FLOATING GLASS DOCK (HIGH-TECH BOTTOM BAR)
-   Chỉ giữ backdrop-filter ở dock vì có view-transition-name: v-dock đứng yên
+   DYNAMIC FLOATING GLASS DOCK (BOTTOM BAR)
    ========================================================================== */
 
 .floating-dock-container {
   position: fixed;
-  bottom: 14px;
+  bottom: 12px;
   left: 0;
   right: 0;
   width: 100vw;
@@ -921,14 +1011,14 @@ html[data-vt] .mascot-companion-banner *,
 .dock-tooltip {
   pointer-events: none;
   margin-bottom: 8px;
-  background: rgba(11, 18, 32, 0.94);
-  color: #F8FAFC;
+  background: rgba(16, 37, 30, 0.96);
+  color: #F7F5EC;
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  font-size: 12px;
+  font-size: 12.5px;
   font-weight: 700;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.16);
   animation: popBounce 0.2s var(--ease-spring);
   white-space: nowrap;
   max-width: 90vw;
@@ -942,24 +1032,22 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   gap: 10px;
   padding: 5px 12px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px) saturate(160%);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(255, 255, 255, 0.96);
   border-radius: var(--radius-full);
-  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border: 1.5px solid var(--line);
   box-shadow:
-    0 16px 36px rgba(11, 18, 32, 0.12),
-    0 2px 8px rgba(11, 18, 32, 0.04),
-    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+    0 14px 32px rgba(16, 37, 30, 0.12),
+    0 2px 8px rgba(16, 37, 30, 0.04),
+    inset 0 1px 1px rgba(255, 255, 255, 0.9);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
 }
 
 .dock-capsule:hover {
   box-shadow:
-    0 20px 44px rgba(11, 18, 32, 0.16),
-    0 4px 12px rgba(11, 18, 32, 0.06),
+    0 18px 40px rgba(16, 37, 30, 0.16),
+    0 4px 12px rgba(16, 37, 30, 0.06),
     inset 0 1px 1px rgba(255, 255, 255, 0.95);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
 .dock-counter-group {
@@ -979,13 +1067,13 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .dock-slash {
-  opacity: 0.3;
+  opacity: 0.35;
   margin: 0 3px;
   font-weight: 400;
 }
 
 .dock-total {
-  opacity: 0.6;
+  opacity: 0.65;
   color: var(--ink);
   font-weight: 700;
 }
@@ -1013,7 +1101,7 @@ html[data-vt] .mascot-companion-banner *,
 .dock-divider {
   width: 1px;
   height: 20px;
-  background: rgba(11, 18, 32, 0.12);
+  background: var(--line);
   flex-shrink: 0;
 }
 
@@ -1022,7 +1110,7 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   gap: 4px;
   padding: 4px 6px;
-  background: rgba(11, 18, 32, 0.05);
+  background: rgba(28, 41, 35, 0.05);
   border-radius: var(--radius-full);
 }
 
@@ -1067,13 +1155,13 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .dock-prev-btn {
-  background: rgba(11, 18, 32, 0.05);
+  background: rgba(28, 41, 35, 0.05);
   color: var(--ink);
-  border: 1px solid rgba(11, 18, 32, 0.08);
+  border: 1px solid var(--line);
 }
 
 .dock-prev-btn:hover:not(:disabled) {
-  background: rgba(11, 18, 32, 0.1);
+  background: rgba(28, 41, 35, 0.1);
   transform: scale(1.08);
 }
 
@@ -1105,8 +1193,8 @@ html[data-vt] .mascot-companion-banner *,
   height: 34px;
   padding: 0 10px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(11, 18, 32, 0.08);
-  background: rgba(11, 18, 32, 0.04);
+  border: 1px solid var(--line);
+  background: rgba(28, 41, 35, 0.04);
   color: var(--ink);
   display: inline-flex;
   align-items: center;
@@ -1119,7 +1207,7 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .dock-tool-btn:hover {
-  background: rgba(11, 18, 32, 0.08);
+  background: rgba(28, 41, 35, 0.08);
   transform: translateY(-1px);
 }
 
@@ -1148,14 +1236,14 @@ html[data-vt] .mascot-companion-banner *,
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(11, 18, 32, 0.08);
+  border: 1px solid var(--line);
   background: #FFFFFF;
   color: var(--ink);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.06);
+  box-shadow: 0 2px 8px rgba(16, 37, 30, 0.06);
   transition: transform 0.2s var(--ease-spring), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   outline: none;
   padding: 0;
@@ -1164,79 +1252,18 @@ html[data-vt] .mascot-companion-banner *,
 
 .nav-circle-btn:hover:not(:disabled) {
   background: #FFFFFF;
-  border-color: rgba(37, 99, 235, 0.35);
-  color: #2563EB;
+  border-color: var(--c-main);
+  color: var(--c-main);
   transform: translateY(-2px) scale(1.06);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+  box-shadow: 0 6px 16px var(--c-glow);
 }
 
 .nav-circle-btn:active:not(:disabled) {
   transform: translateY(0) scale(0.96);
-  box-shadow: 0 2px 4px rgba(11, 18, 32, 0.08);
-}
-
-.nav-circle-btn.muted {
-  opacity: 0.45;
-  color: var(--ink-mute);
-  background: rgba(11, 18, 32, 0.03);
-}
-
-.nav-circle-btn:disabled {
-  opacity: 0.35 !important;
-  cursor: not-allowed;
-  box-shadow: none;
-  border-color: rgba(11, 18, 32, 0.05);
-  background: rgba(11, 18, 32, 0.03);
-  transform: none !important;
-}
-
-.tool-text-btn {
-  height: 40px;
-  padding: 0 16px;
-  border-radius: var(--radius-full);
-  border: 1px solid rgba(11, 18, 32, 0.08);
-  background: #FFFFFF;
-  color: var(--ink);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  font-family: var(--font-main);
-  font-size: 13.5px;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(11, 18, 32, 0.06);
-  transition: transform 0.2s var(--ease-spring), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
-  outline: none;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.tool-text-btn:hover:not(:disabled) {
-  background: #FFFFFF;
-  border-color: rgba(37, 99, 235, 0.35);
-  color: #2563EB;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
-}
-
-.tool-text-btn:active:not(:disabled) {
-  transform: translateY(0) scale(0.97);
-  box-shadow: 0 2px 4px rgba(11, 18, 32, 0.08);
-}
-
-.tool-text-btn:disabled {
-  opacity: 0.35 !important;
-  cursor: not-allowed;
-  box-shadow: none;
-  border-color: rgba(11, 18, 32, 0.05);
-  background: rgba(11, 18, 32, 0.03);
-  transform: none !important;
 }
 
 /* ==========================================================================
-   ULTRA-PREMIUM SVG ILLUSTRATION STAGE SHOWCASE & LIGHTBOX SYSTEM (MỤC 4.1–4.5)
-   Gỡ filter khỏi <svg>, bỏ filter: blur(50px) ở ::before, bỏ backdrop-filter
+   SVG ILLUSTRATION STAGE SHOWCASE & LIGHTBOX SYSTEM
    ========================================================================== */
 
 .svg-stage-card {
@@ -1266,19 +1293,18 @@ html[data-vt] .mascot-companion-banner *,
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(120% 90% at 50% 8%, #FFFFFF 0%, #FAFBFD 60%, var(--c-soft) 130%);
+  background: radial-gradient(120% 90% at 50% 8%, #FFFFFF 0%, #FAFBF8 60%, var(--c-soft) 130%);
   border: 1.5px solid var(--c-line);
   border-radius: 22px;
   box-shadow:
-    0 14px 34px -10px rgba(11, 18, 32, 0.1),
-    0 2px 8px rgba(11, 18, 32, 0.03),
+    0 14px 32px -10px rgba(16, 37, 30, 0.1),
+    0 2px 8px rgba(16, 37, 30, 0.03),
     inset 0 1px 0 rgba(255, 255, 255, 1);
   overflow: clip;
   contain: layout paint style;
   transition: transform 0.22s var(--ease-out), border-color 0.22s var(--ease-out);
 }
 
-/* Mục 4.2: Thay filter: blur(50px) bằng radial-gradient mềm sẵn (0% chi phí blur) */
 .svg-stage-showcase::before {
   content: '';
   position: absolute;
@@ -1294,13 +1320,12 @@ html[data-vt] .mascot-companion-banner *,
   z-index: 0;
 }
 
-/* Mục 4.4: Khi mở Lightbox, tạm dừng toàn bộ animation của bản SVG inline nằm dưới */
+/* Khi mở Lightbox, tạm dừng toàn bộ animation của bản SVG inline nằm dưới */
 .svg-stage-showcase.is-paused,
 .svg-stage-showcase.is-paused * {
   animation-play-state: paused !important;
 }
 
-/* Thanh công cụ đỉnh sân khấu (Mục 7.4: dùng nền trắng 95%, bỏ backdrop-filter) */
 .svg-stage-topbar {
   position: relative;
   z-index: 2;
@@ -1308,8 +1333,8 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   justify-content: space-between;
   padding: 6px 14px 5px;
-  background: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid rgba(11, 18, 32, 0.06);
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid rgba(28, 41, 35, 0.06);
   flex-shrink: 0;
 }
 
@@ -1327,12 +1352,6 @@ html[data-vt] .mascot-companion-banner *,
   flex-shrink: 0;
   background-color: var(--c-main);
   box-shadow: 0 0 8px var(--c-main);
-  animation: svgPulse 2.4s ease-in-out infinite;
-}
-
-@keyframes svgPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.28); opacity: 0.65; }
 }
 
 .svg-stage-topbar-title {
@@ -1341,9 +1360,6 @@ html[data-vt] .mascot-companion-banner *,
   font-weight: 800;
   color: var(--ink);
   letter-spacing: -0.01em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .svg-stage-topbar-badge {
@@ -1374,29 +1390,28 @@ html[data-vt] .mascot-companion-banner *,
   gap: 4px;
 }
 
-/* Mục 7.4: Liệt kê thuộc tính cụ thể thay cho transition: all */
 .svg-stage-zoom-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 4px 10px;
   border-radius: 8px;
-  border: 1px solid rgba(11, 18, 32, 0.14);
+  border: 1px solid var(--line-strong);
   background: #FFFFFF;
   color: var(--ink);
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(11, 18, 32, 0.04);
+  box-shadow: 0 2px 6px rgba(16, 37, 30, 0.04);
   transition: transform 0.18s var(--ease-out), background-color 0.18s var(--ease-out), color 0.18s var(--ease-out), border-color 0.18s var(--ease-out), box-shadow 0.18s var(--ease-out);
 }
 
 .svg-stage-zoom-btn:hover {
-  background: var(--ink);
+  background: var(--forest-green);
   color: #FFFFFF;
-  border-color: var(--ink);
+  border-color: var(--forest-green);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(11, 18, 32, 0.16);
+  box-shadow: 0 4px 12px rgba(23, 75, 55, 0.18);
 }
 
 .svg-stage-zoom-btn:hover .svg-stage-kbd {
@@ -1411,12 +1426,11 @@ html[data-vt] .mascot-companion-banner *,
   font-weight: 900;
   padding: 1px 5px;
   border-radius: 4px;
-  background: #F1F5F9;
-  border: 1px solid #CBD5E1;
-  color: #475569;
+  background: #F1F5F3;
+  border: 1px solid var(--line);
+  color: var(--ink-mute);
 }
 
-/* Mục 4.1 & 5.2f: Vùng hiển thị hình SVG — Gỡ filter khỏi <svg>, dùng ::after cho bóng tĩnh */
 .svg-stage-canvas-box {
   position: relative;
   z-index: 1;
@@ -1437,7 +1451,7 @@ html[data-vt] .mascot-companion-banner *,
   inset: 4px 8px 6px;
   border-radius: 18px;
   z-index: -1;
-  box-shadow: 0 12px 26px -12px rgba(11, 18, 32, 0.14);
+  box-shadow: 0 12px 26px -12px rgba(16, 37, 30, 0.14);
   pointer-events: none;
 }
 
@@ -1457,7 +1471,6 @@ html[data-vt] .mascot-companion-banner *,
   text-rendering: geometricPrecision;
 }
 
-/* Thanh chân trang ghi chú phụ */
 .svg-stage-footer-bar {
   position: relative;
   z-index: 2;
@@ -1466,14 +1479,11 @@ html[data-vt] .mascot-companion-banner *,
   justify-content: space-between;
   gap: 8px;
   padding: 4px 14px 5px;
-  background: rgba(255, 255, 255, 0.94);
-  border-top: 1px solid rgba(11, 18, 32, 0.05);
-  font-size: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 1px solid rgba(28, 41, 35, 0.06);
+  font-size: 12.2px;
   color: var(--ink-soft);
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   flex-shrink: 0;
 }
 
@@ -1482,7 +1492,6 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   gap: 6px;
   min-width: 0;
-  overflow: hidden;
 }
 
 .svg-stage-footer-icon {
@@ -1492,19 +1501,18 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 .svg-stage-footer-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 /* ==========================================================================
-   THEATER LIGHTBOX MODAL (MỤC 4.4: NỀN ĐẶC KHÔNG BACKDROP-FILTER)
+   THEATER LIGHTBOX MODAL (RENDERED VIA PORTAL TO DOCUMENT.BODY)
    ========================================================================== */
 
 .svg-lightbox-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(2, 6, 23, 0.84);
+  background: rgba(16, 37, 30, 0.88);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1525,7 +1533,7 @@ html[data-vt] .mascot-companion-banner *,
   max-height: 94vh;
   display: flex;
   flex-direction: column;
-  background: #0F172A;
+  background: #10251E;
   border: 1.5px solid rgba(255, 255, 255, 0.18);
   border-radius: 26px;
   box-shadow:
@@ -1546,8 +1554,8 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   justify-content: space-between;
   padding: 12px 22px;
-  background: rgba(15, 23, 42, 0.92);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 37, 30, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
 }
 
@@ -1609,7 +1617,7 @@ html[data-vt] .mascot-companion-banner *,
   background: var(--danger);
   border-color: var(--danger);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(229, 72, 77, 0.4);
+  box-shadow: 0 4px 16px rgba(201, 79, 82, 0.4);
 }
 
 .svg-lightbox-kbd {
@@ -1632,7 +1640,7 @@ html[data-vt] .mascot-companion-banner *,
   justify-content: center;
   padding: 14px 20px;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #1E293B 0%, #0F172A 100%);
+  background: radial-gradient(circle at 50% 50%, #174B37 0%, #10251E 100%);
 }
 
 .svg-lightbox-graphic-inner {
@@ -1661,8 +1669,8 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   gap: 14px;
   padding: 11px 22px;
-  background: rgba(15, 23, 42, 0.94);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 37, 30, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
 }
 
@@ -1679,36 +1687,35 @@ html[data-vt] .mascot-companion-banner *,
 .svg-lightbox-takeaway-text {
   font-size: 14px;
   line-height: 1.45;
-  color: #F1F5F9;
+  color: #F7F5EC;
 }
 
 .svg-lightbox-takeaway-text strong {
-  color: #38BDF8;
+  color: #A5E6C6;
   font-weight: 800;
 }
 
 /* ==========================================================================
-   HEADER SCI-TECH BADGE (MỤC 7.4: NỀN ĐẶC KHÔNG BACKDROP-FILTER)
+   HEADER SCI-TECH BADGE
    ========================================================================== */
 
 .slide-header-badge {
   display: inline-flex;
   align-items: center;
   gap: 11px;
-  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  background: linear-gradient(135deg, #10251E 0%, #174B37 100%);
   padding: 5px 15px 5px 7px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 16px rgba(11, 18, 32, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 16px rgba(16, 37, 30, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
   flex-shrink: 0;
   user-select: none;
 }
 
 .slide-header-badge:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   border-color: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 8px 24px rgba(11, 18, 32, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .slide-header-badge-icon {
@@ -1760,7 +1767,7 @@ html[data-vt] .mascot-companion-banner *,
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(11, 18, 32, 0.5);
+  background: rgba(16, 37, 30, 0.55);
   z-index: 1000;
   display: flex;
   justify-content: flex-end;
@@ -1779,12 +1786,12 @@ html[data-vt] .mascot-companion-banner *,
   height: 100%;
   background: var(--surface);
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.25);
-  padding: 36px 40px;
+  padding: 32px 36px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
   transform: translateX(100%);
-  transition: transform 0.35s var(--ease-out);
+  transition: transform 0.32s var(--ease-out);
   overflow-y: auto;
   user-select: text;
   -webkit-user-select: text;
@@ -1799,12 +1806,12 @@ html[data-vt] .mascot-companion-banner *,
   align-items: center;
   justify-content: space-between;
   border-bottom: 1.5px solid var(--line);
-  padding-bottom: 16px;
+  padding-bottom: 14px;
 }
 
 .notes-header-title {
   font-family: var(--font-display);
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 800;
   color: var(--ink);
 }
@@ -1817,13 +1824,12 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 /* ==========================================================================
-   KEYFRAMES DÙNG CHUNG TOÀN CỤC CHO SVG & UI (MỤC 4.3.4)
-   Trình duyệt chỉ parse 1 lần thay vì lặp lại ở 17 file SVG
+   KEYFRAMES DÙNG CHUNG TOÀN CỤC CHO SVG & UI
    ========================================================================== */
 
 @keyframes bubbleFloat {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+  50% { transform: translateY(-5px); }
 }
 
 @keyframes popBounce {
@@ -1898,20 +1904,10 @@ html[data-vt] .mascot-companion-banner *,
 
 /* ==========================================================================
    MOBILE, RESPONSIVE & ACCESSIBILITY TWEAKS
+   Lưu ý: Vì .slide-canvas là khung 1280×720 cố định được scale theo viewport,
+   không dùng @media (max-width: 900px) để phá vỡ lưới 2 cột bên trong stage.
+   Chỉ điều chỉnh thanh dock cố định bên ngoài stage.
    ========================================================================== */
-
-@media (max-width: 900px) {
-  .mascot-companion-wrap {
-    display: none;
-  }
-  .slide-main-grid {
-    grid-template-columns: 1fr;
-  }
-  .q-question-chips,
-  .svg-stage-zoom-hint {
-    display: none;
-  }
-}
 
 @media (hover: none) {
   .dock-capsule:hover { transform: none; }
@@ -1922,14 +1918,12 @@ html[data-vt] .mascot-companion-banner *,
 }
 
 @media (max-height: 520px) {
-  .floating-dock-container { bottom: 5px; padding: 0 8px; }
+  .floating-dock-container { bottom: 4px; padding: 0 8px; }
   .dock-capsule {
     padding: 4px 10px;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.97);
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    box-shadow: 0 6px 16px rgba(11, 18, 32, 0.14);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 6px 16px rgba(16, 37, 30, 0.14);
     transition: none;
   }
   .dock-circle-btn { width: 40px; height: 40px; }
@@ -1944,7 +1938,7 @@ html[data-vt] .mascot-companion-banner *,
   .dock-capsule { gap: 6px; padding: 4px 8px; }
 }
 
-/* Mục 2.1 & 4.3.6: Tôn trọng giảm chuyển động */
+/* Mục 8.1: Tôn trọng giảm chuyển động */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*),
   ::view-transition-old(*),
@@ -1956,11 +1950,7 @@ html[data-vt] .mascot-companion-banner *,
     animation: none !important;
     opacity: 1 !important;
   }
-  .dock-tooltip, .dock-capsule, .slide-header-badge {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-  .dock-capsule { background: rgba(255, 255, 255, 0.97); }
+  .dock-capsule { background: rgba(255, 255, 255, 0.98); }
 }
 
 .dock-segment-pill::after {
@@ -1978,4 +1968,79 @@ html[data-vt] .mascot-companion-banner *,
 .svg-lightbox-close-btn:focus-visible {
   outline: 3px solid var(--c-main);
   outline-offset: 3px;
+}
+
+/* Infographic thực hành: chuyển động nhẹ, ưu tiên nét rõ khi trình chiếu TV */
+.nutrient-practice-art {
+  display: block;
+  overflow: visible;
+}
+.nutrient-practice-art text {
+  font-family: inherit;
+  paint-order: stroke fill;
+  text-rendering: geometricPrecision;
+}
+
+
+/* Compact vertical rhythm inside fixed 1280x720 stage so 2-line titles + extra cards never clip */
+.q-slide {
+  gap: 8px !important;
+}
+.q-header {
+  gap: 6px !important;
+  margin-bottom: 2px !important;
+}
+.q-header .slide-title {
+  font-size: clamp(21px, 2vw, 25px) !important;
+  line-height: 1.15 !important;
+}
+.q-question-strip {
+  padding: 6px 12px !important;
+  min-height: 0 !important;
+}
+.q-question-text {
+  font-size: 13.8px !important;
+  line-height: 1.3 !important;
+}
+.slide-content-col {
+  gap: 6px !important;
+  justify-content: flex-start !important;
+}
+.pillar-card {
+  padding: 7px 12px !important;
+  gap: 10px !important;
+  border-radius: 14px !important;
+}
+.pillar-num {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 12.5px !important;
+  border-radius: 9px !important;
+}
+.pillar-head {
+  margin-bottom: 2px !important;
+}
+.pillar-title {
+  font-size: 14.2px !important;
+  line-height: 1.2 !important;
+}
+.pillar-desc {
+  font-size: 13px !important;
+  line-height: 1.32 !important;
+}
+.practical-note-box {
+  padding: 6px 11px !important;
+  font-size: 12.6px !important;
+  line-height: 1.3 !important;
+  border-radius: 12px !important;
+}
+.mascot-companion-banner {
+  padding: 5px 11px !important;
+  min-height: 44px !important;
+  border-radius: 14px !important;
+  margin-top: auto !important;
+}
+.mascot-speech-text {
+  font-size: 12.6px !important;
+  line-height: 1.28 !important;
 }

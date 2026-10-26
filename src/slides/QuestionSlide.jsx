@@ -4,43 +4,47 @@ import SvgStageCard from '../components/SvgStageCard';
 
 /**
  * QuestionSlide — Khung dùng chung cho 15 slide câu hỏi (Slide 04 -> Slide 18)
+ * Tuân thủ Mục 3.3, 3.4, 4 của Master Spec:
+ * - Tương tác bằng thẻ <button> hỗ trợ bàn phím + aria-pressed
+ * - Không cắt nội dung cốt lõi bằng ellipsis
+ * - Bố cục 2 cột rõ ràng trên TV 16:9
  */
 const TONE_MAP = {
   chapter: {
     accent: 'var(--c-main)',
     soft: 'var(--c-tint)',
-    deep: 'var(--c-deep)',
+    deep: 'var(--c-deep)'
   },
   green: {
     accent: 'var(--n-main)',
     soft: 'var(--n-tint)',
-    deep: 'var(--n-deep)',
+    deep: 'var(--n-deep)'
   },
   purple: {
     accent: 'var(--p-main)',
     soft: 'var(--p-tint)',
-    deep: 'var(--p-deep)',
+    deep: 'var(--p-deep)'
   },
   amber: {
     accent: 'var(--k-main)',
     soft: 'var(--k-tint)',
-    deep: 'var(--k-deep)',
+    deep: 'var(--k-deep)'
   },
   blue: {
     accent: 'var(--water)',
     soft: 'var(--water-tint)',
-    deep: 'var(--water-deep)',
+    deep: 'var(--water-deep)'
   },
   red: {
     accent: 'var(--danger)',
     soft: 'var(--danger-tint)',
-    deep: 'var(--danger-deep)',
+    deep: 'var(--danger-deep)'
   },
   slate: {
-    accent: '#475569',
-    soft: '#F1F5F9',
-    deep: '#334155',
-  },
+    accent: '#52645A',
+    soft: '#EBF0EC',
+    deep: '#1C2923'
+  }
 };
 
 export default function QuestionSlide({
@@ -51,6 +55,7 @@ export default function QuestionSlide({
   badgeSub,
   badgeMain,
   question,
+  questionLabel = 'Thông điệp chính:',
   questionChips = [],
   pillars = [],
   activeCardId,
@@ -60,7 +65,7 @@ export default function QuestionSlide({
   mascot,
   svgCard,
   children,
-  onOpenNotes,
+  onOpenNotes
 }) {
   const [internalActive, setInternalActive] = useState(pillars[0]?.id || null);
   const currentActive = activeCardId !== undefined ? activeCardId : internalActive;
@@ -96,10 +101,10 @@ export default function QuestionSlide({
         </div>
 
         {question && (
-          <div className="q-question-strip" title={question}>
+          <div className="q-question-strip">
             <div className="q-question-strip-main">
-              <span className="q-question-qmark">?</span>
-              <span className="q-question-label">Câu hỏi thảo luận:</span>
+              <span className="q-question-qmark">✦</span>
+              <span className="q-question-label">{questionLabel}</span>
               <span className="q-question-text">{question}</span>
             </div>
             {questionChips.length > 0 && (
@@ -115,7 +120,7 @@ export default function QuestionSlide({
                         padding: '2px 9px',
                         borderRadius: 999,
                         fontSize: 12.5,
-                        fontWeight: 800,
+                        fontWeight: 800
                       }}
                     >
                       {chip.label}
@@ -134,13 +139,15 @@ export default function QuestionSlide({
             const tone = TONE_MAP[item.tone || 'chapter'] || TONE_MAP.chapter;
             const isSelected = currentActive === item.id;
             return (
-              <div
+              <button
+                type="button"
                 key={item.id || idx}
+                aria-pressed={isSelected}
                 style={{
                   '--i': idx,
                   '--card-accent': tone.accent,
                   '--card-soft': tone.soft,
-                  '--card-deep': tone.deep,
+                  '--card-deep': tone.deep
                 }}
                 onClick={() => handleCardClick(item.id)}
                 className={`pillar-card is-interactive${isSelected ? ' is-active' : ''}`}
@@ -154,10 +161,10 @@ export default function QuestionSlide({
                   {item.equation && (
                     <div
                       style={{
-                        fontSize: 12.8,
+                        fontSize: 13.5,
                         fontWeight: 800,
                         color: tone.deep,
-                        marginBottom: 2,
+                        marginBottom: 3
                       }}
                     >
                       {item.equation}
@@ -165,7 +172,7 @@ export default function QuestionSlide({
                   )}
                   <div className="pillar-desc">{item.desc}</div>
                 </div>
-              </div>
+              </button>
             );
           })}
 
@@ -174,7 +181,7 @@ export default function QuestionSlide({
           ) : (
             note && (
               <div className="practical-note-box" style={{ '--i': pillars.length }}>
-                <div className="practical-note-tag">{note.tag || 'MẸO'}</div>
+                <div className="practical-note-tag">{note.tag || 'LƯU Ý'}</div>
                 <span>
                   {note.title && <strong>{note.title} </strong>}
                   {note.text}

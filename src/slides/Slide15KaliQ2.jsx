@@ -2,72 +2,103 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgKClvsK2SO4 from '../components/illustrations/SvgKClvsK2SO4';
 
+/* ==========================================================================
+   SLIDE 15 — KALI CÂU 2: KCl VÀ K₂SO₄ (MỤC 5 - SLIDE 15)
+   - Tiêu đề: KCL ≈ 60% K₂O · K₂SO₄ ≈ 50% K₂O
+   - Màn hình: Bảng 3 hàng, 2 cột đối chiếu KCl và K₂SO₄
+   - Chú thích: Cả hai thường tan tốt trong nước; grade thật theo nhãn sản phẩm.
+   ========================================================================== */
+
 const PILLARS = [
   {
     id: 'k2o',
     number: '01',
-    tone: 'blue',
-    title: 'TIÊU CHÍ ĐÁNH GIÁ: % KHỐI LƯỢNG K₂O QUY ĐỔI',
-    badge: 'QUY ĐỔI %K₂O',
-    desc: (
-      <>
-        Độ dinh dưỡng của mọi loại phân kali đều được quy đổi và đánh giá theo <strong>% khối lượng K₂O tương ứng</strong> có trong muối phân bón.
-      </>
-    ),
-  },
-  {
-    id: 'kcl',
-    number: '02',
     tone: 'amber',
-    title: 'KALI CLORUA (KCl): 60% K₂O — MUỐI ĐỎ BÌNH DÂN',
-    badge: 'PHỔ BIẾN >90%',
+    title: 'CHỈ TIÊU ĐÁNH GIÁ: % KHỐI LƯỢNG K₂O QUY ĐỔI TRÊN NHÃN',
+    badge: '%K₂O quy đổi',
     desc: (
       <>
-        Tinh thể đỏ hồng chứa <strong>~60% K₂O</strong>, tan nhanh, giá rẻ, chiếm &gt;90% thị phần. Nhược điểm: chứa <strong>ion Cl⁻</strong> gây mặn đất nếu bón thừa.
+        Độ dinh dưỡng phân kali thương mại được công bố theo <strong>% K₂O quy đổi</strong>. Cả <strong>KCl</strong> và{' '}
+        <strong>K₂SO₄</strong> đều tan tốt trong nước; grade thực tế đọc theo nhãn sản phẩm.
       </>
-    ),
-  },
-  {
-    id: 'k2so4',
-    number: '03',
-    tone: 'green',
-    title: 'KALI SUNFAT (K₂SO₄): 50% K₂O — CAO CẤP KHÔNG CLO',
-    badge: '+18% LƯU HUỲNH',
-    desc: (
-      <>
-        Tinh thể trắng chứa <strong>~50% K₂O</strong>, hoàn toàn không có Clo và cung cấp thêm <strong>18% Lưu huỳnh (S)</strong> tạo hương thơm, tinh dầu cho trái cây.
-      </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide15KaliQ2({ onOpenNotes }) {
+  const compareTable = (
+    <div className="spec-compare-table-wrap">
+      <table className="spec-compare-table" aria-label="Bảng so sánh KCl và K₂SO₄">
+        <thead>
+          <tr>
+            <th>Tiêu chí</th>
+            <th>Kali clorua (KCl / MOP)</th>
+            <th>Kali sunfat (K₂SO₄ / SOP)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>K₂O quy đổi</td>
+            <td>
+              <strong>Thường khoảng 60% K₂O</strong>
+            </td>
+            <td>
+              <strong>Thường khoảng 50% K₂O</strong>
+            </td>
+          </tr>
+          <tr>
+            <td>Ion đi kèm</td>
+            <td>
+              Đi kèm ion <strong>Cl⁻</strong> (clorua)
+            </td>
+            <td>
+              Đi kèm ion <strong>SO₄²⁻</strong>, cung cấp thêm lưu huỳnh (S)
+            </td>
+          </tr>
+          <tr>
+            <td>Định hướng sử dụng</td>
+            <td>Phổ biến, kinh tế; cần cân nhắc lượng Cl⁻ với cây nhạy clo và đất mặn</td>
+            <td>Hữu ích khi cần bổ sung S hoặc với cây nhạy Cl⁻ theo khuyến cáo</td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        style={{
+          padding: '5px 10px',
+          fontSize: 12.6,
+          fontWeight: 600,
+          color: 'var(--ink-mute)',
+          background: 'rgba(247, 245, 236, 0.7)',
+          borderTop: '1px solid var(--line)'
+        }}
+      >
+        Chú thích: Cả hai thường tan tốt trong nước; màu sắc KCl (trắng/hồng/đỏ) phụ thuộc tạp chất khoáng; grade thật theo nhãn sản phẩm.
+      </div>
+    </div>
+  );
+
   return (
     <QuestionSlide
       chapter="kali"
-      pillText="PHÂN KALI (K) • CÂU HỎI 02 / 15"
-      title="KALI CLORUA (60%) vs KALI SUNFAT (50% K₂O)"
+      pillText="PHÂN KALI (K) • CÂU 12 / 15"
+      title="KCl ≈ 60% K₂O · K₂SO₄ ≈ 50% K₂O"
       badgeIcon="%K₂O"
-      badgeSub="TIÊU CHÍ DINH DƯỠNG"
-      badgeMain="Đo bằng % khối lượng K₂O quy đổi"
-      question="Độ dinh dưỡng của phân kali đánh giá theo chỉ tiêu nào? So sánh thành phần, độ tan và đặc điểm giữa Kali Clorua (KCl) và Kali Sunfat (K₂SO₄)?"
+      badgeSub="CHỈ TIÊU THƯƠNG MẠI"
+      badgeMain="KCl ~60% · K₂SO₄ ~50% K₂O"
+      question="Cả KCl và K₂SO₄ đều tan tốt trong nước; lựa chọn dựa trên nhu cầu lưu huỳnh, độ nhạy Cl⁻ của cây, đất và chi phí."
       pillars={PILLARS}
-      note={{
-        tag: 'GIÁ',
-        title: 'Kinh tế nông nghiệp:',
-        text: 'KCl dùng cho lúa ngô đại trà; K₂SO₄ đắt gấp đôi nhưng bắt buộc cho nông sản xuất khẩu cao cấp (sầu riêng, cà phê, khoai tây).',
-      }}
+      customBottomCard={compareTable}
       mascot={{
         mascotType: 'SUNNY_K',
         emotion: 'scientist',
-        speech: 'Cây ưa ngọt thơm hãy chọn K₂SO₄ của tớ nhé, không lo gốc Clo làm sượng múi đâu! 🧪✨',
+        speech: 'KCl (~60% K₂O) phổ biến và kinh tế; K₂SO₄ (~50% K₂O) cung cấp thêm lưu huỳnh và không kèm Cl⁻! ⚖️'
       }}
       svgCard={{
-        title: 'ĐỐI CHIẾU KALI CLORUA VS SUNFAT',
-        subtitle: 'Độ dinh dưỡng %K₂O • KCl 60% K₂O (đỏ ớt) vs K₂SO₄ 50% K₂O + Lưu huỳnh',
-        badge: 'Độ Dinh Dưỡng %K₂O',
+        title: 'SO SÁNH KCl (≈ 60% K₂O) VÀ K₂SO₄ (≈ 50% K₂O)',
+        subtitle: 'Đối chiếu hàm lượng K₂O quy đổi, ion đi kèm (Cl⁻ vs SO₄²⁻) và định hướng sử dụng',
+        badge: 'KCl vs K₂SO₄',
         takeaway:
-          'Độ dinh dưỡng của phân kali tính bằng %K₂O. KCl (60% K₂O) giá rẻ nhất, chiếm 90% lượng tiêu thụ nhưng chứa Cl⁻ gây hại cây mẫn cảm. K₂SO₄ (50% K₂O + 18% S) là phân bón cao cấp không clo giúp quả ngọt, tinh bột thơm ngon.',
+          'KCl thường đạt khoảng 60% K₂O quy đổi, kinh tế nhưng có Cl⁻. K₂SO₄ thường đạt khoảng 50% K₂O, cung cấp thêm lưu huỳnh và phù hợp khi cần hạn chế chloride.'
       }}
       onOpenNotes={onOpenNotes}
     >

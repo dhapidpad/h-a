@@ -2,74 +2,89 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgSuperPhosphatePouch from '../components/illustrations/SvgSuperPhosphatePouch';
 
+/* ==========================================================================
+   SLIDE 10 — LÂN CÂU 2: SUPE LÂN ĐƠN VÀ SUPE LÂN KÉP (MỤC 5 - SLIDE 10)
+   - Tiêu đề: SUPE LÂN ĐƠN vs SUPE LÂN KÉP: KHÁC Ở ĐỘ ĐẬM ĐẶC P₂O₅
+   - Màn hình: Bảng 3 hàng, 2 cột đối chiếu Supe lân đơn và Supe lân kép (triple superphosphate)
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'ssp',
+    id: 'metric',
     number: '01',
-    tone: 'blue',
-    title: 'SUPEPHOTPHAT ĐƠN (SSP): 14% – 20% P₂O₅',
-    badge: '1 GIAI ĐOẠN',
-    equation: 'Ca₃(PO₄)₂ + 2H₂SO₄ ⟶ Ca(H₂PO₄)₂ + 2CaSO₄↓',
-    desc: (
-      <>
-        Gồm muối tan <strong>Ca(H₂PO₄)₂</strong> trộn lẫn ~50% thạch cao không tan <strong>CaSO₄</strong> (bổ sung thêm S nhưng làm nặng cước vận chuyển).
-      </>
-    ),
-  },
-  {
-    id: 'tsp',
-    number: '02',
     tone: 'purple',
-    title: 'SUPEPHOTPHAT KÉP (TSP): 40% – 50% P₂O₅',
-    badge: '2 GIAI ĐOẠN',
-    equation: 'Ca₃(PO₄)₂ + 4H₃PO₄ ⟶ 3Ca(H₂PO₄)₂',
+    title: 'CHỈ TIÊU ĐÁNH GIÁ: %P₂O₅ HỮU HIỆU QUY ĐỔI TRÊN NHÃN',
+    badge: '%P₂O₅ hữu hiệu',
     desc: (
       <>
-        Chỉ chứa <strong>Ca(H₂PO₄)₂ tinh khiết</strong> (không sinh CaSO₄), tan hoàn toàn trong nước, mật độ dinh dưỡng lân cao gấp <strong>2.5 lần</strong> phân đơn.
+        Độ dinh dưỡng của phân lân được công bố theo <strong>% khối lượng P₂O₅ hữu hiệu quy đổi</strong>; căn cứ chính xác cho từng lô hàng là tiêu chuẩn trên nhãn sản phẩm.
       </>
-    ),
-  },
-  {
-    id: 'econ',
-    number: '03',
-    tone: 'green',
-    title: 'TIẾT KIỆM CHI PHÍ VẬN CHUYỂN ĐƯỜNG DÀI',
-    badge: '1 BAO = 2.5 BAO',
-    desc: (
-      <>
-        Nhờ hàm lượng P₂O₅ đậm đặc (40–50%), chỉ cần vận chuyển <strong>1 bao phân kép thay vì 2.5 bao phân đơn</strong> lên vùng cao Tây Bắc, Tây Nguyên.
-      </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide10LanQ2({ onOpenNotes }) {
+  const compareTable = (
+    <div className="spec-compare-table-wrap">
+      <table className="spec-compare-table" aria-label="Bảng so sánh Supe lân đơn và Supe lân kép">
+        <thead>
+          <tr>
+            <th>Tiêu chí</th>
+            <th>Supe lân đơn (SSP)</th>
+            <th>Supe lân kép (Triple Superphosphate)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Thành phần chính</td>
+            <td>
+              <strong>Monocalcium phosphate</strong> Ca(H₂PO₄)₂ + thạch cao (CaSO₄)
+            </td>
+            <td>
+              Chủ yếu <strong>monocalcium phosphate</strong> Ca(H₂PO₄)₂; ít/không có lượng thạch cao như supe đơn
+            </td>
+          </tr>
+          <tr>
+            <td>P₂O₅ hữu hiệu thường gặp</td>
+            <td>
+              <strong>Khoảng 16–20% P₂O₅</strong> (tùy tiêu chuẩn/sản phẩm)
+            </td>
+            <td>
+              <strong>Khoảng 37–47% P₂O₅</strong> (có sản phẩm/chuẩn khác)
+            </td>
+          </tr>
+          <tr>
+            <td>Điểm khác biệt</td>
+            <td>Có CaSO₄ đi kèm, cung cấp thêm lưu huỳnh (S) và canxi (Ca)</td>
+            <td>Dinh dưỡng P đậm đặc hơn trên cùng một đơn vị khối lượng phân bón</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+
   return (
     <QuestionSlide
       chapter="lan"
-      pillText="PHÂN LÂN (P) • CÂU HỎI 02 / 15"
-      title="SUPERPHOTPHAT ĐƠN (SSP) vs KÉP (TSP) — BẢN CHẤT %P₂O₅"
-      badgeIcon="TSP"
-      badgeSub="HÀM LƯỢNG CAO NHẤT"
-      badgeMain="40% – 50% P₂O₅ (Gấp 2.5 lần)"
-      question="So sánh thành phần hóa học, hàm lượng %P₂O₅ và quy trình sản xuất giữa Supephotphat đơn (SSP) và Supephotphat kép (TSP)?"
+      pillText="PHÂN LÂN (P) • CÂU 07 / 15"
+      title="SUPE LÂN ĐƠN vs SUPE LÂN KÉP: KHÁC Ở ĐỘ ĐẬM ĐẶC P₂O₅"
+      badgeIcon="P₂O₅"
+      badgeSub="SO SÁNH HÀM LƯỢNG"
+      badgeMain="Đơn ~16–20% · Kép ~37–47%"
+      question="Supe lân kép giảm phần thạch cao CaSO₄ đi kèm nên mật độ P₂O₅ hữu hiệu cao hơn; supe đơn bổ sung thêm S và Ca."
       pillars={PILLARS}
-      note={{
-        tag: 'TAN',
-        title: 'Độ tan thực tế:',
-        text: 'Cả 2 loại supe lân đều chứa muối Ca(H₂PO₄)₂ tan tốt trong nước, rễ cây hút nhanh chóng ngay sau khi bón.',
-      }}
+      customBottomCard={compareTable}
       mascot={{
         mascotType: 'SPARKY_P',
-        emotion: 'proud',
-        speech: 'Supe kép TSP nhỏ mà có võ, đậm đặc gấp 2.5 lần supe đơn, mang vác lên nương rẫy nhẹ tênh! ⚡🎒',
+        emotion: 'detective',
+        speech: 'Supe đơn có thêm thạch cao CaSO₄ (bổ sung S); supe kép đậm đặc P₂O₅ hơn trên cùng khối lượng! 🔍'
       }}
       svgCard={{
-        title: 'SUPEPHOTPHAT ĐƠN VS KÉP',
-        subtitle: 'So sánh thành phần hóa học • Ca(H₂PO₄)₂ tinh khiết vs chứa thạch cao CaSO₄',
-        badge: 'TSP 40–50% P₂O₅',
+        title: 'ĐỐI CHIẾU SUPE LÂN ĐƠN & SUPE LÂN KÉP',
+        subtitle: 'Supe đơn (~16–20% P₂O₅ + CaSO₄) vs Supe kép (~37–47% P₂O₅ đậm đặc)',
+        badge: '%P₂O₅ hữu hiệu',
         takeaway:
-          'Supe đơn (SSP, 14–20% P₂O₅) chứa tới ~50% thạch cao CaSO₄ làm tăng khối lượng vận chuyển. Supe kép (TSP, 40–50% P₂O₅) được điều chế bằng axit photphoric, loại bỏ hoàn toàn CaSO₄, cho độ đậm đặc lân gấp 2.5 lần.',
+          'Supe lân đơn xử lý quặng bằng H₂SO₄ nên có CaSO₄ đi kèm (~16–20% P₂O₅, thêm S). Supe lân kép xử lý bằng H₃PO₄ nên giảm phần thạch cao, đạt khoảng 37–47% P₂O₅ hữu hiệu.'
       }}
       onOpenNotes={onOpenNotes}
     >

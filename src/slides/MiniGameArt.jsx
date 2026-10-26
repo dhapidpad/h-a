@@ -17,6 +17,9 @@ export const kindFor = (index) => KINDS[index] || 'npk';
 const SPARK = 'M0 -11 C1.4 -3.4 3.4 -1.4 11 0 C3.4 1.4 1.4 3.4 0 11 C-1.4 3.4 -3.4 1.4 -11 0 C-3.4 -1.4 -1.4 -3.4 0 -11Z';
 const STAR = 'M12 2.2l2.95 6.05 6.65.95-4.8 4.65 1.15 6.6L12 17.35 6.05 20.45l1.15-6.6L2.4 9.2l6.65-.95L12 2.2Z';
 
+// Each repeated icon owns unique SVG gradient IDs; duplicated IDs can cross-wire fills on the same page.
+const useSvgId = (prefix) => `${prefix}-${React.useId().replace(/[^a-zA-Z0-9_-]/g, '')}`;
+
 /* ==========================================================================
    1) BỘ ICON UI (viewBox 24, đổ bóng & highlight 3D tinh tế)
    ========================================================================== */
@@ -47,84 +50,96 @@ export const IconSpark = ({ size, className }) => (
   </Ico>
 );
 
-export const IconGift = ({ size, className }) => (
+export const IconGift = ({ size, className }) => {
+  const uid = useSvgId('mg-gift');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-gift-b" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-b`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#F472B6" />
         <stop offset=".55" stopColor="#EC4899" />
         <stop offset="1" stopColor="#BE185D" />
       </linearGradient>
-      <linearGradient id="mg-ic-gift-r" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id={`${uid}-r`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor="#FEF08A" />
         <stop offset=".5" stopColor="#FACC15" />
         <stop offset="1" stopColor="#D97706" />
       </linearGradient>
     </defs>
-    <rect x="3.2" y="10.2" width="17.6" height="11" rx="2.5" fill="url(#mg-ic-gift-b)" stroke="#9D174D" strokeWidth=".9" />
-    <rect x="2.2" y="6.8" width="19.6" height="4.8" rx="1.9" fill="url(#mg-ic-gift-b)" stroke="#9D174D" strokeWidth=".9" />
+    <rect x="3.2" y="10.2" width="17.6" height="11" rx="2.5" fill={`url(#${uid}-b)`} stroke="#9D174D" strokeWidth=".9" />
+    <rect x="2.2" y="6.8" width="19.6" height="4.8" rx="1.9" fill={`url(#${uid}-b)`} stroke="#9D174D" strokeWidth=".9" />
     <rect x="3.5" y="11.6" width="17" height="1.2" fill="#831843" opacity=".25" />
-    <rect x="10.2" y="6.8" width="3.6" height="14.4" fill="url(#mg-ic-gift-r)" />
-    <rect x="3.2" y="14.2" width="17.6" height="2.6" fill="url(#mg-ic-gift-r)" opacity=".9" />
-    <path d="M12 6.9C8.7 7.2 6.1 5.7 6.7 3.8c.55-2 3.8-1.45 5.3 3.1Z" fill="url(#mg-ic-gift-r)" stroke="#B45309" strokeWidth=".9" strokeLinejoin="round" />
-    <path d="M12 6.9c3.3.3 5.9-1.2 5.3-3.1-.55-2-3.8-1.45-5.3 3.1Z" fill="url(#mg-ic-gift-r)" stroke="#B45309" strokeWidth=".9" strokeLinejoin="round" />
+    <rect x="10.2" y="6.8" width="3.6" height="14.4" fill={`url(#${uid}-r)`} />
+    <rect x="3.2" y="14.2" width="17.6" height="2.6" fill={`url(#${uid}-r)`} opacity=".9" />
+    <path d="M12 6.9C8.7 7.2 6.1 5.7 6.7 3.8c.55-2 3.8-1.45 5.3 3.1Z" fill={`url(#${uid}-r)`} stroke="#B45309" strokeWidth=".9" strokeLinejoin="round" />
+    <path d="M12 6.9c3.3.3 5.9-1.2 5.3-3.1-.55-2-3.8-1.45-5.3 3.1Z" fill={`url(#${uid}-r)`} stroke="#B45309" strokeWidth=".9" strokeLinejoin="round" />
     <circle cx="12" cy="6.9" r="1.5" fill="#FEF9C3" stroke="#B45309" strokeWidth=".8" />
     <path d="M5.2 8.4h3.5M5.2 13v5.4" stroke="#FFF" strokeWidth="1.3" strokeLinecap="round" opacity=".55" />
   </Ico>
-);
+  );
+};
 
-export const IconCoin = ({ size, className }) => (
+export const IconCoin = ({ size, className }) => {
+  const uid = useSvgId('mg-coin');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-coin-o" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-o`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#FEF08A" />
         <stop offset=".45" stopColor="#FBBF24" />
         <stop offset="1" stopColor="#B45309" />
       </linearGradient>
-      <linearGradient id="mg-ic-coin-i" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id={`${uid}-i`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor="#FEF9C3" />
         <stop offset="1" stopColor="#F59E0B" />
       </linearGradient>
     </defs>
-    <circle cx="12" cy="12" r="10" fill="url(#mg-ic-coin-o)" stroke="#92400E" strokeWidth="1.2" />
-    <circle cx="12" cy="12" r="7.5" fill="url(#mg-ic-coin-i)" stroke="#D97706" strokeWidth="1" />
+    <circle cx="12" cy="12" r="10" fill={`url(#${uid}-o)`} stroke="#92400E" strokeWidth="1.2" />
+    <circle cx="12" cy="12" r="7.5" fill={`url(#${uid}-i)`} stroke="#D97706" strokeWidth="1" />
     <path d={STAR} transform="translate(12 12.1) scale(.46) translate(-12 -12)" fill="#92400E" />
     <path d={STAR} transform="translate(12 11.7) scale(.42) translate(-12 -12)" fill="#FEF9C3" />
     <path d="M5.8 7.8a8 8 0 0 1 4.2-3" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" opacity=".85" />
   </Ico>
-);
+  );
+};
 
-export const IconTrophy = ({ size, className }) => (
+export const IconTrophy = ({ size, className }) => {
+  const uid = useSvgId('mg-trophy');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-tr" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-tr`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#FEF08A" />
         <stop offset=".5" stopColor="#FBBF24" />
         <stop offset="1" stopColor="#B45309" />
       </linearGradient>
     </defs>
     <path d="M6.8 5H3.8v2.2A3.4 3.4 0 0 0 7.2 10.6M17.2 5h3v2.2a3.4 3.4 0 0 1-3.4 3.4" stroke="#F59E0B" strokeWidth="1.9" strokeLinecap="round" />
-    <path d="M6.3 2.8h11.4v6.4a5.7 5.7 0 0 1-11.4 0V2.8Z" fill="url(#mg-ic-tr)" stroke="#B45309" strokeWidth="1.2" strokeLinejoin="round" />
+    <path d="M6.3 2.8h11.4v6.4a5.7 5.7 0 0 1-11.4 0V2.8Z" fill={`url(#${uid}-tr)`} stroke="#B45309" strokeWidth="1.2" strokeLinejoin="round" />
     <path d="M8.8 5v4.2" stroke="#FFF" strokeWidth="1.6" strokeLinecap="round" opacity=".8" />
     <rect x="10.6" y="14.5" width="2.8" height="3.5" fill="#D97706" />
     <path d="M7.5 21.2v-2a1.3 1.3 0 0 1 1.3-1.3h6.4a1.3 1.3 0 0 1 1.3 1.3v2Z" fill="#92400E" stroke="#78350F" strokeWidth=".8" />
   </Ico>
-);
+  );
+};
 
-export const IconFlame = ({ size, className }) => (
+export const IconFlame = ({ size, className }) => {
+  const uid = useSvgId('mg-flame');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-fl" x1="0" y1="0" x2="0" y2="1">
+      <linearGradient id={`${uid}-fl`} x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stopColor="#FEF08A" />
         <stop offset=".5" stopColor="#F97316" />
         <stop offset="1" stopColor="#DC2626" />
       </linearGradient>
     </defs>
-    <path d="M12.2 1.6c1 4.4 6.2 6.3 6.2 12.2A6.2 6.2 0 0 1 6 14c0-2.6 1.4-4.2 2.7-5.8.4 1.7 1.3 2.3 2.1 2.3-.9-3.2-.6-6.1 1.4-8.9Z" fill="url(#mg-ic-fl)" stroke="#FFF7ED" strokeWidth=".9" strokeLinejoin="round" />
+    <path d="M12.2 1.6c1 4.4 6.2 6.3 6.2 12.2A6.2 6.2 0 0 1 6 14c0-2.6 1.4-4.2 2.7-5.8.4 1.7 1.3 2.3 2.1 2.3-.9-3.2-.6-6.1 1.4-8.9Z" fill={`url(#${uid}-fl)`} stroke="#FFF7ED" strokeWidth=".9" strokeLinejoin="round" />
     <path d="M12.2 10.8c1 2.1 3.2 2.6 3.2 5.3a3.2 3.2 0 0 1-6.4 0c0-2 2.1-3.1 3.2-5.3Z" fill="#FEF08A" />
     <circle cx="12.2" cy="17.2" r="1.4" fill="#FFF" opacity=".85" />
   </Ico>
-);
+  );
+};
 
 export const IconVolume = ({ size, className }) => (
   <Ico size={size} className={className}>
@@ -147,46 +162,55 @@ export const IconReset = ({ size, className }) => (
   </Ico>
 );
 
-export const IconBulb = ({ size, className }) => (
+export const IconBulb = ({ size, className }) => {
+  const uid = useSvgId('mg-bulb');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <radialGradient id="mg-ic-bulb" cx="40%" cy="35%" r="65%">
+      <radialGradient id={`${uid}-bulb`} cx="40%" cy="35%" r="65%">
         <stop offset="0" stopColor="#FFF" />
         <stop offset=".45" stopColor="#FEF08A" />
         <stop offset="1" stopColor="#F59E0B" />
       </radialGradient>
     </defs>
-    <path d="M12 2.2a6.5 6.5 0 0 0-3.7 11.8c.6.5 1.1 1.2 1.1 2v.7h5.2V16c0-.8.5-1.5 1.1-2A6.5 6.5 0 0 0 12 2.2Z" fill="url(#mg-ic-bulb)" stroke="#B45309" strokeWidth="1.4" strokeLinejoin="round" />
+    <path d="M12 2.2a6.5 6.5 0 0 0-3.7 11.8c.6.5 1.1 1.2 1.1 2v.7h5.2V16c0-.8.5-1.5 1.1-2A6.5 6.5 0 0 0 12 2.2Z" fill={`url(#${uid}-bulb)`} stroke="#B45309" strokeWidth="1.4" strokeLinejoin="round" />
     <path d="M9.5 19.2h5M10.5 21.6h3" stroke="#92400E" strokeWidth="1.9" strokeLinecap="round" />
     <path d="M9.2 7.4a3.2 3.2 0 0 1 2.2-1.6" stroke="#FFF" strokeWidth="1.6" strokeLinecap="round" opacity=".9" />
   </Ico>
-);
+  );
+};
 
-export const IconCheck = ({ size, className }) => (
+export const IconCheck = ({ size, className }) => {
+  const uid = useSvgId('mg-check');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-chk" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-chk`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#4ADE80" />
         <stop offset="1" stopColor="#16A34A" />
       </linearGradient>
     </defs>
-    <circle cx="12" cy="12" r="10.2" fill="url(#mg-ic-chk)" stroke="#15803D" strokeWidth="1" />
+    <circle cx="12" cy="12" r="10.2" fill={`url(#${uid}-chk)`} stroke="#15803D" strokeWidth="1" />
     <path d="M7.2 12.4l3.2 3.3 6.5-6.7" stroke="#FFF" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round" />
   </Ico>
-);
+  );
+};
 
-export const IconCross = ({ size, className }) => (
+export const IconCross = ({ size, className }) => {
+  const uid = useSvgId('mg-cross');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-crs" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-crs`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#F87171" />
         <stop offset="1" stopColor="#DC2626" />
       </linearGradient>
     </defs>
-    <circle cx="12" cy="12" r="10.2" fill="url(#mg-ic-crs)" stroke="#B91C1C" strokeWidth="1" />
+    <circle cx="12" cy="12" r="10.2" fill={`url(#${uid}-crs)`} stroke="#B91C1C" strokeWidth="1" />
     <path d="M8.2 8.2l7.6 7.6M15.8 8.2l-7.6 7.6" stroke="#FFF" strokeWidth="2.6" strokeLinecap="round" />
   </Ico>
-);
+  );
+};
 
 export const IconBack = ({ size, className }) => (
   <Ico size={size} className={className}>
@@ -209,28 +233,33 @@ export const IconScissors = ({ size, className }) => (
   </Ico>
 );
 
-export const IconParty = ({ size, className }) => (
+export const IconParty = ({ size, className }) => {
+  const uid = useSvgId('mg-party');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-pty" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-pty`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#FDE047" />
         <stop offset=".5" stopColor="#F59E0B" />
         <stop offset="1" stopColor="#EA580C" />
       </linearGradient>
     </defs>
-    <path d="M2.8 21.2 8 7.8l8.2 8.2-13.4 5.2Z" fill="url(#mg-ic-pty)" stroke="#B45309" strokeWidth="1.2" strokeLinejoin="round" />
+    <path d="M2.8 21.2 8 7.8l8.2 8.2-13.4 5.2Z" fill={`url(#${uid}-pty)`} stroke="#B45309" strokeWidth="1.2" strokeLinejoin="round" />
     <path d="M6.1 14.3l4.3 4.3M8 10.1l5.7 5.7" stroke="#FFF" strokeWidth="1.3" strokeLinecap="round" opacity=".75" />
     <circle cx="15.2" cy="4.8" r="1.8" fill="#EC4899" />
     <circle cx="20.2" cy="9" r="1.6" fill="#38BDF8" />
     <circle cx="19.2" cy="15.8" r="1.5" fill="#22C55E" />
     <path d="M11.4 3l1.1 2.4M21.2 3.5l-2.2 1.7M21.8 12.6l-2.4-.4" stroke="#F59E0B" strokeWidth="1.6" strokeLinecap="round" />
   </Ico>
-);
+  );
+};
 
-export const IconStar = ({ size = 18, on = true, className }) => (
+export const IconStar = ({ size = 18, on = true, className }) => {
+  const uid = useSvgId('mg-star');
+  return (
   <Ico size={size} className={className}>
     <defs>
-      <linearGradient id="mg-ic-star-on" x1="0" y1="0" x2="1" y2="1">
+      <linearGradient id={`${uid}-on`} x1="0" y1="0" x2="1" y2="1">
         <stop offset="0" stopColor="#FEF9C3" />
         <stop offset=".45" stopColor="#FACC15" />
         <stop offset="1" stopColor="#D97706" />
@@ -238,14 +267,15 @@ export const IconStar = ({ size = 18, on = true, className }) => (
     </defs>
     <path
       d={STAR}
-      fill={on ? 'url(#mg-ic-star-on)' : '#E2E8F0'}
+      fill={on ? `url(#${uid}-on)` : '#E2E8F0'}
       stroke={on ? '#B45309' : '#CBD5E1'}
       strokeWidth="1.3"
       strokeLinejoin="round"
     />
     {on && <path d="M9.3 8.4l2.7-4.5" stroke="#FFF" strokeWidth="1.5" strokeLinecap="round" opacity=".85" />}
   </Ico>
-);
+  );
+};
 
 /* ==========================================================================
    2) LINH THÚ N-P-K 3D CHI TIẾT CAO (viewBox 100×100)
@@ -488,9 +518,10 @@ function CreatureG({ bag, kind, u }) {
 }
 
 export const Creature = memo(function Creature({ bag, kind, className = '' }) {
+  const instanceId = React.useId().replace(/[^a-zA-Z0-9_-]/g, '');
   return (
     <svg viewBox="0 0 100 100" className={className} focusable="false" aria-hidden="true">
-      <CreatureG bag={bag} kind={kind} u={`mg-cr-${bag.id}`} />
+      <CreatureG bag={bag} kind={kind} u={`mg-cr-${bag.id}-${instanceId}`} />
     </svg>
   );
 });
@@ -517,7 +548,8 @@ const FORMULA_BY_KIND = {
 };
 
 export const PouchSvg = memo(function PouchSvg({ bag, kind = 'n' }) {
-  const u = `mg-pch-${bag.id}`;
+  const instanceId = React.useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const u = `mg-pch-${bag.id}-${instanceId}`;
   const c = bag.themeColor;
   const a = bag.accentColor;
   const s = bag.softColor;
@@ -728,7 +760,8 @@ const SCALLOP = Array.from({ length: 24 }, (_, i) => {
 });
 
 export const MedalSvg = memo(function MedalSvg({ bag, kind }) {
-  const u = `mg-mdl-${bag.id}`;
+  const instanceId = React.useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const u = `mg-mdl-${bag.id}-${instanceId}`;
   const c = bag.themeColor;
   const a = bag.accentColor;
   return (
@@ -823,7 +856,8 @@ const TROPHY_PALETTE = [
 
 export const TrophySvg = memo(function TrophySvg({ tier = 2, lit = 3 }) {
   const P = TROPHY_PALETTE[Math.max(0, Math.min(2, tier))];
-  const id = `mg-trophy-${tier}`;
+  const instanceId = React.useId().replace(/[^a-zA-Z0-9_-]/g, '');
+  const id = `mg-trophy-${tier}-${instanceId}`;
   return (
     <svg viewBox="0 0 200 224" focusable="false" aria-hidden="true">
       <defs>

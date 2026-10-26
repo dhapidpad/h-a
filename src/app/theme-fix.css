@@ -1,0 +1,159 @@
+/* ==========================================================================
+   THEME-FIX — Sửa bố cục, cỡ chữ, phối màu (nạp SAU theme.css)
+   1) Slide 2: nền tối thật sự để tiêu đề sáng đọc được
+   2) Slide câu hỏi 4–18: dải tiêu đề màu đậm theo chương, cột hình rộng hơn,
+      bỏ thanh phụ thừa của khung SVG để hình + chữ trong hình to rõ
+   3) Slide 3: chữ vai trò đủ tương phản, số mờ không đè chữ
+   4) Slide 20: cột trái không bị chồng chữ
+   ========================================================================== */
+
+/* ---------- 1) Slide 2 (video) — nền tối ---------- */
+.presentation-viewport.is-dark-stage {
+  background: radial-gradient(110% 90% at 50% 0%, #1B5C43 0%, #10251E 70%) !important;
+}
+.presentation-viewport.is-dark-stage .bg-stack {
+  opacity: 0 !important;
+}
+.v2-title { font-size: 30px !important; }
+.v2-sub { font-size: 16px !important; color: #E6F3EC !important; }
+
+/* ---------- 2) Slide câu hỏi ---------- */
+.q-slide { gap: 9px !important; }
+
+/* Dải tiêu đề đậm màu theo chương */
+.q-slide .q-header-top {
+  --band-a: #0E4A33; --band-b: #16A36A;
+  background: linear-gradient(115deg, var(--band-a) 0%, var(--band-b) 100%);
+  border-radius: 16px;
+  padding: 9px 16px 10px;
+  box-shadow: 0 10px 22px -12px rgba(16, 37, 30, 0.45);
+}
+.q-slide.chapter-lan .q-header-top { --band-a: #2D2182; --band-b: #6B55DC; }
+.q-slide.chapter-kali .q-header-top { --band-a: #7A4208; --band-b: #C98414; }
+
+.q-slide .chapter-pill {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: none !important;
+  font-size: 13px !important;
+}
+.q-header .slide-title {
+  color: #FFFFFF !important;
+  font-size: 25px !important;
+  line-height: 1.15 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+}
+.q-slide .slide-header-badge {
+  background: rgba(255, 255, 255, 0.18) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.45) !important;
+  box-shadow: none !important;
+}
+.q-slide .slide-header-badge-sub { color: rgba(255, 255, 255, 0.88) !important; font-size: 11.5px !important; }
+.q-slide .slide-header-badge-main { color: #FFFFFF !important; font-size: 14.5px !important; }
+
+/* Thông điệp chính: nền trắng, viền trái đậm, chữ 15px */
+.q-question-strip {
+  background: #FFFFFF !important;
+  border: 1px solid var(--c-line) !important;
+  border-left: 6px solid var(--c-main) !important;
+  padding: 7px 14px !important;
+  box-shadow: var(--shadow-sm);
+}
+.q-question-text { font-size: 15px !important; line-height: 1.32 !important; }
+.q-question-label { font-size: 15px !important; }
+.q-question-chips { display: none !important; }
+
+/* Lưới 2 cột: nhường nhiều chỗ hơn cho hình */
+.slide-main-grid {
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr) !important;
+  gap: 14px !important;
+}
+.slide-content-col { gap: 7px !important; }
+
+/* Chữ cột trái: rõ, vừa mắt */
+.pillar-card { padding: 8px 12px !important; }
+.pillar-num { width: 32px !important; height: 32px !important; font-size: 13.5px !important; }
+.pillar-title { font-size: 14.8px !important; line-height: 1.22 !important; flex: 1 1 120px !important; }
+.pillar-badge { font-size: 11.5px !important; }
+.pillar-desc { font-size: 13.8px !important; line-height: 1.34 !important; color: #2F4037 !important; }
+.practical-note-box { font-size: 13.4px !important; line-height: 1.33 !important; padding: 7px 12px !important; }
+
+/* Bỏ banner linh thú trong cột trái để nhường chỗ (nội dung vẫn nằm trong Ghi chú — phím N) */
+.slide-content-col > div:has(> .mascot-companion-banner) { display: none !important; }
+
+/* Khung hình SVG: bỏ thanh phụ để hình lớn hơn */
+.svg-stage-showcase {
+  background: #FFFFFF !important;
+  border: 2px solid var(--c-line) !important;
+}
+.svg-stage-topbar { padding: 6px 12px !important; min-height: 0 !important; }
+.svg-stage-topbar-title {
+  font-size: 13.5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  min-width: 0;
+}
+.svg-stage-topbar-left { min-width: 0; flex: 1; }
+.svg-stage-topbar-badge,
+.svg-stage-zoom-hint,
+.svg-stage-footer-bar { display: none !important; }
+.svg-stage-canvas-box { padding: 2px 4px 4px !important; }
+
+/* ---------- 3) Slide 3 — thành viên ---------- */
+.m3-role { color: color-mix(in srgb, var(--c) 58%, #10251E) !important; font-size: 14.5px !important; }
+.m3-task { font-size: 12.8px !important; color: #2F4037 !important; }
+.m3-ghost { font-size: 70px !important; opacity: 0.05 !important; right: 12px !important; bottom: -8px !important; }
+.m3-name { font-size: 20px !important; }
+
+/* ---------- 4) Slide 20 — tổng kết ---------- */
+.s20-root { grid-template-columns: 540px minmax(0, 1fr) !important; gap: 18px !important; }
+.s20-left { justify-content: flex-start !important; gap: 9px !important; }
+.s20-title { font-size: 25px !important; line-height: 1.15 !important; }
+.s20-npk-chip-desc { font-size: 12.4px !important; }
+.s20-txt { font-size: 14px !important; }
+.s20-txt b { font-size: 15.2px !important; }
+
+/* Cột trái lấp đầy chiều cao: các thẻ giãn đều, không còn khoảng trống cuối cột */
+.slide-content-col > .pillar-card { flex: 1 1 auto !important; align-items: center !important; }
+
+/* ==========================================================================
+   CHUYỂN CẢNH MƯỢT: crossfade chỉ dùng opacity (chạy trên GPU), không morph nặng
+   ========================================================================== */
+.chapter-pill, .slide-title, .slide-header-badge, .svg-stage-showcase,
+.mascot-companion-wrap, .mascot-companion-banner, .slide-transition-box,
+.floating-dock-container { view-transition-name: none !important; }
+
+.slide-layer.is-leaving { animation: fxOut 220ms ease-out both !important; }
+.slide-layer.is-entering { animation: fxIn 260ms ease-out both !important; will-change: opacity; }
+@keyframes fxOut { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fxIn  { from { opacity: 0; } to { opacity: 1; } }
+
+/* Không dừng animation giữa chừng (gây khựng); khối trong cột trái hiện cùng lúc, không trễ */
+html[data-vt] .svg-stage-canvas-box *,
+html[data-vt] .mascot-companion-wrap *,
+html[data-vt] .mascot-companion-banner *,
+.slide-layer.is-leaving * { animation-play-state: running !important; }
+.reveal > * { animation: fxIn 240ms ease-out forwards !important; animation-delay: calc(var(--i, 0) * 15ms) !important; }
+.bg-layer { transition: opacity 360ms ease-out !important; }
+
+/* ==========================================================================
+   PHÓNG TO SƠ ĐỒ: phủ kín toàn màn hình
+   ========================================================================== */
+.svg-lightbox-backdrop { padding: 0 !important; background: #0B1A15 !important; }
+.svg-lightbox-container {
+  max-width: none !important; max-height: none !important;
+  width: 100vw !important; height: 100% !important;
+  border-radius: 0 !important; border: 0 !important;
+}
+
+/* Chế độ toàn khung nhìn dự phòng (trình duyệt không có Fullscreen API) */
+html[data-pfs] .floating-dock-container,
+html[data-pfs] footer.slide-dock,
+html[data-pfs] .slide-dock { display: none !important; }
+
+/* Chỉ làm mờ-hiện slide mới (1 lớp duy nhất), bỏ lớp slide cũ để không phải ghép 2 slide nặng cùng lúc */
+.slide-layer.is-leaving { display: none !important; }
+.slide-layer.is-entering { animation: fxIn 200ms ease-out both !important; }
+.reveal > * { animation: none !important; opacity: 1 !important; }

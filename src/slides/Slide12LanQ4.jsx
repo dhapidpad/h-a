@@ -2,72 +2,81 @@ import React from 'react';
 import QuestionSlide from './QuestionSlide';
 import SvgBasalRocket from '../components/illustrations/SvgBasalRocket';
 
+/* ==========================================================================
+   SLIDE 12 — LÂN CÂU 4: VÌ SAO THƯỜNG BÓN LÓT (MỤC 5 - SLIDE 12)
+   - Tiêu đề: LÂN THƯỜNG ĐƯỢC BÓN SỚM VÌ ÍT DI ĐỘNG TRONG ĐẤT
+   - Màn hình:
+     1. P dễ bị giữ/hấp phụ hoặc kết tủa trong nhiều loại đất
+     2. Rễ non cần P sớm để phát triển
+     3. Đặt phân gần vùng rễ theo đúng khuyến cáo
+   ========================================================================== */
+
 const PILLARS = [
   {
-    id: 'slow',
+    id: 'mobility',
     number: '01',
     tone: 'amber',
-    title: 'TÍNH DI ĐỘNG KÉM: CHỈ NGẤM 1 – 3 CM TRONG CẢ VỤ',
-    badge: '1–3 CM / VỤ',
+    title: 'P DỄ BỊ GIỮ / HẤP PHỤ HOẶC KẾT TỦA TRONG NHIỀU LOẠI ĐẤT',
+    badge: 'Ít di động trong đất',
     desc: (
       <>
-        Ion H₂PO₄⁻ bị keo đất và <strong>Fe³⁺, Al³⁺, Ca²⁺ kết tủa cố định</strong>. Nếu bón thúc rải mặt, lân nằm nguyên ở tầng mặt, rễ sâu không với tới được.
+        Ion photphat thường có độ di động thấp trong đất do bị <strong>hấp phụ lên keo đất</strong> hoặc <strong>kết tủa với Fe, Al</strong> (đất chua) và <strong>Ca</strong> (đất giàu vôi).
       </>
-    ),
+    )
   },
   {
-    id: 'rocket',
+    id: 'early',
     number: '02',
     tone: 'purple',
-    title: 'BỆ PHÓNG RỄ NON: MẦM NHÚ LÀ CẦN LÂN NGAY',
-    badge: 'RỄ NON ATP',
+    title: 'RỄ NON CẦN P SỚM ĐỂ PHÁT TRIỂN',
+    badge: 'Nhu cầu đầu vụ',
     desc: (
       <>
-        Cây con <strong>2–3 tuần đầu đời cần nhiều P</strong> để phân chia tế bào rễ và nạp ATP. Thiếu lân đầu vụ, bộ rễ còi cọc và không thể phục hồi về sau.
+        Ngay từ giai đoạn nảy mầm và ra rễ non, cây cần photpho cho <strong>phân chia tế bào và chuyển hóa năng lượng ATP</strong> để hình thành bộ rễ khỏe.
       </>
-    ),
+    )
   },
   {
-    id: 'depth',
+    id: 'placement',
     number: '03',
     tone: 'green',
-    title: 'KỸ THUẬT: ĐẶT PHÂN SÂU ĐÚNG TẦNG RỄ CÂY',
-    badge: 'ĐÁY RÃNH 15CM',
+    title: 'ĐẶT PHÂN GẦN VÙNG RỄ THEO ĐÚNG KHUYẾN CÁO',
+    badge: 'Bón lót hợp lý',
     desc: (
       <>
-        Bón lót sâu <strong>10 – 15 cm dưới đáy rãnh</strong> cùng phân hữu cơ trước khi gieo hạt hoặc đặt cây con để rễ vừa nhú là tiếp xúc dinh dưỡng ngay.
+        Bón lót và đặt phân ở tầng đất gần vùng rễ giúp tăng khả năng tiếp cận P sớm (tùy cây lâu năm hoặc hệ thống tưới phân vẫn có thể chia lần theo quy trình).
       </>
-    ),
-  },
+    )
+  }
 ];
 
 export default function Slide12LanQ4({ onOpenNotes }) {
   return (
     <QuestionSlide
       chapter="lan"
-      pillText="PHÂN LÂN (P) • CÂU HỎI 04 / 15"
-      title="VÌ SAO PHÂN LÂN LUÔN ĐƯỢC BÓN LÓT ĐẦU VỤ?"
-      badgeIcon={{ text: '100%', bg: 'linear-gradient(135deg, var(--k-main) 0%, var(--k-deep) 100%)' }}
-      badgeSub="KỸ THUẬT VÀNG"
-      badgeMain="Bón lót sâu 10 – 15 cm dưới rãnh"
-      question="Tại sao phân lân luôn được dùng để bón lót sâu vào đất trước khi gieo trồng chứ ít khi dùng bón thúc rải mặt như phân đạm?"
+      pillText="PHÂN LÂN (P) • CÂU 09 / 15"
+      title="LÂN THƯỜNG ĐƯỢC BÓN SỚM VÌ ÍT DI ĐỘNG TRONG ĐẤT"
+      badgeIcon="P"
+      badgeSub="VỊ TRÍ & THỜI ĐIỂM"
+      badgeMain="Bón lót gần vùng rễ non"
+      question="Vì photphat ít di động trong đất và rễ non cần P sớm, phân lân thường được ưu tiên bón lót gần vùng rễ."
       pillars={PILLARS}
       note={{
-        tag: '100%',
-        title: 'Tỷ lệ bón chuẩn:',
-        text: 'Dành trọn 100% lượng phân lân cả mùa vụ để bón lót (khác với đạm và kali phải chia nhỏ bón thúc nhiều đợt).',
+        tag: 'THỰC HÀNH',
+        title: 'Lưu ý kỹ thuật:',
+        text: 'Đặt phân ở tầng đất rễ non dễ tiếp cận nhưng tránh để phân nồng độ cao tiếp xúc trực tiếp làm xót hạt giống hoặc rễ tơ.'
       }}
       mascot={{
         mascotType: 'SPARKY_P',
         emotion: 'astronaut',
-        speech: 'Hãy chôn tớ xuống sâu 10–15 cm nhé, tớ sẽ kích hoạt bệ phóng rễ non bay vút lên! 🚀⚡',
+        speech: 'Photphat ít di chuyển trong đất nên đặt phân gần vùng rễ ngay đầu vụ giúp cây con tiếp cận P kịp thời! 🌱'
       }}
       svgCard={{
-        title: 'BỆ PHÓNG BÓN LÓT RỄ SÂU',
-        subtitle: 'Chiến lược 100% bón lót sâu • Khắc phục tính di động chậm của ion Photphat',
-        badge: 'Bón Lót 100%',
+        title: 'ĐỘ DI ĐỘNG THẤP CỦA P & VỊ TRÍ BÓN LÓT GẦN RỄ',
+        subtitle: 'So sánh đặt phân gần vùng rễ non (bón lót) và rải trên mặt đất xa tầng rễ',
+        badge: 'Ít di động · Bón sớm',
         takeaway:
-          'Photpho di động cực chậm trong đất (chỉ vài mm/tháng) và dễ bị cố định thành hợp chất khó tan. Bón lót sâu 10–15 cm trước gieo cấy đưa dinh dưỡng tới đúng tầng rễ hoạt động, làm bệ phóng kích hoạt rễ non bung tỏa sớm.',
+          'Ion photphat dễ bị keo đất giữ lại nên di chuyển hạn chế. Bón lót và đặt phân gần vùng rễ non giúp cây tiếp cận P ngay từ giai đoạn khởi đầu.'
       }}
       onOpenNotes={onOpenNotes}
     >

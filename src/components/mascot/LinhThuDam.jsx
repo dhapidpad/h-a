@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useId } from 'react';
 
 /**
  * LINH THÚ 1: BÉ ĐẠM — SPROUTY N (Mầm Xanh Lá Chibi) — bản cute++
@@ -57,13 +57,13 @@ function Arm({ d, hand, origin, anim, children }) {
 }
 
 /* Lá non có gân lá, viền sáng, mép cong */
-function Leaf({ side, anim }) {
+function Leaf({ side, anim, leafGrad }) {
   const s = side;
   const x = (v) => 90 + s * (v - 90);
   return (
     <g style={{ transformOrigin: '90px 45px', animation: anim }}>
       <path d={`M 90 45 C ${x(62)} 12, ${x(24)} 20, ${x(40)} 46 C ${x(50)} 62, ${x(78)} 55, 90 45 Z`}
-        fill="url(#damLeaf3D)" stroke={OUT} strokeWidth="2.8" strokeLinejoin="round" />
+        fill={leafGrad} stroke={OUT} strokeWidth="2.8" strokeLinejoin="round" />
       <path d={`M ${x(84)} 45 Q ${x(60)} 36, ${x(44)} 40`} fill="none" stroke="#ECFCCB" strokeWidth="2" strokeLinecap="round" opacity=".9" />
       {[[70, 40, 62, 30], [62, 40, 52, 32], [56, 43, 46, 38]].map(([a, b, c, e], i) => (
         <path key={i} d={`M ${x(a)} ${b} L ${x(c)} ${e}`} stroke="#15803D" strokeWidth="1.2" strokeLinecap="round" opacity=".55" />
@@ -74,12 +74,12 @@ function Leaf({ side, anim }) {
 }
 
 /* Mắt anime nhiều lớp (hoặc mắt ngôi sao khi cổ vũ / vô địch) */
-function Eyes({ star }) {
+function Eyes({ star, eyeIris }) {
   return (
     <g className="dam-blink">
       {[68, 112].map((cx) => (
         <g key={cx}>
-          <ellipse cx={cx} cy="100" rx={star ? 8.5 : 8} ry={star ? 10.5 : 10} fill="url(#damEyeIris)" stroke="#052E16" strokeWidth="2" />
+          <ellipse cx={cx} cy="100" rx={star ? 8.5 : 8} ry={star ? 10.5 : 10} fill={eyeIris} stroke="#052E16" strokeWidth="2" />
           {star ? (
             <g transform={`translate(${cx} 100)`}><path d={STAR5} fill="#FDE047" stroke="#CA8A04" strokeWidth=".6" transform="scale(1.05)" /></g>
           ) : (
@@ -101,6 +101,7 @@ function Eyes({ star }) {
 }
 
 export default function LinhThuDam({ emotion = 'happy', size = 140, className = '' }) {
+  const rawId = useId().replace(/[^a-zA-Z0-9_-]/g, '');
   const [booped, setBooped] = useState(false);
   const timer = useRef(null);
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -136,26 +137,26 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
       <svg viewBox="0 0 180 180" width="100%" height="100%" aria-hidden="true"
         style={{ overflow: 'visible', animation: emotion === 'shocked' ? 'damShock .35s ease-in-out infinite' : 'damBreathe 3.2s ease-in-out infinite' }}>
         <defs>
-          <radialGradient id="damBody3D" cx="35%" cy="28%" r="68%">
+          <radialGradient id={`${rawId}-damBody3D`} cx="35%" cy="28%" r="68%">
             <stop offset="0" stopColor="#D9F99D" /><stop offset=".28" stopColor="#86EFAC" />
             <stop offset=".68" stopColor="#22C55E" /><stop offset="1" stopColor="#15803D" />
           </radialGradient>
-          <radialGradient id="damBellyGlow" cx="50%" cy="40%" r="55%">
+          <radialGradient id={`${rawId}-damBellyGlow`} cx="50%" cy="40%" r="55%">
             <stop offset="0" stopColor="#ECFDF5" stopOpacity=".8" /><stop offset="1" stopColor="#86EFAC" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="damLeaf3D" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={`${rawId}-damLeaf3D`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#ECFCCB" /><stop offset=".45" stopColor="#4ADE80" /><stop offset="1" stopColor="#15803D" />
           </linearGradient>
-          <linearGradient id="damEyeIris" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={`${rawId}-damEyeIris`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stopColor="#064E3B" /><stop offset=".55" stopColor="#047857" /><stop offset="1" stopColor="#34D399" />
           </linearGradient>
-          <radialGradient id="damBlushGrad">
+          <radialGradient id={`${rawId}-damBlushGrad`}>
             <stop offset="0" stopColor="#FB7185" stopOpacity=".9" /><stop offset="1" stopColor="#FB7185" stopOpacity="0" />
           </radialGradient>
-          <linearGradient id="damGoldCup" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id={`${rawId}-damGoldCup`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor="#FEF08A" /><stop offset=".5" stopColor="#FACC15" /><stop offset="1" stopColor="#CA8A04" />
           </linearGradient>
-          <radialGradient id="damOrb">
+          <radialGradient id={`${rawId}-damOrb`}>
             <stop offset="0" stopColor="#FEF9C3" stopOpacity="1" /><stop offset="1" stopColor="#FDE047" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -181,7 +182,7 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
             </g>
           ) : (
             <g>
-              <circle cx="24" cy="54" r="15" fill="url(#damOrb)" opacity=".55" />
+              <circle cx="24" cy="54" r="15" fill={`url(#${rawId}-damOrb)`} opacity=".55" />
               <circle cx="24" cy="54" r="10" fill="#ECFDF5" stroke="#22C55E" strokeWidth="2" />
               <circle cx="21" cy="50" r="2.4" fill="#fff" />
               <text x="24" y="58" textAnchor="middle" fill="#15803D" fontSize="11" fontWeight="900" fontFamily="sans-serif">N</text>
@@ -212,18 +213,18 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
         <path d="M 90 42 L 90 58" stroke={OUT} strokeWidth="4.5" strokeLinecap="round" />
         <path d="M 90 46 Q 90 30, 99 28 Q 106 28, 103 35" fill="none" stroke={OUT} strokeWidth="3.6" strokeLinecap="round" />
         <path d="M 90 46 Q 90 30, 99 28 Q 106 28, 103 35" fill="none" stroke="#4ADE80" strokeWidth="1.6" strokeLinecap="round" />
-        <Leaf side={-1} anim="damLeafL 2.4s ease-in-out infinite" />
-        <Leaf side={1} anim="damLeafR 2.4s ease-in-out infinite" />
+        <Leaf leafGrad={`url(#${rawId}-damLeaf3D)`} side={-1} anim="damLeafL 2.4s ease-in-out infinite" />
+        <Leaf leafGrad={`url(#${rawId}-damLeaf3D)`} side={1} anim="damLeafR 2.4s ease-in-out infinite" />
         <circle cx="48" cy="34" r="3.6" fill="#E0F2FE" stroke="#38BDF8" strokeWidth="1" />
         <circle cx="47" cy="33" r="1.2" fill="#fff" />
 
         {/* thân mầm tròn + viền sáng */}
-        <ellipse cx="90" cy="108" rx="54" ry="49" fill="url(#damBody3D)" stroke={OUT} strokeWidth="3.2" />
+        <ellipse cx="90" cy="108" rx="54" ry="49" fill={`url(#${rawId}-damBody3D)`} stroke={OUT} strokeWidth="3.2" />
         <path d="M 136 88 Q 146 112, 128 140" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity=".22" />
         <ellipse cx="72" cy="76" rx="22" ry="10" transform="rotate(-18 72 76)" fill="#fff" opacity=".4" />
         <circle cx="52" cy="88" r="4" fill="#fff" opacity=".4" />
         <circle cx="45" cy="97" r="1.8" fill="#fff" opacity=".35" />
-        <ellipse cx="90" cy="126" rx="32" ry="22" fill="url(#damBellyGlow)" />
+        <ellipse cx="90" cy="126" rx="32" ry="22" fill={`url(#${rawId}-damBellyGlow)`} />
         {[[-12, -2], [0, -6], [12, -2]].map(([x, y], i) => (
           <circle key={i} cx={90 + x} cy={124 + y} r="1.2" fill="#15803D" opacity=".28" />
         ))}
@@ -245,7 +246,7 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
         )}
         {emotion === 'engineer' && (
           <g transform="translate(0 -4)">
-            <path d="M 50 64 C 50 34, 130 34, 130 64 Z" fill="url(#damGoldCup)" stroke="#B45309" strokeWidth="2.8" />
+            <path d="M 50 64 C 50 34, 130 34, 130 64 Z" fill={`url(#${rawId}-damGoldCup)`} stroke="#B45309" strokeWidth="2.8" />
             <rect x="82" y="38" width="16" height="22" rx="5" fill="#FEF08A" stroke="#B45309" strokeWidth="2" />
             <path d="M 62 52 Q 66 42, 74 40 M 118 52 Q 114 42, 106 40" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity=".6" />
             <ellipse cx="90" cy="64" rx="46" ry="11" fill="#FACC15" stroke="#B45309" strokeWidth="2.8" />
@@ -292,8 +293,8 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
         )}
 
         {/* má hồng */}
-        <ellipse cx="56" cy="112" rx="11" ry="6.5" fill="url(#damBlushGrad)" />
-        <ellipse cx="124" cy="112" rx="11" ry="6.5" fill="url(#damBlushGrad)" />
+        <ellipse cx="56" cy="112" rx="11" ry="6.5" fill={`url(#${rawId}-damBlushGrad)`} />
+        <ellipse cx="124" cy="112" rx="11" ry="6.5" fill={`url(#${rawId}-damBlushGrad)`} />
         {[52, 57, 120, 125].map((x) => (
           <line key={x} x1={x} y1="111" x2={x + 3} y2="114" stroke="#F43F5E" strokeWidth="1.5" strokeLinecap="round" opacity=".6" />
         ))}
@@ -316,7 +317,7 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
             <path d="M 44 62 L 52 70 M 38 74 L 48 78 M 136 60 L 128 68 M 146 70 L 138 76" stroke="#F59E0B" strokeWidth="2.4" strokeLinecap="round" />
           </g>
         ) : (
-          <Eyes star={isStar} />
+          <Eyes star={isStar} eyeIris={`url(#${rawId}-damEyeIris)`} />
         )}
 
         {/* miệng / mặt nạ */}
@@ -371,7 +372,7 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
         {emotion === 'cheering' && (
           <Arm d="M 138 112 Q 154 96, 158 84" hand={[158, 84]} origin="138px 110px" anim="damWave .9s ease-in-out infinite">
             <line x1="158" y1="84" x2="164" y2="56" stroke="#10B981" strokeWidth="5" strokeLinecap="round" />
-            <circle className="dam-halo" cx="164" cy="52" r="20" fill="url(#damOrb)" />
+            <circle className="dam-halo" cx="164" cy="52" r="20" fill={`url(#${rawId}-damOrb)`} />
             <circle cx="164" cy="52" r="11" fill="#FEF08A" stroke="#F59E0B" strokeWidth="2" />
             <text x="164" y="55" textAnchor="middle" fill="#B45309" fontSize="7.5" fontWeight="900">NPK</text>
           </Arm>
@@ -385,7 +386,7 @@ export default function LinhThuDam({ emotion = 'happy', size = 140, className = 
         {emotion === 'champion' && (
           <g transform="translate(128 68)" style={{ animation: 'damFloat 2.2s ease-in-out infinite' }}>
             <Arm d="M -6 44 Q 8 36, 14 28" hand={[14, 30]} />
-            <path d="M 4 0 L 34 0 L 29 26 C 28 32, 10 32, 9 26 Z" fill="url(#damGoldCup)" stroke="#B45309" strokeWidth="2.2" />
+            <path d="M 4 0 L 34 0 L 29 26 C 28 32, 10 32, 9 26 Z" fill={`url(#${rawId}-damGoldCup)`} stroke="#B45309" strokeWidth="2.2" />
             <path d="M 4 5 Q -6 12, 7 20" fill="none" stroke="#B45309" strokeWidth="2.5" />
             <path d="M 34 5 Q 44 12, 31 20" fill="none" stroke="#B45309" strokeWidth="2.5" />
             <path d="M 9 3 L 9 20" stroke="#fff" strokeWidth="2" strokeLinecap="round" opacity=".6" />

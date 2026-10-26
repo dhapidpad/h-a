@@ -1,993 +1,453 @@
+import React, { useEffect, useId, useMemo, useState } from 'react';
 
-import React from "react";
+/* ==========================================================================
+   SvgBasalRocket — minh họa "Lân bón lót gần vùng rễ" (Slide 12, Lân câu 4)
+   --------------------------------------------------------------------------
+   Hai mặt cắt đất đặt cạnh nhau:
+     TRÁI  : bón lót, dải phân nằm sát vùng rễ non → P tới rễ ngay đầu vụ
+     PHẢI  : rải trên mặt, P bị keo đất / Fe, Al, Ca giữ lại ở tầng mặt
 
-export default function SvgBasalRocket() {
-  const id = React.useId().replace(/:/g, "");
+   Tùy chỉnh kích thước:
+     <SvgBasalRocket />                       → full chiều rộng khung chứa
+     <SvgBasalRocket size={720} />            → rộng 720px
+     <SvgBasalRocket size="60%" maxWidth={900} />
+     <SvgBasalRocket height="100%" />         → co theo chiều cao khung (giữ tỉ lệ)
+   Hiệu ứng nhẹ: chỉ transform/opacity, ~12 phần tử chuyển động, tự tắt khi
+   người dùng bật "giảm chuyển động" hoặc truyền animated={false}.
+   ========================================================================== */
+
+const W = 960;
+const H = 540;
+
+/* --- dữ liệu hình học dùng chung ------------------------------------------ */
+const ROOTS_MAIN = 'M220 120 C220 160 218 200 220 258';
+const ROOTS_SIDE = [
+  'M220 170 C190 180 170 190 150 215',
+  'M220 170 C250 180 272 192 292 214',
+  'M220 205 C195 220 180 235 168 262',
+  'M220 205 C248 220 262 236 276 262',
+  'M220 240 C205 255 200 268 196 285',
+  'M220 240 C236 255 242 268 246 285'
+];
+const ROOT_TIPS = [
+  [150, 215], [292, 214], [168, 262], [276, 262], [196, 285], [246, 285]
+];
+
+/* hạt phân bón lót (trái) và hạt rải mặt (phải) */
+const GRANULES_BASAL = [[126, 254], [158, 242], [192, 262], [248, 262], [282, 242], [314, 254]];
+const GRANULES_SURFACE = [[96, 112], [140, 113], [296, 113], [338, 112]];
+
+/* ion P di chuyển về phía rễ (bên trái) */
+const ION_FLOWS = [
+  { path: 'M146 244 Q160 236 177 247', to: [177, 247], dur: 3.2, begin: 0 },
+  { path: 'M196 268 Q202 258 210 247', to: [210, 247], dur: 3.2, begin: 0.8 },
+  { path: 'M244 268 Q238 258 230 247', to: [230, 247], dur: 3.2, begin: 1.6 },
+  { path: 'M294 244 Q280 236 263 247', to: [263, 247], dur: 3.2, begin: 2.4 }
+];
+
+/* bản màu phẳng dễ chỉnh */
+const C = {
+  ink: '#0f172a',
+  green: '#16a34a',
+  greenDark: '#166534',
+  amber: '#f59e0b',
+  purple: '#a855f7',
+  slate: '#475569',
+  red: '#dc2626'
+};
+
+/* tạo các hạt sỏi/đất cố định (không random mỗi lần render) */
+function makeSpecks(seed, count) {
+  let s = seed;
+  const rnd = () => {
+    s = (s * 1664525 + 1013904223) % 4294967296;
+    return s / 4294967296;
+  };
+  return Array.from({ length: count }, () => ({
+    x: 8 + rnd() * 424,
+    y: 130 + rnd() * 252,
+    r: 0.8 + rnd() * 2.2,
+    o: 0.12 + rnd() * 0.22,
+    light: rnd() > 0.5
+  }));
+}
+
+export default function SvgBasalRocket({
+  size = '100%',
+  maxWidth,
+  height,
+  className = '',
+  style,
+  animated = true
+}) {
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
+  const id = (n) => `sbr${uid}-${n}`;
+  const ref = (n) => `url(#${id(n)})`;
+
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return undefined;
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const on = () => setReduced(mq.matches);
+    on();
+    mq.addEventListener?.('change', on);
+    return () => mq.removeEventListener?.('change', on);
+  }, []);
+  const live = animated && !reduced;
+
+  const specksL = useMemo(() => makeSpecks(11, 26), []);
+  const specksR = useMemo(() => makeSpecks(29, 26), []);
+
+  /* ---------------------------------------------------------------- phần tử */
+  const renderSeedling = (stress) => (
+    <g className="sbr-sway">
+      <path d="M220 120 C220 104 221 90 220 74" stroke="#2f8f4e" strokeWidth="5.5" strokeLinecap="round" fill="none" />
+      <path d="M221.5 118 C221.5 104 222.5 90 221.5 76" stroke="#7ddc9a" strokeWidth="1.6" strokeLinecap="round" fill="none" opacity=".7" />
+      <g transform={stress ? 'rotate(-16 220 82)' : undefined}>
+        <path d="M220 82 C200 66 176 68 168 82 C186 92 206 92 220 82 Z" fill={ref(stress ? 'leafPale' : 'leaf')} stroke="#14532d" strokeOpacity=".35" strokeWidth="1" />
+        <path d="M217 83 L182 80" stroke="#fff" strokeOpacity=".4" strokeWidth="1.3" strokeLinecap="round" />
+      </g>
+      <g transform={stress ? 'rotate(16 220 82)' : undefined}>
+        <path d="M220 82 C240 66 264 68 272 82 C254 92 234 92 220 82 Z" fill={ref(stress ? 'leafPale' : 'leaf')} stroke="#14532d" strokeOpacity=".35" strokeWidth="1" />
+        <path d="M223 83 L258 80" stroke="#fff" strokeOpacity=".4" strokeWidth="1.3" strokeLinecap="round" />
+      </g>
+      <path d="M220 76 C213 64 219 55 226 52 C229 62 227 71 220 76 Z" fill={ref(stress ? 'leafPale' : 'leaf')} stroke="#14532d" strokeOpacity=".35" strokeWidth="1" />
+    </g>
+  );
+
+  const renderRoots = () => (
+    <g fill="none" strokeLinecap="round">
+      {/* bóng đổ nhẹ để tạo chiều sâu */}
+      <g transform="translate(2 2.5)" stroke="#000" strokeOpacity=".28">
+        <path d={ROOTS_MAIN} strokeWidth="6" />
+        {ROOTS_SIDE.map((d) => <path key={d} d={d} strokeWidth="4" />)}
+      </g>
+      <path d={ROOTS_MAIN} stroke="#f5e7c8" strokeWidth="5.5" />
+      {ROOTS_SIDE.map((d) => <path key={d} d={d} stroke="#f5e7c8" strokeWidth="3.6" />)}
+      <path d="M219 122 C219 160 217 200 219 256" stroke="#fff" strokeOpacity=".55" strokeWidth="1.5" />
+      {ROOT_TIPS.map(([x, y]) => (
+        <circle key={`${x}-${y}`} cx={x} cy={y} r="2.8" fill="#fffbe9" stroke="#d6b87a" strokeWidth="1" />
+      ))}
+    </g>
+  );
+
+  const renderRocket = (transform, flameScale = 1) => (
+    <g transform={transform}>
+      <g className="sbr-flame" transform={`scale(${flameScale})`}>
+        <path d="M-5 14 Q0 36 5 14 Z" fill="#fbbf24" />
+        <path d="M-2.5 14 Q0 26 2.5 14 Z" fill="#fff7d6" />
+      </g>
+      <path d="M-6 6 L-15 17 L-6 14 Z" fill="#dc2626" />
+      <path d="M6 6 L15 17 L6 14 Z" fill="#dc2626" />
+      <path d="M0 -22 C10 -12 10 6 6 14 L-6 14 C-10 6 -10 -12 0 -22 Z" fill={ref('rocketBody')} stroke="#64748b" strokeWidth="1" />
+      <path d="M0 -22 C4 -18 6 -14 7 -10 L-7 -10 C-6 -14 -4 -18 0 -22 Z" fill="#ef4444" />
+      <circle cx="0" cy="-2" r="4.2" fill="#38bdf8" stroke="#1e293b" strokeWidth="1.5" />
+      <circle cx="-1.2" cy="-3.2" r="1.2" fill="#fff" opacity=".85" />
+    </g>
+  );
+
+  const renderPanelBase = (kind) => (
+    <>
+      {/* trời */}
+      <rect x="0" y="0" width="440" height="122" fill={ref('sky')} />
+      {/* đất: nền + vân tầng đất */}
+      <rect x="0" y="120" width="440" height="270" fill={ref('soil')} />
+      <path d="M0 205 Q60 198 120 206 T240 204 T360 208 T440 202" stroke="#fff" strokeOpacity=".07" strokeWidth="3" fill="none" />
+      <path d="M0 300 Q70 294 140 301 T280 299 T440 303" stroke="#fff" strokeOpacity=".06" strokeWidth="3" fill="none" />
+      {(kind === 'basal' ? specksL : specksR).map((p, i) => (
+        <circle key={i} cx={p.x} cy={p.y} r={p.r} fill={p.light ? '#e8c9a0' : '#3b2414'} opacity={p.o} />
+      ))}
+      {/* thảm cỏ mặt đất */}
+      <path d="M0 120 L0 113 Q30 108 60 113 T120 112 T180 113 T240 111 T300 113 T360 112 T440 112 L440 120 Z" fill={ref('grass')} />
+      <rect x="0" y="118.5" width="440" height="2.5" fill="#000" opacity=".18" />
+    </>
+  );
+
+  const renderCard = (cx, y, ok, title, sub) => (
+    <g>
+      <rect x={cx} y={y} width="392" height="46" rx="14" fill="#fff" fillOpacity=".95" />
+      <circle cx={cx + 26} cy={y + 23} r="14" fill={ok ? C.green : C.red} />
+      {ok ? (
+        <path d={`M${cx + 19} ${y + 23} l5 5.5 l10 -11`} stroke="#fff" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      ) : (
+        <path d={`M${cx + 20} ${y + 17} l12 12 M${cx + 32} ${y + 17} l-12 12`} stroke="#fff" strokeWidth="3.2" strokeLinecap="round" fill="none" />
+      )}
+      <text x={cx + 52} y={y + 20} fontSize="14" fontWeight="800" fill={C.ink}>{title}</text>
+      <text x={cx + 52} y={y + 37} fontSize="11.5" fill={C.slate}>{sub}</text>
+    </g>
+  );
+
+  const renderPill = (x, y, w, text, fill = '#fff', color = C.ink, fs = 11) => (
+    <g>
+      <rect x={x} y={y} width={w} height="20" rx="10" fill={fill} fillOpacity=".95" />
+      <text x={x + w / 2} y={y + 14} fontSize={fs} fontWeight="700" textAnchor="middle" fill={color}>{text}</text>
+    </g>
+  );
+
+  /* ---------------------------------------------------------------- render */
+  const rootStyle = {
+    width: size,
+    maxWidth,
+    height,
+    aspectRatio: height ? undefined : `${W} / ${H}`,
+    display: 'block',
+    ...style
+  };
 
   return (
     <svg
-      viewBox="0 0 960 720"
-      width="100%"
-      height="100%"
-      preserveAspectRatio="xMidYMid meet"
+      viewBox={`0 0 ${W} ${H}`}
       role="img"
-      aria-labelledby={`${id}-title ${id}-desc`}
-      style={{
-        display: "block",
-        width: "100%",
-        height: "100%",
-        maxWidth: "100%",
-        maxHeight: "100%",
-        borderRadius: 22,
-        fontFamily:
-          "Inter, ui-sans-serif, system-ui, -apple-system, sans-serif",
-      }}
+      aria-labelledby={id('title')}
+      className={`sbr-root ${live ? 'sbr-on' : ''} ${className}`.trim()}
+      style={rootStyle}
+      preserveAspectRatio="xMidYMid meet"
+      fontFamily="'Be Vietnam Pro', 'Segoe UI', system-ui, sans-serif"
     >
-      <title id={`${id}-title`}>
-        So sánh bón lót và bón thúc phân lân
+      <title id={id('title')}>
+        So sánh bón lót đặt gần vùng rễ non với rải phân trên mặt đất: photphat ít di động nên bón lót giúp rễ non tiếp cận P sớm
       </title>
 
-      <desc id={`${id}-desc`}>
-        Minh họa hai lát cắt đất: bón lót giúp rễ non tiếp cận
-        nguồn lân sớm hơn, trong khi lân bón trên mặt đất có thể
-        nằm xa vùng rễ hấp thụ.
-      </desc>
+      <style>{`
+        .sbr-on .sbr-sway{transform-box:fill-box;transform-origin:50% 100%;animation:sbr-sway 4.5s ease-in-out infinite alternate}
+        .sbr-on .sbr-pulse{animation:sbr-pulse 3s ease-in-out infinite alternate}
+        .sbr-on .sbr-float{animation:sbr-float 3.4s ease-in-out infinite alternate}
+        .sbr-on .sbr-flame{transform-box:fill-box;transform-origin:50% 0;animation:sbr-flame .5s ease-in-out infinite alternate}
+        .sbr-on .sbr-dash{animation:sbr-dash 1.8s linear infinite}
+        @keyframes sbr-sway{from{transform:rotate(-1.6deg)}to{transform:rotate(1.6deg)}}
+        @keyframes sbr-pulse{from{opacity:.3}to{opacity:.75}}
+        @keyframes sbr-float{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+        @keyframes sbr-flame{from{transform:scaleY(.75)}to{transform:scaleY(1.2)}}
+        @keyframes sbr-dash{to{stroke-dashoffset:-20}}
+      `}</style>
 
       <defs>
-        {/* Nền tổng thể */}
-        <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#F8FAFC" />
-          <stop offset="55%" stopColor="#F0FDF4" />
-          <stop offset="100%" stopColor="#F5F3FF" />
+        {/* ----- gradient: tạo khối 3D nhẹ ----- */}
+        <linearGradient id={id('sky')} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#bae6fd" />
+          <stop offset="1" stopColor="#f0fdf4" />
         </linearGradient>
-
-        {/* Màu đất */}
-        <linearGradient
-          id={`${id}-soil`}
-          x1="0"
-          y1="0"
-          x2="1"
-          y2="1"
-        >
-          <stop offset="0%" stopColor="#70513D" />
-          <stop offset="52%" stopColor="#59402F" />
-          <stop offset="100%" stopColor="#3E3028" />
+        <linearGradient id={id('soil')} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#5b3a22" />
+          <stop offset=".5" stopColor="#7d5230" />
+          <stop offset="1" stopColor="#a4764a" />
         </linearGradient>
-
-        <linearGradient
-          id={`${id}-soil-deep`}
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="1"
-        >
-          <stop offset="0%" stopColor="#987052" stopOpacity=".12" />
-          <stop offset="100%" stopColor="#1F2937" stopOpacity=".28" />
+        <linearGradient id={id('grass')} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#4ade80" />
+          <stop offset="1" stopColor="#15803d" />
         </linearGradient>
-
-        {/* Thảm cỏ */}
-        <linearGradient
-          id={`${id}-grass`}
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="1"
-        >
-          <stop offset="0%" stopColor="#86EFAC" />
-          <stop offset="100%" stopColor="#22C55E" />
+        <linearGradient id={id('leaf')} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#bbf7d0" />
+          <stop offset=".55" stopColor="#4ade80" />
+          <stop offset="1" stopColor="#15803d" />
         </linearGradient>
-
-        {/* Phân lân */}
-        <linearGradient
-          id={`${id}-phosphorus`}
-          x1="0"
-          y1="0"
-          x2="1"
-          y2="1"
-        >
-          <stop offset="0%" stopColor="#C4B5FD" />
-          <stop offset="52%" stopColor="#8B5CF6" />
-          <stop offset="100%" stopColor="#6D28D9" />
+        <linearGradient id={id('leafPale')} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#e4f3d2" />
+          <stop offset="1" stopColor="#8cbf78" />
         </linearGradient>
-
-        {/* Thân cây */}
-        <linearGradient
-          id={`${id}-stem`}
-          x1="0"
-          y1="0"
-          x2="1"
-          y2="0"
-        >
-          <stop offset="0%" stopColor="#15803D" />
-          <stop offset="100%" stopColor="#4ADE80" />
+        <linearGradient id={id('okPill')} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#22c55e" />
+          <stop offset="1" stopColor="#15803d" />
         </linearGradient>
+        <linearGradient id={id('noPill')} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#64748b" />
+          <stop offset="1" stopColor="#334155" />
+        </linearGradient>
+        <linearGradient id={id('rocketBody')} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#ffffff" />
+          <stop offset="1" stopColor="#cbd5e1" />
+        </linearGradient>
+        <linearGradient id={id('zone')} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fbbf24" stopOpacity=".6" />
+          <stop offset="1" stopColor="#fbbf24" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={id('clay')} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#e7d3b8" />
+          <stop offset="1" stopColor="#b79a74" />
+        </linearGradient>
+        <radialGradient id={id('gran')} cx=".35" cy=".3" r=".8">
+          <stop offset="0" stopColor="#fff3c4" />
+          <stop offset=".45" stopColor="#fbbf24" />
+          <stop offset="1" stopColor="#b45309" />
+        </radialGradient>
+        <radialGradient id={id('ionG')} cx=".35" cy=".3" r=".85">
+          <stop offset="0" stopColor="#f3e8ff" />
+          <stop offset=".5" stopColor="#a855f7" />
+          <stop offset="1" stopColor="#6b21a8" />
+        </radialGradient>
+        <radialGradient id={id('halo')} cx=".5" cy=".5" r=".5">
+          <stop offset="0" stopColor="#fde68a" stopOpacity=".9" />
+          <stop offset="1" stopColor="#fde68a" stopOpacity="0" />
+        </radialGradient>
 
-        {/* Bóng đổ */}
-        {/* Texture đất */}
-        <pattern
-          id={`${id}-texture`}
-          width="38"
-          height="34"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="8" cy="9" r="1.2" fill="#E7C9A5" opacity=".24" />
-          <circle cx="27" cy="21" r="1.6" fill="#241A14" opacity=".23" />
-          <path
-            d="M17 5l3 2M5 27l4-1"
-            stroke="#D6B28D"
-            strokeWidth="1"
-            opacity=".22"
-          />
-          <circle cx="34" cy="5" r=".8" fill="#FFFFFF" opacity=".17" />
-        </pattern>
-
-        <clipPath id={`${id}-left-soil`}>
-          <rect x="54" y="236" width="394" height="244" rx="8" />
+        <filter id={id('shadow')} x="-10%" y="-10%" width="120%" height="125%">
+          <feDropShadow dx="0" dy="8" stdDeviation="7" floodColor="#0f172a" floodOpacity=".3" />
+        </filter>
+        <clipPath id={id('clip')}>
+          <rect width="440" height="390" rx="22" />
         </clipPath>
 
-        <clipPath id={`${id}-right-soil`}>
-          <rect x="512" y="236" width="394" height="244" rx="8" />
-        </clipPath>
+        {/* ----- ký hiệu dùng lại ----- */}
+        <g id={id('granule')}>
+          <ellipse cx="1.5" cy="8.5" rx="7.5" ry="2.6" fill="#000" opacity=".3" />
+          <circle r="8.5" fill={ref('gran')} stroke="#92400e" strokeOpacity=".5" strokeWidth="1" />
+          <ellipse cx="-2.6" cy="-3" rx="2.8" ry="1.8" fill="#fff" opacity=".75" />
+        </g>
+        <g id={id('ion')}>
+          <circle r="11" fill="#c084fc" opacity=".28" />
+          <circle r="7" fill={ref('ionG')} stroke="#581c87" strokeOpacity=".6" strokeWidth=".8" />
+          <text y="3" fontSize="8.5" fontWeight="800" textAnchor="middle" fill="#fff">P</text>
+        </g>
+        <g id={id('plate')}>
+          <path d="M-14 3 L-7 -5 L7 -5 L14 3 L7 11 L-7 11 Z" fill="#7a5c3a" />
+          <path d="M-14 0 L-7 -8 L7 -8 L14 0 L7 8 L-7 8 Z" fill={ref('clay')} stroke="#8b6f4a" strokeWidth="1" />
+          <path d="M-4.5 0 H4.5" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" />
+        </g>
       </defs>
 
-      {/* =====================================================
-          01. BACKGROUND & HEADING
-      ===================================================== */}
+      {/* ============ PANEL TRÁI — BÓN LÓT ============ */}
+      <g transform="translate(30 16)">
+        <rect width="440" height="390" rx="22" fill="#3b2414" filter={ref('shadow')} />
+        <g clipPath={ref('clip')}>
+          {renderPanelBase('basal')}
 
-      <rect
-        width="960"
-        height="720"
-        rx="28"
-        fill={`url(#${id}-bg)`}
-        stroke="#DDD6FE"
-        strokeWidth="1.5"
-      />
+          {/* tên miền hiển thị */}
+          {renderSeedling(false)}
 
-      {/* Trang trí nền */}
-      <circle cx="910" cy="54" r="72" fill="#BBF7D0" opacity=".18" />
-      <circle cx="878" cy="80" r="35" fill="#C4B5FD" opacity=".14" />
-      <circle cx="36" cy="575" r="48" fill="#86EFAC" opacity=".12" />
+          {/* vùng rễ non */}
+          <ellipse cx="220" cy="218" rx="118" ry="90" fill="#86efac" fillOpacity=".08" stroke="#86efac" strokeWidth="1.8" strokeDasharray="6 5" className="sbr-dash" />
+          {renderPill(165, 298, 110, 'Vùng rễ non', '#dcfce7', C.greenDark)}
 
-      <rect
-        x="40"
-        y="27"
-        width="7"
-        height="24"
-        rx="3.5"
-        fill="#22C55E"
-      />
+          {/* dải phân bón lót */}
+          <ellipse cx="220" cy="250" rx="140" ry="34" fill={ref('halo')} className="sbr-pulse" />
+          <rect x="106" y="232" width="228" height="38" rx="19" fill="#fbbf24" fillOpacity=".14" stroke="#fde68a" strokeOpacity=".8" strokeWidth="1.3" strokeDasharray="5 4" />
+          <text x="112" y="226" fontSize="11" fontWeight="700" fill="#fde68a">Dải phân bón lót</text>
 
-      <text
-        x="60"
-        y="43"
-        fontSize="12"
-        fontWeight="800"
-        letterSpacing="2.2"
-        fill="#15803D"
-      >
-        KIẾN THỨC NÔNG NGHIỆP
-      </text>
+          {renderRoots()}
 
-      <text
-        x="40"
-        y="79"
-        fontSize="27"
-        fontWeight="900"
-        fill="#172B24"
-        letterSpacing="-.8"
-      >
-        LÂN: BÓN ĐÚNG CHỖ,
-        <tspan fill="#16A34A"> RỄ HẤP THU TỐT HƠN</tspan>
-      </text>
+          {GRANULES_BASAL.map(([x, y]) => (
+            <use key={`${x}-${y}`} href={`#${id('granule')}`} transform={`translate(${x} ${y})`} />
+          ))}
 
-      <text
-        x="41"
-        y="105"
-        fontSize="13"
-        fontWeight="500"
-        fill="#64748B"
-      >
-        So sánh vị trí phân lân và khả năng tiếp cận của bộ rễ non
-      </text>
+          {/* ion P chạy về phía rễ */}
+          {ION_FLOWS.map((f, i) =>
+            live ? (
+              <g key={i} opacity="0">
+                <animateMotion path={f.path} dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" calcMode="spline" keyTimes="0;1" keySplines=".4 0 .2 1" />
+                <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.15;.8;1" dur={`${f.dur}s`} begin={`${f.begin}s`} repeatCount="indefinite" />
+                <use href={`#${id('ion')}`} />
+              </g>
+            ) : (
+              <use key={i} href={`#${id('ion')}`} transform={`translate(${f.to[0]} ${f.to[1]})`} />
+            )
+          )}
+          {/* ion đã sát rễ */}
+          {[[140, 224], [300, 224], [186, 292], [256, 292]].map(([x, y]) => (
+            <use key={`${x}-${y}`} href={`#${id('ion')}`} transform={`translate(${x} ${y}) scale(.8)`} />
+          ))}
 
-      {/* =====================================================
-          02. LEFT PANEL — BÓN LÓT
-      ===================================================== */}
+          {/* tên khởi động sớm */}
+          <g className="sbr-float">
+            {renderRocket('translate(372 80) rotate(20)')}
+          </g>
+          <text x="372" y="117" fontSize="11" fontWeight="700" textAnchor="middle" fill={C.greenDark}>Xuất phát sớm</text>
 
-      <g>
-        <rect
-          x="32"
-          y="130"
-          width="438"
-          height="470"
-          rx="23"
-          fill="#FFFFFF"
-          stroke="#D1FAE5"
-          strokeWidth="1.5"
-        />
+          {renderCard(24, 334, true, 'Cây con hút được P ngay đầu vụ', 'Phân đặt sát vùng rễ non, ít bị hao hụt')}
+        </g>
+        <rect width="440" height="390" rx="22" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="2" />
+        {/* tiêu đề panel */}
+        <rect x="75" y="8" width="290" height="32" rx="16" fill={ref('okPill')} />
+        {renderRocket('translate(104 25) rotate(0) scale(.55)')}
+        <text x="240" y="29" fontSize="14.5" fontWeight="800" textAnchor="middle" fill="#fff">Bón lót gần vùng rễ</text>
       </g>
 
-      {/* Header bên trái */}
-      <rect
-        x="53"
-        y="151"
-        width="35"
-        height="35"
-        rx="12"
-        fill="#DCFCE7"
-      />
+      {/* ============ PANEL PHẢI — RẢI MẶT ============ */}
+      <g transform="translate(490 16)">
+        <rect width="440" height="390" rx="22" fill="#3b2414" filter={ref('shadow')} />
+        <g clipPath={ref('clip')}>
+          {renderPanelBase('surface')}
 
-      <circle cx="70.5" cy="168.5" r="9" fill="#16A34A" />
+          {/* mây */}
+          <g opacity=".85">
+            <ellipse cx="350" cy="78" rx="30" ry="9" fill="#fff" />
+            <ellipse cx="338" cy="71" rx="16" ry="9" fill="#fff" />
+            <ellipse cx="362" cy="70" rx="13" ry="8" fill="#fff" />
+          </g>
 
-      <path
-        d="M66 168l3 3 6-7"
-        stroke="#FFFFFF"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
+          {renderSeedling(true)}
 
-      <text
-        x="98"
-        y="165"
-        fontSize="15"
-        fontWeight="900"
-        fill="#166534"
-      >
-        BÓN LÓT ĐÚNG CÁCH
-      </text>
+          {/* vùng P bị giữ ở tầng mặt */}
+          <rect x="0" y="120" width="440" height="58" fill={ref('zone')} />
+          <path d="M0 178 Q110 184 220 178 T440 178" stroke="#fde68a" strokeOpacity=".55" strokeWidth="1.5" strokeDasharray="5 4" fill="none" />
+          <text x="428" y="136" fontSize="11" fontWeight="700" textAnchor="end" fill="#fff7d6">P kẹt ở tầng mặt</text>
 
-      <text
-        x="98"
-        y="181"
-        fontSize="13"
-        fontWeight="600"
-        fill="#65A30D"
-        letterSpacing=".6"
-      >
-        ĐƯA PHÂN GẦN VÙNG RỄ
-      </text>
+          {/* keo đất + ion P bị giữ */}
+          {[[92, 148], [130, 166], [176, 154], [266, 156], [308, 168], [350, 150]].map(([x, y]) => (
+            <g key={`${x}-${y}`}>
+              <use href={`#${id('plate')}`} transform={`translate(${x} ${y})`} />
+              <use href={`#${id('ion')}`} transform={`translate(${x + 13} ${y - 6}) scale(.7)`} />
+            </g>
+          ))}
 
-      <rect
-        x="370"
-        y="153"
-        width="77"
-        height="27"
-        rx="13.5"
-        fill="#F0FDF4"
-      />
+          {/* mũi tên bị chặn */}
+          {[150, 292].map((x) => (
+            <g key={x} stroke="#fff" strokeLinecap="round" fill="none">
+              <path d={`M${x} 184 L${x} 198`} strokeWidth="2.2" strokeDasharray="4 4" className="sbr-dash" />
+              <path d={`M${x - 10} 203 H${x + 10}`} strokeWidth="3.4" stroke="#fca5a5" />
+            </g>
+          ))}
+          {renderPill(66, 212, 68, 'Fe · Al', '#fef3c7', '#92400e')}
+          {renderPill(318, 214, 56, 'Ca', '#fef3c7', '#92400e')}
 
-      <text
-        x="408.5"
-        y="170.5"
-        fontSize="13"
-        fontWeight="800"
-        textAnchor="middle"
-        fill="#15803D"
-      >
-        TỐI ƯU
-      </text>
+          {/* vùng rễ + khoảng cách */}
+          <ellipse cx="220" cy="218" rx="118" ry="90" fill="none" stroke="#fca5a5" strokeOpacity=".9" strokeWidth="1.8" strokeDasharray="6 5" className="sbr-dash" />
+          {renderPill(165, 298, 110, 'Vùng rễ non', '#fee2e2', '#991b1b')}
+          <g stroke="#fff" strokeWidth="1.6" strokeLinecap="round" fill="none">
+            <path d="M40 176 L40 256" />
+            <path d="M35 181 L40 175 L45 181 M35 251 L40 257 L45 251" />
+          </g>
+          <text transform="translate(28 216) rotate(-90)" fontSize="11" fontWeight="700" textAnchor="middle" fill="#fff">Xa vùng rễ</text>
 
-      {/* Lát cắt đất */}
-      <rect
-        x="54"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-soil)`}
-      />
+          {renderRoots()}
 
-      <rect
-        x="54"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-texture)`}
-      />
+          {GRANULES_SURFACE.map(([x, y]) => (
+            <use key={`${x}-${y}`} href={`#${id('granule')}`} transform={`translate(${x} ${y})`} />
+          ))}
 
-      <rect
-        x="54"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-soil-deep)`}
-      />
+          {renderCard(24, 334, false, 'P nằm xa rễ, cây con khó tiếp cận', 'Bị keo đất giữ ở tầng mặt, di chuyển rất ít')}
+        </g>
+        <rect width="440" height="390" rx="22" fill="none" stroke="#fff" strokeOpacity=".5" strokeWidth="2" />
+        <rect x="75" y="8" width="290" height="32" rx="16" fill={ref('noPill')} />
+        <path d="M107 19 l12 12 M119 19 l-12 12" stroke="#fca5a5" strokeWidth="3" strokeLinecap="round" />
+        <text x="246" y="29" fontSize="14.5" fontWeight="800" textAnchor="middle" fill="#fff">Rải trên mặt đất</text>
+      </g>
 
-      {/* Mặt đất */}
-      <rect
-        x="54"
-        y="223"
-        width="394"
-        height="17"
-        rx="5"
-        fill={`url(#${id}-grass)`}
-      />
+      {/* huy hiệu VS */}
+      <circle cx="480" cy="211" r="21" fill={C.ink} stroke="#fff" strokeWidth="3" />
+      <text x="480" y="217" fontSize="15" fontWeight="800" textAnchor="middle" fill="#fff">VS</text>
 
-      <path
-        d="M54 231 Q65 226 76 231 T98 230 T120 231 T143 230 T165 231 T188 230 T211 231 T234 230 T257 231 T280 230 T303 231 T326 230 T349 231 T372 230 T395 231 T418 230 T448 231"
-        fill="none"
-        stroke="#15803D"
-        strokeWidth="1.4"
-        opacity=".8"
-      />
-
-      {/* Lớp phân bón lót */}
-      <rect
-        x="74"
-        y="366"
-        width="354"
-        height="44"
-        rx="10"
-        fill="#A78BFA"
-        opacity=".19"
-      />
-
-      <rect
-        x="74"
-        y="366"
-        width="354"
-        height="44"
-        rx="10"
-        fill={`url(#${id}-phosphorus)`}
-        opacity=".5"
-      />
-
-      <rect
-        x="74"
-        y="366"
-        width="354"
-        height="44"
-        rx="10"
-        fill="none"
-        stroke="#C4B5FD"
-        strokeWidth="1.5"
-        strokeDasharray="5 4"
-      />
-
-      {/* Hạt phân lân trong đất */}
+      {/* ============ CHÚ GIẢI ============ */}
+      <rect x="30" y="424" width="900" height="96" rx="18" fill="#fff" fillOpacity=".92" stroke="#e2e8f0" />
       {[
-        [92, 378, 3],
-        [111, 395, 3.5],
-        [132, 380, 2.5],
-        [151, 398, 3],
-        [171, 378, 3.2],
-        [191, 396, 2.5],
-        [211, 379, 3],
-        [231, 396, 3.3],
-        [275, 379, 2.5],
-        [297, 397, 3.2],
-        [319, 379, 3],
-        [340, 397, 2.7],
-        [361, 380, 3.2],
-        [383, 396, 3],
-        [404, 379, 2.8],
-      ].map(([cx, cy, r], i) => (
-        <circle
-          key={i}
-          cx={cx}
-          cy={cy}
-          r={r}
-          fill={i % 2 ? "#DDD6FE" : "#F5F3FF"}
-          stroke="#7C3AED"
-          strokeWidth=".8"
-        />
+        { x: 54, title: 'Hạt phân lân', sub: 'bón lót hoặc rải mặt' },
+        { x: 279, title: 'Ion photphat (P)', sub: 'ít di động trong đất' },
+        { x: 504, title: 'Keo đất, Fe, Al, Ca', sub: 'giữ hoặc kết tủa P' },
+        { x: 729, title: 'Rễ non', sub: 'cần P sớm để phát triển' }
+      ].map((it, i) => (
+        <g key={it.title}>
+          {i === 0 && <use href={`#${id('granule')}`} transform={`translate(${it.x + 18} 470) scale(1.4)`} />}
+          {i === 1 && <use href={`#${id('ion')}`} transform={`translate(${it.x + 18} 472) scale(1.5)`} />}
+          {i === 2 && <use href={`#${id('plate')}`} transform={`translate(${it.x + 18} 470) scale(1.3)`} />}
+          {i === 3 && (
+            <g fill="none" strokeLinecap="round">
+              <path d={`M${it.x + 18} 452 V490 M${it.x + 18} 466 L${it.x + 6} 480 M${it.x + 18} 472 L${it.x + 32} 486`} stroke="#00000030" strokeWidth="5" transform="translate(1.5 2)" />
+              <path d={`M${it.x + 18} 452 V490 M${it.x + 18} 466 L${it.x + 6} 480 M${it.x + 18} 472 L${it.x + 32} 486`} stroke="#d9b974" strokeWidth="4.5" />
+            </g>
+          )}
+          <text x={it.x + 52} y="468" fontSize="14" fontWeight="800" fill={C.ink}>{it.title}</text>
+          <text x={it.x + 52} y="486" fontSize="12" fill={C.slate}>{it.sub}</text>
+        </g>
       ))}
-
-      {/* Thân cây và hai lá mầm */}
-      <path
-        d="M251 237 C250 226 251 214 251 202"
-        fill="none"
-        stroke={`url(#${id}-stem)`}
-        strokeWidth="5"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M251 215 C228 213 222 195 229 190 C241 190 250 201 251 215Z"
-        fill="#4ADE80"
-        stroke="#16A34A"
-        strokeWidth="1.2"
-      />
-
-      <path
-        d="M251 207 C257 188 276 187 282 193 C282 205 267 214 251 215Z"
-        fill="#86EFAC"
-        stroke="#22C55E"
-        strokeWidth="1.2"
-      />
-
-      <path
-        d="M232 195 Q243 202 249 212 M275 196 Q262 203 253 212"
-        fill="none"
-        stroke="#16A34A"
-        strokeWidth="1.1"
-        opacity=".8"
-      />
-
-      {/* Hạt đang nảy mầm */}
-      <ellipse
-        cx="251"
-        cy="247"
-        rx="10"
-        ry="13"
-        fill="#EAB308"
-        stroke="#FDE68A"
-        strokeWidth="1.5"
-      />
-
-      <path
-        d="M245 241 Q252 247 256 254"
-        fill="none"
-        stroke="#FEF3C7"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-
-      {/* Rễ chính */}
-      <g
-        fill="none"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path
-          d="M251 258 C248 283 253 308 250 332 C250 350 253 369 250 394 C250 401 249 405 248 409"
-          stroke="#F5DEB3"
-          strokeWidth="3.5"
-        />
-
-        {/* Rễ cấp một bên trái */}
-        <path
-          d="M250 293 C235 305 228 316 220 331 C215 342 211 350 202 357"
-          stroke="#E8C99A"
-          strokeWidth="2.7"
-        />
-
-        <path
-          d="M225 322 Q211 318 204 311 M216 341 Q229 342 235 350"
-          stroke="#F5DEB3"
-          strokeWidth="1.8"
-        />
-
-        {/* Rễ cấp một bên phải */}
-        <path
-          d="M251 315 C268 326 278 341 289 355 C297 365 302 372 310 379"
-          stroke="#F5DEB3"
-          strokeWidth="2.7"
-        />
-
-        <path
-          d="M278 341 Q290 334 300 336 M297 369 Q282 375 278 386"
-          stroke="#E8C99A"
-          strokeWidth="1.8"
-        />
-
-        {/* Rễ phụ */}
-        <path
-          d="M250 349 Q235 359 231 374 M252 366 Q265 376 268 388 M249 382 Q240 390 237 400"
-          stroke="#E8C99A"
-          strokeWidth="1.6"
-        />
-      </g>
-
-      {/* Nhãn lớp phân */}
-      <rect
-        x="286"
-        y="374"
-        width="132"
-        height="27"
-        rx="8"
-        fill="#6D28D9"
-      />
-
-      <circle cx="298" cy="387.5" r="3" fill="#DDD6FE" />
-
-      <text
-        x="305"
-        y="391"
-        fontSize="13"
-        fontWeight="900"
-        fill="#FFFFFF"
-      >
-        VÙNG PHÂN LÂN
-      </text>
-
-      {/* Chú thích dưới lát cắt */}
-      <circle cx="72" cy="520" r="7" fill="#DCFCE7" />
-
-      <path
-        d="M68.5 520l2.5 2.5 4.5-5"
-        fill="none"
-        stroke="#16A34A"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <text
-        x="87"
-        y="524"
-        fontSize="12"
-        fontWeight="800"
-        fill="#166534"
-      >
-        Rễ non sớm tiếp cận nguồn lân
-      </text>
-
-      <text
-        x="68"
-        y="547"
-        fontSize="13"
-        fill="#64748B"
-      >
-        Tạo điều kiện cho cây phát triển bộ rễ ban đầu.
-      </text>
-
-      <rect
-        x="68"
-        y="562"
-        width="174"
-        height="22"
-        rx="11"
-        fill="#F0FDF4"
-      />
-
-      <text
-        x="155"
-        y="576.5"
-        textAnchor="middle"
-        fontSize="12.5"
-        fontWeight="800"
-        fill="#15803D"
-      >
-        ✓  PHÂN ĐƯỢC ĐẶT TRƯỚC
-      </text>
-
-      {/* =====================================================
-          03. RIGHT PANEL — BÓN TRÊN MẶT ĐẤT
-      ===================================================== */}
-
-      <g>
-        <rect
-          x="490"
-          y="130"
-          width="438"
-          height="470"
-          rx="23"
-          fill="#FFFFFF"
-          stroke="#FECACA"
-          strokeWidth="1.5"
-        />
-      </g>
-
-      {/* Header bên phải */}
-      <rect
-        x="511"
-        y="151"
-        width="35"
-        height="35"
-        rx="12"
-        fill="#FEE2E2"
-      />
-
-      <circle cx="528.5" cy="168.5" r="9" fill="#EF4444" />
-
-      <path
-        d="M525 165l7 7 M532 165l-7 7"
-        stroke="#FFFFFF"
-        strokeWidth="2.1"
-        strokeLinecap="round"
-      />
-
-      <text
-        x="556"
-        y="165"
-        fontSize="15"
-        fontWeight="900"
-        fill="#991B1B"
-      >
-        BÓN LÂN TRÊN MẶT
-      </text>
-
-      <text
-        x="556"
-        y="181"
-        fontSize="13"
-        fontWeight="600"
-        fill="#DC2626"
-        letterSpacing=".5"
-      >
-        PHÂN CÓ THỂ XA VÙNG RỄ
-      </text>
-
-      <rect
-        x="828"
-        y="153"
-        width="77"
-        height="27"
-        rx="13.5"
-        fill="#FEF2F2"
-      />
-
-      <text
-        x="866.5"
-        y="170.5"
-        fontSize="13"
-        fontWeight="800"
-        textAnchor="middle"
-        fill="#B91C1C"
-      >
-        KÉM HƠN
-      </text>
-
-      {/* Lát cắt đất */}
-      <rect
-        x="512"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-soil)`}
-      />
-
-      <rect
-        x="512"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-texture)`}
-      />
-
-      <rect
-        x="512"
-        y="236"
-        width="394"
-        height="244"
-        rx="9"
-        fill={`url(#${id}-soil-deep)`}
-      />
-
-      {/* Mặt đất */}
-      <rect
-        x="512"
-        y="223"
-        width="394"
-        height="17"
-        rx="5"
-        fill={`url(#${id}-grass)`}
-      />
-
-      <path
-        d="M512 231 Q524 226 535 231 T558 230 T581 231 T604 230 T627 231 T650 230 T673 231 T696 230 T719 231 T742 230 T765 231 T788 230 T811 231 T834 230 T857 231 T880 230 T906 231"
-        fill="none"
-        stroke="#15803D"
-        strokeWidth="1.4"
-        opacity=".8"
-      />
-
-      {/* Hạt phân nằm trên bề mặt */}
-      <g>
-        <ellipse
-          cx="661"
-          cy="222"
-          rx="15"
-          ry="4"
-          fill="#1F2937"
-          opacity=".15"
-        />
-
-        {[
-          [649, 219, 5],
-          [661, 214, 6],
-          [674, 219, 5],
-          [687, 213, 5.5],
-          [701, 220, 4.5],
-          [714, 214, 5],
-          [727, 220, 4],
-        ].map(([cx, cy, r], i) => (
-          <circle
-            key={i}
-            cx={cx}
-            cy={cy}
-            r={r}
-            fill={i % 2 ? "#A78BFA" : "#8B5CF6"}
-            stroke="#DDD6FE"
-            strokeWidth="1.2"
-          />
-        ))}
-      </g>
-
-      {/* Cây non nhỏ, sinh trưởng yếu trong minh họa */}
-      <path
-        d="M709 238 C709 229 708 223 710 216"
-        fill="none"
-        stroke="#84CC16"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M709 223 C699 215 691 219 694 225 C699 229 704 226 709 223Z"
-        fill="#A3E635"
-        stroke="#65A30D"
-        strokeWidth="1"
-      />
-
-      <path
-        d="M710 220 C716 213 724 215 724 220 C721 224 715 224 710 220Z"
-        fill="#BEF264"
-        stroke="#84CC16"
-        strokeWidth="1"
-      />
-
-      <ellipse
-        cx="709"
-        cy="247"
-        rx="8"
-        ry="10"
-        fill="#CA8A04"
-        stroke="#EAB308"
-        strokeWidth="1.2"
-      />
-
-      {/* Bộ rễ ngắn trong sơ đồ */}
-      <g
-        fill="none"
-        stroke="#C59A65"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-      >
-        <path d="M709 256 C709 271 709 288 711 306" />
-
-        <path d="M709 274 Q698 283 696 293" />
-
-        <path d="M710 286 Q719 293 721 300" />
-
-        <path d="M711 306l-5 8" />
-      </g>
-
-      {/* Mũi tên: sự di chuyển chậm của lân */}
-      <path
-        d="M757 251 L757 329"
-        fill="none"
-        stroke="#FB7185"
-        strokeWidth="2.5"
-        strokeDasharray="5 6"
-        strokeLinecap="round"
-      />
-
-      <path
-        d="M750 322 L757 334 L764 322"
-        fill="none"
-        stroke="#FB7185"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Điểm cuối mũi tên */}
-      <circle cx="757" cy="340" r="5" fill="#FCA5A5" opacity=".3" />
-      <circle cx="757" cy="340" r="2.5" fill="#EF4444" />
-
-      {/* Khu vực cảnh báo */}
-      <rect
-        x="535"
-        y="365"
-        width="348"
-        height="66"
-        rx="12"
-        fill="#7F1D1D"
-        opacity=".45"
-      />
-
-      <rect
-        x="535"
-        y="365"
-        width="348"
-        height="66"
-        rx="12"
-        fill="#FEE2E2"
-        stroke="#FCA5A5"
-        strokeWidth="1.2"
-      />
-
-      <rect
-        x="548"
-        y="377"
-        width="32"
-        height="32"
-        rx="10"
-        fill="#FECACA"
-      />
-
-      <path
-        d="M564 384l8 15h-16z"
-        fill="#DC2626"
-        stroke="#B91C1C"
-        strokeWidth="1"
-        strokeLinejoin="round"
-      />
-
-      <path
-        d="M564 389v5 M564 397v.5"
-        stroke="#FFFFFF"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <text
-        x="590"
-        y="387"
-        fontSize="12"
-        fontWeight="900"
-        fill="#991B1B"
-      >
-        LÂN DI CHUYỂN RẤT CHẬM
-      </text>
-
-      <text
-        x="590"
-        y="405"
-        fontSize="13"
-        fontWeight="600"
-        fill="#9F1239"
-      >
-        Khó xuống sâu đến vùng rễ đang phát triển.
-      </text>
-
-      <text
-        x="590"
-        y="420"
-        fontSize="12.5"
-        fill="#9F1239"
-      >
-        Khả năng hấp thu phụ thuộc đất và cách bón.
-      </text>
-
-      {/* Chú thích dưới lát cắt */}
-      <circle cx="530" cy="520" r="7" fill="#FEE2E2" />
-
-      <path
-        d="M526.5 516.5l7 7 M533.5 516.5l-7 7"
-        fill="none"
-        stroke="#DC2626"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-      />
-
-      <text
-        x="545"
-        y="524"
-        fontSize="12"
-        fontWeight="800"
-        fill="#991B1B"
-      >
-        Rễ non khó tiếp cận nguồn lân
-      </text>
-
-      <text
-        x="526"
-        y="547"
-        fontSize="13"
-        fill="#64748B"
-      >
-        Có thể làm giảm hiệu quả sử dụng phân.
-      </text>
-
-      <rect
-        x="526"
-        y="562"
-        width="181"
-        height="22"
-        rx="11"
-        fill="#FEF2F2"
-      />
-
-      <text
-        x="616.5"
-        y="576.5"
-        textAnchor="middle"
-        fontSize="12.5"
-        fontWeight="800"
-        fill="#B91C1C"
-      >
-        !  PHÂN NẰM TRÊN MẶT
-      </text>
-
-      {/* =====================================================
-          04. KẾT LUẬN CUỐI INFOGRAPHIC
-      ===================================================== */}
-
-      <rect
-        x="32"
-        y="620"
-        width="896"
-        height="70"
-        rx="19"
-        fill="#F3EEFF"
-        stroke="#C4B5FD"
-        strokeWidth="1.3"
-      />
-
-      {/* Icon */}
-      <circle cx="70" cy="655" r="22" fill="#DDD6FE" />
-
-      <path
-        d="M70 669v-24 M70 653 C57 653 56 643 58 640 C66 640 70 647 70 653Z"
-        fill="#16A34A"
-        stroke="#15803D"
-        strokeWidth="1"
-      />
-
-      <path
-        d="M70 650 C75 638 86 640 85 645 C82 652 76 653 70 655Z"
-        fill="#4ADE80"
-        stroke="#15803D"
-        strokeWidth="1"
-      />
-
-      <path
-        d="M70 663l-7 7 M70 659l8 7"
-        stroke="#A16207"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-
-      <text
-        x="108"
-        y="648"
-        fontSize="14"
-        fontWeight="900"
-        fill="#5B21B6"
-      >
-        NGUYÊN TẮC VÀNG
-      </text>
-
-      <text
-        x="108"
-        y="669"
-        fontSize="13"
-        fontWeight="700"
-        fill="#4C1D95"
-      >
-        Đặt phân lân phù hợp với vùng rễ sẽ phát triển.
-      </text>
-
-      <line
-        x1="612"
-        y1="634"
-        x2="612"
-        y2="676"
-        stroke="#C4B5FD"
-        strokeWidth="1.3"
-      />
-
-      <circle cx="641" cy="649" r="4" fill="#8B5CF6" />
-
-      <text
-        x="654"
-        y="653"
-        fontSize="13"
-        fontWeight="700"
-        fill="#5B21B6"
-      >
-        Bón đúng vị trí
-      </text>
-
-      <circle cx="641" cy="669" r="4" fill="#22C55E" />
-
-      <text
-        x="654"
-        y="673"
-        fontSize="13"
-        fontWeight="700"
-        fill="#166534"
-      >
-        Tránh sát hạt, rễ non
-      </text>
     </svg>
   );
 }
